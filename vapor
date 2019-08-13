@@ -1,0 +1,161 @@
+#!/usr/bin/env php
+<?php
+
+use Dotenv\Dotenv;
+use Laravel\VaporCli\Commands;
+use Illuminate\Container\Container;
+use Dotenv\Environment\DotenvFactory;
+use Symfony\Component\Console\Application;
+use Dotenv\Environment\Adapter\EnvConstAdapter;
+use Dotenv\Environment\Adapter\ServerConstAdapter;
+
+/**
+ * Require the autoloader.
+ */
+if (file_exists(__DIR__.'/../../autoload.php')) {
+    require __DIR__.'/../../autoload.php';
+} else {
+    require __DIR__.'/vendor/autoload.php';
+}
+
+if (file_exists(__DIR__.'/.env')) {
+    Dotenv::create(
+        __DIR__,
+        '.env',
+        new DotenvFactory([new EnvConstAdapter, new ServerConstAdapter])
+    )->load();
+}
+
+/**
+ * Create the container instance.
+ */
+Container::setInstance($container = new Container);
+
+require __DIR__.'/services.php';
+
+/**
+ * Start the console application.
+ */
+$app = new Application('Laravel Vapor', '0.0.1');
+
+// Authentication...
+$app->add(new Commands\LoginCommand);
+
+// Teams...
+$app->add(new Commands\TeamListCommand);
+$app->add(new Commands\TeamCommand);
+$app->add(new Commands\TeamCurrentCommand);
+$app->add(new Commands\TeamSwitchCommand);
+$app->add(new Commands\MemberListCommand);
+$app->add(new Commands\MemberAddCommand);
+$app->add(new Commands\MemberRemoveCommand);
+$app->add(new Commands\FireCommand);
+
+// Providers...
+$app->add(new Commands\ProviderListCommand);
+$app->add(new Commands\ProviderCommand);
+$app->add(new Commands\ProviderUpdateCommand);
+$app->add(new Commands\ProviderDeleteCommand);
+
+// Zones...
+$app->add(new Commands\ZoneListCommand);
+$app->add(new Commands\ZoneCommand);
+$app->add(new Commands\ZoneDeleteCommand);
+
+// Records...
+$app->add(new Commands\RecordListCommand);
+$app->add(new Commands\RecordCommand);
+$app->add(new Commands\RecordDeleteCommand);
+
+// Certificates...
+$app->add(new Commands\CertListCommand);
+$app->add(new Commands\CertCommand);
+$app->add(new Commands\CertValidateCommand);
+$app->add(new Commands\CertDeleteCommand);
+
+// Networks...
+$app->add(new Commands\NetworkListCommand);
+$app->add(new Commands\NetworkCommand);
+$app->add(new Commands\NetworkShowCommand);
+$app->add(new Commands\NetworkNatCommand);
+$app->add(new Commands\NetworkDeleteNatCommand);
+$app->add(new Commands\NetworkDeleteCommand);
+
+// Databases...
+$app->add(new Commands\DatabaseListCommand);
+$app->add(new Commands\DatabaseCommand);
+$app->add(new Commands\DatabaseShowCommand);
+$app->add(new Commands\DatabaseScaleCommand);
+$app->add(new Commands\DatabasePasswordCommand);
+$app->add(new Commands\DatabaseRestoreCommand);
+$app->add(new Commands\DatabaseMetricsCommand);
+$app->add(new Commands\DatabaseUsersCommand);
+$app->add(new Commands\DatabaseUserCommand);
+$app->add(new Commands\DatabaseDropUserCommand);
+$app->add(new Commands\DatabaseShellCommand);
+$app->add(new Commands\DatabaseDeleteCommand);
+
+// Caches...
+$app->add(new Commands\CacheListCommand);
+$app->add(new Commands\CacheCommand);
+$app->add(new Commands\CacheShowCommand);
+$app->add(new Commands\CacheScaleCommand);
+$app->add(new Commands\CacheMetricsCommand);
+$app->add(new Commands\CacheTunnelCommand);
+$app->add(new Commands\CacheDeleteCommand);
+
+// Jumpboxes...
+$app->add(new Commands\JumpListCommand);
+$app->add(new Commands\JumpCommand);
+$app->add(new Commands\JumpDeleteCommand);
+
+// Balancers...
+$app->add(new Commands\BalancerListCommand);
+$app->add(new Commands\BalancerCommand);
+$app->add(new Commands\BalancerDeleteCommand);
+
+// Projects...
+$app->add(new Commands\InitCommand);
+$app->add(new Commands\ProjectDeleteCommand);
+
+// Environments...
+$app->add(new Commands\EnvListCommand);
+$app->add(new Commands\EnvCommand);
+$app->add(new Commands\EnvPullCommand);
+$app->add(new Commands\EnvPushCommand);
+$app->add(new Commands\EnvCloneCommand);
+$app->add(new Commands\EnvDeleteCommand);
+
+// Secrets
+$app->add(new Commands\SecretListCommand);
+$app->add(new Commands\SecretCommand);
+$app->add(new Commands\SecretPassportCommand);
+$app->add(new Commands\SecretDeleteCommand);
+
+// Deployments...
+$app->add(new Commands\DeployListCommand);
+$app->add(new Commands\BuildCommand);
+$app->add(new Commands\DeployCommand);
+$app->add(new Commands\RedeployCommand);
+$app->add(new Commands\HookLogCommand);
+
+// Rollbacks / Maintenance Mode...
+$app->add(new Commands\RollbackCommand);
+$app->add(new Commands\DownCommand);
+$app->add(new Commands\UpCommand);
+
+// Commands / Invocations...
+$app->add(new Commands\CommandCommand);
+$app->add(new Commands\CommandLogCommand);
+
+// Logs...
+$app->add(new Commands\TailCommand);
+
+// Metrics...
+$app->add(new Commands\MetricsCommand);
+
+// Docker...
+$app->add(new Commands\LocalCommand);
+$app->add(new Commands\TestCommand);
+
+$app->run();

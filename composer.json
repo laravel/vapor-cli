@@ -1,0 +1,58 @@
+{
+    "name": "laravel/vapor-cli",
+    "description": "The Laravel Vapor CLI",
+    "keywords": [
+        "laravel",
+        "vapor"
+    ],
+    "homepage": "https://github.com/laravel/vapor-cli",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylor@laravel.com"
+        }
+    ],
+    "bin": [
+        "vapor"
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/container": "^5.8|^6.0",
+        "illuminate/filesystem": "^5.8|^6.0",
+        "illuminate/support": "^5.8|^6.0",
+        "league/flysystem": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "php-school/cli-menu": "^3.0",
+        "ramsey/uuid": "^3.8",
+        "symfony/console": "^4.2",
+        "symfony/process": "^4.2",
+        "symfony/var-dumper": "^4.2",
+        "symfony/yaml": "^4.2",
+        "vlucas/phpdotenv": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laravel\\VaporCli\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laravel\\VaporCli\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

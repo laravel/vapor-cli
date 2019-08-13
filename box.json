@@ -1,0 +1,7 @@
+{
+    "main": "vapor",
+    "compression": "GZ",
+    "files": [
+        "services.php"
+    ]
+}
