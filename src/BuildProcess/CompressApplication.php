@@ -79,7 +79,7 @@ class CompressApplication
 
         if ($size > 45) {
             Helpers::line();
-            Helpers::abort('Compressed application is greater than 45MB. Your application is {$size}MB.');
+            Helpers::abort('Compressed application is greater than 45MB. Your application is '.$size.'MB.');
         }
     }
 }
