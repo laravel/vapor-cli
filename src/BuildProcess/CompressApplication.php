@@ -52,7 +52,7 @@ class CompressApplication
      */
     protected function compressApplicationOnMac()
     {
-        (new Process('zip -r '.$this->buildPath.'/app.zip .', $this->appPath))->mustRun();
+        (new Process(['zip', '-r', $this->buildPath.'/app.zip', '.'], $this->appPath))->mustRun();
     }
 
     /**
