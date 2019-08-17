@@ -75,7 +75,7 @@ class RemoveIgnoredFiles
     protected function removeDefaultIgnoredDirectories()
     {
         $defaultDirectories = [
-            Path::app().'/database/factories',
+            // Path::app().'/database/factories',
             // Path::app().'/database/seeds',
             Path::app().'/resources/css',
             Path::app().'/resources/js',
