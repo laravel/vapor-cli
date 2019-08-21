@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -38,7 +39,9 @@ class CertCommand extends Command
         // $additionalDomains = $this->option('add');
         $additionalDomains = [];
 
-        if (count(explode('.', $domain)) == 2) {
+        if (count(explode('.', $domain)) == 2 ||
+            (count(explode('.', $domain)) === 3 &&
+             Str::endsWith($domain, static::multiPartDomainEndings()))) {
             $additionalDomains = array_unique(
                 array_merge($additionalDomains, ['*.'.$domain])
             );
@@ -100,5 +103,28 @@ class CertCommand extends Command
         foreach (['administrator', 'hostmaster', 'postmaster', 'webmaster', 'admin'] as $address) {
             Helpers::comment(' - '.$address.'@'.$domain);
         }
+    }
+
+    /**
+     * Get all of the valid multi-segment domain endings.
+     *
+     * @return array
+     */
+    protected static function multiPartDomainEndings()
+    {
+        return [
+            'co.nz',
+            'co.uk',
+            'co.za',
+            'com.ar',
+            'com.au',
+            'com.br',
+            'com.mx',
+            'com.sg',
+            'me.uk',
+            'org.br',
+            'org.nz',
+            'org.uk',
+        ];
     }
 }
