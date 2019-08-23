@@ -21,7 +21,7 @@ class DatabaseCommand extends Command
             ->addArgument('name', InputArgument::REQUIRED, 'The name of the database')
             ->addOption('public', null, InputOption::VALUE_NONE, 'Indicate that the database should be publicly accessible (with password)')
             ->addOption('serverless', null, InputOption::VALUE_NONE, 'Indicate that a serverless Aurora database should be created')
-            ->addOption('dev', null, InputOption::VALUE_NONE, 'Create a small (db.t2.micro), public RDS instance')
+            ->addOption('dev', null, InputOption::VALUE_NONE, 'Create a small (db.t3.micro), public RDS instance')
             ->setDescription('Create a new database');
     }
 
@@ -126,7 +126,7 @@ class DatabaseCommand extends Command
     protected function determineInstanceClass($type)
     {
         if ($this->option('dev')) {
-            return 'db.t2.micro';
+            return 'db.t3.micro';
         }
 
         if ($type == 'aurora-serverless') {

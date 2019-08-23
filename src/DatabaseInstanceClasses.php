@@ -22,10 +22,10 @@ class DatabaseInstanceClasses
     public static function general()
     {
         return [
-            'db.t2.micro' => 'db.t2.micro - (1 VCPU, 1Gib RAM) - Free Tier Eligible / ~$15 / month',
-            'db.t2.small' => 'db.t2.small - (1 VCPU, 2Gib RAM) - ~$25 / month',
-            'db.t2.medium' => 'db.t2.medium - (2 VCPU, 4Gib RAM) - ~$50 / month',
-            'db.t2.large' => 'db.t2.large - (2 VCPU, 8Gib RAM) - ~$100 / month',
+            // 'db.t2.micro' => 'db.t2.micro - (1 VCPU, 1Gib RAM) - Free Tier Eligible / ~$15 / month',
+            // 'db.t2.small' => 'db.t2.small - (1 VCPU, 2Gib RAM) - ~$25 / month',
+            // 'db.t2.medium' => 'db.t2.medium - (2 VCPU, 4Gib RAM) - ~$50 / month',
+            // 'db.t2.large' => 'db.t2.large - (2 VCPU, 8Gib RAM) - ~$100 / month',
 
             'db.t3.micro' => 'db.t3.micro - (1 VCPU, 1Gib RAM) - Free Tier Eligible / ~$15 / month',
             'db.t3.small' => 'db.t3.small - (1 VCPU, 2Gib RAM) - ~$25 / month',
