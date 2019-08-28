@@ -39,7 +39,7 @@ class AwsStorageProvider
 
         if ($withProgress) {
             $progressBar = new ProgressBar(Helpers::app('output'), $size);
-            $progressBar->setFormat(' %current%MB/%max%KB [%bar%] %percent:3s%% (%remaining:-6s% remaining)');
+            $progressBar->setFormat(' %current%KB/%max%KB [%bar%] %percent:3s%% (%remaining:-6s% remaining)');
             $progressBar->start();
         } else {
             $progressBar = null;
