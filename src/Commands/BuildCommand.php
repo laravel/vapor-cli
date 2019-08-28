@@ -7,6 +7,7 @@ use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\BuildProcess\ProcessAssets;
 use Symfony\Component\Console\Input\InputOption;
 use Laravel\VaporCli\BuildProcess\InjectHandlers;
+use Laravel\VaporCli\BuildProcess\CompressVendor;
 use Symfony\Component\Console\Input\InputArgument;
 use Laravel\VaporCli\BuildProcess\ConfigureArtisan;
 use Laravel\VaporCli\BuildProcess\InjectErrorPages;
@@ -16,9 +17,10 @@ use Laravel\VaporCli\BuildProcess\SetBuildEnvironment;
 use Laravel\VaporCli\BuildProcess\ExecuteBuildCommands;
 use Laravel\VaporCli\BuildProcess\InjectRdsCertificate;
 use Laravel\VaporCli\BuildProcess\CopyApplicationToBuildPath;
+use Laravel\VaporCli\BuildProcess\ConfigureComposerAutoloader;
 use Laravel\VaporCli\BuildProcess\HarmonizeConfigurationFiles;
 use Laravel\VaporCli\BuildProcess\ExtractAssetsToSeparateDirectory;
-use Laravel\VaporCli\BuildProcess\EnsureApplicationIsWithinSizeLimits;
+use Laravel\VaporCli\BuildProcess\ExtractVendorToSeparateDirectory;
 
 class BuildCommand extends Command
 {
@@ -55,13 +57,16 @@ class BuildCommand extends Command
             new SetBuildEnvironment($this->argument('environment'), $this->option('asset-url')),
             new ExecuteBuildCommands($this->argument('environment')),
             new ConfigureArtisan,
+            new ConfigureComposerAutoloader,
             new RemoveIgnoredFiles,
             new ProcessAssets($this->option('asset-url')),
             new ExtractAssetsToSeparateDirectory,
             new InjectHandlers,
             new InjectErrorPages,
             new InjectRdsCertificate,
+            new ExtractVendorToSeparateDirectory,
             new CompressApplication,
+            new CompressVendor,
         ])->each->__invoke();
 
         $time = (new DateTime)->diff($startedAt)->format('%im%Ss');

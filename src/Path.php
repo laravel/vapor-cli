@@ -15,6 +15,16 @@ class Path
     }
 
     /**
+     * Get the path to the vendor directory.
+     *
+     * @return string
+     */
+    public static function vendor()
+    {
+        return static::build().'/vendor';
+    }
+
+    /**
      * Get the path to the deployment artifact.
      *
      * @return string
@@ -22,6 +32,16 @@ class Path
     public static function artifact()
     {
         return getcwd().'/.vapor/build/app.zip';
+    }
+
+    /**
+     * Get the path to the deployment artifact.
+     *
+     * @return string
+     */
+    public static function vendorArtifact()
+    {
+        return getcwd().'/.vapor/build/vendor.zip';
     }
 
     /**

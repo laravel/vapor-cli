@@ -139,7 +139,7 @@ class DeployCommand extends Command
 
         Helpers::step('<comment>Uploading Deployment Artifact</comment> ('.Helpers::megabytes(Path::artifact()).')');
 
-        return $this->vapor->createArtifact(
+        $artifact = $this->vapor->createArtifact(
             Manifest::id(),
             $uuid,
             $environment,
@@ -147,6 +147,17 @@ class DeployCommand extends Command
             $this->option('commit') ?: Git::hash(),
             $this->option('message') ?: Git::message()
         );
+
+        Helpers::line();
+
+        Helpers::step('<comment>Uploading Vendor Directory</comment> ('.Helpers::megabytes(Path::vendorArtifact()).')');
+
+        $this->vapor->uploadVendorDirectory(
+            $artifact['id'],
+            Path::vendorArtifact()
+        );
+
+        return $artifact;
     }
 
     /**

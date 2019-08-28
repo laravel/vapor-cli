@@ -895,6 +895,7 @@ class ConsoleVaporClient
             'commit_message' => $commitMessage,
         ]);
 
+
         Helpers::app(AwsStorageProvider::class)->store($artifact['url'], [], $file, true);
 
         try {
@@ -904,6 +905,20 @@ class ConsoleVaporClient
         }
 
         return $artifact;
+    }
+
+    /**
+     * Upload the vendor directory.
+     *
+     * @param  int  $artifactId
+     * @param  string  $file
+     * @return array
+     */
+    public function uploadVendorDirectory($artifactId, $file)
+    {
+        $vendor = $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifactId.'/vendor');
+
+        Helpers::app(AwsStorageProvider::class)->store($vendor['url'], [], $file, true);
     }
 
     /**
@@ -1336,7 +1351,7 @@ class ConsoleVaporClient
     protected function client()
     {
         return new Client([
-           'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://vapor.laravel.com',
+            'base_uri' => 'http://vapor.wip',
            // 'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://laravel-vapor.ngrok.io',
         ]);
     }
