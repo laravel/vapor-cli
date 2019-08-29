@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\AssetFiles;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
@@ -18,6 +19,10 @@ class ExtractVendorToSeparateDirectory
      */
     public function __invoke()
     {
+        if (! Manifest::shouldSeparateVendor()) {
+            return;
+        }
+
         Helpers::step('<bright>Extracting Vendor</>');
 
         $this->ensureVendorDirectoryExists();

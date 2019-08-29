@@ -57,6 +57,16 @@ class Manifest
     }
 
     /**
+     * Determine if we should separate the vendor directory.
+     *
+     * @return boolean
+     */
+    public static function shouldSeparateVendor()
+    {
+        return static::current()['separate-vendor'] ?? false;
+    }
+
+    /**
      * Write a fresh manifest file for the given project.
      *
      * @param  array  $project

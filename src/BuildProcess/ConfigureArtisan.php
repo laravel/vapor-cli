@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Symfony\Component\Finder\Finder;
 
 class ConfigureArtisan
@@ -39,7 +40,7 @@ class ConfigureArtisan
             ],
             [
                 "\$app = require_once __DIR__.'/bootstrap/app.php';".PHP_EOL.'$app->useStoragePath(Laravel\Vapor\Runtime\StorageDirectories::PATH);'.PHP_EOL,
-                "require '/tmp/vendor/autoload.php';".PHP_EOL,
+                Manifest::shouldSeparateVendor() ? "require '/tmp/vendor/autoload.php';".PHP_EOL : "require __DIR__.'/vendor/autoload.php';".PHP_EOL,
             ],
             file_get_contents($file)
         );

@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Symfony\Component\Finder\Finder;
 
 class ConfigureComposerAutoloader
@@ -16,6 +17,10 @@ class ConfigureComposerAutoloader
      */
     public function __invoke()
     {
+        if (! Manifest::shouldSeparateVendor()) {
+            return;
+        }
+
         Helpers::step('<bright>Configuring Composer Autoloader</>');
 
         file_put_contents(

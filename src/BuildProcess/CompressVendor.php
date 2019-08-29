@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\BuildProcess;
 
 use ZipArchive;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Symfony\Component\Process\Process;
 use Laravel\VaporCli\BuiltApplicationFiles;
 
@@ -18,6 +19,10 @@ class CompressVendor
      */
     public function __invoke()
     {
+        if (! Manifest::shouldSeparateVendor()) {
+            return;
+        }
+
         Helpers::step('<bright>Compressing Vendor</>');
 
         if (PHP_OS == 'Darwin') {

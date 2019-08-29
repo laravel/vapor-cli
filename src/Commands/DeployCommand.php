@@ -148,14 +148,16 @@ class DeployCommand extends Command
             $this->option('message') ?: Git::message()
         );
 
-        Helpers::line();
+        if (Manifest::shouldSeparateVendor()) {
+            Helpers::line();
 
-        Helpers::step('<comment>Uploading Vendor Directory</comment> ('.Helpers::megabytes(Path::vendorArtifact()).')');
+            Helpers::step('<comment>Uploading Vendor Directory</comment> ('.Helpers::megabytes(Path::vendorArtifact()).')');
 
-        $this->vapor->uploadVendorDirectory(
-            $artifact['id'],
-            Path::vendorArtifact()
-        );
+            $this->vapor->uploadVendorDirectory(
+                $artifact['id'],
+                Path::vendorArtifact()
+            );
+        }
 
         return $artifact;
     }
