@@ -23,7 +23,6 @@
         "illuminate/support": "^5.8|^6.0",
         "league/flysystem": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "php-school/cli-menu": "^3.0",
         "ramsey/uuid": "^3.8",
         "symfony/console": "^4.2",
         "symfony/process": "^4.2",

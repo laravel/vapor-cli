@@ -50,6 +50,20 @@ class Helpers
     }
 
     /**
+     * Ask the user to select from the given choices.
+     *
+     * @param  string  $question
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public static function menu($title, $choices)
+    {
+        $style = new SymfonyStyle(static::app('input'), static::app('output'));
+
+        return $style->choice($title, $choices);
+    }
+
+    /**
      * Display a comment message.
      *
      * @param  string  $text

@@ -172,23 +172,7 @@ class Command extends SymfonyCommand
      */
     public function menu($title, $choices)
     {
-        $menu = (new CliMenuBuilder)
-                    ->setTitle($title)
-                    ->disableDefaultItems();
-
-        $menuSelection = null;
-
-        foreach ($choices as $index => $choice) {
-            $menu->addItem($choice, function ($menu) use ($index, &$menuSelection) {
-                $menuSelection = $index;
-
-                $menu->close();
-            });
-        }
-
-        $menu->build()->open();
-
-        return $menuSelection;
+        return Helpers::menu($title, $choices);
     }
 
     /**
