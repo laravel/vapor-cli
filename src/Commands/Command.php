@@ -6,7 +6,6 @@ use DateTime;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Symfony\Component\Console\Helper\Table;
-use PhpSchool\CliMenu\Builder\CliMenuBuilder;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
