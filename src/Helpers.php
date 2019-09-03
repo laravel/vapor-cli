@@ -50,20 +50,6 @@ class Helpers
     }
 
     /**
-     * Ask the user to select from the given choices.
-     *
-     * @param  string  $question
-     * @param  mixed  $default
-     * @return mixed
-     */
-    public static function menu($title, $choices)
-    {
-        $style = new SymfonyStyle(static::app('input'), static::app('output'));
-
-        return $style->choice($title, $choices);
-    }
-
-    /**
      * Display a comment message.
      *
      * @param  string  $text
@@ -202,6 +188,20 @@ class Helpers
     public static function megabytes($file)
     {
         return round(filesize($file) / 1024 / 1024, 2).'MB';
+    }
+
+    /**
+     * Ask the user to select from the given choices.
+     *
+     * @param  string  $question
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public static function menu($title, $choices)
+    {
+        $style = new SymfonyStyle(static::app('input'), static::app('output'));
+
+        return $style->choice($title, $choices);
     }
 
     /**
