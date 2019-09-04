@@ -201,7 +201,7 @@ class Helpers
     {
         $style = new SymfonyStyle(static::app('input'), static::app('output'));
 
-        return $style->choice($title, $choices);
+        return $style->askQuestion(new KeyChoiceQuestion($title, $choices));
     }
 
     /**
