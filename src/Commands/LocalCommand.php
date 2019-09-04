@@ -66,6 +66,7 @@ class LocalCommand extends Command
                 $dockerComposePath,
                 'run',
                 '--rm',
+                '-e DB_CONNECTION=mysql',
                 '-e DB_HOST=mysql',
                 '-e DB_DATABASE=vapor',
                 '-e DB_PORT=3306',
