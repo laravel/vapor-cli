@@ -23,7 +23,7 @@ class CompressVendor
             return;
         }
 
-        Helpers::step('<bright>Compressing Vendor</>');
+        Helpers::step('<bright>Compressing Vendor Directory</>');
 
         if (PHP_OS == 'Darwin') {
             return $this->compressOnMac();

@@ -232,6 +232,6 @@ class DeployCommand extends Command
      */
     private function createVendorHash()
     {
-        return md5_file(Path::app().'/composer.json').md5_file(Path::app().'/composer.lock');
+        return md5(md5_file(Path::app().'/composer.json').md5_file(Path::app().'/composer.lock'));
     }
 }

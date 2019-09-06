@@ -23,7 +23,7 @@ class ExtractVendorToSeparateDirectory
             return;
         }
 
-        Helpers::step('<bright>Extracting Vendor</>');
+        Helpers::step('<bright>Extracting Vendor Files</>');
 
         $this->ensureVendorDirectoryExists();
 
