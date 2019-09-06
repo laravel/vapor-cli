@@ -35,16 +35,18 @@ class AwsStorageProvider
     {
         $stream = fopen($file, 'r+');
 
+        $size = round(filesize($file) / 1024, 2);
+
         if ($withProgress) {
-            $progressBar = new ProgressBar(Helpers::app('output'), round(filesize($file) / 1024 / 1024, 2));
-            $progressBar->setFormat(' %current%MB/%max%MB [%bar%] %percent:3s%% (%remaining:-6s% remaining)');
+            $progressBar = new ProgressBar(Helpers::app('output'), $size);
+            $progressBar->setFormat(' %current%KB/%max%KB [%bar%] %percent:3s%% (%remaining:-6s% remaining)');
             $progressBar->start();
         } else {
             $progressBar = null;
         }
 
         $progressCallback = $withProgress ? function ($_, $__, $___, $uploaded) use ($progressBar) {
-            $progressBar->setProgress(round($uploaded / 1024 / 1024, 2));
+            $progressBar->setProgress(round($uploaded / 1024, 2));
         }
         : null;
 

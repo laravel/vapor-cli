@@ -9,6 +9,7 @@ trait ParticipatesInBuildProcess
 {
     protected $environment;
     protected $appPath;
+    protected $vendorPath;
     protected $path;
     protected $vaporPath;
     protected $buildPath;
@@ -25,6 +26,7 @@ trait ParticipatesInBuildProcess
         $this->environment = $environment;
 
         $this->appPath = Path::app();
+        $this->vendorPath = Path::vendor();
         $this->path = Path::current();
         $this->vaporPath = Path::vapor();
         $this->buildPath = Path::build();

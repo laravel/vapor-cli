@@ -885,14 +885,16 @@ class ConsoleVaporClient
      * @param  string  $file
      * @param  string  $commit
      * @param  string  $commitMessage
+     * @param  string  $vendorHash
      * @return array
      */
-    public function createArtifact($projectId, $uuid, $environment, $file, $commit = null, $commitMessage = null)
+    public function createArtifact($projectId, $uuid, $environment, $file, $commit = null, $commitMessage = null, $vendorHash = null)
     {
         $artifact = $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/artifacts/'.$environment, [
             'uuid' => $uuid,
             'commit' => $commit,
             'commit_message' => $commitMessage,
+            'vendor_hash' => $vendorHash,
         ]);
 
         Helpers::app(AwsStorageProvider::class)->store($artifact['url'], [], $file, true);

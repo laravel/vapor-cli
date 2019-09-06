@@ -11,6 +11,7 @@ use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\Clipboard;
 use Laravel\VaporCli\ServeAssets;
 use Illuminate\Filesystem\Filesystem;
+use Laravel\VaporCli\Aws\AwsStorageProvider;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -139,14 +140,25 @@ class DeployCommand extends Command
 
         Helpers::step('<comment>Uploading Deployment Artifact</comment> ('.Helpers::megabytes(Path::artifact()).')');
 
-        return $this->vapor->createArtifact(
+        $artifact = $this->vapor->createArtifact(
             Manifest::id(),
             $uuid,
             $environment,
             Path::artifact(),
             $this->option('commit') ?: Git::hash(),
-            $this->option('message') ?: Git::message()
+            $this->option('message') ?: Git::message(),
+            Manifest::shouldSeparateVendor() ? $this->createVendorHash() : null
         );
+
+        if (isset($artifact['vendor_url'])) {
+            Helpers::line();
+
+            Helpers::step('<comment>Uploading Vendor Directory</comment> ('.Helpers::megabytes(Path::vendorArtifact()).')');
+
+            Helpers::app(AwsStorageProvider::class)->store($artifact['vendor_url'], [], Path::vendorArtifact(), true);
+        }
+
+        return $artifact;
     }
 
     /**
@@ -211,5 +223,15 @@ class DeployCommand extends Command
 
             sleep(3);
         } while (! $deployment['has_ended']);
+    }
+
+    /**
+     * Create a hash for the vendor directory.
+     *
+     * @return string
+     */
+    private function createVendorHash()
+    {
+        return md5_file(Path::app().'/composer.json').md5_file(Path::app().'/composer.lock');
     }
 }
