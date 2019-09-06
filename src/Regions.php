@@ -16,6 +16,7 @@ class Regions
             'us-east-2' => 'US East (Ohio) (us-east-2)',
             'us-west-1' => 'US West (N. California) (us-west-1)',
             'us-west-2' => 'US West (Oregon) (us-west-2)',
+            'ap-east-1' => 'Asia Pacific (Hong Kong) (ap-east-1)',
             'ap-south-1' => 'Asia Pacific (Mumbai) (ap-south-1)',
             // 'ap-northeast-3' => 'Asia Pacific (Osaka-Local) (ap-northeast-3)',
             'ap-northeast-2' => 'Asia Pacific (Seoul) (ap-northeast-2)',
