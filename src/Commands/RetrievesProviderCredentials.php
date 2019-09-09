@@ -53,7 +53,7 @@ trait RetrievesProviderCredentials
             'Which set of credentials would you like to use?',
             collect($credentials)->mapWithKeys(function ($credential, $key) {
                 return [$key => $key];
-            })
+            })->all()
         );
     }
 }
