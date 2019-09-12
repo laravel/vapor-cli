@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli;
 
 use Illuminate\Support\Arr;
+use Laravel\VaporCli\Helpers;
 
 class Config
 {
@@ -59,6 +60,6 @@ class Config
      */
     protected static function path()
     {
-        return ($_SERVER['HOME'] ?? $_SERVER['USERPROFILE']).'/.laravel-vapor/config.json';
+        return Helpers::home().'/.laravel-vapor/config.json';
     }
 }

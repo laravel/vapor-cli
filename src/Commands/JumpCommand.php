@@ -63,9 +63,9 @@ class JumpCommand extends Command
      */
     protected function storePrivateKey($name, $privateKey)
     {
-        if (is_dir($_SERVER['HOME'] ?? $_SERVER['USERPROFILE'].'/.ssh') &&
+        if (is_dir(Helpers::home().'/.ssh') &&
             Helpers::confirm('Would you like to store the private key in your ~/.ssh directory', true)) {
-            file_put_contents($path = ($_SERVER['HOME'] ?? $_SERVER['USERPROFILE']).'/.ssh/vapor-jump-'.$name, $privateKey);
+            file_put_contents($path = Helpers::home().'/.ssh/vapor-jump-'.$name, $privateKey);
 
             chmod($path, 0600);
 

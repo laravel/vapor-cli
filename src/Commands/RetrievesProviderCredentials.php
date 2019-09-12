@@ -13,7 +13,7 @@ trait RetrievesProviderCredentials
      */
     protected function getAWSCredentials()
     {
-        if (file_exists(($_SERVER['HOME'] ?? $_SERVER['USERPROFILE']).'/.aws/credentials') &&
+        if (file_exists(Helpers::home().'/.aws/credentials') &&
             Helpers::confirm('Would you like to choose credentials from your AWS credentials file', true)) {
             return $this->getCredentialsFromFile();
         }
@@ -32,7 +32,7 @@ trait RetrievesProviderCredentials
     protected function getCredentialsFromFile()
     {
         $credential = $this->determineCredential(
-            $credentials = parse_ini_file(($_SERVER['HOME'] ?? $_SERVER['USERPROFILE']).'/.aws/credentials', true)
+            $credentials = parse_ini_file(Helpers::home().'/.aws/credentials', true)
         );
 
         return [

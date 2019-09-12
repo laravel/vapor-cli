@@ -112,7 +112,7 @@ class DatabaseShellCommand extends Command
     protected function storeJumpBoxKey(array $jumpBox)
     {
         file_put_contents(
-            $path = ($_SERVER['HOME'] ?? $_SERVER['USERPROFILE']).'/.ssh/vapor-database-shell',
+            $path = Helpers::home().'/.ssh/vapor-database-shell',
             $this->vapor->jumpBoxKey($jumpBox['id'])['private_key']
         );
 
