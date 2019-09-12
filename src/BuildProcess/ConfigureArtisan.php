@@ -35,8 +35,8 @@ class ConfigureArtisan
     {
         return str_replace(
             [
-                "\$app = require_once __DIR__.'/bootstrap/app.php';".PHP_EOL,
-                "require __DIR__.'/vendor/autoload.php';".PHP_EOL,
+                "\$app = require_once __DIR__.'/bootstrap/app.php';",
+                "require __DIR__.'/vendor/autoload.php';",
             ],
             [
                 "\$app = require_once __DIR__.'/bootstrap/app.php';".PHP_EOL.'$app->useStoragePath(Laravel\Vapor\Runtime\StorageDirectories::PATH);'.PHP_EOL,
