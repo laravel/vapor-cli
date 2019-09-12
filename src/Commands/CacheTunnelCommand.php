@@ -82,7 +82,7 @@ class CacheTunnelCommand extends Command
     protected function storeJumpBoxKey(array $jumpBox)
     {
         file_put_contents(
-            $path = $_SERVER['HOME'] ?? $_SERVER['APPDATA'].'/.ssh/vapor-cache-tunnel',
+            $path = $_SERVER['HOME'] ?? $_SERVER['USERPROFILE'].'/.ssh/vapor-cache-tunnel',
             $this->vapor->jumpBoxKey($jumpBox['id'])['private_key']
         );
 
