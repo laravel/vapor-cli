@@ -7,6 +7,7 @@ use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\BuildProcess\ProcessAssets;
 use Symfony\Component\Console\Input\InputOption;
 use Laravel\VaporCli\BuildProcess\InjectHandlers;
+use Laravel\VaporCli\BuildProcess\CollectSecrets;
 use Laravel\VaporCli\BuildProcess\CompressVendor;
 use Symfony\Component\Console\Input\InputArgument;
 use Laravel\VaporCli\BuildProcess\ConfigureArtisan;
@@ -62,6 +63,7 @@ class BuildCommand extends Command
             new ProcessAssets($this->option('asset-url')),
             new ExtractAssetsToSeparateDirectory,
             new InjectHandlers,
+            new CollectSecrets($this->argument('environment')),
             new InjectErrorPages,
             new InjectRdsCertificate,
             new ExtractVendorToSeparateDirectory,
