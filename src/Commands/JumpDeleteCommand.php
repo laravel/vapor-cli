@@ -41,7 +41,7 @@ class JumpDeleteCommand extends Command
 
         Helpers::info('Jumpbox deleted successfully.');
 
-        if (file_exists($path = $_SERVER['HOME'].'/.ssh/vapor-jump-'.$jumpBoxName)) {
+        if (file_exists($path = $_SERVER['HOME'] ?? $_SERVER['APPDATA'].'/.ssh/vapor-jump-'.$jumpBoxName)) {
             @unlink($path);
         }
     }

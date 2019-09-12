@@ -59,6 +59,6 @@ class Config
      */
     protected static function path()
     {
-        return $_SERVER['HOME'].'/.laravel-vapor/config.json';
+        return $_SERVER['HOME'] ?? $_SERVER['APPDATA'].'/.laravel-vapor/config.json';
     }
 }
