@@ -53,8 +53,8 @@ class InjectHandlers
     protected function configureHttpHandler($file)
     {
         return str_replace(
-            "require __DIR__.'/vendor/autoload.php';".PHP_EOL,
-            "require '/tmp/vendor/autoload.php';".PHP_EOL,
+            "require __DIR__.'/vendor/autoload.php';",
+            "require '/tmp/vendor/autoload.php';",
             file_get_contents($file)
         );
     }
