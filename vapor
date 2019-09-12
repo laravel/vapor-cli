@@ -36,7 +36,7 @@ require __DIR__.'/services.php';
 /**
  * Start the console application.
  */
-$app = new Application('Laravel Vapor', '1.2.2');
+$app = new Application('Laravel Vapor', '1.2.3');
 
 // Authentication...
 $app->add(new Commands\LoginCommand);
