@@ -55,7 +55,7 @@ class SetBuildEnvironment
 
         // Mix takes the last environment variable value...
         $this->files->append(
-            $envPath, 'APP_ENV='.$this->environment.PHP_EOL
+            $envPath, PHP_EOL.'APP_ENV='.$this->environment.PHP_EOL
         );
 
         $this->files->append(
