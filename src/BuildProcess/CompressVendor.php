@@ -34,7 +34,7 @@ class CompressVendor
         $archive->open($this->buildPath.'/vendor.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach (BuiltApplicationFiles::get($this->vendorPath) as $file) {
-            $relativePathName = str_replace("\\","/", $file->getRelativePathname());
+            $relativePathName = str_replace("\\", "/", $file->getRelativePathname());
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
