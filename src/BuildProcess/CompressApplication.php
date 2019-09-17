@@ -31,7 +31,7 @@ class CompressApplication
         $archive->open($this->buildPath.'/app.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach (BuiltApplicationFiles::get($this->appPath) as $file) {
-            $relativePathName = str_replace("\\","/", $file->getRelativePathname());
+            $relativePathName = str_replace("\\", "/", $file->getRelativePathname());
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
