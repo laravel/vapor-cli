@@ -249,7 +249,7 @@ class DeployCommand extends Command
     /**
      * Get the version of vapor-core.
      *
-     * @return string
+     * @return string|null
      */
     protected function getCoreVersion()
     {
@@ -257,9 +257,10 @@ class DeployCommand extends Command
             return;
         }
 
-        return ltrim(collect(json_decode(file_get_contents($file)))
-            ->where('name', 'laravel/vapor-core')
-            ->first()
-            ->version, 'v');
+        $version = collect(json_decode(file_get_contents($file)))
+                ->where('name', 'laravel/vapor-core')
+                ->first()->version;
+
+        return ltrim($version, 'v');
     }
 }

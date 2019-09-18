@@ -886,8 +886,8 @@ class ConsoleVaporClient
      * @param  string  $commit
      * @param  string  $commitMessage
      * @param  string  $vendorHash
-     * @param  string $cliVersion
-     * @param  string $coreVersion
+     * @param  string  $cliVersion
+     * @param  string  $coreVersion
      * @return array
      */
     public function createArtifact(
@@ -1345,7 +1345,7 @@ class ConsoleVaporClient
     protected function client()
     {
         return new Client([
-           'base_uri' => $_ENV['VAPOR_API_BASE'] ?? getenv('VAPOR_API_BASE') ?: 'https://vapor.laravel.com',
+           'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://vapor.laravel.com',
            // 'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://laravel-vapor.ngrok.io',
         ]);
     }
