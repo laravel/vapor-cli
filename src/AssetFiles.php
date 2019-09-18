@@ -41,6 +41,8 @@ class AssetFiles
     {
         $files = collect(iterator_to_array(static::get($path)));
 
-        return $files->map->getRelativePathname()->values()->all();
+        return $files->map(function ($file) {
+            return str_replace("\\", "/", $file->getRelativePathname());
+        })->values()->all();
     }
 }
