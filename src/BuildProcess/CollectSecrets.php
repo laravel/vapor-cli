@@ -19,13 +19,15 @@ class CollectSecrets
     {
         Helpers::step('<bright>Collecting Secrets</>');
 
-        $secrets = collect(Helpers::app(ConsoleVaporClient::class)
-            ->secrets(Manifest::id(), $this->environment))
-            ->mapWithKeys(function ($secret) {
-                return [$secret['name'] => $secret['version']];
-            })->toArray();
+        $secrets = collect(
+                Helpers::app(ConsoleVaporClient::class)
+                    ->secrets(Manifest::id(), $this->environment)
+        )->mapWithKeys(function ($secret) {
+            return [$secret['name'] => $secret['version']];
+        })->toArray();
 
-        $this->files->put($this->appPath.'/vaporSecrets.php',
+        $this->files->put(
+            $this->appPath.'/vaporSecrets.php',
             '<?php return '.var_export($secrets, true).';'
         );
     }
