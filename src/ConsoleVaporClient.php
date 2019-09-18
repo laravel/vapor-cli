@@ -886,15 +886,22 @@ class ConsoleVaporClient
      * @param  string  $commit
      * @param  string  $commitMessage
      * @param  string  $vendorHash
+     * @param  string $cliVersion
+     * @param  string $coreVersion
      * @return array
      */
-    public function createArtifact($projectId, $uuid, $environment, $file, $commit = null, $commitMessage = null, $vendorHash = null)
+    public function createArtifact(
+        $projectId, $uuid, $environment, $file, $commit = null, $commitMessage = null, $vendorHash = null,
+        $cliVersion = null, $coreVersion = null
+    )
     {
         $artifact = $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/artifacts/'.$environment, [
             'uuid' => $uuid,
             'commit' => $commit,
             'commit_message' => $commitMessage,
             'vendor_hash' => $vendorHash,
+            'cli_version' => $cliVersion,
+            'core_version' => $coreVersion,
         ]);
 
         Helpers::app(AwsStorageProvider::class)->store($artifact['url'], [], $file, true);
@@ -1338,7 +1345,7 @@ class ConsoleVaporClient
     protected function client()
     {
         return new Client([
-           'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://vapor.laravel.com',
+           'base_uri' => $_ENV['VAPOR_API_BASE'] ?? getenv('VAPOR_API_BASE') ?: 'https://vapor.laravel.com',
            // 'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://laravel-vapor.ngrok.io',
         ]);
     }

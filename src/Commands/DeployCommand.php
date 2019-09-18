@@ -147,7 +147,8 @@ class DeployCommand extends Command
             Path::artifact(),
             $this->option('commit') ?: Git::hash(),
             $this->option('message') ?: Git::message(),
-            Manifest::shouldSeparateVendor() ? $this->createVendorHash() : null
+            Manifest::shouldSeparateVendor() ? $this->createVendorHash() : null,
+            $this->getCliVersion(), $this->getCoreVersion()
         );
 
         if (isset($artifact['vendor_url'])) {
@@ -230,8 +231,35 @@ class DeployCommand extends Command
      *
      * @return string
      */
-    private function createVendorHash()
+    protected function createVendorHash()
     {
         return md5(md5_file(Path::app().'/composer.json').md5_file(Path::app().'/composer.lock'));
+    }
+
+    /**
+     * Get the version of vapor-cli.
+     *
+     * @return string
+     */
+    protected function getCliVersion()
+    {
+        return $this->getApplication()->getVersion();
+    }
+
+    /**
+     * Get the version of vapor-core.
+     *
+     * @return string
+     */
+    protected function getCoreVersion()
+    {
+        if (! file_exists($file = Path::current().'/vendor/composer/installed.json')) {
+            return;
+        }
+
+        return ltrim(collect(json_decode(file_get_contents($file)))
+            ->where('name', 'laravel/vapor-core')
+            ->first()
+            ->version, 'v');
     }
 }
