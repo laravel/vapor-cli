@@ -4,6 +4,8 @@ namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Config;
 use Laravel\VaporCli\Helpers;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\ClientException;
 use Laravel\VaporCli\Exceptions\NeedsTwoFactorAuthenticationTokenException;
 
 class LoginCommand extends Command
@@ -28,6 +30,29 @@ class LoginCommand extends Command
     public function handle()
     {
         try {
+            $token = $this->attemptLogin();
+        } catch (ClientException $e) {
+            return $this->displayFailureMessage($e->getResponse());
+        }
+
+        $this->store($token);
+
+        $this->ensureCurrentTeamIsSet();
+
+        if (empty($providers = $this->vapor->providers()) &&
+            Helpers::confirm('Would you like to link a cloud provider to your account', true)) {
+            $this->call('provider');
+        }
+    }
+
+    /**
+     * Attempt to log in.
+     *
+     * @return string
+     */
+    protected function attemptLogin()
+    {
+        try {
             $token = $this->vapor->login(
                 $email = Helpers::ask('Email Address'),
                 $password = Helpers::secret('Password')
@@ -40,16 +65,7 @@ class LoginCommand extends Command
             );
         }
 
-        $token
-            ? $this->store($token)
-            : $this->displayFailureMessage();
-
-        $this->ensureCurrentTeamIsSet();
-
-        if (empty($providers = $this->vapor->providers()) &&
-            Helpers::confirm('Would you like to link a cloud provider to your account', true)) {
-            $this->call('provider');
-        }
+        return $token;
     }
 
     /**
@@ -68,11 +84,14 @@ class LoginCommand extends Command
     /**
      * Display the authentication failure message.
      *
+     * @param  ResponseInterface  $response
      * @return void
      */
-    protected function displayFailureMessage()
+    protected function displayFailureMessage($response)
     {
-        Helpers::abort('Authentication failed.');
+        Helpers::abort(
+            'Authentication failed ('.$response->getStatusCode().')'
+        );
     }
 
     /**

@@ -36,9 +36,7 @@ class ConsoleVaporClient
                 }
             }
 
-            return false;
-        } catch (Exception $e) {
-            return false;
+            throw $e;
         }
     }
 
@@ -1345,7 +1343,7 @@ class ConsoleVaporClient
     protected function client()
     {
         return new Client([
-           'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://vapor.laravel.com',
+            'base_uri' => $_ENV['VAPOR_API_BASE'] ?? getenv('VAPOR_API_BASE') ?: 'https://vapor.laravel.com',
            // 'base_uri' => $_ENV['VAPOR_API_BASE'] ?? 'https://laravel-vapor.ngrok.io',
         ]);
     }
