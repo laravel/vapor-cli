@@ -95,7 +95,7 @@ class Manifest
                     'build' => [
                         'composer install --no-dev --classmap-authoritative',
                         'php artisan event:cache',
-                        'npm install && npm run prod && rm -rf node_modules',
+                        'npm ci && npm run prod && rm -rf node_modules',
                     ],
                 ]),
                 'staging' => array_filter([
@@ -104,7 +104,7 @@ class Manifest
                     'build' => [
                         'composer install --classmap-authoritative',
                         'php artisan event:cache',
-                        'npm install && npm run dev && rm -rf node_modules',
+                        'npm ci && npm run dev && rm -rf node_modules',
                     ],
                 ]),
             ],
