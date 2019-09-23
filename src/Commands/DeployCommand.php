@@ -66,6 +66,10 @@ class DeployCommand extends Command
 
         $deployment = $this->displayDeploymentProgress($deployment);
 
+        if ($deployment['status'] == 'failed') {
+            exit(1);
+        }
+
         Clipboard::deployment($deployment);
     }
 
