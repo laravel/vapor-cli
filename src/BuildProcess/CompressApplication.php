@@ -79,9 +79,9 @@ class CompressApplication
     {
         $size = round(filesize($this->buildPath.'/app.zip') / 1048576, 1);
 
-        if ($size > 45) {
+        if ($size > 100) {
             Helpers::line();
-            Helpers::abort('Compressed application is greater than 45MB. Your application is '.$size.'MB.');
+            Helpers::abort('Compressed application is greater than 100MB. Your application is '.$size.'MB.');
         }
     }
 }
