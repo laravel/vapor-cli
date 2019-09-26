@@ -64,13 +64,9 @@ class ServeAssets
 
         foreach ($requests as $request) {
             Helpers::step('<fg=magenta>Copying Unchanged Asset:</> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
-
-            $storage->request(
-                'PUT',
-                $request['url'],
-                array_merge($request['headers'], ['Cache-Control' => 'public, max-age=2628000'])
-            );
         }
+
+        $storage->copyRequests($requests);
     }
 
     /**

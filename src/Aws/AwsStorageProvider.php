@@ -2,7 +2,9 @@
 
 namespace Laravel\VaporCli\Aws;
 
+use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -79,5 +81,30 @@ class AwsStorageProvider
         (new Client)->request('PUT', $url, array_filter([
             'headers' => empty($headers) ? null : $headers,
         ]));
+    }
+
+    /**
+     * Execute the given copy requests.
+     *
+     * @param  array  $requests
+     * @return void
+     */
+    public function copyRequests($requests){
+        $requests = function () use ($requests) {
+            foreach ($requests as $request) {
+                yield new Request(
+                    'PUT',
+                    $request['url'],
+                    array_merge(
+                        $request['headers'],
+                        ['Cache-Control' => 'public, max-age=2628000']
+                    )
+                );
+            }
+        };
+
+        (new Pool(new Client(), $requests(), ['concurrency' => 10]))
+            ->promise()
+            ->wait();
     }
 }
