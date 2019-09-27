@@ -66,7 +66,7 @@ class ServeAssets
             Helpers::step('<fg=magenta>Copying Unchanged Asset:</> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
         }
 
-        $storage->copyRequests($requests);
+        $storage->executeCopyRequests($requests);
     }
 
     /**

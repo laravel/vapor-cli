@@ -89,7 +89,8 @@ class AwsStorageProvider
      * @param  array  $requests
      * @return void
      */
-    public function copyRequests($requests){
+    public function executeCopyRequests($requests)
+    {
         $requests = function () use ($requests) {
             foreach ($requests as $request) {
                 yield new Request(
