@@ -145,16 +145,20 @@ class RemoveIgnoredFiles
         foreach (Manifest::ignoredFiles() as $pattern) {
             [$directory, $filePattern] = $this->parsePattern($pattern);
 
-            $files = (new Finder)
-                        ->in($directory)
-                        ->depth('== 0')
-                        ->ignoreDotFiles(false)
-                        ->name($filePattern);
+            if ($this->files->exists($directory.'/'.$filePattern) && $this->files->isDirectory($directory.'/'.$filePattern)) {
+                $this->files->deleteDirectory($directory.'/'.$filePattern, $preserve = false);
+            } else {
+                $files = (new Finder)
+                            ->in($directory)
+                            ->depth('== 0')
+                            ->ignoreDotFiles(false)
+                            ->name($filePattern);
 
-            foreach ($files as $file) {
-                Helpers::step('<comment>Removing Ignored File:</comment> '.str_replace(Path::app().'/', '', $file->getRealPath()));
+                foreach ($files as $file) {
+                    Helpers::step('<comment>Removing Ignored File:</comment> '.str_replace(Path::app().'/', '', $file->getRealPath()));
 
-                $this->files->delete($file->getRealPath());
+                    $this->files->delete($file->getRealPath());
+                }
             }
         }
     }
