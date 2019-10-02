@@ -27,7 +27,6 @@ class RemoveIgnoredFiles
         $this->removeSymfonyTests();
 
         $this->removeUserIgnoredFiles();
-        $this->removeSpecialDirectories();
     }
 
     /**
@@ -99,27 +98,6 @@ class RemoveIgnoredFiles
             }
         }
     }
-
-
-  /**
-   * Remove the directories that are ignored by default.
-   *
-   * @return void
-   */
-  protected function removeSpecialDirectories()
-  {
-        $defaultDirectories = [
-              Path::app().'/compose',
-              Path::app().'/vendor/backpack/crud/src/public/packages',
-        ];
-
-        foreach ($defaultDirectories as $directory) {
-              if ($this->files->isDirectory($directory)) {
-                    $this->files->deleteDirectory($directory, $preserve = true);
-              }
-        }
-  }
-
 
   /**
      * Remove the tests from the Symfony components.
