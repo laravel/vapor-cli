@@ -95,6 +95,10 @@ trait ProvidesSelectionMenus
      */
     protected function determineRegion($message)
     {
+        if ($this->input->hasOption('region') && $this->option('region')) {
+            return $this->option('region');
+        }
+
         return $this->menu($message, Regions::available());
     }
 }

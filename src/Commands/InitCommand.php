@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\GitIgnore;
+use Symfony\Component\Console\Input\InputOption;
 
 class InitCommand extends Command
 {
@@ -19,6 +20,9 @@ class InitCommand extends Command
     {
         $this
             ->setName('init')
+            ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'The name of this project')
+            ->addOption('provider', null, InputOption::VALUE_OPTIONAL, 'The cloud provider that the project should belong to')
+            ->addOption('region', null, InputOption::VALUE_OPTIONAL, 'The region that the project should be placed in')
             ->setDescription('Initialize a new project in the current directory');
     }
 
@@ -77,6 +81,10 @@ class InitCommand extends Command
      */
     protected function determineName()
     {
+        if($this->option('name')) {
+            return Str::slug($this->option('name'));
+        }
+
         return Str::slug(Helpers::ask(
             'What is the name of this project', basename(Path::current())
         ));
