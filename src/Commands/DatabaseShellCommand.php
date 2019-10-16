@@ -77,7 +77,7 @@ class DatabaseShellCommand extends Command
             return $jumpBox['network_id'] == $database['network_id'];
         });
 
-        $jumpBox = in_array($database, ['rds', 'aurora-serverless'])
+        $jumpBox = in_array($database['type'], ['rds', 'aurora-serverless'])
             ? $jumpBoxes->first()
             : $jumpBoxes->firstWhere('version', '>', 1);
 
