@@ -18,7 +18,7 @@ class DatabaseShellCommand extends Command
             ->setName('database:shell')
             ->addArgument('database', InputArgument::REQUIRED, 'The name of the database')
             ->addArgument('user', InputArgument::OPTIONAL, 'The username of the database user to connect as')
-            ->setDescription('Start a MySQL shell for the given database');
+            ->setDescription('Start a shell for the given database');
     }
 
     /**
@@ -46,13 +46,23 @@ class DatabaseShellCommand extends Command
 
         $user = $this->findDatabaseUser($database);
 
-        passthru(sprintf('ssh -t ec2-user@%s -i %s -o LogLevel=error "mysql -u %s -p%s -h %s vapor"',
-            $jumpBox['endpoint'],
-            $this->storeJumpBoxKey($jumpBox),
-            $user['username'],
-            $this->vapor->databaseUserPassword($user['id'])['password'],
-            $database['endpoint']
-        ));
+        if (in_array($database['type'], ['rds', 'aurora-serverless'])) {
+            passthru(sprintf('ssh -t ec2-user@%s -i %s -o LogLevel=error "mysql -u %s -p%s -h %s vapor"',
+                $jumpBox['endpoint'],
+                $this->storeJumpBoxKey($jumpBox),
+                $user['username'],
+                $this->vapor->databaseUserPassword($user['id'])['password'],
+                $database['endpoint']
+            ));
+        } else {
+            passthru(sprintf('ssh -t ec2-user@%s -i %s -o LogLevel=error "PGPASSWORD=%s psql -U %s -h %s vapor"',
+                $jumpBox['endpoint'],
+                $this->storeJumpBoxKey($jumpBox),
+                $this->vapor->databaseUserPassword($user['id'])['password'],
+                $user['username'],
+                $database['endpoint']
+            ));
+        }
     }
 
     /**
@@ -63,14 +73,16 @@ class DatabaseShellCommand extends Command
      */
     protected function findCompatibleJumpBox(array $database)
     {
-        $jumpBoxes = $this->vapor->jumpBoxes();
+        $jumpBoxes = collect($this->vapor->jumpBoxes())->filter(function ($jumpBox) use ($database) {
+            return $jumpBox['network_id'] == $database['network_id'];
+        });
 
-        $jumpBox = collect($jumpBoxes)->firstWhere(
-            'network_id', $database['network_id']
-        );
+        $jumpBox = in_array($database, ['rds', 'aurora-serverless'])
+            ? $jumpBoxes->first()
+            : $jumpBoxes->firstWhere('version', '>', 1);
 
         if (is_null($jumpBox)) {
-            Helpers::abort('A jumpbox is required in order to start a shell session.');
+            Helpers::abort('A compatible jumpbox is required in order to start a shell session.');
         }
 
         return $jumpBox;
