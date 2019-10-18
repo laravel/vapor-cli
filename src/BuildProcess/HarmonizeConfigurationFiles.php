@@ -41,9 +41,11 @@ class HarmonizeConfigurationFiles
         return str_replace([
             'AWS_ACCESS_KEY_ID',
             'AWS_SECRET_ACCESS_KEY',
+            'AWS_SESSION_TOKEN',
         ], [
             'NULL_AWS_ACCESS_KEY_ID',
             'NULL_AWS_SECRET_ACCESS_KEY',
+            'NULL_AWS_SESSION_TOKEN',
         ], file_get_contents($file->getRealPath()));
     }
 }
