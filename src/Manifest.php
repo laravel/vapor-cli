@@ -93,7 +93,7 @@ class Manifest
                     'memory' => 1024,
                     'cli-memory' => 512,
                     'build' => [
-                        'composer install --no-dev --classmap-authoritative',
+                        'composer install --no-dev',
                         'php artisan event:cache',
                         'npm ci && npm run prod && rm -rf node_modules',
                     ],
@@ -102,7 +102,7 @@ class Manifest
                     'memory' => 1024,
                     'cli-memory' => 512,
                     'build' => [
-                        'composer install --classmap-authoritative',
+                        'composer install',
                         'php artisan event:cache',
                         'npm ci && npm run dev && rm -rf node_modules',
                     ],
@@ -127,7 +127,7 @@ class Manifest
         }
 
         $manifest['environments'][$environment] = ! empty($config) ? $config : [
-            'build' => ['composer install --no-dev --classmap-authoritative']
+            'build' => ['composer install --no-dev']
         ];
 
         $manifest['environments'] = collect(
