@@ -45,7 +45,7 @@ class SetBuildEnvironment
     {
         Helpers::step('<bright>Setting Build Environment</>');
 
-        if (! file_exists($envPath = $this->appPath.'/.env')) {
+        if (! file_exists($envPath = $this->appPath.'/.env.'.$this->environment) && ! file_exists($envPath = $this->appPath.'/.env')) {
             return;
         }
 
