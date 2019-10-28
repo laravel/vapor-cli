@@ -970,12 +970,16 @@ class ConsoleVaporClient
      * @param  string  $projectId
      * @param  string  $environment
      * @param  array  $manifest
+     * @param  string  $cliVersion
+     * @param  string  $coreVersion
      * @return void
      */
-    public function validateManifest($projectId, $environment, array $manifest)
+    public function validateManifest($projectId, $environment, array $manifest, $cliVersion = null, $coreVersion = null)
     {
         $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/environments/'.$environment.'/linted-manifest', [
             'manifest' => $manifest,
+            'cli_version' => $cliVersion,
+            'core_version' => $coreVersion,
         ]);
     }
 

@@ -81,7 +81,8 @@ class DeployCommand extends Command
     protected function ensureManifestIsValid()
     {
         $this->vapor->validateManifest(
-            Manifest::id(), $this->argument('environment'), Manifest::current()
+            Manifest::id(), $this->argument('environment'), Manifest::current(),
+            $this->getCliVersion(), $this->getCoreVersion()
         );
     }
 
