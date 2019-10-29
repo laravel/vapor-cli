@@ -5,6 +5,7 @@ namespace Laravel\VaporCli\BuildProcess;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Process\Process;
 
 class ConfigureComposerAutoloader
 {
@@ -17,6 +18,8 @@ class ConfigureComposerAutoloader
      */
     public function __invoke()
     {
+        (new Process(['composer', 'dumpautoload'], $this->appPath))->mustRun();
+
         if (! Manifest::shouldSeparateVendor()) {
             return;
         }
