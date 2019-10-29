@@ -207,6 +207,17 @@ class ConsoleVaporClient
     {
         return $this->request('get', '/api/teams/'.Helpers::config('team').'/zones');
     }
+    
+    /**
+     * Get the zone with the given ID.
+     *
+     * @param  string  $zoneId
+     * @return array
+     */
+    public function zone($zoneId)
+    {
+        return $this->request('get', '/api/zones/'.$zoneId);
+    }
 
     /**
      * Create a new zone.
