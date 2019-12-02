@@ -27,16 +27,18 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
 (function () {
     if (class_exists(RepositoryBuilder::class)) {
         $adapters = [new V4EnvConstAdapter, new V4ServerConstAdapter];
+
         $repository = RepositoryBuilder::create()
             ->withReaders($adapters)
             ->withWriters($adapters)
             ->immutable()
-            ->get();
+            ->make();
+
         Dotenv::create($repository, __DIR__)->safeLoad();
     } else {
-        $adapters = [new V3EnvConstAdapter, new V3ServerConstAdapter];
-        $factory = new DotenvFactory($adapters);
-        Dotenv::create(__DIR__, null, $factory)->safeLoad();
+        Dotenv::create(__DIR__, null, new DotenvFactory([
+            new V3EnvConstAdapter, new V3ServerConstAdapter
+        ]))->safeLoad();
     }
 })();
 
