@@ -166,7 +166,7 @@ class TailCommand extends Command
 
         $this->output->writeln(sprintf(
             '[<fg=magenta>%s</>] [<comment>%s</comment>]: %s',
-            $this->formatDate($message['datetime']['date']),
+            $this->formatDate($message['datetime']),
             $level,
             $this->formatMessage($message['message'])
         ));
