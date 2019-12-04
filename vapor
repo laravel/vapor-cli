@@ -6,8 +6,11 @@ use Laravel\VaporCli\Commands;
 use Illuminate\Container\Container;
 use Dotenv\Environment\DotenvFactory;
 use Symfony\Component\Console\Application;
-use Dotenv\Environment\Adapter\EnvConstAdapter;
-use Dotenv\Environment\Adapter\ServerConstAdapter;
+use Dotenv\Environment\Adapter\EnvConstAdapter as V3EnvConstAdapter;
+use Dotenv\Environment\Adapter\ServerConstAdapter as V3ServerConstAdapter;
+use Dotenv\Repository\Adapter\EnvConstAdapter as V4EnvConstAdapter;
+use Dotenv\Repository\Adapter\ServerConstAdapter as V4ServerConstAdapter;
+use Dotenv\Repository\RepositoryBuilder;
 
 /**
  * Require the autoloader.
@@ -18,13 +21,26 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
     require __DIR__.'/vendor/autoload.php';
 }
 
-if (file_exists(__DIR__.'/.env')) {
-    Dotenv::create(
-        __DIR__,
-        '.env',
-        new DotenvFactory([new EnvConstAdapter, new ServerConstAdapter])
-    )->load();
-}
+/**
+ * Load the environment variables.
+ */
+(function () {
+    if (class_exists(RepositoryBuilder::class)) {
+        $adapters = [new V4EnvConstAdapter, new V4ServerConstAdapter];
+
+        $repository = RepositoryBuilder::create()
+            ->withReaders($adapters)
+            ->withWriters($adapters)
+            ->immutable()
+            ->make();
+
+        Dotenv::create($repository, __DIR__)->safeLoad();
+    } else {
+        Dotenv::create(__DIR__, null, new DotenvFactory([
+            new V3EnvConstAdapter, new V3ServerConstAdapter
+        ]))->safeLoad();
+    }
+})();
 
 /**
  * Create the container instance.
