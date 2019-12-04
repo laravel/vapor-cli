@@ -2,7 +2,7 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use DateTimeImmutable;
+use DateTime;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Illuminate\Support\Carbon;
@@ -205,11 +205,11 @@ class TailCommand extends Command
      */
     public function formatDate($date)
     {
-        if (is_string($date)) {
-            return (new DateTimeImmutable($date))->format('Y-m-d H:i:s');
+        if (is_array($date)) {
+            return $date['date'];
         }
 
-        return $date['date'];
+        return (new DateTime($date))->format('Y-m-d H:i:s');
     }
 
     /**
