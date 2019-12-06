@@ -4,7 +4,6 @@ namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Symfony\Component\Process\Process;
 
 class InjectHandlers
 {

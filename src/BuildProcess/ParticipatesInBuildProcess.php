@@ -2,8 +2,8 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Path;
 use Illuminate\Filesystem\Filesystem;
+use Laravel\VaporCli\Path;
 
 trait ParticipatesInBuildProcess
 {

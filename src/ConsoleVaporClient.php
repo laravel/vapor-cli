@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli;
 
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Laravel\VaporCli\Aws\AwsStorageProvider;
@@ -207,7 +206,7 @@ class ConsoleVaporClient
     {
         return $this->request('get', '/api/teams/'.Helpers::config('team').'/zones');
     }
-    
+
     /**
      * Get the zone with the given ID.
      *

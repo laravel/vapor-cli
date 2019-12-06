@@ -2,10 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Path;
-use Laravel\VaporCli\Helpers;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
+use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Path;
 
 class SetBuildEnvironment
 {

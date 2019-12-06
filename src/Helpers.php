@@ -3,9 +3,9 @@
 namespace Laravel\VaporCli;
 
 use Exception;
+use Illuminate\Container\Container;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
-use Illuminate\Container\Container;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Style\SymfonyStyle;
 

@@ -2,11 +2,11 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use ZipArchive;
+use Laravel\VaporCli\BuiltApplicationFiles;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Process\Process;
-use Laravel\VaporCli\BuiltApplicationFiles;
+use ZipArchive;
 
 class CompressVendor
 {

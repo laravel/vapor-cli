@@ -2,9 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
+use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\ConsoleVaporClient;
 
 class CollectSecrets
 {

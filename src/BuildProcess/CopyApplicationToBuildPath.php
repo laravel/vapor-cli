@@ -2,9 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use SplFileInfo;
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\ApplicationFiles;
+use Laravel\VaporCli\Helpers;
+use SplFileInfo;
 
 class CopyApplicationToBuildPath
 {

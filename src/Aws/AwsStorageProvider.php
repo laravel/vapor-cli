@@ -2,11 +2,11 @@
 
 namespace Laravel\VaporCli\Aws;
 
-use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
+use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\ConsoleVaporClient;
+use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class AwsStorageProvider

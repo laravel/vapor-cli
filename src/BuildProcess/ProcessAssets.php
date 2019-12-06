@@ -2,12 +2,11 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Path;
 use Illuminate\Support\Str;
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\AssetFiles;
+use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Path;
 use Laravel\VaporCli\RewriteAssetUrls;
-use Symfony\Component\Process\Process;
 
 class ProcessAssets
 {
