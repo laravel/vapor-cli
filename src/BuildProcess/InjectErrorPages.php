@@ -3,7 +3,6 @@
 namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\Helpers;
-use Symfony\Component\Process\Process;
 
 class InjectErrorPages
 {

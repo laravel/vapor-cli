@@ -2,12 +2,11 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Path;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Finder\Finder;
-use Illuminate\Filesystem\Filesystem;
 
 class RemoveIgnoredFiles
 {

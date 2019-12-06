@@ -2,10 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Helpers;
-use Laravel\VaporCli\AssetFiles;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
+use Laravel\VaporCli\AssetFiles;
+use Laravel\VaporCli\Helpers;
 
 class ExtractAssetsToSeparateDirectory
 {

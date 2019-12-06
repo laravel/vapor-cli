@@ -3,14 +3,13 @@
 namespace Laravel\VaporCli\Commands;
 
 use DateTime;
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\ConsoleVaporClient;
-use Symfony\Component\Console\Helper\Table;
+use Laravel\VaporCli\Helpers;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 class Command extends SymfonyCommand
 {
@@ -147,7 +146,7 @@ class Command extends SymfonyCommand
     /**
      * Format input to textual table, remove the prior table.
      *
-     * @param  array   $headers
+     * @param  array  $headers
      * @param  array  $rows
      * @return void
      */
@@ -192,7 +191,7 @@ class Command extends SymfonyCommand
      * Call another console command.
      *
      * @param  string  $command
-     * @param  array   $arguments
+     * @param  array  $arguments
      * @return int
      */
     public function call($command, array $arguments = [])
