@@ -48,6 +48,15 @@ class SetBuildEnvironment
             return;
         }
 
+        if (file_exists($this->appPath.'/.env.'.$this->environment)) {
+            $this->files->copy(
+                $this->appPath.'/.env.'.$this->environment,
+                $envPath
+            );
+
+            $this->files->delete($this->appPath.'/.env.'.$this->environment);
+        }
+
         $this->files->prepend(
             $envPath, 'APP_ENV='.$this->environment.PHP_EOL
         );
