@@ -48,7 +48,7 @@ class BuildCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        Helpers::line('Building project...');
+        Helpers::line("Building project for environment {$this->argument('environment')}...");
 
         $startedAt = new DateTime;
 

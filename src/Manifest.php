@@ -17,6 +17,24 @@ class Manifest
     }
 
     /**
+     * Retrieve environment's with a matching group
+     *
+     * @return array
+     */
+    public static function getEnvironmentsByGroup(string $group)
+    {
+        $matchingEnvironments = [];
+
+        foreach (static::current()['environments'] as $key => $environment)
+        {
+            if (isset($environment['group']) && $environment['group'] === $group) {
+                $matchingEnvironments[] = $key;
+            }
+        }
+        return $matchingEnvironments;
+    }
+
+    /**
      * Retrieve the manifest for the current working directory.
      *
      * @return array
