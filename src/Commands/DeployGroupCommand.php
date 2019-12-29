@@ -41,11 +41,8 @@ class DeployGroupCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        $environments = Manifest::getEnvironmentsByGroup($this->argument('group'));
-        
-        foreach ($environments as $environment) {
-            $this->deployEnvironment($environment);
-        }
+        collect(Manifest::getEnvironmentsByGroup($this->argument('group')))
+            ->each(fn($environment) => $this->deployEnvironment($environment));
     }
 
     protected function deployEnvironment(string $environment)

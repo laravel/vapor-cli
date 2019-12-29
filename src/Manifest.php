@@ -23,15 +23,9 @@ class Manifest
      */
     public static function getEnvironmentsByGroup(string $group)
     {
-        $matchingEnvironments = [];
-
-        foreach (static::current()['environments'] as $key => $environment)
-        {
-            if (isset($environment['group']) && $environment['group'] === $group) {
-                $matchingEnvironments[] = $key;
-            }
-        }
-        return $matchingEnvironments;
+        return collect(static::current()['environments'])
+            ->filter(fn($environment) => isset($environment['group']) && $environment['group'] === $group)
+            ->keys();
     }
 
     /**
