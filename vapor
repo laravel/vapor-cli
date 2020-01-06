@@ -52,7 +52,7 @@ require __DIR__.'/services.php';
 /**
  * Start the console application.
  */
-$app = new Application('Laravel Vapor', '1.4.5');
+$app = new Application('Laravel Vapor', '1.4.6');
 
 // Authentication...
 $app->add(new Commands\LoginCommand);
