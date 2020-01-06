@@ -92,6 +92,7 @@ class Manifest
                 'production' => array_filter([
                     'memory' => 1024,
                     'cli-memory' => 512,
+                    'runtime' => 'php-7.4',
                     'build' => [
                         'composer install --no-dev',
                         'php artisan event:cache',
@@ -101,6 +102,7 @@ class Manifest
                 'staging' => array_filter([
                     'memory' => 1024,
                     'cli-memory' => 512,
+                    'runtime' => 'php-7.4',
                     'build' => [
                         'composer install',
                         'php artisan event:cache',
