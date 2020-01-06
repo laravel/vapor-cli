@@ -2,10 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Path;
-use Laravel\VaporCli\Helpers;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
+use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Path;
 
 class SetBuildEnvironment
 {
@@ -47,6 +46,15 @@ class SetBuildEnvironment
 
         if (! file_exists($envPath = $this->appPath.'/.env')) {
             return;
+        }
+
+        if (file_exists($this->appPath.'/.env.'.$this->environment)) {
+            $this->files->copy(
+                $this->appPath.'/.env.'.$this->environment,
+                $envPath
+            );
+
+            $this->files->delete($this->appPath.'/.env.'.$this->environment);
         }
 
         $this->files->prepend(

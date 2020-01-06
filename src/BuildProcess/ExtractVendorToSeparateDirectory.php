@@ -2,11 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
+use Illuminate\Filesystem\Filesystem;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\AssetFiles;
-use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
 
 class ExtractVendorToSeparateDirectory
 {

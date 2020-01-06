@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use DateTime;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Illuminate\Support\Carbon;
@@ -166,7 +167,7 @@ class TailCommand extends Command
 
         $this->output->writeln(sprintf(
             '[<fg=magenta>%s</>] [<comment>%s</comment>]: %s',
-            $this->formatDate($message['datetime']['date']),
+            $this->formatDate($message['datetime']),
             $level,
             $this->formatMessage($message['message'])
         ));
@@ -199,12 +200,16 @@ class TailCommand extends Command
     /**
      * Format the given log message date.
      *
-     * @param  string  $date
+     * @param  string|array  $date
      * @return string
      */
     public function formatDate($date)
     {
-        return $date;
+        if (is_array($date)) {
+            return $date['date'];
+        }
+
+        return (new DateTime($date))->format('Y-m-d H:i:s');
     }
 
     /**
