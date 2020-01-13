@@ -12,9 +12,9 @@ class CacheInstanceClasses
     public static function general()
     {
         return [
-            'cache.t2.micro' => 'cache.t2.micro - (1 VCPU, 0.55GiB RAM) - Free Tier Eligible / ~$13 / month',
-            'cache.t2.small' => 'cache.t2.small - (1 VCPU, 1.55Gib RAM) - ~$25 / month',
-            'cache.t2.medium' => 'cache.t2.medium - (2 VCPU, 3.22Gib RAM) - ~$50 / month',
+            'cache.t3.micro' => 'cache.t3.micro - (2 VCPU, 0.5Gib RAM) - Free Tier Eligible ~$13 / month',
+            'cache.t3.small' => 'cache.t3.small - (2 VCPU, 1.37Gib RAM) - ~$25 / month',
+            'cache.t3.medium' => 'cache.t3.medium - (2 VCPU, 3.09Gib RAM) - ~$50 / month',
             'cache.m5.large' => 'cache.m5.large - (2 VCPU, 6.38Gib RAM) - ~$112 / month',
             'cache.m5.xlarge' => 'cache.m5.xlarge - (4 VCPU, 12.93Gib RAM) - ~$224 / month',
             'cache.m5.2xlarge' => 'cache.m5.2xlarge - (8 VCPU, 26.04Gib RAM) - ~$449 / month',
