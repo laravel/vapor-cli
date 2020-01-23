@@ -24,7 +24,7 @@ class AssetFiles
                 ->exclude('storage')
                 ->notName('.htaccess')
                 ->notName('web.config')
-                ->notName('mix-manifest.json')
+                ->notName('*.json')
                 ->notName('*.php')
                 ->ignoreVcs(true)
                 ->ignoreDotFiles(true)
