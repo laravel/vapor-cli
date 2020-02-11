@@ -84,14 +84,14 @@ class CertDeleteCommand extends Command
      */
     protected function getCertificateForDomain(array $certificates, $domain)
     {
-        $certificateId = collect($certificates)->firstWhere(
+        $certificate = collect($certificates)->firstWhere(
             'domain', $domain
         );
 
-        if (! $certificateId) {
+        if (! $certificate) {
             Helpers::abort('You do not have any certificates matching the given criteria.');
         }
 
-        return $certificateId;
+        return $certificate['id'];
     }
 }

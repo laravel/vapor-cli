@@ -27,15 +27,17 @@ class DeploymentSuccess
             $this->displayTargetDomains($deployment);
         }
 
-        Helpers::line();
+        if ($deployment->vanityDomain()) {
+            Helpers::line();
 
-        Helpers::table([
-            '<comment>Deployment ID</comment>',
-            '<comment>Environment URL (Copied To Clipboard)</comment>'
-        ], [[
-            "<bright>{$deployment->id}</>",
-            "<bright>https://{$deployment->vanityDomain()}</>",
-        ]]);
+            Helpers::table([
+                '<comment>Deployment ID</comment>',
+                '<comment>Environment URL (Copied To Clipboard)</comment>'
+            ], [[
+                "<bright>{$deployment->id}</>",
+                "<bright>https://{$deployment->vanityDomain()}</>",
+            ]]);
+        }
     }
 
     /**
