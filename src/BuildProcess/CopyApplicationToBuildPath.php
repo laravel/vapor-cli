@@ -58,6 +58,11 @@ class CopyApplicationToBuildPath
             $file->getRealPath(),
             $this->appPath.'/'.$file->getRelativePathname()
         );
+
+        $this->files->chmod(
+            $this->appPath.'/'.$file->getRelativePathname(),
+            fileperms($file->getRealPath())
+        );
     }
 
     /**
