@@ -67,7 +67,7 @@ class CompressApplication
     {
         return $file->isDir() || $file->getFilename() == 'php'
                         ? 33133  // '-r-xr-xr-x'
-                        : 33060; // '-r--r--r--'
+                        : fileperms($file->getRealPath());
     }
 
     /**
