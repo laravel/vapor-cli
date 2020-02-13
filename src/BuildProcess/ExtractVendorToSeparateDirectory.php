@@ -25,12 +25,10 @@ class ExtractVendorToSeparateDirectory
 
         $this->ensureVendorDirectoryExists();
 
-        (new Filesystem)->copyDirectory(
+        (new Filesystem)->move(
             $this->appPath.'/vendor',
             $this->buildPath.'/vendor'
         );
-
-        $this->files->deleteDirectory($this->appPath.'/vendor');
     }
 
     /**
