@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cc0c353e2f500eabf909e598f7de4e0",
+    "content-hash": "89adec37233c5bb20a1d8fbc4ea3ed6c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -346,16 +346,16 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v6.6.0",
+            "version": "v6.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "54f4bb37652076cdd4f518f1acc123a235fccdac"
+                "reference": "7af0de3a43acaa78c4418b548fb2a66b0ce851c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/54f4bb37652076cdd4f518f1acc123a235fccdac",
-                "reference": "54f4bb37652076cdd4f518f1acc123a235fccdac",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/7af0de3a43acaa78c4418b548fb2a66b0ce851c6",
+                "reference": "7af0de3a43acaa78c4418b548fb2a66b0ce851c6",
                 "shasum": ""
             },
             "require": {
@@ -366,7 +366,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "6.x-dev"
                 }
             },
             "autoload": {
@@ -386,20 +386,20 @@
             ],
             "description": "The Illuminate Container package.",
             "homepage": "https://laravel.com",
-            "time": "2019-11-06T13:26:31+00:00"
+            "time": "2020-01-07T13:47:03+00:00"
         },
         {
             "name": "illuminate/contracts",
-            "version": "v6.6.0",
+            "version": "v6.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "5e32ed8640ff70179dfde98eda04790b1cfa9a41"
+                "reference": "a6c7ef89684ce0e724b42c6bfe4b1107aee28a1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/5e32ed8640ff70179dfde98eda04790b1cfa9a41",
-                "reference": "5e32ed8640ff70179dfde98eda04790b1cfa9a41",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/a6c7ef89684ce0e724b42c6bfe4b1107aee28a1d",
+                "reference": "a6c7ef89684ce0e724b42c6bfe4b1107aee28a1d",
                 "shasum": ""
             },
             "require": {
@@ -410,7 +410,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "6.x-dev"
                 }
             },
             "autoload": {
@@ -430,20 +430,20 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "https://laravel.com",
-            "time": "2019-10-21T18:36:48+00:00"
+            "time": "2020-02-08T09:26:21+00:00"
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v6.6.0",
+            "version": "v6.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "197bac14e3f49d2c39f37e4a8ae1422ac08d50cf"
+                "reference": "58c1d87e80f72bc09201107553a08471577fbe79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/197bac14e3f49d2c39f37e4a8ae1422ac08d50cf",
-                "reference": "197bac14e3f49d2c39f37e4a8ae1422ac08d50cf",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/58c1d87e80f72bc09201107553a08471577fbe79",
+                "reference": "58c1d87e80f72bc09201107553a08471577fbe79",
                 "shasum": ""
             },
             "require": {
@@ -462,7 +462,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "6.x-dev"
                 }
             },
             "autoload": {
@@ -482,20 +482,20 @@
             ],
             "description": "The Illuminate Filesystem package.",
             "homepage": "https://laravel.com",
-            "time": "2019-10-27T20:14:21+00:00"
+            "time": "2020-01-28T14:30:01+00:00"
         },
         {
             "name": "illuminate/support",
-            "version": "v6.6.0",
+            "version": "v6.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "7e4c94d4a3a6422d5138051f24772e181b927d73"
+                "reference": "38ea484c5594cd33c677782bc205536a284a8918"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/7e4c94d4a3a6422d5138051f24772e181b927d73",
-                "reference": "7e4c94d4a3a6422d5138051f24772e181b927d73",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/38ea484c5594cd33c677782bc205536a284a8918",
+                "reference": "38ea484c5594cd33c677782bc205536a284a8918",
                 "shasum": ""
             },
             "require": {
@@ -520,7 +520,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "6.x-dev"
                 }
             },
             "autoload": {
@@ -543,7 +543,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2019-11-22T20:00:39+00:00"
+            "time": "2020-02-11T22:42:15+00:00"
         },
         {
             "name": "league/flysystem",
