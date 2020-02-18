@@ -45,7 +45,8 @@ class SetBuildEnvironment
         Helpers::step('<bright>Setting Build Environment</>');
 
         if (! file_exists($envPath = $this->appPath.'/.env')) {
-            return;
+            // create an empty .env
+            $this->files->put($envPath, '');
         }
 
         if (file_exists($this->appPath.'/.env.'.$this->environment)) {
@@ -58,16 +59,19 @@ class SetBuildEnvironment
         }
 
         $this->files->prepend(
-            $envPath, 'APP_ENV='.$this->environment.PHP_EOL
+            $envPath,
+            'APP_ENV='.$this->environment.PHP_EOL
         );
 
         // Mix takes the last environment variable value...
         $this->files->append(
-            $envPath, PHP_EOL.'APP_ENV='.$this->environment.PHP_EOL
+            $envPath,
+            PHP_EOL.'APP_ENV='.$this->environment.PHP_EOL
         );
 
         $this->files->append(
-            $envPath, 'ASSET_URL='.$this->assetUrl.PHP_EOL
+            $envPath,
+            'ASSET_URL='.$this->assetUrl.PHP_EOL
         );
     }
 }
