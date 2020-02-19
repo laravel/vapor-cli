@@ -68,7 +68,9 @@ class Command extends SymfonyCommand
 
         $this->configureOutputStyles($output);
 
-        return Helpers::app()->call([$this, 'handle']);
+        Helpers::app()->call([$this, 'handle']);
+
+        return 0;
     }
 
     /**

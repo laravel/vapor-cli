@@ -26,9 +26,9 @@ class Clipboard
     public static function put($string)
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            (new Process('echo '.$string.' | clip'))->run();
+            Process::fromShellCommandline('echo '.$string.' | clip')->run();
         } else {
-            (new Process('echo "'.$string.'" | pbcopy'))->run();
+            Process::fromShellCommandline('echo "'.$string.'" | pbcopy')->run();
         }
     }
 }

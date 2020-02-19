@@ -48,7 +48,7 @@ class Git
      */
     protected static function command($command)
     {
-        $process = new Process($command, Path::current());
+        $process = Process::fromShellCommandline($command, Path::current());
 
         $process->run();
 
