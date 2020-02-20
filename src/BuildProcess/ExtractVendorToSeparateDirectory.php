@@ -23,27 +23,9 @@ class ExtractVendorToSeparateDirectory
 
         Helpers::step('<bright>Extracting Vendor Files</>');
 
-        $this->ensureVendorDirectoryExists();
-
         (new Filesystem)->move(
             $this->appPath.'/vendor',
             $this->buildPath.'/vendor'
-        );
-    }
-
-    /**
-     * Ensure that the vendor directory exists.
-     *
-     * @return void
-     */
-    protected function ensureVendorDirectoryExists()
-    {
-        if ($this->files->isDirectory($this->buildPath.'/vendor')) {
-            $this->files->deleteDirectory($this->buildPath.'/vendor');
-        }
-
-        $this->files->makeDirectory(
-            $this->buildPath.'/vendor', 0755, true
         );
     }
 }
