@@ -77,11 +77,28 @@ class CompressApplication
      */
     protected function ensureArchiveIsWithinSizeLimits()
     {
-        $size = round(filesize($this->buildPath.'/app.zip') / 1048576, 1);
+        $size = ceil($this->getDirectorySize($this->buildPath.'/app') / 1048576);
 
-        if ($size > 45) {
+        if ($size > 250) {
             Helpers::line();
-            Helpers::abort('Compressed application is greater than 45MB. Your application is '.$size.'MB.');
+            Helpers::abort('Application is greater than 250MB. Your application is '.$size.'MB.');
         }
+    }
+
+    /**
+     * Get the size of the given directory.
+     *
+     * @param  string  $path
+     * @return int
+     */
+    protected function getDirectorySize($path)
+    {
+        $size = 0;
+
+        foreach (glob(rtrim($path, '/').'/*', GLOB_NOSORT) as $each) {
+            $size += is_file($each) ? filesize($each) : $this->getDirectorySize($each);
+        }
+
+        return $size;
     }
 }
