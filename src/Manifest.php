@@ -94,7 +94,7 @@ class Manifest
                     'cli-memory' => 512,
                     'runtime' => 'php-7.4',
                     'build' => [
-                        'composer install --no-dev',
+                        'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                         'php artisan event:cache',
                         'npm ci && npm run prod && rm -rf node_modules',
                     ],
@@ -104,7 +104,7 @@ class Manifest
                     'cli-memory' => 512,
                     'runtime' => 'php-7.4',
                     'build' => [
-                        'composer install',
+                        'COMPOSER_MIRROR_PATH_REPOS=1 composer install',
                         'php artisan event:cache',
                         'npm ci && npm run dev && rm -rf node_modules',
                     ],
@@ -129,7 +129,7 @@ class Manifest
         }
 
         $manifest['environments'][$environment] = ! empty($config) ? $config : [
-            'build' => ['composer install --no-dev']
+            'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev']
         ];
 
         $manifest['environments'] = collect(
