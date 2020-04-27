@@ -53,6 +53,8 @@ class LocalCommand extends Command
     public function handle()
     {
         $options = array_slice($_SERVER['argv'], $this->option('php') ? 3 : 2);
+        
+        $returnStatus = 0;
 
         file_put_contents(
             $dockerComposePath = Path::current().'/vapor-docker-compose.yml',
@@ -75,10 +77,13 @@ class LocalCommand extends Command
                 '-v',
                 Path::current().':/app',
                 'app',
-            ], $options))
+            ], $options)),
+            $returnStatus
         );
 
         unlink($dockerComposePath);
+        
+        exit($returnStatus);
     }
 
     /**
