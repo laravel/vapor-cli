@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ProjectDescribeCommand extends Command
 {
-    const DEFAULT_FORMAT = '[<comment>%setting-key%</comment>] <info>%setting-value%</info>';
+    const DEFAULT_FORMAT = '[<comment>%attribute-key%</comment>] <info>%attribute-value%</info>';
 
     /**
      * Configure the command options.
@@ -21,9 +21,9 @@ class ProjectDescribeCommand extends Command
     {
         $this
             ->setName('project:describe')
-            ->addOption('list', 'l', InputOption::VALUE_NONE, 'List settings')
-            ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'List format')
-            ->addArgument('setting-key', null, 'Setting key')
+            ->addArgument('attribute', null, 'The project attribute you would like to retrieve')
+            ->addOption('list', 'l', InputOption::VALUE_NONE, 'Indicate that all attributes should be listed')
+            ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'The list format string')
             ->setDescription('Describe the project');
     }
 
@@ -36,7 +36,7 @@ class ProjectDescribeCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        $settingKey = $this->argument('setting-key');
+        $settingKey = $this->argument('attribute');
 
         if ($settingKey && $settingKey === 'id') {
             // If we want the ID, we can just get it.
@@ -57,7 +57,6 @@ class ProjectDescribeCommand extends Command
             'management_url' => 'https://vapor.laravel.com/app/projects/' . $project['id'],
         ];
 
-        // List the configuration of the file settings
         if ($this->option('list')) {
             $format = $this->option('format') ?: static::DEFAULT_FORMAT;
 
@@ -66,13 +65,17 @@ class ProjectDescribeCommand extends Command
                     $settingValue = var_export($settingValue, true);
                 }
 
-                Helpers::line(str_replace(['%setting-key%', '%setting-value%'], [$settingKey, $settingValue], $format));
+                Helpers::line(str_replace(
+                    ['%attribute-key%', '%attribute-value%'],
+                    [$settingKey, $settingValue],
+                    $format
+                ));
             }
 
             return;
         }
 
-        if (!$settingKey || !is_string($settingKey)) {
+        if (! $settingKey || ! is_string($settingKey)) {
             return;
         }
 
