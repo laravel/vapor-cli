@@ -49,10 +49,38 @@ Container::setInstance($container = new Container);
 
 require __DIR__.'/services.php';
 
+$version = (function () {
+    $installedDotJsonLocation = __DIR__.'/../../composer/installed.json';
+
+    if (file_exists($installedDotJsonLocation)) {
+        $decoded = json_decode(file_get_contents($installedDotJsonLocation), true);
+
+        $package = collect($decoded)->first(function ($package) {
+            return $package['name'] === 'laravel/vapor-cli';
+        });
+
+        if ($package) {
+            return  $package['version'];
+        }
+
+        return 'unknown';
+    }
+
+    if (file_exists(__DIR__.'/.git/HEAD')) {
+        $refs = trim(file_get_contents(__DIR__.'/.git/HEAD'));
+
+        $parts = explode('/', $refs);
+
+        return implode('/', array_slice($parts, 2));
+    }
+
+    return 'local';
+})();
+
 /**
  * Start the console application.
  */
-$app = new Application('Laravel Vapor', '1.5.0');
+$app = new Application('Laravel Vapor', $version);
 
 // Authentication...
 $app->add(new Commands\LoginCommand);
