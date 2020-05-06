@@ -42,11 +42,14 @@ class MetricsCommand extends Command
         ], [
             ['API Gateway Requests', number_format($metrics['totalRestApiRequests']), '<finished>$'.number_format($metrics['estimatedApiCost'], 2).'</finished>'],
             ['Web Function Invocations', number_format($metrics['totalFunctionInvocations']), '-'],
-            ['CLI / Queue Function Invocations', number_format($metrics['totalCliFunctionInvocations']), '-'],
+            ['CLI Function Invocations', number_format($metrics['totalCliFunctionInvocations']), '-'],
+            ['Queue Function Invocations', number_format($metrics['totalQueueFunctionInvocations']), '-'],
             ['Average Web Function Duration', number_format($metrics['averageFunctionDuration'], 0).'ms', '-'],
-            ['Average CLI / Queue Function Duration', number_format($metrics['averageCliFunctionDuration'], 0).'ms', '-'],
+            ['Average CLI Function Duration', number_format($metrics['averageCliFunctionDuration'], 0).'ms', '-'],
+            ['Average Queue Function Duration', number_format($metrics['averageQueueFunctionDuration'], 0).'ms', '-'],
             ['Total Web Function Duration', number_format($metrics['totalFunctionDuration'] / 1000, 0).'s', '<finished>$'.number_format($metrics['estimatedCost'], 2).'</finished>'],
-            ['Total CLI / Queue Function Duration', number_format($metrics['totalCliFunctionDuration'] / 1000, 0).'s', '<finished>$'.number_format($metrics['estimatedCliCost'], 2).'</finished>'],
+            ['Total CLI Function Duration', number_format($metrics['totalCliFunctionDuration'] / 1000, 0).'s', '<finished>$'.number_format($metrics['estimatedCliCost'], 2).'</finished>'],
+            ['Total Queue Function Duration', number_format($metrics['totalQueueFunctionDuration'] / 1000, 0).'s', '<finished>$'.number_format($metrics['estimatedQueueCost'], 2).'</finished>'],
         ]);
 
         Helpers::line();
