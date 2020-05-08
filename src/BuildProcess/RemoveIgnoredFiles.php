@@ -123,6 +123,8 @@ class RemoveIgnoredFiles
             [$directory, $filePattern] = $this->parsePattern($pattern);
 
             if ($this->files->exists($directory.'/'.$filePattern) && $this->files->isDirectory($directory.'/'.$filePattern)) {
+                Helpers::step('<comment>Removing Ignored Directory:</comment> '.$filePattern.'/');
+
                 $this->files->deleteDirectory($directory.'/'.$filePattern, $preserve = false);
             } else {
                 $files = (new Finder)
