@@ -16,6 +16,7 @@ class Regions
             'us-east-2' => 'US East (Ohio) (us-east-2)',
             'us-west-1' => 'US West (N. California) (us-west-1)',
             'us-west-2' => 'US West (Oregon) (us-west-2)',
+            'af-south-1' => 'Africa (Capetown) (af-south-1)',
             'ap-east-1' => 'Asia Pacific (Hong Kong) (ap-east-1)',
             'ap-south-1' => 'Asia Pacific (Mumbai) (ap-south-1)',
             // 'ap-northeast-3' => 'Asia Pacific (Osaka-Local) (ap-northeast-3)',
@@ -31,6 +32,7 @@ class Regions
             'eu-west-2' => 'EU (London) (eu-west-2)',
             'eu-west-3' => 'EU (Paris) (eu-west-3)',
             'eu-north-1' => 'EU (Stockholm) (eu-north-1)',
+            'me-south-1' => 'Middle East (Bahrain) (me-south-1)',
             'sa-east-1' => 'South America (São Paulo) (sa-east-1)',
         ];
     }
