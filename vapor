@@ -52,7 +52,7 @@ require __DIR__.'/services.php';
 /**
  * Start the console application.
  */
-$app = new Application('Laravel Vapor', '1.4.7');
+$app = new Application('Laravel Vapor', '1.6.2');
 
 // Authentication...
 $app->add(new Commands\LoginCommand);
@@ -133,10 +133,12 @@ $app->add(new Commands\BalancerDeleteCommand);
 // Projects...
 $app->add(new Commands\InitCommand);
 $app->add(new Commands\ProjectDeleteCommand);
+$app->add(new Commands\ProjectDescribeCommand);
 
 // Environments...
 $app->add(new Commands\EnvListCommand);
 $app->add(new Commands\EnvCommand);
+$app->add(new Commands\EnvDescribeCommand);
 $app->add(new Commands\EnvPullCommand);
 $app->add(new Commands\EnvPushCommand);
 $app->add(new Commands\EnvCloneCommand);

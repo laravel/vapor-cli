@@ -758,6 +758,19 @@ class ConsoleVaporClient
     }
 
     /**
+     * Get the environment by a specific name for the given project.
+     *
+     * @param  string  $projectId
+     * @return array
+     */
+    public function environmentNamed($projectId, $name)
+    {
+        return collect($this->environments($projectId))->first(function ($environment) use ($name) {
+            return $environment['name'] === $name;
+        });
+    }
+
+    /**
      * Delete the given project.
      *
      * @param  string  $projectId
