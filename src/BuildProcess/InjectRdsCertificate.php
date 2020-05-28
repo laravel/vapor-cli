@@ -15,7 +15,7 @@ class InjectRdsCertificate
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Injecting RDS SSL Certificate</>');
+        Helpers::step('<options=bold>Injecting RDS SSL Certificate</>');
 
         $stubPath = $this->appPath.'/vendor/laravel/vapor-core/stubs';
 

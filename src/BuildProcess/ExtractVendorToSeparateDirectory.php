@@ -21,7 +21,7 @@ class ExtractVendorToSeparateDirectory
             return;
         }
 
-        Helpers::step('<bright>Extracting Vendor Files</>');
+        Helpers::step('<options=bold>Extracting Vendor Files</>');
 
         (new Filesystem)->move(
             $this->appPath.'/vendor',

@@ -20,7 +20,7 @@ class ConfigureComposerAutoloader
             return;
         }
 
-        Helpers::step('<bright>Configuring Composer Autoloader</>');
+        Helpers::step('<options=bold>Configuring Composer Autoloader</>');
 
         file_put_contents(
             $this->appPath.'/vendor/composer/autoload_static.php',

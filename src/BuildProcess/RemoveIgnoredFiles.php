@@ -19,7 +19,7 @@ class RemoveIgnoredFiles
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Removing Ignored Files</>');
+        Helpers::step('<options=bold>Removing Ignored Files</>');
 
         $this->removeDefaultIgnoredFiles();
         $this->removeDefaultIgnoredDirectories();

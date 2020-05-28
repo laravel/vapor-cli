@@ -36,7 +36,7 @@ class EnvPushCommand extends Command
             Helpers::abort('The environment variables for that environment have not been downloaded.');
         }
 
-        Helpers::step('<bright>Uploading Environment File...</>');
+        Helpers::step('<options=bold>Uploading Environment File...</>');
 
         $this->vapor->updateEnvironmentVariables(
             Manifest::id(), $environment, file_get_contents($file)

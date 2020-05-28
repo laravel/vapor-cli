@@ -15,7 +15,7 @@ class InjectErrorPages
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Injecting Error Pages</>');
+        Helpers::step('<options=bold>Injecting Error Pages</>');
 
         $stubPath = $this->appPath.'/vendor/laravel/vapor-core/stubs';
 

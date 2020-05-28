@@ -80,10 +80,6 @@ class Command extends SymfonyCommand
     protected function configureOutputStyles(OutputInterface $output)
     {
         $output->getFormatter()->setStyle(
-            'bright', new OutputFormatterStyle('white', 'default', ['bold'])
-        );
-
-        $output->getFormatter()->setStyle(
             'finished', new OutputFormatterStyle('green', 'default', ['bold'])
         );
     }

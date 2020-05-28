@@ -17,7 +17,7 @@ class ExtractAssetsToSeparateDirectory
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Extracting Assets</>');
+        Helpers::step('<options=bold>Extracting Assets</>');
 
         $this->ensureAssetDirectoryExists();
 

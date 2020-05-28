@@ -40,7 +40,7 @@ class ProcessAssets
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Processing Assets</>');
+        Helpers::step('<options=bold>Processing Assets</>');
 
         foreach (AssetFiles::get($this->appPath.'/public') as $file) {
             if (! Str::endsWith($file->getRealPath(), '.css')) {

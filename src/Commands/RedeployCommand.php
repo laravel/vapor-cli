@@ -33,7 +33,7 @@ class RedeployCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        Helpers::step('<bright>Initiating Redeployment</bright>');
+        Helpers::step('<options=bold>Initiating Redeployment</>');
 
         $deployment = $this->displayDeploymentProgress(
             $this->vapor->redeploy(Manifest::id(), $this->argument('environment'))

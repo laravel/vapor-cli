@@ -34,8 +34,8 @@ class DeploymentSuccess
                 '<comment>Deployment ID</comment>',
                 '<comment>Environment URL (Copied To Clipboard)</comment>'
             ], [[
-                "<bright>{$deployment->id}</>",
-                "<bright>https://{$deployment->vanityDomain()}</>",
+                "<options=bold>{$deployment->id}</>",
+                "<options=bold>https://{$deployment->vanityDomain()}</>",
             ]]);
         }
     }

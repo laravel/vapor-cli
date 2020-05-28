@@ -41,7 +41,7 @@ class CommandCommand extends Command
             $this->option('command') ?? Helpers::ask('What command would you like to execute')
         );
 
-        Helpers::step('<bright>Executing Function...</>'.PHP_EOL);
+        Helpers::step('<options=bold>Executing Function...</>'.PHP_EOL);
 
         // We will poll the backend service to get the invocations status and wait until
         // it gets done processing. Once it's done we will be able to show the status

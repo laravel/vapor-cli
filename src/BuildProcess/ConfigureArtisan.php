@@ -17,7 +17,7 @@ class ConfigureArtisan
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Configuring Artisan</>');
+        Helpers::step('<options=bold>Configuring Artisan</>');
 
         file_put_contents(
             $this->appPath.'/artisan',

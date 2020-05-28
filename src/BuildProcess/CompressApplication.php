@@ -18,7 +18,7 @@ class CompressApplication
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Compressing Application</>');
+        Helpers::step('<options=bold>Compressing Application</>');
 
         if (PHP_OS == 'Darwin') {
             $this->compressApplicationOnMac();
