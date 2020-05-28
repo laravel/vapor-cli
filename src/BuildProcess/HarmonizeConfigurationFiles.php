@@ -16,7 +16,7 @@ class HarmonizeConfigurationFiles
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Harmonizing Configuration Files</>');
+        Helpers::step('<options=bold>Harmonizing Configuration Files</>');
 
         $configFiles = (new Finder)->files()->in($this->appPath.'/config');
 

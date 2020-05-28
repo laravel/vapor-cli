@@ -17,7 +17,7 @@ class CopyApplicationToBuildPath
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Copying Application Files</>');
+        Helpers::step('<options=bold>Copying Application Files</>');
 
         $this->ensureBuildDirectoryExists();
 

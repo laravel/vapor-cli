@@ -67,7 +67,7 @@ trait DisplaysDeploymentProgress
     protected function displayActiveDeploymentSteps(Deployment $deployment)
     {
         foreach ($deployment->displayableSteps($this->displayedSteps) as $step) {
-            Helpers::step("<bright>{$step}</bright>");
+            Helpers::step("<options=bold>{$step}</>");
 
             $this->displayedSteps[] = $step;
         }

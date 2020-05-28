@@ -33,7 +33,7 @@ class UpCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        Helpers::step('<bright>Initiating Active Mode Deployment</bright>');
+        Helpers::step('<options=bold>Initiating Active Mode Deployment</>');
 
         $deployment = $this->displayDeploymentProgress(
             $this->vapor->disableMaintenanceMode(Manifest::id(), $this->argument('environment'))

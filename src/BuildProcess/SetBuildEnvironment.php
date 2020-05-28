@@ -42,7 +42,7 @@ class SetBuildEnvironment
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Setting Build Environment</>');
+        Helpers::step('<options=bold>Setting Build Environment</>');
 
         if (! file_exists($envPath = $this->appPath.'/.env')) {
             $this->files->put($envPath, '');

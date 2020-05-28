@@ -17,7 +17,7 @@ class ExecuteBuildCommands
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Executing Build Commands</>');
+        Helpers::step('<options=bold>Executing Build Commands</>');
 
         foreach (Manifest::buildCommands($this->environment) as $command) {
             Helpers::step('<comment>Running Command</comment>: '.$command);

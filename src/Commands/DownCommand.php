@@ -33,7 +33,7 @@ class DownCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        Helpers::step('<bright>Initiating Maintenance Mode Deployment</bright>');
+        Helpers::step('<options=bold>Initiating Maintenance Mode Deployment</>');
 
         $deployment = $this->displayDeploymentProgress(
             $this->vapor->enableMaintenanceMode(Manifest::id(), $this->argument('environment'))

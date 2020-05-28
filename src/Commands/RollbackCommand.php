@@ -50,7 +50,7 @@ class RollbackCommand extends Command
             $this->formatDeployments($deployments)
         );
 
-        Helpers::step('<bright>Initiating Rollback</bright>');
+        Helpers::step('<options=bold>Initiating Rollback</>');
 
         // Once the rollback is running we will show the deployment pipeline as when
         // running a typical deployment. After the deployment is over we can push

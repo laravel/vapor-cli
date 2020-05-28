@@ -17,7 +17,7 @@ class CollectSecrets
      */
     public function __invoke()
     {
-        Helpers::step('<bright>Collecting Secrets</>');
+        Helpers::step('<options=bold>Collecting Secrets</>');
 
         $secrets = collect(
                 Helpers::app(ConsoleVaporClient::class)
