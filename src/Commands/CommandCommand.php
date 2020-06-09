@@ -38,7 +38,7 @@ class CommandCommand extends Command
         $command = $this->vapor->invoke(
             Manifest::id(),
             $environment = $this->argument('environment'),
-            $this->option('command') ?? Helpers::ask('What command would you like to execute')
+            $this->getCommand()
         );
 
         Helpers::step('<options=bold>Executing Function...</>'.PHP_EOL);
@@ -64,6 +64,16 @@ class CommandCommand extends Command
         Helpers::line('<fg=magenta>AWS Request ID:</> '.$command['request_id']);
         Helpers::line('<fg=magenta>AWS Log Group Name:</> '.$command['log_group']);
         Helpers::line('<fg=magenta>AWS Log Stream Name:</> '.$command['log_stream']);
+    }
+
+    /**
+     * Get the command to run.
+     *
+     * @return string
+     */
+    protected function getCommand()
+    {
+        return $this->option('command') ?? Helpers::ask('What command would you like to execute');
     }
 
     /**
