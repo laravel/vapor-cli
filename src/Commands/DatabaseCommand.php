@@ -109,7 +109,9 @@ class DatabaseCommand extends Command
 
         return tap($this->option('serverless') ? 'aurora-serverless' : $this->menu('Which type of database would you like to create?', [
             'rds' => 'Fixed Size MySQL Instance (Free Tier Eligible)',
-            'aurora-serverless' => 'Serverless MySQL Aurora Cluster (Autoscaling, ~$45 / month minimum)',
+            'aurora-serverless' => 'Serverless MySQL Aurora Cluster',
+            'rds-pgsql' => 'Fixed Size PostgreSQL Instance',
+            'aurora-serverless-pgsql' => 'Serverless PostgreSQL Aurora Cluster',
         ]), function ($type) use ($public) {
             if ($type == 'aurora-serverless' && $public) {
                 Helpers::abort('Aurora Serverless clusters may not be publicly accessible.');
