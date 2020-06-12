@@ -60,6 +60,7 @@ $app->add(new Commands\LoginCommand);
 // Teams...
 $app->add(new Commands\TeamListCommand);
 $app->add(new Commands\TeamCommand);
+$app->add(new Commands\TeamSetCommand);
 $app->add(new Commands\TeamCurrentCommand);
 $app->add(new Commands\TeamSwitchCommand);
 $app->add(new Commands\MemberListCommand);
