@@ -17,6 +17,7 @@
         "vapor"
     ],
     "require": {
+        "ext-zip": "*",
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/container": "^6.0|^7.0",
         "illuminate/filesystem": "^6.0|^7.0",
