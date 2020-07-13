@@ -132,6 +132,7 @@ $app->add(new Commands\BalancerDeleteCommand);
 
 // Projects...
 $app->add(new Commands\InitCommand);
+$app->add(new Commands\ProjectDashboardCommand);
 $app->add(new Commands\ProjectDeleteCommand);
 $app->add(new Commands\ProjectDescribeCommand);
 
