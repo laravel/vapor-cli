@@ -6,7 +6,7 @@ use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Process\Process;
 
-class ProjectDashboardCommand extends Command
+class UiCommand extends Command
 {
     /**
      * Configure the command options.
@@ -16,7 +16,7 @@ class ProjectDashboardCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('project:dashboard')
+            ->setName('ui')
             ->setDescription("Open the current project in Vapor's dashboard");
     }
 

@@ -2,15 +2,15 @@
 <?php
 
 use Dotenv\Dotenv;
-use Laravel\VaporCli\Commands;
-use Illuminate\Container\Container;
-use Dotenv\Environment\DotenvFactory;
-use Symfony\Component\Console\Application;
 use Dotenv\Environment\Adapter\EnvConstAdapter as V3EnvConstAdapter;
 use Dotenv\Environment\Adapter\ServerConstAdapter as V3ServerConstAdapter;
+use Dotenv\Environment\DotenvFactory;
 use Dotenv\Repository\Adapter\EnvConstAdapter as V4EnvConstAdapter;
 use Dotenv\Repository\Adapter\ServerConstAdapter as V4ServerConstAdapter;
 use Dotenv\Repository\RepositoryBuilder;
+use Illuminate\Container\Container;
+use Laravel\VaporCli\Commands;
+use Symfony\Component\Console\Application;
 
 /**
  * Require the autoloader.
@@ -132,7 +132,7 @@ $app->add(new Commands\BalancerDeleteCommand);
 
 // Projects...
 $app->add(new Commands\InitCommand);
-$app->add(new Commands\ProjectDashboardCommand);
+$app->add(new Commands\UiCommand);
 $app->add(new Commands\ProjectDeleteCommand);
 $app->add(new Commands\ProjectDescribeCommand);
 
