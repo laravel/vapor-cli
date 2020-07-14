@@ -74,7 +74,7 @@ class DatabaseTunnelCommand extends Command
             : $jumpBoxes->firstWhere('version', '>', 1);
 
         if (is_null($jumpBox)) {
-            Helpers::abort('A compatible jumpbox is required in order to start a shell session.');
+            Helpers::abort('A compatible jumpbox is required in order to create a tunnel.');
         }
 
         return $jumpBox;
