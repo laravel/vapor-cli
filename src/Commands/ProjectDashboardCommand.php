@@ -17,7 +17,7 @@ class ProjectDashboardCommand extends Command
     {
         $this
             ->setName('project:dashboard')
-            ->setDescription('Open the current project in Vapor\'s dashboard');
+            ->setDescription("Open the current project in Vapor's dashboard");
     }
 
     /**
@@ -30,7 +30,9 @@ class ProjectDashboardCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $url = 'https://vapor.laravel.com/app/projects/'.Manifest::id();
-        Helpers::info("Opening $url in the default browser...");
+
+        Helpers::info("Opening [{$url}] using your default browser...");
+
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             Process::fromShellCommandline('start '.escapeshellarg($url))->run();
         } else {
