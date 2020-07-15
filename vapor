@@ -109,6 +109,7 @@ $app->add(new Commands\DatabaseUsersCommand);
 $app->add(new Commands\DatabaseUserCommand);
 $app->add(new Commands\DatabaseDropUserCommand);
 $app->add(new Commands\DatabaseShellCommand);
+$app->add(new Commands\DatabaseTunnelCommand);
 $app->add(new Commands\DatabaseDeleteCommand);
 
 // Caches...
