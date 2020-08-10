@@ -263,6 +263,9 @@ class DeployCommand extends Command
         }
 
         $version = collect(json_decode(file_get_contents($file)))
+                ->pipe(function ($composer) {
+                    return collect($composer->get('packages', $composer));
+                })
                 ->where('name', 'laravel/vapor-core')
                 ->first()->version;
 
