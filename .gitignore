@@ -7,3 +7,4 @@ seed.php
 .env.production
 .env.staging
 vapor.phar
+.phpunit.result.cache
