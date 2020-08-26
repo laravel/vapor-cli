@@ -5,8 +5,8 @@ use Dotenv\Dotenv;
 use Dotenv\Environment\Adapter\EnvConstAdapter as V3EnvConstAdapter;
 use Dotenv\Environment\Adapter\ServerConstAdapter as V3ServerConstAdapter;
 use Dotenv\Environment\DotenvFactory;
-use Dotenv\Repository\Adapter\EnvConstAdapter as V4EnvConstAdapter;
-use Dotenv\Repository\Adapter\ServerConstAdapter as V4ServerConstAdapter;
+use Dotenv\Repository\Adapter\EnvConstAdapter as V4orV5EnvConstAdapter;
+use Dotenv\Repository\Adapter\ServerConstAdapter as V4orV5ServerConstAdapter;
 use Dotenv\Repository\RepositoryBuilder;
 use Illuminate\Container\Container;
 use Laravel\VaporCli\Commands;
@@ -26,16 +26,35 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
  */
 (function () {
     if (class_exists(RepositoryBuilder::class)) {
-        $adapters = [new V4EnvConstAdapter, new V4ServerConstAdapter];
 
-        $repository = RepositoryBuilder::create()
-            ->withReaders($adapters)
-            ->withWriters($adapters)
-            ->immutable()
-            ->make();
+        $adapters = [
+            V4orV5EnvConstAdapter::class,
+            V4orV5ServerConstAdapter::class,
+        ];
 
-        Dotenv::create($repository, __DIR__)->safeLoad();
-    } else {
+        if (method_exists(RepositoryBuilder::class, 'addReader')) { // V5
+            $repository = RepositoryBuilder::createWithNoAdapters();
+
+            foreach ($adapters as $adapter) {
+                $repository = $repository
+                    ->addReader($adapter)
+                    ->addWriter($adapter);
+            }
+        } else { // V4
+            $adapters = array_map(function ($adapterClass) {
+                return new $adapterClass();
+            }, $adapters);
+
+            $repository = RepositoryBuilder::create()
+                ->withReaders($adapters)
+                ->withWriters($adapters);
+        }
+
+        Dotenv::create(
+            $repository->immutable()->make(),
+            __DIR__
+        )->safeLoad();
+    } else { // V3
         Dotenv::create(__DIR__, null, new DotenvFactory([
             new V3EnvConstAdapter, new V3ServerConstAdapter
         ]))->safeLoad();
