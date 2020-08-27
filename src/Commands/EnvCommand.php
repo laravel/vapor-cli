@@ -2,9 +2,9 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\GitIgnore;
 use Symfony\Component\Console\Input\InputArgument;
 
 class EnvCommand extends Command
@@ -32,7 +32,8 @@ class EnvCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $this->vapor->createEnvironment(
-            Manifest::id(), $environment = $this->argument('environment')
+            Manifest::id(),
+            $environment = $this->argument('environment')
         );
 
         Manifest::addEnvironment($environment);

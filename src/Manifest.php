@@ -23,7 +23,7 @@ class Manifest
      */
     public static function current()
     {
-        if (! file_exists(Path::manifest())) {
+        if (!file_exists(Path::manifest())) {
             Helpers::abort('Unable to find a Vapor manifest in this directory.');
         }
 
@@ -33,12 +33,13 @@ class Manifest
     /**
      * Get the build commands for the given environment.
      *
-     * @param  string  $environment
+     * @param string $environment
+     *
      * @return array
      */
     public static function buildCommands($environment)
     {
-        if (! isset(static::current()['environments'][$environment])) {
+        if (!isset(static::current()['environments'][$environment])) {
             Helpers::abort("The [{$environment}] environment has not been defined.");
         }
 
@@ -59,7 +60,7 @@ class Manifest
     /**
      * Determine if we should separate the vendor directory.
      *
-     * @return boolean
+     * @return bool
      */
     public static function shouldSeparateVendor()
     {
@@ -69,7 +70,8 @@ class Manifest
     /**
      * Write a fresh manifest file for the given project.
      *
-     * @param  array  $project
+     * @param array $project
+     *
      * @return void
      */
     public static function fresh($project)
@@ -80,30 +82,31 @@ class Manifest
     /**
      * Write a fresh main manifest file for the given project.
      *
-     * @param  array  $project
+     * @param array $project
+     *
      * @return void
      */
     protected static function freshConfiguration($project)
     {
         static::write(array_filter([
-            'id' => $project['id'],
-            'name' => $project['name'],
+            'id'           => $project['id'],
+            'name'         => $project['name'],
             'environments' => [
                 'production' => array_filter([
-                    'memory' => 1024,
+                    'memory'     => 1024,
                     'cli-memory' => 512,
-                    'runtime' => 'php-7.4',
-                    'build' => [
+                    'runtime'    => 'php-7.4',
+                    'build'      => [
                         'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                         'php artisan event:cache',
                         'npm ci && npm run prod && rm -rf node_modules',
                     ],
                 ]),
                 'staging' => array_filter([
-                    'memory' => 1024,
+                    'memory'     => 1024,
                     'cli-memory' => 512,
-                    'runtime' => 'php-7.4',
-                    'build' => [
+                    'runtime'    => 'php-7.4',
+                    'build'      => [
                         'COMPOSER_MIRROR_PATH_REPOS=1 composer install',
                         'php artisan event:cache',
                         'npm ci && npm run dev && rm -rf node_modules',
@@ -116,8 +119,9 @@ class Manifest
     /**
      * Add an environment to the manifest.
      *
-     * @param  string  $environment
-     * @param  array  $config
+     * @param string $environment
+     * @param array  $config
+     *
      * @return void
      */
     public static function addEnvironment($environment, array $config = [])
@@ -128,8 +132,8 @@ class Manifest
             Helpers::abort('That environment already exists.');
         }
 
-        $manifest['environments'][$environment] = ! empty($config) ? $config : [
-            'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev']
+        $manifest['environments'][$environment] = !empty($config) ? $config : [
+            'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'],
         ];
 
         $manifest['environments'] = collect(
@@ -142,7 +146,8 @@ class Manifest
     /**
      * Delete the given environment from the manifest.
      *
-     * @param  string  $environment
+     * @param string $environment
+     *
      * @return void
      */
     public static function deleteEnvironment($environment)
@@ -157,8 +162,9 @@ class Manifest
     /**
      * Write the given array to disk as the new manifest.
      *
-     * @param  array  $manifest
-     * @param  string|null  $path
+     * @param array       $manifest
+     * @param string|null $path
+     *
      * @return void
      */
     protected static function write(array $manifest, $path = null)

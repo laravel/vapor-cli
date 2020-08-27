@@ -38,7 +38,7 @@ class TeamSwitchCommand extends Command
 
         $teamId = null;
 
-        if (! empty($this->option('id'))) {
+        if (!empty($this->option('id'))) {
             $team = collect($allTeams)->where('id', $this->option('id'))->first();
 
             if (empty($team)) {

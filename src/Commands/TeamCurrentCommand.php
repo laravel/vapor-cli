@@ -32,7 +32,7 @@ class TeamCurrentCommand extends Command
             $this->vapor->ownedTeams()
         ))->where('id', Helpers::config('team'))->first();
 
-        if (! $team) {
+        if (!$team) {
             Helpers::abort('Unable to determine current team.');
         }
 

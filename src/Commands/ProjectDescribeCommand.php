@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Path;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use RuntimeException;
@@ -48,13 +47,13 @@ class ProjectDescribeCommand extends Command
         $project = $this->vapor->project(Manifest::id());
 
         $description = [
-            'id' => $project['id'],
-            'name' => $project['name'],
-            'team_id' => $project['team_id'],
-            'team_name' => $project['team']['name'],
-            'region' => $project['region'],
+            'id'                => $project['id'],
+            'name'              => $project['name'],
+            'team_id'           => $project['team_id'],
+            'team_name'         => $project['team']['name'],
+            'region'            => $project['region'],
             'github_repository' => $project['github_repository'],
-            'management_url' => 'https://vapor.laravel.com/app/projects/' . $project['id'],
+            'management_url'    => 'https://vapor.laravel.com/app/projects/'.$project['id'],
         ];
 
         if ($this->option('list')) {
@@ -75,11 +74,11 @@ class ProjectDescribeCommand extends Command
             return;
         }
 
-        if (! $settingKey || ! is_string($settingKey)) {
+        if (!$settingKey || !is_string($settingKey)) {
             return;
         }
 
-        if (! array_key_exists($settingKey, $description)) {
+        if (!array_key_exists($settingKey, $description)) {
             throw new RuntimeException($settingKey.' is not defined');
         }
 

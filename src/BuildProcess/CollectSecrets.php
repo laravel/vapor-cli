@@ -20,7 +20,7 @@ class CollectSecrets
         Helpers::step('<options=bold>Collecting Secrets</>');
 
         $secrets = collect(
-                Helpers::app(ConsoleVaporClient::class)
+            Helpers::app(ConsoleVaporClient::class)
                     ->secrets(Manifest::id(), $this->environment)
         )->mapWithKeys(function ($secret) {
             return [$secret['name'] => $secret['version']];

@@ -27,11 +27,11 @@ class CacheDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm("Are you sure you want to delete this cache", false)) {
+        if (!Helpers::confirm('Are you sure you want to delete this cache', false)) {
             Helpers::abort('Action cancelled.');
         }
 
-        if (! is_numeric($cacheId = $this->argument('cache'))) {
+        if (!is_numeric($cacheId = $this->argument('cache'))) {
             $cacheId = $this->findIdByName($this->vapor->caches(), $cacheId);
         }
 

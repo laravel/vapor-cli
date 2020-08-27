@@ -3,11 +3,11 @@
 namespace Laravel\VaporCli\Commands;
 
 use Illuminate\Support\Str;
+use Laravel\VaporCli\Clipboard;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\Clipboard;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class RollbackCommand extends Command
 {
@@ -45,7 +45,7 @@ class RollbackCommand extends Command
             $environment
         );
 
-        $id = ! $this->option('select') ? $deployments[0]['id'] : $this->menu(
+        $id = !$this->option('select') ? $deployments[0]['id'] : $this->menu(
             'Which deployment would you like to rollback to?',
             $this->formatDeployments($deployments)
         );
@@ -65,13 +65,15 @@ class RollbackCommand extends Command
     /**
      * Get the available deployments for the environment.
      *
-     * @param  string  $environment
+     * @param string $environment
+     *
      * @return array
      */
     protected function availableDeployments($environment)
     {
         $deployments = $this->vapor->deployments(
-            Manifest::id(), $environment
+            Manifest::id(),
+            $environment
         );
 
         if (empty($deployments)) {
@@ -92,7 +94,8 @@ class RollbackCommand extends Command
     /**
      * Format the deployments into an array of choices.
      *
-     * @param  array  $deployments
+     * @param array $deployments
+     *
      * @return array
      */
     protected function formatDeployments(array $deployments)
@@ -105,7 +108,8 @@ class RollbackCommand extends Command
     /**
      * Get the displayable deployment name for the given deployment.
      *
-     * @param  array  $deployment
+     * @param array $deployment
+     *
      * @return string
      */
     protected function deploymentName(array $deployment)

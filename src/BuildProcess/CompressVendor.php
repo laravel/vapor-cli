@@ -19,7 +19,7 @@ class CompressVendor
      */
     public function __invoke()
     {
-        if (! Manifest::shouldSeparateVendor()) {
+        if (!Manifest::shouldSeparateVendor()) {
             return;
         }
 
@@ -29,12 +29,12 @@ class CompressVendor
             return $this->compressOnMac();
         }
 
-        $archive = new ZipArchive;
+        $archive = new ZipArchive();
 
         $archive->open($this->buildPath.'/vendor.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach (BuiltApplicationFiles::get($this->vendorPath) as $file) {
-            $relativePathName = str_replace("\\", "/", $file->getRelativePathname());
+            $relativePathName = str_replace('\\', '/', $file->getRelativePathname());
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
@@ -61,7 +61,8 @@ class CompressVendor
     /**
      * Get the proper file permissions for the file.
      *
-     * @param  \SplFileInfo  $file
+     * @param \SplFileInfo $file
+     *
      * @return int
      */
     protected function getPermissions($file)

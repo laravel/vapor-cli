@@ -18,7 +18,7 @@ class HarmonizeConfigurationFiles
     {
         Helpers::step('<options=bold>Harmonizing Configuration Files</>');
 
-        $configFiles = (new Finder)->files()->in($this->appPath.'/config');
+        $configFiles = (new Finder())->files()->in($this->appPath.'/config');
 
         foreach ($configFiles as $file) {
             file_put_contents(
@@ -33,7 +33,8 @@ class HarmonizeConfigurationFiles
      *
      * The keys and secrets are automatically injected by Lambda.
      *
-     * @param  \SplFileInfo  $file
+     * @param \SplFileInfo $file
+     *
      * @return string
      */
     protected function replaceAwsEnvironmentVariables($file)

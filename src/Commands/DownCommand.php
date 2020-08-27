@@ -2,9 +2,9 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Laravel\VaporCli\Clipboard;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\Clipboard;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DownCommand extends Command

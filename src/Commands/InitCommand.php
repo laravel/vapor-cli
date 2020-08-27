@@ -2,11 +2,11 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Path;
 use Illuminate\Support\Str;
+use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\GitIgnore;
+use Laravel\VaporCli\Path;
 
 class InitCommand extends Command
 {
@@ -78,7 +78,8 @@ class InitCommand extends Command
     protected function determineName()
     {
         return Str::slug(Helpers::ask(
-            'What is the name of this project', basename(Path::current())
+            'What is the name of this project',
+            basename(Path::current())
         ));
     }
 

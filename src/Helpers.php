@@ -14,7 +14,8 @@ class Helpers
     /**
      * Display a danger message and exit.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function abort($text)
@@ -27,7 +28,8 @@ class Helpers
     /**
      * Resolve a service from the container.
      *
-     * @param  string|null  $name
+     * @param string|null $name
+     *
      * @return mixed
      */
     public static function app($name = null)
@@ -38,8 +40,9 @@ class Helpers
     /**
      * Ask the user a question.
      *
-     * @param  string  $question
-     * @param  mixed  $default
+     * @param string $question
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public static function ask($question, $default = null)
@@ -52,7 +55,8 @@ class Helpers
     /**
      * Display a comment message.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function comment($text)
@@ -63,8 +67,9 @@ class Helpers
     /**
      * Get or set configuration values.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return mixed
      */
     public static function config($key, $value = null)
@@ -83,8 +88,9 @@ class Helpers
     /**
      * Ask the user a confirmation question.
      *
-     * @param  string  $question
-     * @param  mixed  $default
+     * @param string $question
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public static function confirm($question, $default = true)
@@ -97,7 +103,8 @@ class Helpers
     /**
      * Display a danger message.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function danger($text)
@@ -117,7 +124,7 @@ class Helpers
             return;
         }
 
-        if (! static::config('token') || ! static::config('team')) {
+        if (!static::config('token') || !static::config('team')) {
             throw new Exception("Please authenticate using the 'login' command before proceeding.");
         }
     }
@@ -159,7 +166,8 @@ class Helpers
     /**
      * Display an informational message.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function info($text)
@@ -170,7 +178,8 @@ class Helpers
     /**
      * Get the file size in kilobytes.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return string
      */
     public static function kilobytes($file)
@@ -181,7 +190,8 @@ class Helpers
     /**
      * Display a message.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function line($text = '')
@@ -192,7 +202,8 @@ class Helpers
     /**
      * Get the file size in megabytes.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return string
      */
     public static function megabytes($file)
@@ -203,8 +214,9 @@ class Helpers
     /**
      * Ask the user to select from the given choices.
      *
-     * @param  string  $question
-     * @param  mixed  $default
+     * @param string $question
+     * @param mixed  $default
+     *
      * @return mixed
      */
     public static function menu($title, $choices)
@@ -217,7 +229,8 @@ class Helpers
     /**
      * Ask the user a secret question.
      *
-     * @param  string  $question
+     * @param string $question
+     *
      * @return mixed
      */
     public static function secret($question)
@@ -230,7 +243,8 @@ class Helpers
     /**
      * Display a "step" message.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function step($text)
@@ -241,9 +255,10 @@ class Helpers
     /**
      * Format input into a textual table.
      *
-     * @param  array  $headers
-     * @param  array  $rows
-     * @param  string  $style
+     * @param array  $headers
+     * @param array  $rows
+     * @param string $style
+     *
      * @return void
      */
     public static function table(array $headers, array $rows, $style = 'borderless')
@@ -260,7 +275,8 @@ class Helpers
     /**
      * Display the date in "humanized" time-ago form.
      *
-     * @param  string  $date
+     * @param string $date
+     *
      * @return string
      */
     public static function time_ago($date)
@@ -271,7 +287,8 @@ class Helpers
     /**
      * Write text to the console.
      *
-     * @param  string  $text
+     * @param string $text
+     *
      * @return void
      */
     public static function write($text)

@@ -2,10 +2,10 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Exception;
 use DateTimeZone;
-use Laravel\VaporCli\Helpers;
+use Exception;
 use Illuminate\Support\Carbon;
+use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DatabaseRestoreCommand extends Command
@@ -33,7 +33,7 @@ class DatabaseRestoreCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($databaseId = $this->argument('from'))) {
+        if (!is_numeric($databaseId = $this->argument('from'))) {
             $databaseId = $this->findIdByName($this->vapor->databases(), $databaseId);
         }
 
@@ -47,7 +47,7 @@ class DatabaseRestoreCommand extends Command
             strtotime(Helpers::ask('What point in time would you like to restore to (any date parsable by the "strtotime" function)'))
         )->setTimezone($timezone);
 
-        if (! Helpers::confirm('Create a new database ['.$this->argument('to').'] that contains the contents of ['.$this->argument('from').'] as of '.$restoreTo->format('Y-m-d H:i:s').' ('.$timezone.')', false)) {
+        if (!Helpers::confirm('Create a new database ['.$this->argument('to').'] that contains the contents of ['.$this->argument('from').'] as of '.$restoreTo->format('Y-m-d H:i:s').' ('.$timezone.')', false)) {
             Helpers::abort('Action cancelled.');
         }
 

@@ -27,7 +27,7 @@ class JumpDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm("Are you sure you want to delete this jumpbox", false)) {
+        if (!Helpers::confirm('Are you sure you want to delete this jumpbox', false)) {
             Helpers::abort('Action cancelled.');
         }
 
@@ -55,7 +55,7 @@ class JumpDeleteCommand extends Command
     {
         $jumpBoxes = $this->vapor->jumpBoxes();
 
-        if (! is_numeric($jumpBoxId = $this->argument('jump'))) {
+        if (!is_numeric($jumpBoxId = $this->argument('jump'))) {
             $jumpBoxName = $jumpBoxId;
 
             $jumpBoxId = $this->findIdByName($jumpBoxes, $jumpBoxId);

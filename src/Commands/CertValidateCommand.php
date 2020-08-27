@@ -35,7 +35,8 @@ class CertValidateCommand extends Command
 
         $this->vapor->resendCertificateValidationEmail(
             $this->chooseCertificate(
-                'Which certificate are you attempting to validate?', $certificates
+                'Which certificate are you attempting to validate?',
+                $certificates
             )
         );
 

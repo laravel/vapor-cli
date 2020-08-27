@@ -10,7 +10,8 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to select a cloud provider from a list.
      *
-     * @param  string  $message
+     * @param string $message
+     *
      * @return string
      */
     protected function determineProvider($message)
@@ -40,7 +41,8 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to select a network from a list.
      *
-     * @param  string  $message
+     * @param string $message
+     *
      * @return string
      */
     protected function determineNetwork($message)
@@ -72,14 +74,16 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to choose a certificate from the list.
      *
-     * @param  string  $message
-     * @param  array  $certificates
+     * @param string $message
+     * @param array  $certificates
+     *
      * @return string
      */
     protected function chooseCertificate($message, array $certificates)
     {
         return $this->menu(
-            $message, collect($certificates)->mapWithKeys(function ($certificate) {
+            $message,
+            collect($certificates)->mapWithKeys(function ($certificate) {
                 $time = Helpers::time_ago($certificate['created_at']);
 
                 return [$certificate['id'] => $certificate['domain'].' ('.$time.')'];
@@ -90,7 +94,8 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to choose a region for the operation.
      *
-     * @param  string  $message
+     * @param string $message
+     *
      * @return string
      */
     protected function determineRegion($message)

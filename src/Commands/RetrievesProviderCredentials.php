@@ -19,7 +19,7 @@ trait RetrievesProviderCredentials
         }
 
         return [
-            'key' => Helpers::ask('What is your AWS user key'),
+            'key'    => Helpers::ask('What is your AWS user key'),
             'secret' => Helpers::secret('What is your AWS user secret'),
         ];
     }
@@ -36,7 +36,7 @@ trait RetrievesProviderCredentials
         );
 
         return [
-            'key' => $credentials[$credential]['aws_access_key_id'],
+            'key'    => $credentials[$credential]['aws_access_key_id'],
             'secret' => $credentials[$credential]['aws_secret_access_key'],
         ];
     }
@@ -44,7 +44,8 @@ trait RetrievesProviderCredentials
     /**
      * Determine which credential to load from the credential file.
      *
-     * @param  array  $credentials
+     * @param array $credentials
+     *
      * @return string
      */
     protected function determineCredential(array $credentials)

@@ -33,7 +33,7 @@ class ProviderUpdateCommand extends Command
 
         $providers = $this->vapor->providers();
 
-        if (! is_numeric($providerId = $this->argument('provider'))) {
+        if (!is_numeric($providerId = $this->argument('provider'))) {
             $providerId = $this->findIdByName($providers, $providerId);
         }
 

@@ -30,12 +30,13 @@ class EnvDeleteCommand extends Command
     {
         $environment = $this->argument('environment');
 
-        if (! Helpers::confirm("Are you sure you want to delete the [{$environment}] environment", false)) {
+        if (!Helpers::confirm("Are you sure you want to delete the [{$environment}] environment", false)) {
             Helpers::abort('Action cancelled.');
         }
 
         $this->vapor->deleteEnvironment(
-            Manifest::id(), $environment
+            Manifest::id(),
+            $environment
         );
 
         Manifest::deleteEnvironment($environment);

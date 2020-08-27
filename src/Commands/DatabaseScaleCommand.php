@@ -2,8 +2,8 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\DatabaseInstanceClasses;
+use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DatabaseScaleCommand extends Command
@@ -30,7 +30,7 @@ class DatabaseScaleCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($databaseId = $this->argument('database'))) {
+        if (!is_numeric($databaseId = $this->argument('database'))) {
             $databaseId = $this->findIdByName($this->vapor->databases(), $databaseId);
         }
 
@@ -64,7 +64,7 @@ class DatabaseScaleCommand extends Command
     {
         $type = $this->menu('Which type of database instance would you like to scale to?', [
             'general' => 'General Purpose',
-            'memory' => 'Memory Optimized',
+            'memory'  => 'Memory Optimized',
         ]);
 
         if ($type == 'general') {
@@ -83,7 +83,8 @@ class DatabaseScaleCommand extends Command
     /**
      * Determine how much storage should be allocated to the database.
      *
-     * @param  array  $database
+     * @param array $database
+     *
      * @return int
      */
     protected function determineAllocatedStorage(array $database)

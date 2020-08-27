@@ -3,9 +3,9 @@
 namespace Laravel\VaporCli\Commands;
 
 use Illuminate\Support\Arr;
+use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\GitIgnore;
 use Symfony\Component\Console\Input\InputArgument;
 
 class EnvCloneCommand extends Command

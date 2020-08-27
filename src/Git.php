@@ -43,7 +43,8 @@ class Git
     /**
      * Run the given command and return the trimmed output.
      *
-     * @param  string  $command
+     * @param string $command
+     *
      * @return bool
      */
     protected static function command($command)

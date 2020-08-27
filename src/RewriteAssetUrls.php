@@ -9,8 +9,9 @@ class RewriteAssetUrls
     /**
      * Rewrite relative asset URLs in the given CSS string.
      *
-     * @param  string  $css
-     * @param  string  $baseUrl
+     * @param string $css
+     * @param string $baseUrl
+     *
      * @return string
      */
     public static function inCssString($css, $baseUrl)

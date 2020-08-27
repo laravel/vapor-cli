@@ -2,8 +2,8 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\CacheInstanceClasses;
+use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
 class CacheCommand extends Command
@@ -38,8 +38,8 @@ class CacheCommand extends Command
             Helpers::abort('Unable to find a network with that name / ID.');
         }
 
-        if (! $this->networkHasNatGateway($networkId) &&
-            ! Helpers::confirm('A cache will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
+        if (!$this->networkHasNatGateway($networkId) &&
+            !Helpers::confirm('A cache will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
             Helpers::abort('Action cancelled.');
         }
 
@@ -65,7 +65,7 @@ class CacheCommand extends Command
     {
         $type = $this->menu('Which type of cache instance would you like to create?', [
             'general' => 'General Purpose',
-            'memory' => 'Memory Optimized',
+            'memory'  => 'Memory Optimized',
         ]);
 
         if ($type == 'general') {
@@ -104,7 +104,8 @@ class CacheCommand extends Command
     /**
      * Determine if the given network has a NAT gateway.
      *
-     * @param  int  $networkId
+     * @param int $networkId
+     *
      * @return bool
      */
     protected function networkHasNatGateway($networkId)

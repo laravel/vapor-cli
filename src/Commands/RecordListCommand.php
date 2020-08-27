@@ -29,7 +29,7 @@ class RecordListCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($zoneId = $this->argument('zone'))) {
+        if (!is_numeric($zoneId = $this->argument('zone'))) {
             $zoneId = $this->findIdByName($this->vapor->zones(), $zoneId, 'zone');
         }
 

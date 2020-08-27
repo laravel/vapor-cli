@@ -2,10 +2,10 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\DatabaseInstanceClasses;
-use Symfony\Component\Console\Input\InputOption;
+use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class DatabaseCommand extends Command
 {
@@ -44,9 +44,9 @@ class DatabaseCommand extends Command
 
         $public = $this->determineIfPublic();
 
-        if (! $public &&
-            ! $this->networkHasNatGateway($networkId) &&
-            ! Helpers::confirm('A private database will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
+        if (!$public &&
+            !$this->networkHasNatGateway($networkId) &&
+            !Helpers::confirm('A private database will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
             Helpers::abort('Action cancelled.');
         }
 
@@ -98,7 +98,8 @@ class DatabaseCommand extends Command
     /**
      * Determine the database type.
      *
-     * @param  bool  $public
+     * @param bool $public
+     *
      * @return string
      */
     protected function determineDatabaseType($public)
@@ -108,9 +109,9 @@ class DatabaseCommand extends Command
         }
 
         return tap($this->option('serverless') ? 'aurora-serverless' : $this->menu('Which type of database would you like to create?', [
-            'rds' => 'Fixed Size MySQL Instance (Free Tier Eligible)',
-            'aurora-serverless' => 'Serverless MySQL Aurora Cluster',
-            'rds-pgsql' => 'Fixed Size PostgreSQL Instance',
+            'rds'                     => 'Fixed Size MySQL Instance (Free Tier Eligible)',
+            'aurora-serverless'       => 'Serverless MySQL Aurora Cluster',
+            'rds-pgsql'               => 'Fixed Size PostgreSQL Instance',
             'aurora-serverless-pgsql' => 'Serverless PostgreSQL Aurora Cluster',
         ]), function ($type) use ($public) {
             if ($type == 'aurora-serverless' && $public) {
@@ -122,7 +123,8 @@ class DatabaseCommand extends Command
     /**
      * Determine the instance class of the database.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return string|null
      */
     protected function determineInstanceClass($type)
@@ -149,7 +151,7 @@ class DatabaseCommand extends Command
     {
         $type = $this->menu('Which type of database instance would you like to create?', [
             'general' => 'General Purpose',
-            'memory' => 'Memory Optimized',
+            'memory'  => 'Memory Optimized',
         ]);
 
         if ($type == 'general') {
@@ -168,7 +170,8 @@ class DatabaseCommand extends Command
     /**
      * Determine how much storage should be allocated to the database.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return int
      */
     protected function determineAllocatedStorage($type)
@@ -193,7 +196,8 @@ class DatabaseCommand extends Command
     /**
      * Determine if the given network has a NAT gateway.
      *
-     * @param  int  $networkId
+     * @param int $networkId
+     *
      * @return bool
      */
     protected function networkHasNatGateway($networkId)

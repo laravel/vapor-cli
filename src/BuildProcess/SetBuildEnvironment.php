@@ -18,8 +18,9 @@ class SetBuildEnvironment
     /**
      * Create a new project builder.
      *
-     * @param  string|null  $environment
-     * @param  string|null  $assetUrl
+     * @param string|null $environment
+     * @param string|null $assetUrl
+     *
      * @return void
      */
     public function __construct($environment = null, $assetUrl = null)
@@ -32,7 +33,7 @@ class SetBuildEnvironment
         $this->vaporPath = Path::vapor();
         $this->buildPath = Path::build();
 
-        $this->files = new Filesystem;
+        $this->files = new Filesystem();
     }
 
     /**
@@ -44,7 +45,7 @@ class SetBuildEnvironment
     {
         Helpers::step('<options=bold>Setting Build Environment</>');
 
-        if (! file_exists($envPath = $this->appPath.'/.env')) {
+        if (!file_exists($envPath = $this->appPath.'/.env')) {
             $this->files->put($envPath, '');
         }
 
@@ -58,16 +59,19 @@ class SetBuildEnvironment
         }
 
         $this->files->prepend(
-            $envPath, 'APP_ENV='.$this->environment.PHP_EOL
+            $envPath,
+            'APP_ENV='.$this->environment.PHP_EOL
         );
 
         // Mix takes the last environment variable value...
         $this->files->append(
-            $envPath, PHP_EOL.'APP_ENV='.$this->environment.PHP_EOL
+            $envPath,
+            PHP_EOL.'APP_ENV='.$this->environment.PHP_EOL
         );
 
         $this->files->append(
-            $envPath, 'ASSET_URL='.$this->assetUrl.PHP_EOL
+            $envPath,
+            'ASSET_URL='.$this->assetUrl.PHP_EOL
         );
     }
 }

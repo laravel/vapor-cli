@@ -29,7 +29,7 @@ class NetworkNatCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($networkId = $this->argument('network'))) {
+        if (!is_numeric($networkId = $this->argument('network'))) {
             $networkId = $this->findIdByName($this->vapor->networks(), $networkId);
         }
 

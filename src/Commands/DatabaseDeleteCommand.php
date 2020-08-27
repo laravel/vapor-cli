@@ -27,11 +27,11 @@ class DatabaseDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm("Are you sure you want to delete this database", false)) {
+        if (!Helpers::confirm('Are you sure you want to delete this database', false)) {
             Helpers::abort('Action cancelled.');
         }
 
-        if (! is_numeric($databaseId = $this->argument('database'))) {
+        if (!is_numeric($databaseId = $this->argument('database'))) {
             $databaseId = $this->findIdByName($this->vapor->databases(), $databaseId);
         }
 

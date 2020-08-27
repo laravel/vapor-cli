@@ -18,7 +18,8 @@ trait ParticipatesInBuildProcess
     /**
      * Create a new project builder.
      *
-     * @param  string|null  $environment
+     * @param string|null $environment
+     *
      * @return void
      */
     public function __construct($environment = null)
@@ -31,6 +32,6 @@ trait ParticipatesInBuildProcess
         $this->vaporPath = Path::vapor();
         $this->buildPath = Path::build();
 
-        $this->files = new Filesystem;
+        $this->files = new Filesystem();
     }
 }

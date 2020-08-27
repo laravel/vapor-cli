@@ -20,7 +20,8 @@ class ProcessAssets
     /**
      * Create a new project builder.
      *
-     * @param  string|null  $assetUrl
+     * @param string|null $assetUrl
+     *
      * @return void
      */
     public function __construct($assetUrl = null)
@@ -43,7 +44,7 @@ class ProcessAssets
         Helpers::step('<options=bold>Processing Assets</>');
 
         foreach (AssetFiles::get($this->appPath.'/public') as $file) {
-            if (! Str::endsWith($file->getRealPath(), '.css')) {
+            if (!Str::endsWith($file->getRealPath(), '.css')) {
                 continue;
             }
 

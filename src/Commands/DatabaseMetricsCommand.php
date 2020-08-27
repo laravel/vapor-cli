@@ -30,7 +30,7 @@ class DatabaseMetricsCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($databaseId = $this->argument('database'))) {
+        if (!is_numeric($databaseId = $this->argument('database'))) {
             $databaseId = $this->findIdByName($this->vapor->databases(), $databaseId);
         }
 

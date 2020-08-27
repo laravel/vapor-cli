@@ -21,7 +21,7 @@ class ExtractAssetsToSeparateDirectory
 
         $this->ensureAssetDirectoryExists();
 
-        (new Filesystem)->copyDirectory(
+        (new Filesystem())->copyDirectory(
             $this->appPath.'/public',
             $this->buildPath.'/assets'
         );
@@ -43,7 +43,9 @@ class ExtractAssetsToSeparateDirectory
         }
 
         $this->files->makeDirectory(
-            $this->buildPath.'/assets', 0755, true
+            $this->buildPath.'/assets',
+            0755,
+            true
         );
     }
 }

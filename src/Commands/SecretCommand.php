@@ -4,8 +4,8 @@ namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class SecretCommand extends Command
 {
@@ -41,7 +41,7 @@ class SecretCommand extends Command
         );
 
         Helpers::info('Secret stored successfully.');
-        Helpers::line("You should deploy the project to ensure the new secrets are available.");
+        Helpers::line('You should deploy the project to ensure the new secrets are available.');
     }
 
     /**
