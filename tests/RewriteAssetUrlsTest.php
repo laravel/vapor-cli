@@ -2,8 +2,8 @@
 
 namespace Laravel\VaporCli\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Laravel\VaporCli\RewriteAssetUrls;
+use PHPUnit\Framework\TestCase;
 
 class RewriteAssetUrlsTest extends TestCase
 {

@@ -17,13 +17,13 @@ class ExtractVendorToSeparateDirectory
      */
     public function __invoke()
     {
-        if (! Manifest::shouldSeparateVendor()) {
+        if (!Manifest::shouldSeparateVendor()) {
             return;
         }
 
         Helpers::step('<options=bold>Extracting Vendor Files</>');
 
-        (new Filesystem)->move(
+        (new Filesystem())->move(
             $this->appPath.'/vendor',
             $this->buildPath.'/vendor'
         );

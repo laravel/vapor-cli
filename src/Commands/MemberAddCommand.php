@@ -3,8 +3,8 @@
 namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MemberAddCommand extends Command
 {
@@ -20,7 +20,7 @@ class MemberAddCommand extends Command
             ->setAliases(['team:add', 'member:update'])
             ->addArgument('email', InputArgument::OPTIONAL, "The user's email address")
             ->addOption('permissions', null, InputOption::VALUE_OPTIONAL, "The user's permissions")
-            ->addOption('admin', null, InputOption::VALUE_NONE, "Authorize the user to perform all operations")
+            ->addOption('admin', null, InputOption::VALUE_NONE, 'Authorize the user to perform all operations')
             ->setDescription('Add a team member to your current team or update their permissions');
     }
 

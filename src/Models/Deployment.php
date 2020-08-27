@@ -16,7 +16,8 @@ class Deployment
     /**
      * Create a new model instance.
      *
-     * @param  array  $deployment
+     * @param array $deployment
+     *
      * @return void
      */
     public function __construct(array $deployment)
@@ -27,7 +28,8 @@ class Deployment
     /**
      * Get the names of the displayable steps.
      *
-     * @param  array  $displayedSteps
+     * @param array $displayedSteps
+     *
      * @return array
      */
     public function displayableSteps(array $displayedSteps = [])
@@ -39,26 +41,28 @@ class Deployment
                 })->map(function ($step) {
                     return $this->formatDeploymentStepName($step['name']);
                 })->filter(function ($step) use ($displayedSteps) {
-                    return ! in_array($step, $displayedSteps);
+                    return !in_array($step, $displayedSteps);
                 })->all();
     }
 
     /**
      * Determine if the given deployment step should be displayed.
      *
-     * @param  array  $step
+     * @param array $step
+     *
      * @return bool
      */
     protected function stepShouldBeDisplayed(array $step)
     {
         return $step['status'] !== 'pending' &&
-               ! in_array($step['name'], $this->displayedSteps);
+               !in_array($step['name'], $this->displayedSteps);
     }
 
     /**
      * Format the deployment step name into a displayable value.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function formatDeploymentStepName($name)
@@ -66,7 +70,7 @@ class Deployment
         return str_replace(
             ['Iam', 'Api', 'Dns', 'Ensure', 'Update', 'Run'],
             ['IAM', 'API', 'DNS', 'Ensuring', 'Updating', 'Running'],
-           ucwords(Str::snake($name, ' '))
+            ucwords(Str::snake($name, ' '))
         );
     }
 
@@ -78,7 +82,7 @@ class Deployment
     public function hasTargetDomains()
     {
         return isset($this->deployment['target_domains']) &&
-               ! empty($this->deployment['target_domains']);
+               !empty($this->deployment['target_domains']);
     }
 
     /**
@@ -126,7 +130,8 @@ class Deployment
     /**
      * Get an item from the deployment data.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function __get($key)

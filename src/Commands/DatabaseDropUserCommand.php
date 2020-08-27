@@ -32,7 +32,7 @@ class DatabaseDropUserCommand extends Command
 
         $databases = $this->vapor->databases();
 
-        if (! is_numeric($databaseId = $this->argument('database'))) {
+        if (!is_numeric($databaseId = $this->argument('database'))) {
             $databaseId = $this->findIdByName($databases, $databaseId);
         }
 
@@ -40,7 +40,7 @@ class DatabaseDropUserCommand extends Command
             Helpers::abort('Unable to find a database with that name / ID.');
         }
 
-        if (! is_numeric($userId = $this->argument('user'))) {
+        if (!is_numeric($userId = $this->argument('user'))) {
             $userId = $this->findIdByName($this->vapor->databaseUsers($databaseId), $userId, 'username');
         }
 

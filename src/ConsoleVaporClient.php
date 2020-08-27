@@ -12,18 +12,19 @@ class ConsoleVaporClient
     /**
      * Attempt to obtain an API token from Vapor using a email / password.
      *
-     * @param  string  $email
-     * @param  string  $password
-     * @param  string|null  $twoFactorAuthenticationToken
+     * @param string      $email
+     * @param string      $password
+     * @param string|null $twoFactorAuthenticationToken
+     *
      * @return string
      */
     public function login($email, $password, $twoFactorAuthenticationToken = null)
     {
         try {
             return $this->request('post', '/api/login', [
-                'host' => gethostname(),
-                'email' => $email,
-                'password' => $password,
+                'host'             => gethostname(),
+                'email'            => $email,
+                'password'         => $password,
                 'two_factor_token' => $twoFactorAuthenticationToken,
             ])['access_token'];
         } catch (ClientException $e) {
@@ -31,7 +32,7 @@ class ConsoleVaporClient
                 $response = json_decode((string) $e->getResponse()->getBody(), true);
 
                 if (isset($response['errors']['two_factor_token'])) {
-                    throw new NeedsTwoFactorAuthenticationTokenException;
+                    throw new NeedsTwoFactorAuthenticationTokenException();
                 }
             }
 
@@ -72,7 +73,8 @@ class ConsoleVaporClient
     /**
      * Create a new team.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return array
      */
     public function createTeam($name)
@@ -95,14 +97,15 @@ class ConsoleVaporClient
     /**
      * Add a team member to the current team.
      *
-     * @param  string  $email
-     * @param  array  $permissions
+     * @param string $email
+     * @param array  $permissions
+     *
      * @return void
      */
     public function addTeamMember($email, array $permissions)
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/members', [
-            'email' => $email,
+            'email'       => $email,
             'permissions' => $permissions,
         ]);
     }
@@ -110,7 +113,8 @@ class ConsoleVaporClient
     /**
      * Remove a team member from the current team.
      *
-     * @param  string  $email
+     * @param string $email
+     *
      * @return void
      */
     public function removeTeamMember($email)
@@ -123,7 +127,8 @@ class ConsoleVaporClient
     /**
      * Switch the current team the user is interacting with.
      *
-     * @param  string  $teamId
+     * @param string $teamId
+     *
      * @return void
      */
     public function switchCurrentTeam($teamId)
@@ -156,9 +161,10 @@ class ConsoleVaporClient
     /**
      * Add a server provider to the authenticated account.
      *
-     * @param  string  $type
-     * @param  string  $name
-     * @param  array  $credentials
+     * @param string $type
+     * @param string $name
+     * @param array  $credentials
+     *
      * @return void
      */
     public function createProvider($type, $name, array $credentials)
@@ -173,9 +179,10 @@ class ConsoleVaporClient
     /**
      * Update a server provider.
      *
-     * @param  string  $providerId
-     * @param  string  $name
-     * @param  array  $credentials
+     * @param string $providerId
+     * @param string $name
+     * @param array  $credentials
+     *
      * @return array
      */
     public function updateProvider($providerId, $name, array $credentials)
@@ -189,7 +196,8 @@ class ConsoleVaporClient
     /**
      * Delete the given provider.
      *
-     * @param  string  $providerId
+     * @param string $providerId
+     *
      * @return void
      */
     public function deleteProvider($providerId)
@@ -210,7 +218,8 @@ class ConsoleVaporClient
     /**
      * Get the zone with the given ID.
      *
-     * @param  string  $zoneId
+     * @param string $zoneId
+     *
      * @return array
      */
     public function zone($zoneId)
@@ -221,22 +230,24 @@ class ConsoleVaporClient
     /**
      * Create a new zone.
      *
-     * @param  string  $providerId
-     * @param  string  $zone
+     * @param string $providerId
+     * @param string $zone
+     *
      * @return array
      */
     public function createZone($providerId, $zone)
     {
         return $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/zones', [
             'cloud_provider_id' => $providerId,
-            'zone' => $zone,
+            'zone'              => $zone,
         ]);
     }
 
     /**
      * Delete the given zone.
      *
-     * @param  string  $zoneId
+     * @param string $zoneId
+     *
      * @return void
      */
     public function deleteZone($zoneId)
@@ -247,7 +258,8 @@ class ConsoleVaporClient
     /**
      * Get the DNS records for the given zone.
      *
-     * @param  string  $zone
+     * @param string $zone
+     *
      * @return array
      */
     public function records($zoneId)
@@ -258,17 +270,18 @@ class ConsoleVaporClient
     /**
      * Create or update a record.
      *
-     * @param  string  $zoneId
-     * @param  string  $type
-     * @param  string  $name
-     * @param  string  $value
+     * @param string $zoneId
+     * @param string $type
+     * @param string $name
+     * @param string $value
+     *
      * @return array
      */
     public function createRecord($zoneId, $type, $name, $value)
     {
         return $this->requestWithErrorHandling('put', '/api/zones/'.$zoneId.'/records', [
-            'type' => $type,
-            'name' => $name,
+            'type'  => $type,
+            'name'  => $name,
             'value' => $value,
         ]);
     }
@@ -276,10 +289,11 @@ class ConsoleVaporClient
     /**
      * Delete the given record.
      *
-     * @param  string  $zoneId
-     * @param  string  $type
-     * @param  string  $name
-     * @param  string  $value
+     * @param string $zoneId
+     * @param string $type
+     * @param string $name
+     * @param string $value
+     *
      * @return void
      */
     public function deleteRecord($zoneId, $type, $name, $value = null)
@@ -300,7 +314,8 @@ class ConsoleVaporClient
     /**
      * Get the network with the given ID.
      *
-     * @param  string  $networkId
+     * @param string $networkId
+     *
      * @return array
      */
     public function network($networkId)
@@ -311,18 +326,19 @@ class ConsoleVaporClient
     /**
      * Create a new network.
      *
-     * @param  int  $providerId
-     * @param  string  $name
-     * @param  string  $region
-     * @param  bool  $withInternetAccess
+     * @param int    $providerId
+     * @param string $name
+     * @param string $region
+     * @param bool   $withInternetAccess
+     *
      * @return array
      */
     public function createNetwork($providerId, $name, $region, $withInternetAccess)
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/networks', [
-            'cloud_provider_id' => $providerId,
-            'name' => $name,
-            'region' => $region,
+            'cloud_provider_id'    => $providerId,
+            'name'                 => $name,
+            'region'               => $region,
             'with_internet_access' => $withInternetAccess,
         ]);
     }
@@ -330,7 +346,8 @@ class ConsoleVaporClient
     /**
      * Grant the given network Internet access via a NAT Gateway.
      *
-     * @param  int  $networkId
+     * @param int $networkId
+     *
      * @return void
      */
     public function grantNetworkInternetAccess($networkId)
@@ -341,7 +358,8 @@ class ConsoleVaporClient
     /**
      * Remove the given network's Internet access.
      *
-     * @param  int  $networkId
+     * @param int $networkId
+     *
      * @return void
      */
     public function removeNetworkInternetAccess($networkId)
@@ -352,7 +370,8 @@ class ConsoleVaporClient
     /**
      * Delete the network with the given ID.
      *
-     * @param  string  $networkId
+     * @param string $networkId
+     *
      * @return array
      */
     public function deleteNetwork($networkId)
@@ -373,7 +392,8 @@ class ConsoleVaporClient
     /**
      * Get the database with the given ID.
      *
-     * @param  string  $databaseId
+     * @param string $databaseId
+     *
      * @return array
      */
     public function database($databaseId)
@@ -384,47 +404,50 @@ class ConsoleVaporClient
     /**
      * Create a new database.
      *
-     * @param  string  $networkId
-     * @param  string  $name
-     * @param  string  $type
-     * @param  string  $instanceClass
-     * @param  string  $storage
-     * @param  bool  $public
-     * @param  bool  $pause
+     * @param string $networkId
+     * @param string $name
+     * @param string $type
+     * @param string $instanceClass
+     * @param string $storage
+     * @param bool   $public
+     * @param bool   $pause
+     *
      * @return array
      */
     public function createDatabase($networkId, $name, $type, $instanceClass, $storage, $public, $pause = false)
     {
         return $this->requestWithErrorHandling('post', '/api/networks/'.$networkId.'/databases', [
-            'name' => $name,
-            'type' => $type,
+            'name'           => $name,
+            'type'           => $type,
             'instance_class' => $instanceClass,
-            'storage' => $storage,
-            'public' => $public,
-            'pause' => $pause,
+            'storage'        => $storage,
+            'public'         => $public,
+            'pause'          => $pause,
         ]);
     }
 
     /**
      * Scale the given database.
      *
-     * @param  string  $databaseId
-     * @param  string  $instanceClass
-     * @param  int  $storage
+     * @param string $databaseId
+     * @param string $instanceClass
+     * @param int    $storage
+     *
      * @return void
      */
     public function scaleDatabase($databaseId, $instanceClass, $storage)
     {
         $this->requestWithErrorHandling('put', '/api/databases/'.$databaseId.'/size', [
             'instance_class' => $instanceClass,
-            'storage' => $storage,
+            'storage'        => $storage,
         ]);
     }
 
     /**
      * Get the database users for the given database.
      *
-     * @param  string  $databaseId
+     * @param string $databaseId
+     *
      * @return array
      */
     public function databaseUsers($databaseId)
@@ -435,8 +458,9 @@ class ConsoleVaporClient
     /**
      * Create a new database user.
      *
-     * @param  string  $databaseId
-     * @param  string  $username
+     * @param string $databaseId
+     * @param string $username
+     *
      * @return array
      */
     public function createDatabaseUser($databaseId, $username)
@@ -449,7 +473,8 @@ class ConsoleVaporClient
     /**
      * Drop the given database user.
      *
-     * @param  string  $databaseUserId
+     * @param string $databaseUserId
+     *
      * @return void
      */
     public function dropDatabaseUser($databaseUserId)
@@ -460,28 +485,31 @@ class ConsoleVaporClient
     /**
      * Rotate the given database's password.
      *
-     * @param  string  $databaseId
+     * @param string $databaseId
+     *
      * @return string
      */
     public function rotateDatabasePassword($databaseId)
     {
         return $this->requestWithErrorHandling(
-            'post', '/api/databases/'.$databaseId.'/password-rotations'
+            'post',
+            '/api/databases/'.$databaseId.'/password-rotations'
         )['password'];
     }
 
     /**
      * Restore the given database to new database at a given point in time.
      *
-     * @param  string  $databaseId
-     * @param  string  $name
-     * @param  int  $restoreTo
+     * @param string $databaseId
+     * @param string $name
+     * @param int    $restoreTo
+     *
      * @return array
      */
     public function restoreDatabase($databaseId, $name, $restoreTo)
     {
         return $this->requestWithErrorHandling('post', '/api/restored-databases?database_id='.$databaseId, [
-            'name' => $name,
+            'name'       => $name,
             'restore_to' => $restoreTo,
         ]);
     }
@@ -489,7 +517,8 @@ class ConsoleVaporClient
     /**
      * Get the password for the given database user.
      *
-     * @param  string  $databaseUserId
+     * @param string $databaseUserId
+     *
      * @return array
      */
     public function databaseUserPassword($databaseUserId)
@@ -500,7 +529,8 @@ class ConsoleVaporClient
     /**
      * Delete the database with the given ID.
      *
-     * @param  string  $databaseId
+     * @param string $databaseId
+     *
      * @return void
      */
     public function deleteDatabase($databaseId)
@@ -521,7 +551,8 @@ class ConsoleVaporClient
     /**
      * Get the cache with the given ID.
      *
-     * @param  string  $cacheId
+     * @param string $cacheId
+     *
      * @return array
      */
     public function cache($cacheId)
@@ -532,15 +563,16 @@ class ConsoleVaporClient
     /**
      * Create a new cache.
      *
-     * @param  string  $networkId
-     * @param  string  $name
-     * @param  string  $instanceClass
+     * @param string $networkId
+     * @param string $name
+     * @param string $instanceClass
+     *
      * @return array
      */
     public function createCache($networkId, $name, $instanceClass)
     {
         return $this->requestWithErrorHandling('post', '/api/networks/'.$networkId.'/caches', [
-            'name' => $name,
+            'name'           => $name,
             'instance_class' => $instanceClass,
         ]);
     }
@@ -548,8 +580,9 @@ class ConsoleVaporClient
     /**
      * Scale the given cache.
      *
-     * @param  string  $cacheId
-     * @param  int  $scale
+     * @param string $cacheId
+     * @param int    $scale
+     *
      * @return void
      */
     public function scaleCache($cacheId, $scale)
@@ -562,7 +595,8 @@ class ConsoleVaporClient
     /**
      * Delete the cache with the given ID.
      *
-     * @param  string  $cacheId
+     * @param string $cacheId
+     *
      * @return void
      */
     public function deleteCache($cacheId)
@@ -583,8 +617,9 @@ class ConsoleVaporClient
     /**
      * Create a new jump-box.
      *
-     * @param  string  $networkId
-     * @param  string  $name
+     * @param string $networkId
+     * @param string $name
+     *
      * @return array
      */
     public function createJumpBox($networkId, $name)
@@ -597,7 +632,8 @@ class ConsoleVaporClient
     /**
      * Get the public / private key for the given jump-box.
      *
-     * @param  string  $jumpBoxId
+     * @param string $jumpBoxId
+     *
      * @return array
      */
     public function jumpBoxKey($jumpBoxId)
@@ -608,7 +644,8 @@ class ConsoleVaporClient
     /**
      * Delete the jump box with the given ID.
      *
-     * @param  string  $jumpBoxId
+     * @param string $jumpBoxId
+     *
      * @return void
      */
     public function deleteJumpBox($jumpBoxId)
@@ -629,8 +666,9 @@ class ConsoleVaporClient
     /**
      * Create a new load balancer.
      *
-     * @param  string  $networkId
-     * @param  string  $name
+     * @param string $networkId
+     * @param string $name
+     *
      * @return array
      */
     public function createBalancer($networkId, $name)
@@ -643,7 +681,8 @@ class ConsoleVaporClient
     /**
      * Delete the load balancer with the given ID.
      *
-     * @param  string  $balancerId
+     * @param string $balancerId
+     *
      * @return void
      */
     public function deleteBalancer($balancerId)
@@ -654,7 +693,8 @@ class ConsoleVaporClient
     /**
      * Get all of the certificates for the current team.
      *
-     * @param  string  $domain
+     * @param string $domain
+     *
      * @return array
      */
     public function certificates($domain = null)
@@ -675,19 +715,20 @@ class ConsoleVaporClient
     /**
      * Request a certificate for the given domain.
      *
-     * @param  string  $providerId
-     * @param  string  $domain
-     * @param  array  $alternativeNames
-     * @param  string  $validationMethod
+     * @param string $providerId
+     * @param string $domain
+     * @param array  $alternativeNames
+     * @param string $validationMethod
+     *
      * @return array
      */
     public function requestCertificate($providerId, $domain, array $alternativeNames = [], $region, $validationMethod)
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/certificates', [
             'cloud_provider_id' => $providerId,
-            'domain' => $domain,
+            'domain'            => $domain,
             'alternative_names' => $alternativeNames,
-            'region' => $region,
+            'region'            => $region,
             'validation_method' => $validationMethod,
         ]);
     }
@@ -695,33 +736,38 @@ class ConsoleVaporClient
     /**
      * Resend the validation email for the given certificate.
      *
-     * @param  string  $certificateId
+     * @param string $certificateId
+     *
      * @return void
      */
     public function resendCertificateValidationEmail($certificateId)
     {
         $this->requestWithErrorHandling(
-            'post', '/api/certificates/'.$certificateId.'/validation-email'
+            'post',
+            '/api/certificates/'.$certificateId.'/validation-email'
         );
     }
 
     /**
      * Delete the given certificate.
      *
-     * @param  string  $certificateId
+     * @param string $certificateId
+     *
      * @return void
      */
     public function deleteCertificate($certificateId)
     {
         $this->requestWithErrorHandling(
-            'delete', '/api/certificates/'.$certificateId
+            'delete',
+            '/api/certificates/'.$certificateId
         );
     }
 
     /**
      * Get the project with the given ID.
      *
-     * @param  string  $projectId
+     * @param string $projectId
+     *
      * @return array
      */
     public function project($projectId)
@@ -732,24 +778,26 @@ class ConsoleVaporClient
     /**
      * Create a new project.
      *
-     * @param  string  $name
-     * @param  int  $providerId
-     * @param  string  $region
+     * @param string $name
+     * @param int    $providerId
+     * @param string $region
+     *
      * @return array
      */
     public function createProject($name, $providerId, $region)
     {
         return $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/projects', array_filter([
             'cloud_provider_id' => $providerId,
-            'name' => $name,
-            'region' => $region,
+            'name'              => $name,
+            'region'            => $region,
         ]));
     }
 
     /**
      * Get all of the environments for the given project.
      *
-     * @param  string  $projectId
+     * @param string $projectId
+     *
      * @return array
      */
     public function environments($projectId)
@@ -760,7 +808,8 @@ class ConsoleVaporClient
     /**
      * Get the environment by a specific name for the given project.
      *
-     * @param  string  $projectId
+     * @param string $projectId
+     *
      * @return array
      */
     public function environmentNamed($projectId, $name)
@@ -773,7 +822,8 @@ class ConsoleVaporClient
     /**
      * Delete the given project.
      *
-     * @param  string  $projectId
+     * @param string $projectId
+     *
      * @return void
      */
     public function deleteProject($projectId)
@@ -784,8 +834,9 @@ class ConsoleVaporClient
     /**
      * Create a new environment for the project.
      *
-     * @param  int  $projectId
-     * @param  string  $environment
+     * @param int    $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function createEnvironment($projectId, $environment)
@@ -798,9 +849,10 @@ class ConsoleVaporClient
     /**
      * Clone the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $fromEnvironment
-     * @param  string  $toEnvironment
+     * @param string $projectId
+     * @param string $fromEnvironment
+     * @param string $toEnvironment
+     *
      * @return array
      */
     public function cloneEnvironment($projectId, $fromEnvironment, $toEnvironment)
@@ -814,8 +866,9 @@ class ConsoleVaporClient
     /**
      * Get the environment variables for the given environment.
      *
-     * @param  int  $projectId
-     * @param  string  $environment
+     * @param int    $projectId
+     * @param string $environment
+     *
      * @return string
      */
     public function environmentVariables($projectId, $environment)
@@ -826,15 +879,17 @@ class ConsoleVaporClient
     /**
      * Update the environment variables for the given environment.
      *
-     * @param  int  $projectId
-     * @param  string  $environment
-     * @param  string  $variables
+     * @param int    $projectId
+     * @param string $environment
+     * @param string $variables
+     *
      * @return string
      */
     public function updateEnvironmentVariables($projectId, $environment, $variables)
     {
         return $this->requestWithErrorHandling(
-            'put', 'api/projects/'.$projectId.'/environments/'.$environment.'/variables',
+            'put',
+            'api/projects/'.$projectId.'/environments/'.$environment.'/variables',
             ['variables' => $variables]
         );
     }
@@ -842,44 +897,50 @@ class ConsoleVaporClient
     /**
      * Delete the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return void
      */
     public function deleteEnvironment($projectId, $environment)
     {
         return $this->requestWithErrorHandling(
-            'delete', 'api/projects/'.$projectId.'/environments/'.$environment
+            'delete',
+            'api/projects/'.$projectId.'/environments/'.$environment
         );
     }
 
     /**
      * Get all of the secrets for the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function secrets($projectId, $environment)
     {
         return $this->request(
-            'get', 'api/projects/'.$projectId.'/environments/'.$environment.'/secrets'
+            'get',
+            'api/projects/'.$projectId.'/environments/'.$environment.'/secrets'
         );
     }
 
     /**
      * Store a secret for the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
-     * @param  string  $name
-     * @param  string  $value
+     * @param string $projectId
+     * @param string $environment
+     * @param string $name
+     * @param string $value
+     *
      * @return array
      */
     public function storeSecret($projectId, $environment, $name, $value)
     {
         return $this->requestWithErrorHandling(
-            'put', 'api/projects/'.$projectId.'/environments/'.$environment.'/secrets',
+            'put',
+            'api/projects/'.$projectId.'/environments/'.$environment.'/secrets',
             ['name' => $name, 'value' => $value]
         );
     }
@@ -887,42 +948,51 @@ class ConsoleVaporClient
     /**
      * Delete the given secret.
      *
-     * @param  string  $secretId
+     * @param string $secretId
+     *
      * @return void
      */
     public function deleteSecret($secretId)
     {
         return $this->requestWithErrorHandling(
-            'delete', 'api/secrets/'.$secretId
+            'delete',
+            'api/secrets/'.$secretId
         );
     }
 
     /**
      * Get a pre-signed storage URL for the given project.
      *
-     * @param  int  $projectId
-     * @param  string  $uuid
-     * @param  string  $environment
-     * @param  string  $file
-     * @param  string  $commit
-     * @param  string  $commitMessage
-     * @param  string  $vendorHash
-     * @param  string  $cliVersion
-     * @param  string  $coreVersion
+     * @param int    $projectId
+     * @param string $uuid
+     * @param string $environment
+     * @param string $file
+     * @param string $commit
+     * @param string $commitMessage
+     * @param string $vendorHash
+     * @param string $cliVersion
+     * @param string $coreVersion
+     *
      * @return array
      */
     public function createArtifact(
-        $projectId, $uuid, $environment, $file, $commit = null, $commitMessage = null, $vendorHash = null,
-        $cliVersion = null, $coreVersion = null
-    )
-    {
+        $projectId,
+        $uuid,
+        $environment,
+        $file,
+        $commit = null,
+        $commitMessage = null,
+        $vendorHash = null,
+        $cliVersion = null,
+        $coreVersion = null
+    ) {
         $artifact = $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/artifacts/'.$environment, [
-            'uuid' => $uuid,
-            'commit' => $commit,
+            'uuid'           => $uuid,
+            'commit'         => $commit,
             'commit_message' => $commitMessage,
-            'vendor_hash' => $vendorHash,
-            'cli_version' => $cliVersion,
-            'core_version' => $coreVersion,
+            'vendor_hash'    => $vendorHash,
+            'cli_version'    => $cliVersion,
+            'core_version'   => $coreVersion,
         ]);
 
         Helpers::app(AwsStorageProvider::class)->store($artifact['url'], [], $file, true);
@@ -939,8 +1009,9 @@ class ConsoleVaporClient
     /**
      * Get authorized URLs to store the given artifact assets.
      *
-     * @param  int  $artifactId
-     * @param  array  $files
+     * @param int   $artifactId
+     * @param array $files
+     *
      * @return array
      */
     public function authorizeArtifactAssets($artifactId, array $files)
@@ -953,8 +1024,9 @@ class ConsoleVaporClient
     /**
      * Store meta information for the given artifact assets.
      *
-     * @param  int  $artifactId
-     * @param  array  $files
+     * @param int   $artifactId
+     * @param array $files
+     *
      * @return array
      */
     public function recordArtifactAssets($artifactId, array $files)
@@ -967,8 +1039,9 @@ class ConsoleVaporClient
     /**
      * Get all of the deployments for the given project.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function deployments($projectId, $environment)
@@ -979,7 +1052,8 @@ class ConsoleVaporClient
     /**
      * Get the deployment with the given ID.
      *
-     * @param  string  $deploymentId
+     * @param string $deploymentId
+     *
      * @return array
      */
     public function deployment($deploymentId)
@@ -990,18 +1064,19 @@ class ConsoleVaporClient
     /**
      * Validate the given manifest for the project.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
-     * @param  array  $manifest
-     * @param  string  $cliVersion
-     * @param  string  $coreVersion
+     * @param string $projectId
+     * @param string $environment
+     * @param array  $manifest
+     * @param string $cliVersion
+     * @param string $coreVersion
+     *
      * @return void
      */
     public function validateManifest($projectId, $environment, array $manifest, $cliVersion = null, $coreVersion = null)
     {
         $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/environments/'.$environment.'/linted-manifest', [
-            'manifest' => $manifest,
-            'cli_version' => $cliVersion,
+            'manifest'     => $manifest,
+            'cli_version'  => $cliVersion,
             'core_version' => $coreVersion,
         ]);
     }
@@ -1009,8 +1084,9 @@ class ConsoleVaporClient
     /**
      * Deploy the given artifact.
      *
-     * @param  int  $artifactId
-     * @param  array  $manifest
+     * @param int   $artifactId
+     * @param array $manifest
+     *
      * @return array
      */
     public function deploy($artifactId, array $manifest)
@@ -1023,7 +1099,8 @@ class ConsoleVaporClient
     /**
      * Get the deployment hooks for the given deployment.
      *
-     * @param  string  $deploymentId
+     * @param string $deploymentId
+     *
      * @return array
      */
     public function deploymentHooks($deploymentId)
@@ -1044,7 +1121,8 @@ class ConsoleVaporClient
     /**
      * Get the deployment hook with the given ID.
      *
-     * @param  string  $hookId
+     * @param string $hookId
+     *
      * @return array
      */
     public function deploymentHook($hookId)
@@ -1055,7 +1133,8 @@ class ConsoleVaporClient
     /**
      * Rollback to the given deployment ID.
      *
-     * @param  string  $deploymentId
+     * @param string $deploymentId
+     *
      * @return array
      */
     public function rollbackTo($deploymentId)
@@ -1068,63 +1147,72 @@ class ConsoleVaporClient
     /**
      * Enable maintenance mode for the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function enableMaintenanceMode($projectId, $environment)
     {
         return $this->requestWithErrorHandling(
-            'post', '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments'
+            'post',
+            '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments'
         );
     }
 
     /**
      * Disable maintenance mode for the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function disableMaintenanceMode($projectId, $environment)
     {
         return $this->requestWithErrorHandling(
-            'delete', '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments'
+            'delete',
+            '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments'
         );
     }
 
     /**
      * Redeploy the given environment's latest deployment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function redeploy($projectId, $environment)
     {
         return $this->requestWithErrorHandling(
-            'post', '/api/projects/'.$projectId.'/environments/'.$environment.'/redeployments'
+            'post',
+            '/api/projects/'.$projectId.'/environments/'.$environment.'/redeployments'
         );
     }
 
     /**
      * Attempt to the cancel the given deployment.
      *
-     * @param  string  $deploymentId
+     * @param string $deploymentId
+     *
      * @return void
      */
     public function cancelDeployment($deploymentId)
     {
         return $this->requestWithErrorHandling(
-            'post', '/api/deployments/'.$deploymentId.'/cancellation-attempts'
+            'post',
+            '/api/deployments/'.$deploymentId.'/cancellation-attempts'
         );
     }
 
     /**
      * Get all of the commands for the given project and environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
+     * @param string $projectId
+     * @param string $environment
+     *
      * @return array
      */
     public function commands($projectId, $environment)
@@ -1145,7 +1233,8 @@ class ConsoleVaporClient
     /**
      * Get the command with the given ID.
      *
-     * @param  string  $commandId
+     * @param string $commandId
+     *
      * @return array
      */
     public function command($commandId)
@@ -1156,9 +1245,10 @@ class ConsoleVaporClient
     /**
      * Execute a command in a given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
-     * @param  string  $command
+     * @param string $projectId
+     * @param string $environment
+     * @param string $command
+     *
      * @return array
      */
     public function invoke($projectId, $environment, $command)
@@ -1171,7 +1261,8 @@ class ConsoleVaporClient
     /**
      * Get the command log for the given command.
      *
-     * @param  string  $commandId
+     * @param string $commandId
+     *
      * @return string
      */
     public function commandLog($commandId)
@@ -1182,12 +1273,13 @@ class ConsoleVaporClient
     /**
      * Get the latest log information for the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
-     * @param  bool  $cli
-     * @param  string  $filter
-     * @param  int  $start
-     * @param  string  $nextToken
+     * @param string $projectId
+     * @param string $environment
+     * @param bool   $cli
+     * @param string $filter
+     * @param int    $start
+     * @param string $nextToken
+     *
      * @return array
      */
     public function tail($projectId, $environment, $cli, $filter, $start, $nextToken = null)
@@ -1208,9 +1300,10 @@ class ConsoleVaporClient
     /**
      * Get the metric information for the given environment.
      *
-     * @param  string  $projectId
-     * @param  string  $environment
-     * @param  string  $period
+     * @param string $projectId
+     * @param string $environment
+     * @param string $period
+     *
      * @return array
      */
     public function metrics($projectId, $environment, $period)
@@ -1221,8 +1314,9 @@ class ConsoleVaporClient
     /**
      * Get the metric information for the given database.
      *
-     * @param  string  $databaseId
-     * @param  string  $period
+     * @param string $databaseId
+     * @param string $period
+     *
      * @return array
      */
     public function databaseMetrics($databaseId, $period)
@@ -1233,8 +1327,9 @@ class ConsoleVaporClient
     /**
      * Get the metric information for the given cache.
      *
-     * @param  string  $cacheId
-     * @param  string  $period
+     * @param string $cacheId
+     * @param string $period
+     *
      * @return array
      */
     public function cacheMetrics($cacheId, $period)
@@ -1245,9 +1340,10 @@ class ConsoleVaporClient
     /**
      * Make a request to the API and return the resulting JSON array.
      *
-     * @param  string  $method
-     * @param  string  $uri
-     * @param  array  $json
+     * @param string $method
+     * @param string $uri
+     * @param array  $json
+     *
      * @return array
      */
     protected function request($method, $uri, array $json = [])
@@ -1264,18 +1360,19 @@ class ConsoleVaporClient
     /**
      * Make a request to the API and return the resulting JSON array.
      *
-     * @param  string  $method
-     * @param  string  $uri
-     * @param  array  $json
+     * @param string $method
+     * @param string $uri
+     * @param array  $json
+     *
      * @return array
      */
     protected function requestWithoutErrorHandling($method, $uri, array $json = [])
     {
         return json_decode((string) $this->client()->request($method, ltrim($uri, '/'), [
-            'json' => $json,
+            'json'    => $json,
             'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
+                'Accept'        => 'application/json',
+                'Content-Type'  => 'application/json',
                 'Authorization' => 'Bearer '.Helpers::config('token', $_ENV['VAPOR_API_TOKEN'] ?? getenv('VAPOR_API_TOKEN') ?? null),
             ],
         ])->getBody(), true);
@@ -1284,9 +1381,10 @@ class ConsoleVaporClient
     /**
      * Make an HTTP request and display any validation errors.
      *
-     * @param  string  $method
-     * @param  string  $uri
-     * @param  array  $json
+     * @param string $method
+     * @param string $uri
+     * @param array  $json
+     *
      * @return array
      */
     protected function requestWithErrorHandling($method, $uri, array $json = [])
@@ -1309,7 +1407,8 @@ class ConsoleVaporClient
     /**
      * Display the errors for the request.
      *
-     * @param  Response  $response
+     * @param Response $response
+     *
      * @return void
      */
     protected function displayRequestErrors($response)
@@ -1342,13 +1441,15 @@ class ConsoleVaporClient
     /**
      * Display the validation errors for the given response.
      *
-     * @param  Response  $response
+     * @param Response $response
+     *
      * @return void
      */
     protected function displayValidationErrors($response)
     {
         $errors = collect(json_decode(
-            (string) $response->getBody(), true
+            (string) $response->getBody(),
+            true
         )['errors'])->flatten();
 
         Helpers::line('');

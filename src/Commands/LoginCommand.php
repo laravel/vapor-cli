@@ -2,11 +2,11 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use GuzzleHttp\Exception\ClientException;
 use Laravel\VaporCli\Config;
+use Laravel\VaporCli\Exceptions\NeedsTwoFactorAuthenticationTokenException;
 use Laravel\VaporCli\Helpers;
 use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\ClientException;
-use Laravel\VaporCli\Exceptions\NeedsTwoFactorAuthenticationTokenException;
 
 class LoginCommand extends Command
 {
@@ -71,7 +71,8 @@ class LoginCommand extends Command
     /**
      * Store the API token.
      *
-     * @param  string  $token
+     * @param string $token
+     *
      * @return void
      */
     protected function store($token)
@@ -84,7 +85,8 @@ class LoginCommand extends Command
     /**
      * Display the authentication failure message.
      *
-     * @param  ResponseInterface  $response
+     * @param ResponseInterface $response
+     *
      * @return void
      */
     protected function displayFailureMessage($response)

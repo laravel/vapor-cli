@@ -16,7 +16,7 @@ class ConfigureComposerAutoloader
      */
     public function __invoke()
     {
-        if (! Manifest::shouldSeparateVendor()) {
+        if (!Manifest::shouldSeparateVendor()) {
             return;
         }
 
@@ -31,7 +31,8 @@ class ConfigureComposerAutoloader
     /**
      * Configure the Artisan executable.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return string
      */
     protected function configure($file)

@@ -36,7 +36,7 @@ class JumpListCommand extends Command
                 $jumpBox['name'],
                 'ec2-user',
                 $jumpBox['endpoint'] ?: '-',
-                ucfirst($jumpBox['status'])
+                ucfirst($jumpBox['status']),
             ];
         })->all());
     }

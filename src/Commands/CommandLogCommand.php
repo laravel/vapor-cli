@@ -38,7 +38,7 @@ class CommandLogCommand extends Command
 
         Helpers::line();
 
-        isset($command['log']) && ! empty($command['log'])
+        isset($command['log']) && !empty($command['log'])
                     ? Helpers::write(base64_decode($command['log']))
                     : Helpers::line('No log information is available for this invocation.');
     }

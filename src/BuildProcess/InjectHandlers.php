@@ -18,7 +18,7 @@ class InjectHandlers
     {
         Helpers::step('<options=bold>Injecting Serverless Handlers</>');
 
-        if (! is_dir($this->appPath.'/vendor/laravel/vapor-core')) {
+        if (!is_dir($this->appPath.'/vendor/laravel/vapor-core')) {
             Helpers::abort('Unable to find laravel/vapor-core installation.');
         }
 
@@ -46,7 +46,8 @@ class InjectHandlers
     /**
      * Configure the HTTP handler.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return string
      */
     protected function configureHttpHandler($file)

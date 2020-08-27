@@ -26,12 +26,12 @@ class CompressApplication
             return $this->ensureArchiveIsWithinSizeLimits();
         }
 
-        $archive = new ZipArchive;
+        $archive = new ZipArchive();
 
         $archive->open($this->buildPath.'/app.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach (BuiltApplicationFiles::get($this->appPath) as $file) {
-            $relativePathName = str_replace("\\", "/", $file->getRelativePathname());
+            $relativePathName = str_replace('\\', '/', $file->getRelativePathname());
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
@@ -60,7 +60,8 @@ class CompressApplication
     /**
      * Get the proper file permissions for the file.
      *
-     * @param  \SplFileInfo  $file
+     * @param \SplFileInfo $file
+     *
      * @return int
      */
     protected function getPermissions($file)
@@ -88,7 +89,8 @@ class CompressApplication
     /**
      * Get the size of the given directory.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return int
      */
     protected function getDirectorySize($path)

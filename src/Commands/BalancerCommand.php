@@ -38,7 +38,8 @@ class BalancerCommand extends Command
         }
 
         $response = $this->vapor->createBalancer(
-            $networkId, $this->argument('name')
+            $networkId,
+            $this->argument('name')
         );
 
         Helpers::info('Load balancer creation initiated successfully.');

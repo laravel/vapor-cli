@@ -4,8 +4,8 @@ namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class CommandCommand extends Command
 {
@@ -56,7 +56,8 @@ class CommandCommand extends Command
         // invocation. Logs can take a minute to propogate to CloudWatch so they will
         // not always be immediately available for viewing by an invocation author.
         $this->displayLog(
-            $command, $command['status_code'] ?? null
+            $command,
+            $command['status_code'] ?? null
         );
 
         Helpers::line();
@@ -79,7 +80,8 @@ class CommandCommand extends Command
     /**
      * Wait for the given command to finish executing.
      *
-     * @param  array  $command
+     * @param array $command
+     *
      * @return array
      */
     protected function waitForCommandToFinish(array $command)
@@ -96,12 +98,13 @@ class CommandCommand extends Command
     /**
      * Display the status code of the command.
      *
-     * @param  array  $command
+     * @param array $command
+     *
      * @return void
      */
     protected function displayStatusCode(array $command)
     {
-        if (! isset($command['status_code'])) {
+        if (!isset($command['status_code'])) {
             return;
         }
 
@@ -113,7 +116,8 @@ class CommandCommand extends Command
     /**
      * Display the output of the command.
      *
-     * @param  array  $command
+     * @param array $command
+     *
      * @return void
      */
     protected function displayOutput(array $command)
@@ -130,13 +134,14 @@ class CommandCommand extends Command
     /**
      * Display the command's log messages.
      *
-     * @param  array  $command
-     * @param  int  $statusCode
+     * @param array $command
+     * @param int   $statusCode
+     *
      * @return void
      */
     protected function displayLog(array $command, $statusCode)
     {
-        if (! isset($command['output']) || $statusCode !== 0) {
+        if (!isset($command['output']) || $statusCode !== 0) {
             Helpers::line();
             Helpers::comment('Function Logs:');
             Helpers::line();

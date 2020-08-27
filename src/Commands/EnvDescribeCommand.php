@@ -47,20 +47,20 @@ class EnvDescribeCommand extends Command
         $domain = count($domains) ? $domains[0] : null;
 
         $description = [
-            'project_id' => $environment['project_id'],
-            'uuid' => $environment['uuid'],
-            'id' => $environment['id'],
-            'name' => $environment['name'],
-            'vanity_domain' => $environment['vanity_domain'],
-            'latest_deployment_id' => $environment['latest_deployment_id'],
+            'project_id'               => $environment['project_id'],
+            'uuid'                     => $environment['uuid'],
+            'id'                       => $environment['id'],
+            'name'                     => $environment['name'],
+            'vanity_domain'            => $environment['vanity_domain'],
+            'latest_deployment_id'     => $environment['latest_deployment_id'],
             'latest_deployment_status' => $environment['latest_deployment']['status'],
-            'latest_deployment_url' => 'https://vapor.laravel.com/app/projects/'.$environment['project_id'].'/environments/'.$environment['name'].'/deployments/'.$environment['latest_deployment_id'],
-            'deployment_status' => $environment['deployment_status'],
-            'domains' => $domains,
-            'domain' => $domain,
-            'management_url' => 'https://vapor.laravel.com/app/projects/'.$environment['project_id'].'/environments/'.$environment['name'],
-            'vanity_url' => 'https://'.$environment['vanity_domain'],
-            'custom_url' => $domain ? 'https://'.$domain : null,
+            'latest_deployment_url'    => 'https://vapor.laravel.com/app/projects/'.$environment['project_id'].'/environments/'.$environment['name'].'/deployments/'.$environment['latest_deployment_id'],
+            'deployment_status'        => $environment['deployment_status'],
+            'domains'                  => $domains,
+            'domain'                   => $domain,
+            'management_url'           => 'https://vapor.laravel.com/app/projects/'.$environment['project_id'].'/environments/'.$environment['name'],
+            'vanity_url'               => 'https://'.$environment['vanity_domain'],
+            'custom_url'               => $domain ? 'https://'.$domain : null,
         ];
 
         if ($this->option('list')) {
@@ -87,11 +87,11 @@ class EnvDescribeCommand extends Command
 
         $settingKey = $this->argument('attribute');
 
-        if (! $settingKey || ! is_string($settingKey)) {
+        if (!$settingKey || !is_string($settingKey)) {
             return;
         }
 
-        if (! array_key_exists($settingKey, $description)) {
+        if (!array_key_exists($settingKey, $description)) {
             throw new RuntimeException($settingKey.' is not defined');
         }
 

@@ -3,10 +3,10 @@
 namespace Laravel\VaporCli\Commands;
 
 use Exception;
-use Laravel\VaporCli\Path;
 use Laravel\VaporCli\Helpers;
-use Symfony\Component\Yaml\Yaml;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Yaml\Yaml;
 
 class LocalCommand extends Command
 {
@@ -47,13 +47,14 @@ class LocalCommand extends Command
     /**
      * Execute the command.
      *
-     * @return int
      * @throws Exception
+     *
+     * @return int
      */
     public function handle()
     {
         $options = array_slice($_SERVER['argv'], $this->option('php') ? 3 : 2);
-        
+
         $status = 0;
 
         file_put_contents(
@@ -82,54 +83,54 @@ class LocalCommand extends Command
         );
 
         unlink($dockerComposePath);
-        
+
         return $status;
     }
 
     /**
      * Get the Docker configuration.
      *
-     * @return array
-     *
      * @throws Exception
+     *
+     * @return array
      */
     protected function dockerConfiguration()
     {
-        if ($this->option('php') && ! isset(static::$images[$this->option('php')])) {
+        if ($this->option('php') && !isset(static::$images[$this->option('php')])) {
             Helpers::abort('Invalid PHP version.');
         }
 
         return [
-            'version' => '3.7',
+            'version'  => '3.7',
             'services' => [
                 'redis' => [
-                    'image' => 'redis:alpine',
+                    'image'   => 'redis:alpine',
                     'volumes' => [
                         'vapor_redis:/data',
                     ],
                     'restart' => 'always',
                 ],
                 'mysql' => [
-                    'image' => 'mysql:5.7',
+                    'image'   => 'mysql:5.7',
                     'volumes' => [
                         0 => 'vapor_mysql:/var/lib/mysql',
                     ],
-                    'restart' => 'always',
+                    'restart'     => 'always',
                     'environment' => [
                         'MYSQL_ROOT_PASSWORD' => 'secret',
-                        'MYSQL_DATABASE' => 'vapor',
-                        'MYSQL_USER' => 'vapor',
-                        'MYSQL_PASSWORD' => 'secret',
+                        'MYSQL_DATABASE'      => 'vapor',
+                        'MYSQL_USER'          => 'vapor',
+                        'MYSQL_PASSWORD'      => 'secret',
                     ],
                 ],
                 'app' => [
-                    'image' => static::$images[$this->option('php') ? $this->option('php') : '7.3'],
+                    'image'      => static::$images[$this->option('php') ? $this->option('php') : '7.3'],
                     'depends_on' => [
                         0 => 'mysql',
                         1 => 'redis',
                     ],
                     'restart' => 'always',
-                    'init' => true,
+                    'init'    => true,
                 ],
             ],
             'volumes' => [

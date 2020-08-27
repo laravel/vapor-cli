@@ -12,13 +12,14 @@ class DeploymentSuccess
     /**
      * Render the output.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
-     * @param  \DateTimeInterface  $startedAt
+     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     * @param \DateTimeInterface                  $startedAt
+     *
      * @return void
      */
     public function render(Deployment $deployment, DateTimeInterface $startedAt)
     {
-        $time = (new DateTime)->diff($startedAt)->format('%im%Ss');
+        $time = (new DateTime())->diff($startedAt)->format('%im%Ss');
 
         Helpers::line();
         Helpers::line("<info>Project deployed successfully.</info> ({$time})");
@@ -32,7 +33,7 @@ class DeploymentSuccess
 
             Helpers::table([
                 '<comment>Deployment ID</comment>',
-                '<comment>Environment URL (Copied To Clipboard)</comment>'
+                '<comment>Environment URL (Copied To Clipboard)</comment>',
             ], [[
                 "<options=bold>{$deployment->id}</>",
                 "<options=bold>https://{$deployment->vanityDomain()}</>",
@@ -43,7 +44,8 @@ class DeploymentSuccess
     /**
      * Display the target domains for the deployment domains.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     *
      * @return void
      */
     protected function displayTargetDomains(Deployment $deployment)

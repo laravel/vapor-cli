@@ -9,7 +9,8 @@ class Clipboard
     /**
      * Store the deployment environment's vanity URL in the clipboard.
      *
-     * @param  array  $deployment
+     * @param array $deployment
+     *
      * @return void
      */
     public static function deployment(array $deployment)
@@ -20,7 +21,8 @@ class Clipboard
     /**
      * Add the given string to the clipboard.
      *
-     * @param  string  $string
+     * @param string $string
+     *
      * @return void
      */
     public static function put($string)

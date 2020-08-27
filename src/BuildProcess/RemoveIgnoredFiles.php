@@ -55,7 +55,7 @@ class RemoveIgnoredFiles
             }
         }
 
-        $files = (new Finder)
+        $files = (new Finder())
             ->in(Path::app().'/database')
             ->depth('== 0')
             ->name('*.sqlite');
@@ -98,7 +98,7 @@ class RemoveIgnoredFiles
         }
     }
 
-  /**
+    /**
      * Remove the tests from the Symfony components.
      *
      * @return void
@@ -127,7 +127,7 @@ class RemoveIgnoredFiles
 
                 $this->files->deleteDirectory($directory.'/'.$filePattern, $preserve = false);
             } else {
-                $files = (new Finder)
+                $files = (new Finder())
                             ->in($directory)
                             ->depth('== 0')
                             ->ignoreDotFiles(false)
@@ -145,7 +145,8 @@ class RemoveIgnoredFiles
     /**
      * Parse the given ignore pattern into a base directory and file pattern.
      *
-     * @param  string  $pattern
+     * @param string $pattern
+     *
      * @return array
      */
     protected function parsePattern($pattern)

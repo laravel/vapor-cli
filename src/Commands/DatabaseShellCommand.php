@@ -32,7 +32,7 @@ class DatabaseShellCommand extends Command
 
         $databases = $this->vapor->databases();
 
-        if (! is_numeric($databaseId = $this->argument('database'))) {
+        if (!is_numeric($databaseId = $this->argument('database'))) {
             $databaseId = $this->findIdByName($databases, $databaseId);
         }
 
@@ -47,7 +47,8 @@ class DatabaseShellCommand extends Command
         $user = $this->findDatabaseUser($database);
 
         if (in_array($database['type'], ['rds', 'aurora-serverless'])) {
-            passthru(sprintf('ssh -t ec2-user@%s -i %s -o LogLevel=error "mysql -u %s -p%s -h %s vapor"',
+            passthru(sprintf(
+                'ssh -t ec2-user@%s -i %s -o LogLevel=error "mysql -u %s -p%s -h %s vapor"',
                 $jumpBox['endpoint'],
                 $this->storeJumpBoxKey($jumpBox),
                 $user['username'],
@@ -55,7 +56,8 @@ class DatabaseShellCommand extends Command
                 $database['endpoint']
             ));
         } else {
-            passthru(sprintf('ssh -t ec2-user@%s -i %s -o LogLevel=error "PGPASSWORD=%s psql -U %s -h %s vapor"',
+            passthru(sprintf(
+                'ssh -t ec2-user@%s -i %s -o LogLevel=error "PGPASSWORD=%s psql -U %s -h %s vapor"',
                 $jumpBox['endpoint'],
                 $this->storeJumpBoxKey($jumpBox),
                 $this->vapor->databaseUserPassword($user['id'])['password'],
@@ -68,7 +70,8 @@ class DatabaseShellCommand extends Command
     /**
      * Find a jump-box compatible with the database.
      *
-     * @param  array  $database
+     * @param array $database
+     *
      * @return array
      */
     protected function findCompatibleJumpBox(array $database)
@@ -91,7 +94,8 @@ class DatabaseShellCommand extends Command
     /**
      * Find the database user for the shell session.
      *
-     * @param  array  $database
+     * @param array $database
+     *
      * @return array
      */
     protected function findDatabaseUser(array $database)
@@ -118,7 +122,8 @@ class DatabaseShellCommand extends Command
     /**
      * Store the private SSH key for the jump-box.
      *
-     * @param  array  $jumpBox
+     * @param array $jumpBox
+     *
      * @return string
      */
     protected function storeJumpBoxKey(array $jumpBox)

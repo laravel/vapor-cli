@@ -30,7 +30,7 @@ class CacheShowCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($cacheId = $this->argument('cache'))) {
+        if (!is_numeric($cacheId = $this->argument('cache'))) {
             $cacheId = $this->findIdByName($this->vapor->caches(), $cacheId);
         }
 

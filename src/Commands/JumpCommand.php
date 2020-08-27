@@ -38,7 +38,8 @@ class JumpCommand extends Command
         }
 
         $response = $this->vapor->createJumpBox(
-            $networkId, $this->argument('name')
+            $networkId,
+            $this->argument('name')
         );
 
         $jumpBox = $response['jump_box'];
@@ -57,8 +58,9 @@ class JumpCommand extends Command
     /**
      * Store the private key for the jump-box if the user desires.
      *
-     * @param  array  $jumpBox
-     * @param  string  $privateKey
+     * @param array  $jumpBox
+     * @param string $privateKey
+     *
      * @return void
      */
     protected function storePrivateKey($name, $privateKey)

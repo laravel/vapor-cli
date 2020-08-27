@@ -4,8 +4,8 @@ namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class SecretDeleteCommand extends Command
 {
@@ -34,7 +34,8 @@ class SecretDeleteCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $this->vapor->deleteSecret($this->getSecretId($this->vapor->secrets(
-            Manifest::id(), $this->argument('environment')
+            Manifest::id(),
+            $this->argument('environment')
         )));
 
         Helpers::info('Secret deleted successfully.');
@@ -43,7 +44,8 @@ class SecretDeleteCommand extends Command
     /**
      * Get the ID for the secret that should be deleted.
      *
-     * @param  array  $secrets
+     * @param array $secrets
+     *
      * @return string
      */
     protected function getSecretId(array $secrets)
@@ -67,8 +69,9 @@ class SecretDeleteCommand extends Command
     /**
      * Get the ID of a secret by name.
      *
-     * @param  array  $secrets
-     * @param  string  $name
+     * @param array  $secrets
+     * @param string $name
+     *
      * @return string
      */
     protected function getSecretIdByName(array $secrets, $name)

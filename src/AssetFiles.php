@@ -9,16 +9,17 @@ class AssetFiles
     /**
      * Get an asset file Finder instance.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return \Symfony\Component\Finder\Finder|array
      */
     public static function get($path)
     {
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             return collect();
         }
 
-        return (new Finder)
+        return (new Finder())
                 ->in($path)
                 ->files()
                 ->exclude('storage')
@@ -36,7 +37,8 @@ class AssetFiles
     /**
      * Get the relative pathnames of all of the asset files in the path.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return array
      */
     public static function relativePaths($path)
@@ -44,7 +46,7 @@ class AssetFiles
         $files = collect(iterator_to_array(static::get($path)));
 
         return $files->map(function ($file) {
-            return str_replace("\\", "/", $file->getRelativePathname());
+            return str_replace('\\', '/', $file->getRelativePathname());
         })->values()->all();
     }
 }

@@ -19,7 +19,7 @@ class InjectErrorPages
 
         $stubPath = $this->appPath.'/vendor/laravel/vapor-core/stubs';
 
-        if (! file_exists($this->appPath.'/503.html')) {
+        if (!file_exists($this->appPath.'/503.html')) {
             $this->files->copy($stubPath.'/503.html', $this->appPath.'/503.html');
         }
     }

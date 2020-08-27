@@ -36,8 +36,9 @@ class TestCommand extends Command
     /**
      * Execute the command.
      *
-     * @return void
      * @throws Exception
+     *
+     * @return void
      */
     public function handle()
     {

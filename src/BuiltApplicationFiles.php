@@ -9,12 +9,13 @@ class BuiltApplicationFiles
     /**
      * Get a built application Finder instance.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return \Symfony\Component\Finder\Finder
      */
     public static function get($path)
     {
-        return (new Finder)
+        return (new Finder())
                 ->in($path)
                 ->files()
                 ->ignoreVcs(true)

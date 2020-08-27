@@ -34,7 +34,7 @@ class BalancerListCommand extends Command
                 $balancer['id'],
                 $balancer['network']['name'],
                 $balancer['name'],
-                ucfirst($balancer['status'])
+                ucfirst($balancer['status']),
             ];
         })->all());
     }

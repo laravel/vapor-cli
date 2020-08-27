@@ -32,7 +32,7 @@ class DatabaseUserCommand extends Command
 
         $databases = $this->vapor->databases();
 
-        if (! is_numeric($databaseId = $this->argument('database'))) {
+        if (!is_numeric($databaseId = $this->argument('database'))) {
             $databaseId = $this->findIdByName($databases, $databaseId);
         }
 
@@ -41,7 +41,8 @@ class DatabaseUserCommand extends Command
         }
 
         $response = $this->vapor->createDatabaseUser(
-            $databaseId, $this->argument('user')
+            $databaseId,
+            $this->argument('user')
         );
 
         Helpers::info('Database user created successfully.');

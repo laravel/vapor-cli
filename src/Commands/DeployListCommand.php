@@ -32,7 +32,8 @@ class DeployListCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $deployments = $this->vapor->deployments(
-            Manifest::id(), $environment = $this->argument('environment')
+            Manifest::id(),
+            $environment = $this->argument('environment')
         );
 
         if (empty($deployments)) {

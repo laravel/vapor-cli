@@ -29,7 +29,7 @@ class NetworkShowCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (! is_numeric($networkId = $this->argument('network'))) {
+        if (!is_numeric($networkId = $this->argument('network'))) {
             $networkId = $this->findIdByName($this->vapor->networks(), $networkId);
         }
 
@@ -60,7 +60,8 @@ class NetworkShowCommand extends Command
     /**
      * Display the network's details.
      *
-     * @param  array  $network
+     * @param array $network
+     *
      * @return void
      */
     protected function displayNetworkDetails(array $network)

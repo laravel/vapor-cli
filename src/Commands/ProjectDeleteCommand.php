@@ -2,9 +2,9 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Path;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 
 class ProjectDeleteCommand extends Command
 {
@@ -27,7 +27,7 @@ class ProjectDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm("Are you sure you want to delete this project", false)) {
+        if (!Helpers::confirm('Are you sure you want to delete this project', false)) {
             Helpers::abort('Action cancelled.');
         }
 

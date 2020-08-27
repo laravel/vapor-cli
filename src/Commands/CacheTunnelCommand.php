@@ -31,7 +31,7 @@ class CacheTunnelCommand extends Command
 
         $caches = $this->vapor->caches();
 
-        if (! is_numeric($cacheId = $this->argument('cache'))) {
+        if (!is_numeric($cacheId = $this->argument('cache'))) {
             $cacheId = $this->findIdByName($caches, $cacheId);
         }
 
@@ -45,7 +45,8 @@ class CacheTunnelCommand extends Command
 
         Helpers::line('<info>Establishing secure tunnel to</info> <comment>['.$cache['name'].']</comment> <info>on</info> <comment>[localhost:6378]</comment><info>...</info>');
 
-        passthru(sprintf('ssh ec2-user@%s -i %s -o LogLevel=error -L 6378:%s:6379 -N',
+        passthru(sprintf(
+            'ssh ec2-user@%s -i %s -o LogLevel=error -L 6378:%s:6379 -N',
             $jumpBox['endpoint'],
             $this->storeJumpBoxKey($jumpBox),
             $cache['endpoint']
@@ -55,7 +56,8 @@ class CacheTunnelCommand extends Command
     /**
      * Find a jump-box compatible with the cache.
      *
-     * @param  array  $cache
+     * @param array $cache
+     *
      * @return array
      */
     protected function findCompatibleJumpBox(array $cache)
@@ -63,7 +65,8 @@ class CacheTunnelCommand extends Command
         $jumpBoxes = $this->vapor->jumpBoxes();
 
         $jumpBox = collect($jumpBoxes)->firstWhere(
-            'network_id', $cache['network_id']
+            'network_id',
+            $cache['network_id']
         );
 
         if (is_null($jumpBox)) {
@@ -76,7 +79,8 @@ class CacheTunnelCommand extends Command
     /**
      * Store the private SSH key for the jump-box.
      *
-     * @param  array  $jumpBox
+     * @param array $jumpBox
+     *
      * @return string
      */
     protected function storeJumpBoxKey(array $jumpBox)

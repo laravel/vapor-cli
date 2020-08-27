@@ -2,10 +2,10 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Helpers;
-use Laravel\VaporCli\Models\Deployment;
 use Laravel\VaporCli\Commands\Output\DeploymentFailure;
 use Laravel\VaporCli\Commands\Output\DeploymentSuccess;
+use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Models\Deployment;
 
 trait DisplaysDeploymentProgress
 {
@@ -19,7 +19,8 @@ trait DisplaysDeploymentProgress
     /**
      * Display the server-side deployment pipeline for the given deployment.
      *
-     * @param  array  $deployment
+     * @param array $deployment
+     *
      * @return array
      */
     protected function displayDeploymentProgress(array $deployment)
@@ -42,12 +43,13 @@ trait DisplaysDeploymentProgress
     /**
      * Display the deployment steps until the deployment is finished.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     *
      * @return \Laravel\VaporCli\Models\Deployment
      */
     protected function displayDeploymentSteps(Deployment $deployment)
     {
-        while (! $deployment->hasEnded()) {
+        while (!$deployment->hasEnded()) {
             $this->displayActiveDeploymentSteps($deployment = new Deployment(
                 $this->vapor->deployment($deployment->id)
             ));
@@ -61,7 +63,8 @@ trait DisplaysDeploymentProgress
     /**
      * Display any new, active deployment steps.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     *
      * @return void
      */
     protected function displayActiveDeploymentSteps(Deployment $deployment)
@@ -76,22 +79,24 @@ trait DisplaysDeploymentProgress
     /**
      * Display the deployment success message.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     *
      * @return void
      */
     protected function displaySuccessMessage(Deployment $deployment)
     {
-        (new DeploymentSuccess)->render($deployment, $this->startedAt);
+        (new DeploymentSuccess())->render($deployment, $this->startedAt);
     }
 
     /**
      * Display the deployment failure message.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     *
      * @return void
      */
     protected function displayFailureMessage(Deployment $deployment)
     {
-        (new DeploymentFailure)->render($deployment);
+        (new DeploymentFailure())->render($deployment);
     }
 }

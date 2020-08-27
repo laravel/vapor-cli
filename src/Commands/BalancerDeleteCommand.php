@@ -27,7 +27,7 @@ class BalancerDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm("Are you sure you want to delete this load balancer", false)) {
+        if (!Helpers::confirm('Are you sure you want to delete this load balancer', false)) {
             Helpers::abort('Action cancelled.');
         }
 
@@ -51,7 +51,7 @@ class BalancerDeleteCommand extends Command
     {
         $balancers = $this->vapor->balancers();
 
-        if (! is_numeric($balancerId = $this->argument('balancer'))) {
+        if (!is_numeric($balancerId = $this->argument('balancer'))) {
             $balancerName = $balancerId;
 
             $balancerId = $this->findIdByName($balancers, $balancerId);

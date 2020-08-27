@@ -34,7 +34,9 @@ class ProviderCommand extends Command
         $name = Helpers::ask('What should the cloud provider be named', 'Personal');
 
         $this->vapor->createProvider(
-            $provider, $name, $this->{"get{$provider}Credentials"}()
+            $provider,
+            $name,
+            $this->{"get{$provider}Credentials"}()
         );
 
         Helpers::info('Cloud provider account linked successfully.');

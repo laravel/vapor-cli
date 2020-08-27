@@ -3,8 +3,8 @@
 namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class CertDeleteCommand extends Command
 {
@@ -33,8 +33,8 @@ class CertDeleteCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         if ($this->option('certificate')) {
-            if (! $this->option('force') &&
-                ! Helpers::confirm('Are you sure you want to delete this certificate', false)) {
+            if (!$this->option('force') &&
+                !Helpers::confirm('Are you sure you want to delete this certificate', false)) {
                 Helpers::abort('Action cancelled.');
             }
 
@@ -65,7 +65,8 @@ class CertDeleteCommand extends Command
 
         if ($this->argument('domain') && count($certificates) === 1) {
             return $this->getCertificateForDomain(
-                $certificates, $this->argument('domain')
+                $certificates,
+                $this->argument('domain')
             );
         }
 
@@ -78,17 +79,19 @@ class CertDeleteCommand extends Command
     /**
      * Get the certificate ID for the given domain.
      *
-     * @param  array  $certificates
-     * @param  string  $domain
+     * @param array  $certificates
+     * @param string $domain
+     *
      * @return string
      */
     protected function getCertificateForDomain(array $certificates, $domain)
     {
         $certificate = collect($certificates)->firstWhere(
-            'domain', $domain
+            'domain',
+            $domain
         );
 
-        if (! $certificate) {
+        if (!$certificate) {
             Helpers::abort('You do not have any certificates matching the given criteria.');
         }
 

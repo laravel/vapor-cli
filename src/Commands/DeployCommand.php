@@ -2,18 +2,18 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Git;
-use Laravel\VaporCli\Path;
-use Illuminate\Support\Str;
-use Laravel\VaporCli\Helpers;
-use Illuminate\Support\Carbon;
-use Laravel\VaporCli\Manifest;
-use Laravel\VaporCli\Clipboard;
-use Laravel\VaporCli\ServeAssets;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Laravel\VaporCli\Aws\AwsStorageProvider;
-use Symfony\Component\Console\Input\InputOption;
+use Laravel\VaporCli\Clipboard;
+use Laravel\VaporCli\Git;
+use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
+use Laravel\VaporCli\ServeAssets;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class DeployCommand extends Command
 {
@@ -53,14 +53,16 @@ class DeployCommand extends Command
             $this->vapor->project(Manifest::id())
         ));
 
-        (new Filesystem)->deleteDirectory(Path::vapor());
+        (new Filesystem())->deleteDirectory(Path::vapor());
 
         $deployment = $this->handleCancellations($this->vapor->deploy(
-            $artifact['id'], Manifest::current()
+            $artifact['id'],
+            Manifest::current()
         ));
 
         if ($this->option('without-waiting')) {
             Helpers::line();
+
             return Helpers::info('Artifact uploaded successfully.');
         }
 
@@ -81,15 +83,19 @@ class DeployCommand extends Command
     protected function ensureManifestIsValid()
     {
         $this->vapor->validateManifest(
-            Manifest::id(), $this->argument('environment'), Manifest::current(),
-            $this->getCliVersion(), $this->getCoreVersion()
+            Manifest::id(),
+            $this->argument('environment'),
+            Manifest::current(),
+            $this->getCliVersion(),
+            $this->getCoreVersion()
         );
     }
 
     /**
      * Build the project and create a new artifact for the deployment.
      *
-     * @param  array  $project
+     * @param array $project
+     *
      * @return array
      */
     protected function buildProject(array $project)
@@ -102,14 +108,16 @@ class DeployCommand extends Command
         ]);
 
         return $this->uploadArtifact(
-            $this->argument('environment'), $uuid
+            $this->argument('environment'),
+            $uuid
         );
     }
 
     /**
      * Get the proper asset domain for the given project.
      *
-     * @param  array  $project
+     * @param array $project
+     *
      * @return string
      */
     protected function assetDomain(array $project)
@@ -135,8 +143,9 @@ class DeployCommand extends Command
     /**
      * Upload the deployment artifact.
      *
-     * @param  string  $environment
-     * @param  string  $uuid
+     * @param string $environment
+     * @param string $uuid
+     *
      * @return array
      */
     protected function uploadArtifact($environment, $uuid)
@@ -153,7 +162,8 @@ class DeployCommand extends Command
             $this->option('commit') ?: Git::hash(),
             $this->option('message') ?: Git::message(),
             Manifest::shouldSeparateVendor() ? $this->createVendorHash() : null,
-            $this->getCliVersion(), $this->getCoreVersion()
+            $this->getCliVersion(),
+            $this->getCoreVersion()
         );
 
         if (isset($artifact['vendor_url'])) {
@@ -170,25 +180,27 @@ class DeployCommand extends Command
     /**
      * Serve the artifact's assets at the given path.
      *
-     * @param  array  $artifact
+     * @param array $artifact
+     *
      * @return void
      */
     protected function serveAssets(array $artifact)
     {
         Helpers::line();
 
-        (new ServeAssets)->__invoke($this->vapor, $artifact);
+        (new ServeAssets())->__invoke($this->vapor, $artifact);
     }
 
     /**
      * Setup a signal listener to handle deployment cancellations.
      *
-     * @param  array  $deployment
+     * @param array $deployment
+     *
      * @return array
      */
     protected function handleCancellations(array $deployment)
     {
-        if (! extension_loaded('pcntl')) {
+        if (!extension_loaded('pcntl')) {
             return $deployment;
         }
 
@@ -206,7 +218,8 @@ class DeployCommand extends Command
     /**
      * Attempt to cancel the given deployment.
      *
-     * @param  array  $deployment
+     * @param array $deployment
+     *
      * @return void
      */
     protected function cancelDeployment(array $deployment)
@@ -228,7 +241,7 @@ class DeployCommand extends Command
             }
 
             sleep(3);
-        } while (! $deployment['has_ended']);
+        } while (!$deployment['has_ended']);
     }
 
     /**
@@ -258,7 +271,7 @@ class DeployCommand extends Command
      */
     protected function getCoreVersion()
     {
-        if (! file_exists($file = Path::current().'/vendor/composer/installed.json')) {
+        if (!file_exists($file = Path::current().'/vendor/composer/installed.json')) {
             return;
         }
 
