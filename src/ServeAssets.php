@@ -88,8 +88,7 @@ class ServeAssets
         ConsoleVaporClient $vapor,
         array $artifact,
         array $assetFiles
-    )
-    {
+    ) {
         return $vapor->authorizeArtifactAssets(
             $artifact['id'],
             $assetFiles
