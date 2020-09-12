@@ -27,6 +27,7 @@ class AssetFiles
                 ->notName('web.config')
                 ->notName('browserconfig.xml')
                 ->notName('*.webmanifest')
+                ->notName('mix-manifest.json')
                 ->notName('*.php')
                 ->ignoreVcs(true)
                 ->ignoreDotFiles(true)
