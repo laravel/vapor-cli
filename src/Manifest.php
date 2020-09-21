@@ -47,6 +47,16 @@ class Manifest
     }
 
     /**
+     * Get the public files patterns for the project.
+     *
+     * @return array
+     */
+    public static function publicFiles()
+    {
+        return static::current()['public-files'] ?? [];
+    }
+
+    /**
      * Get the ignored file patterns for the project.
      *
      * @return array
