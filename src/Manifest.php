@@ -53,7 +53,7 @@ class Manifest
      */
     public static function publicFiles()
     {
-        return static::current()['public-files'] ?? [];
+        return static::current()['public'] ?? [];
     }
 
     /**
