@@ -68,6 +68,16 @@ class Manifest
     }
 
     /**
+     * Determine if we should interpret dot files in the public directory as assets.
+     *
+     * @return bool
+     */
+    public static function dotFilesAsAssets()
+    {
+        return static::current()['dot-files-as-assets'] ?? false;
+    }
+
+    /**
      * Write a fresh manifest file for the given project.
      *
      * @param array $project
