@@ -31,7 +31,6 @@ class AssetFiles
                 ->notName('mix-manifest.json')
                 ->notName('*.php')
                 ->ignoreVcs(true)
-                ->ignoreDotFiles(true)
                 ->sortByName();
     }
 
