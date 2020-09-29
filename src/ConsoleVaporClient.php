@@ -1159,7 +1159,7 @@ class ConsoleVaporClient
             'post',
             '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments',
             [
-                'secret' => $secret
+                'secret' => $secret,
             ]
         );
     }
