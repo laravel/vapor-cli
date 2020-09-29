@@ -1149,14 +1149,18 @@ class ConsoleVaporClient
      *
      * @param string $projectId
      * @param string $environment
+     * @param string $secret
      *
      * @return array
      */
-    public function enableMaintenanceMode($projectId, $environment)
+    public function enableMaintenanceMode($projectId, $environment, $secret = null)
     {
         return $this->requestWithErrorHandling(
             'post',
-            '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments'
+            '/api/projects/'.$projectId.'/environments/'.$environment.'/maintenance-mode-deployments',
+            [
+                'secret' => $secret
+            ]
         );
     }
 
