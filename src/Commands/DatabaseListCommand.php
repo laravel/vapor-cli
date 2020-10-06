@@ -29,7 +29,7 @@ class DatabaseListCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $this->table([
-            'ID', 'Provider', 'Name', 'Region', 'Type', 'Class', 'Storage', 'Status', 'Proxy'
+            'ID', 'Provider', 'Name', 'Region', 'Type', 'Class', 'Storage', 'Status', 'Proxy',
         ], collect($this->vapor->databases())->map(function ($database) {
             return [
                 $database['id'],
