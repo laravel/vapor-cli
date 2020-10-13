@@ -29,7 +29,7 @@ class DatabaseListCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $this->table([
-            'ID', 'Provider', 'Name', 'Region', 'Type', 'Class', 'Storage', 'Status',
+            'ID', 'Provider', 'Name', 'Region', 'Type', 'Class', 'Storage', 'Status', 'Proxy',
         ], collect($this->vapor->databases())->map(function ($database) {
             return [
                 $database['id'],
@@ -40,6 +40,7 @@ class DatabaseListCommand extends Command
                 $database['instance_class'],
                 $database['storage'].'GB',
                 Str::title(str_replace('_', ' ', $database['status'])),
+                $database['proxy'] ? Str::title(str_replace('_', ' ', $database['proxy']['status'])) : 'No',
             ];
         })->all());
     }

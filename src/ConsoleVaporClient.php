@@ -483,6 +483,30 @@ class ConsoleVaporClient
     }
 
     /**
+     * Create a new database proxy.
+     *
+     * @param string $databaseId
+     *
+     * @return array
+     */
+    public function createDatabaseProxy($databaseId)
+    {
+        return $this->requestWithErrorHandling('post', '/api/databases/'.$databaseId.'/proxy');
+    }
+
+    /**
+     * Delete the proxy associated to the given database.
+     *
+     * @param string $databaseId
+     *
+     * @return void
+     */
+    public function deleteDatabaseProxy($databaseId)
+    {
+        $this->requestWithErrorHandling('delete', '/api/databases/'.$databaseId.'/proxy');
+    }
+
+    /**
      * Rotate the given database's password.
      *
      * @param string $databaseId
