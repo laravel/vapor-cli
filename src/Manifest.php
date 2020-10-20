@@ -186,7 +186,7 @@ class Manifest
     }
 
     /**
-     * Determines whether the environment is protected or not
+     * Determines whether the environment is protected or not.
      *
      * @param $environment
      * @return array|mixed
