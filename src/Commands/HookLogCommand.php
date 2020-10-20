@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -33,13 +34,36 @@ class HookLogCommand extends Command
                         ?? $this->vapor->latestFailedDeploymentHook()['id']
                         ?? null);
 
-        Helpers::line('<info>Deployment Hook Command:</info> '.$hook['command']);
-        Helpers::line('<info>Deployment Hook Executed At:</info> '.$hook['created_at'].' ('.Helpers::time_ago($hook['created_at']).')');
-
-        Helpers::line();
+        Helpers::line('<info>Hook:</info> '.$hook['command']);
+        Helpers::line('<info>Executed At:</info> '.$hook['created_at'].' ('.Helpers::time_ago($hook['created_at']).')');
+        Helpers::line('<info>Logs:</info>');
 
         isset($hook['log']) && !empty($hook['log'])
-                    ? Helpers::write(base64_decode($hook['log']))
+                    ? static::writeLog($hook['log'])
                     : Helpers::line('No log information is available for this deployment hook.');
+    }
+
+    /**
+     * Write the log to the console.
+     *
+     * @param string $log
+     *
+     * @return void
+     */
+    public static function writeLog($log)
+    {
+        $log = base64_decode($log);
+
+        $lines = explode(PHP_EOL, $log);
+
+        collect($lines)->filter(function ($line) {
+            return !Str::startsWith($line, ['START', 'END', 'REPORT']);
+        })->each(function ($line) {
+            if ($json = json_decode($line, true)) {
+                $line = json_encode($json, JSON_PRETTY_PRINT).PHP_EOL;
+            }
+
+            Helpers::write($line);
+        });
     }
 }
