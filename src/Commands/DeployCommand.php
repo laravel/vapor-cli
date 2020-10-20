@@ -49,7 +49,7 @@ class DeployCommand extends Command
         // Checks if the environment is protected and prompts the user
         // if the user choice is Yes, deployment completed, otherwise
         // deployment exits.
-        if(!$this->checkProtectedEnvironment($this->argument('environment'))) {
+        if (!$this->checkProtectedEnvironment($this->argument('environment'))) {
             exit(1);
         }
 
@@ -301,7 +301,7 @@ class DeployCommand extends Command
      */
     protected function checkProtectedEnvironment($environment)
     {
-        if(Manifest::isProtectedEnvironment($environment)) {
+        if (Manifest::isProtectedEnvironment($environment)) {
             return Helpers::confirm('This is a protected environment, are you sure you want to deploy?', false);
         }
     }
