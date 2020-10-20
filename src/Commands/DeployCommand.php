@@ -46,6 +46,13 @@ class DeployCommand extends Command
 
         $this->ensureManifestIsValid();
 
+        // Checks if the environment is protected and prompts the user
+        // if the user choice is Yes, deployment completed, otherwise
+        // deployment exits.
+        if(!$this->checkProtectedEnvironment($this->argument('environment'))){
+            return;
+        }
+
         // First we will build the project and create a new deployment artifact for the
         // project deployment. Once that has been done we can upload the assets into
         // storage so that they can be accessed publicly or displayed on the site.
@@ -283,5 +290,19 @@ class DeployCommand extends Command
                 ->first()->version;
 
         return ltrim($version, 'v');
+    }
+
+    /**
+     * Check whether the environment is protected before deployment.
+     *
+     * @param $environment
+     * @return mixed
+     */
+    protected function checkProtectedEnvironment($environment)
+    {
+        if(Manifest::isProtectedEnvironment($environment))
+        {
+            return Helpers::confirm('This is a protected environment, are you sure you want to deploy?', false);
+        }
     }
 }

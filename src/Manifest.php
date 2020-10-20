@@ -184,4 +184,19 @@ class Manifest
             Yaml::dump($manifest, $inline = 20, $spaces = 4)
         );
     }
+
+    /**
+     * Determines whether the environment is protected or not
+     *
+     * @param $environment
+     * @return array|mixed
+     */
+    public static function isProtectedEnvironment($environment)
+    {
+        if (!isset(static::current()['environments'][$environment])) {
+            Helpers::abort("The [{$environment}] environment has not been defined.");
+        }
+
+        return static::current()['environments'][$environment]['protected'] ?? [];
+    }
 }
