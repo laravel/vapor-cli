@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\Commands\Output;
 
-use GuzzleHttp\Exception\RequestException;
 use Laravel\VaporCli\Commands\HookOutputCommand;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
