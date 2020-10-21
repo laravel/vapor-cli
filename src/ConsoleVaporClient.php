@@ -1155,6 +1155,18 @@ class ConsoleVaporClient
     }
 
     /**
+     * Get the deployment hook output with the given ID.
+     *
+     * @param string $hookId
+     *
+     * @return string
+     */
+    public function deploymentHookOutput($hookId)
+    {
+        return $this->request('get', '/api/hooks/'.$hookId.'/output');
+    }
+
+    /**
      * Rollback to the given deployment ID.
      *
      * @param string $deploymentId

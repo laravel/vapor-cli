@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
-class HookLogCommand extends Command
+class HookOutputCommand extends Command
 {
     /**
      * Configure the command options.
@@ -16,9 +16,9 @@ class HookLogCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('hook:log')
+            ->setName('hook:output')
             ->addArgument('hook', InputArgument::OPTIONAL, 'The deployment hook ID')
-            ->setDescription('Retrieve the log messages for a deployment hook');
+            ->setDescription('Retrieve the output for a deployment hook');
     }
 
     /**
@@ -36,36 +36,30 @@ class HookLogCommand extends Command
 
         Helpers::line('<info>Hook:</info> '.$hook['command']);
         Helpers::line('<info>Executed At:</info> '.$hook['created_at'].' ('.Helpers::time_ago($hook['created_at']).')');
-        Helpers::line('<info>Logs:</info>');
+        Helpers::line('<info>Output:</info>');
 
-        isset($hook['log']) && !empty($hook['log'])
-                    ? static::writeLog($hook['log'])
-                    : Helpers::line('No log information is available for this deployment hook.');
+        isset($hook['output']) && !empty($hook['output'])
+                    ? static::writeOutput($hook['output'])
+                    : Helpers::line('No output information is available for this deployment hook.');
+
+        Helpers::line();
     }
 
     /**
-     * Write the log to the console.
+     * Write the output to the console.
      *
-     * @param string $log
+     * @param string $output
      *
      * @return void
      */
-    public static function writeLog($log)
+    public static function writeOutput($output)
     {
-        $log = base64_decode($log);
+        $output = base64_decode($output);
 
-        $lines = explode(PHP_EOL, $log);
+        if ($json = json_decode($output, true)) {
+            $output = $json['output'];
+        }
 
-        collect($lines)->filter(function ($line) {
-            return !Str::startsWith($line, ['START', 'END', 'REPORT']);
-        })->each(function ($line) {
-            if ($json = json_decode($line, true)) {
-                $line = json_encode($json, JSON_PRETTY_PRINT).PHP_EOL;
-            }
-
-            Helpers::write($line);
-        });
-
-        Helpers::line();
+        Helpers::write($output);
     }
 }
