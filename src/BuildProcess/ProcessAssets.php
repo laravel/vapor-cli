@@ -44,7 +44,7 @@ class ProcessAssets
         Helpers::step('<options=bold>Processing Assets</>');
 
         foreach (AssetFiles::get($this->appPath.'/public') as $file) {
-            if (!Str::endsWith($file->getRealPath(), '.css')) {
+            if (! Str::endsWith($file->getRealPath(), '.css')) {
                 continue;
             }
 

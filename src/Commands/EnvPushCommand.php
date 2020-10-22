@@ -32,7 +32,7 @@ class EnvPushCommand extends Command
 
         $environment = $this->argument('environment');
 
-        if (!file_exists($file = getcwd().'/.env.'.$environment)) {
+        if (! file_exists($file = getcwd().'/.env.'.$environment)) {
             Helpers::abort('The environment variables for that environment have not been downloaded.');
         }
 

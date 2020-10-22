@@ -27,7 +27,7 @@ class ProjectDeleteCommand extends Command
      */
     public function handle()
     {
-        if (!Helpers::confirm('Are you sure you want to delete this project', false)) {
+        if (! Helpers::confirm('Are you sure you want to delete this project', false)) {
             Helpers::abort('Action cancelled.');
         }
 

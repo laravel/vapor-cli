@@ -37,7 +37,7 @@ class HookOutputCommand extends Command
         Helpers::line('<info>Executed At:</info> '.$hook['created_at'].' ('.Helpers::time_ago($hook['created_at']).')');
         Helpers::line('<info>Output:</info>');
 
-        isset($hook['output']) && !empty($hook['output'])
+        isset($hook['output']) && ! empty($hook['output'])
                     ? static::writeOutput($hook['output'])
                     : Helpers::line('No output information is available for this deployment hook.');
 

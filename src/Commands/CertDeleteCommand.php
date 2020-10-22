@@ -33,8 +33,8 @@ class CertDeleteCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         if ($this->option('certificate')) {
-            if (!$this->option('force') &&
-                !Helpers::confirm('Are you sure you want to delete this certificate', false)) {
+            if (! $this->option('force') &&
+                ! Helpers::confirm('Are you sure you want to delete this certificate', false)) {
                 Helpers::abort('Action cancelled.');
             }
 
@@ -91,7 +91,7 @@ class CertDeleteCommand extends Command
             $domain
         );
 
-        if (!$certificate) {
+        if (! $certificate) {
             Helpers::abort('You do not have any certificates matching the given criteria.');
         }
 
