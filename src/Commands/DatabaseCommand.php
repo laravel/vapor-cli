@@ -44,9 +44,9 @@ class DatabaseCommand extends Command
 
         $public = $this->determineIfPublic();
 
-        if (!$public &&
-            !$this->networkHasNatGateway($networkId) &&
-            !Helpers::confirm('A private database will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
+        if (! $public &&
+            ! $this->networkHasNatGateway($networkId) &&
+            ! Helpers::confirm('A private database will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
             Helpers::abort('Action cancelled.');
         }
 

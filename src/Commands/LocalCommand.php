@@ -96,7 +96,7 @@ class LocalCommand extends Command
      */
     protected function dockerConfiguration()
     {
-        if ($this->option('php') && !isset(static::$images[$this->option('php')])) {
+        if ($this->option('php') && ! isset(static::$images[$this->option('php')])) {
             Helpers::abort('Invalid PHP version.');
         }
 

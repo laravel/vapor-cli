@@ -38,7 +38,7 @@ class HookLogCommand extends Command
 
         Helpers::line();
 
-        isset($hook['log']) && !empty($hook['log'])
+        isset($hook['log']) && ! empty($hook['log'])
                     ? Helpers::write(base64_decode($hook['log']))
                     : Helpers::line('No log information is available for this deployment hook.');
     }

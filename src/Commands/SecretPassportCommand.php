@@ -30,8 +30,8 @@ class SecretPassportCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        if (!file_exists(getcwd().'/storage/oauth-private.key') ||
-            !file_exists(getcwd().'/storage/oauth-public.key')) {
+        if (! file_exists(getcwd().'/storage/oauth-private.key') ||
+            ! file_exists(getcwd().'/storage/oauth-public.key')) {
             Helpers::abort('Unable to find Passport keys in [storage] directory.');
         }
 

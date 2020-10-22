@@ -49,7 +49,7 @@ trait DisplaysDeploymentProgress
      */
     protected function displayDeploymentSteps(Deployment $deployment)
     {
-        while (!$deployment->hasEnded()) {
+        while (! $deployment->hasEnded()) {
             $this->displayActiveDeploymentSteps($deployment = new Deployment(
                 $this->vapor->deployment($deployment->id)
             ));

@@ -15,7 +15,7 @@ class AssetFiles
      */
     public static function get($path)
     {
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return collect();
         }
 
@@ -31,7 +31,7 @@ class AssetFiles
                 ->notName('mix-manifest.json')
                 ->notName('*.php')
                 ->ignoreVcs(true)
-                ->ignoreDotFiles(!Manifest::dotFilesAsAssets())
+                ->ignoreDotFiles(! Manifest::dotFilesAsAssets())
                 ->sortByName();
     }
 

@@ -38,8 +38,8 @@ class CacheCommand extends Command
             Helpers::abort('Unable to find a network with that name / ID.');
         }
 
-        if (!$this->networkHasNatGateway($networkId) &&
-            !Helpers::confirm('A cache will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
+        if (! $this->networkHasNatGateway($networkId) &&
+            ! Helpers::confirm('A cache will require Vapor to add a NAT gateway to your network (~32 / month). Would you like to proceed', true)) {
             Helpers::abort('Action cancelled.');
         }
 

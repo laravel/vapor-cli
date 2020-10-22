@@ -29,7 +29,7 @@ class ZoneDeleteCommand extends Command
     {
         $zone = $this->argument('zone');
 
-        if (!is_numeric($zoneId = $this->argument('zone'))) {
+        if (! is_numeric($zoneId = $this->argument('zone'))) {
             $zoneId = $this->findIdByName($this->vapor->zones(), $zoneId, 'zone');
         }
 
@@ -37,7 +37,7 @@ class ZoneDeleteCommand extends Command
             Helpers::abort('Unable to find a zone with that name / ID.');
         }
 
-        if (!Helpers::confirm("Are you sure you want to delete the zone for {$zone}", false)) {
+        if (! Helpers::confirm("Are you sure you want to delete the zone for {$zone}", false)) {
             Helpers::abort('Action cancelled.');
         }
 
