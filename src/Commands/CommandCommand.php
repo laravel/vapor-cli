@@ -104,7 +104,7 @@ class CommandCommand extends Command
      */
     protected function displayStatusCode(array $command)
     {
-        if (!isset($command['status_code'])) {
+        if (! isset($command['status_code'])) {
             return;
         }
 
@@ -141,7 +141,7 @@ class CommandCommand extends Command
      */
     protected function displayLog(array $command, $statusCode)
     {
-        if (!isset($command['output']) || $statusCode !== 0) {
+        if (! isset($command['output']) || $statusCode !== 0) {
             Helpers::line();
             Helpers::comment('Function Logs:');
             Helpers::line();

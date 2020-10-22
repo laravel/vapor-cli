@@ -31,7 +31,7 @@ class CacheTunnelCommand extends Command
 
         $caches = $this->vapor->caches();
 
-        if (!is_numeric($cacheId = $this->argument('cache'))) {
+        if (! is_numeric($cacheId = $this->argument('cache'))) {
             $cacheId = $this->findIdByName($caches, $cacheId);
         }
 

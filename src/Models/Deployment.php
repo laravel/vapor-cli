@@ -41,7 +41,7 @@ class Deployment
                 })->map(function ($step) {
                     return $this->formatDeploymentStepName($step['name']);
                 })->filter(function ($step) use ($displayedSteps) {
-                    return !in_array($step, $displayedSteps);
+                    return ! in_array($step, $displayedSteps);
                 })->all();
     }
 
@@ -55,7 +55,7 @@ class Deployment
     protected function stepShouldBeDisplayed(array $step)
     {
         return $step['status'] !== 'pending' &&
-               !in_array($step['name'], $this->displayedSteps);
+               ! in_array($step['name'], $this->displayedSteps);
     }
 
     /**
@@ -82,7 +82,7 @@ class Deployment
     public function hasTargetDomains()
     {
         return isset($this->deployment['target_domains']) &&
-               !empty($this->deployment['target_domains']);
+               ! empty($this->deployment['target_domains']);
     }
 
     /**

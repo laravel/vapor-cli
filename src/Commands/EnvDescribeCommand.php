@@ -87,11 +87,11 @@ class EnvDescribeCommand extends Command
 
         $settingKey = $this->argument('attribute');
 
-        if (!$settingKey || !is_string($settingKey)) {
+        if (! $settingKey || ! is_string($settingKey)) {
             return;
         }
 
-        if (!array_key_exists($settingKey, $description)) {
+        if (! array_key_exists($settingKey, $description)) {
             throw new RuntimeException($settingKey.' is not defined');
         }
 
