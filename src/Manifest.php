@@ -23,7 +23,7 @@ class Manifest
      */
     public static function current()
     {
-        if (!file_exists(Path::manifest())) {
+        if (! file_exists(Path::manifest())) {
             Helpers::abort('Unable to find a Vapor manifest in this directory.');
         }
 
@@ -39,7 +39,7 @@ class Manifest
      */
     public static function buildCommands($environment)
     {
-        if (!isset(static::current()['environments'][$environment])) {
+        if (! isset(static::current()['environments'][$environment])) {
             Helpers::abort("The [{$environment}] environment has not been defined.");
         }
 
@@ -142,7 +142,7 @@ class Manifest
             Helpers::abort('That environment already exists.');
         }
 
-        $manifest['environments'][$environment] = !empty($config) ? $config : [
+        $manifest['environments'][$environment] = ! empty($config) ? $config : [
             'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'],
         ];
 

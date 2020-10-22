@@ -27,11 +27,11 @@ class NetworkDeleteCommand extends Command
      */
     public function handle()
     {
-        if (!Helpers::confirm('Are you sure you want to delete this network', false)) {
+        if (! Helpers::confirm('Are you sure you want to delete this network', false)) {
             Helpers::abort('Action cancelled.');
         }
 
-        if (!is_numeric($networkId = $this->argument('network'))) {
+        if (! is_numeric($networkId = $this->argument('network'))) {
             $networkId = $this->findIdByName($this->vapor->networks(), $networkId);
         }
 

@@ -45,7 +45,7 @@ class RollbackCommand extends Command
             $environment
         );
 
-        $id = !$this->option('select') ? $deployments[0]['id'] : $this->menu(
+        $id = ! $this->option('select') ? $deployments[0]['id'] : $this->menu(
             'Which deployment would you like to rollback to?',
             $this->formatDeployments($deployments)
         );

@@ -124,7 +124,7 @@ class Helpers
             return;
         }
 
-        if (!static::config('token') || !static::config('team')) {
+        if (! static::config('token') || ! static::config('team')) {
             throw new Exception("Please authenticate using the 'login' command before proceeding.");
         }
     }

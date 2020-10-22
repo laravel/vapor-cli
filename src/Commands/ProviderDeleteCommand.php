@@ -27,11 +27,11 @@ class ProviderDeleteCommand extends Command
      */
     public function handle()
     {
-        if (!Helpers::confirm('Are you sure you want to delete this cloud provider', false)) {
+        if (! Helpers::confirm('Are you sure you want to delete this cloud provider', false)) {
             Helpers::abort('Action cancelled.');
         }
 
-        if (!is_numeric($providerId = $this->argument('provider'))) {
+        if (! is_numeric($providerId = $this->argument('provider'))) {
             $providerId = $this->findIdByName($this->vapor->providers(), $providerId);
         }
 

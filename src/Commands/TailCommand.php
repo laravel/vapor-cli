@@ -149,13 +149,13 @@ class TailCommand extends Command
 
         foreach (explode("\n", $messages) as $message) {
             if ($this->currentFilter() &&
-                !Str::contains($message, trim($this->currentFilter(), '"'))) {
+                ! Str::contains($message, trim($this->currentFilter(), '"'))) {
                 continue;
             }
 
             $message = json_decode($message, true);
 
-            if ($message && !empty($message)) {
+            if ($message && ! empty($message)) {
                 $this->displayMessage($message);
             }
         }
@@ -179,7 +179,7 @@ class TailCommand extends Command
             $this->formatMessage($message['message'])
         ));
 
-        if (isset($message['context']) && !empty($message['context'])) {
+        if (isset($message['context']) && ! empty($message['context'])) {
             $this->displayContext($message['context']);
         }
     }

@@ -127,7 +127,7 @@ class Command extends SymfonyCommand
             return;
         }
 
-        if (!Helpers::confirm('You are manipulating the production environment. Are you sure you want to proceed', false)) {
+        if (! Helpers::confirm('You are manipulating the production environment. Are you sure you want to proceed', false)) {
             Helpers::abort('Action cancelled.');
         }
     }

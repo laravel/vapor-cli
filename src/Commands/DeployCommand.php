@@ -200,7 +200,7 @@ class DeployCommand extends Command
      */
     protected function handleCancellations(array $deployment)
     {
-        if (!extension_loaded('pcntl')) {
+        if (! extension_loaded('pcntl')) {
             return $deployment;
         }
 
@@ -241,7 +241,7 @@ class DeployCommand extends Command
             }
 
             sleep(3);
-        } while (!$deployment['has_ended']);
+        } while (! $deployment['has_ended']);
     }
 
     /**
@@ -271,7 +271,7 @@ class DeployCommand extends Command
      */
     protected function getCoreVersion()
     {
-        if (!file_exists($file = Path::current().'/vendor/composer/installed.json')) {
+        if (! file_exists($file = Path::current().'/vendor/composer/installed.json')) {
             return;
         }
 

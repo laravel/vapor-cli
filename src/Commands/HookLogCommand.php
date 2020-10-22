@@ -38,7 +38,7 @@ class HookLogCommand extends Command
         Helpers::line('<info>Executed At:</info> '.$hook['created_at'].' ('.Helpers::time_ago($hook['created_at']).')');
         Helpers::line('<info>Logs:</info>');
 
-        isset($hook['log']) && !empty($hook['log'])
+        isset($hook['log']) && ! empty($hook['log'])
                     ? static::writeLog($hook['log'])
                     : Helpers::line('No log information is available for this deployment hook.');
     }
@@ -57,7 +57,7 @@ class HookLogCommand extends Command
         $lines = explode(PHP_EOL, $log);
 
         collect($lines)->filter(function ($line) {
-            return !Str::startsWith($line, ['START', 'END', 'REPORT']);
+            return ! Str::startsWith($line, ['START', 'END', 'REPORT']);
         })->each(function ($line) {
             if ($json = json_decode($line, true)) {
                 $line = json_encode($json, JSON_PRETTY_PRINT).PHP_EOL;

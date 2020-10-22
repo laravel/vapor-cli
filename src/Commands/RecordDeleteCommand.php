@@ -30,11 +30,11 @@ class RecordDeleteCommand extends Command
      */
     public function handle()
     {
-        if (!Helpers::confirm('Are you sure you want to delete this record', false)) {
+        if (! Helpers::confirm('Are you sure you want to delete this record', false)) {
             Helpers::abort('Action cancelled.');
         }
 
-        if (!is_numeric($zoneId = $this->argument('zone'))) {
+        if (! is_numeric($zoneId = $this->argument('zone'))) {
             $zoneId = $this->findIdByName($this->vapor->zones(), $zoneId, 'zone');
         }
 
