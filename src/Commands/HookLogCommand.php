@@ -47,6 +47,7 @@ class HookLogCommand extends Command
      * Write the log to the console.
      *
      * @param string $log
+     *
      * @return void
      */
     public static function writeLog($log)
@@ -56,7 +57,7 @@ class HookLogCommand extends Command
         $lines = explode(PHP_EOL, $log);
 
         collect($lines)->filter(function ($line) {
-            return ! Str::startsWith($line, ['START', 'END', 'REPORT']);
+            return !Str::startsWith($line, ['START', 'END', 'REPORT']);
         })->each(function ($line) {
             if ($json = json_decode($line, true)) {
                 $line = json_encode($json, JSON_PRETTY_PRINT).PHP_EOL;
