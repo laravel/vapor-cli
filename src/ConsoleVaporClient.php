@@ -1385,7 +1385,7 @@ class ConsoleVaporClient
             if ($response->getStatusCode() === 429 && $response->hasHeader('retry-after') && $tries < 3) {
                 $retryAfter = $response->getHeader('retry-after')[0];
                 Helpers::line("You are attempting this action too often. Retrying again in $retryAfter seconds...");
-                sleep($retryAfter);
+                sleep($retryAfter + 1);
 
                 return $this->request($method, $uri, $json, $tries + 1);
             }
