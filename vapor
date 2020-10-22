@@ -179,6 +179,7 @@ $app->add(new Commands\BuildCommand);
 $app->add(new Commands\DeployCommand);
 $app->add(new Commands\RedeployCommand);
 $app->add(new Commands\HookLogCommand);
+$app->add(new Commands\HookOutputCommand);
 
 // Rollbacks / Maintenance Mode...
 $app->add(new Commands\RollbackCommand);

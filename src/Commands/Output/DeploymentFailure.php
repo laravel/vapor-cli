@@ -2,6 +2,8 @@
 
 namespace Laravel\VaporCli\Commands\Output;
 
+use Laravel\VaporCli\Commands\HookOutputCommand;
+use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Models\Deployment;
 
@@ -24,9 +26,14 @@ class DeploymentFailure
             Helpers::line("<fg=red>Message:</> {$deployment->status_message}");
         }
 
-        if ($deployment->hasFailedHooks()) {
+        if ($deployment->hasFailedHooks() && ($hook = collect($deployment->hooks)->where('status', 'failed')->first())) {
+            $output = Helpers::app(ConsoleVaporClient::class)->deploymentHookOutput($hook['id'])['output'];
+
+            Helpers::line("<fg=red>Hook:</> {$hook['command']}");
+            HookOutputCommand::writeOutput($output);
+
             Helpers::line();
-            Helpers::danger('A deployment hook failed. You may review its logs using the hook:log command.');
+            Helpers::line('<fg=red>Logs:</> You may review its logs using the `hook:log '.$hook['id'].'` command.');
         }
     }
 }
