@@ -1383,15 +1383,28 @@ class ConsoleVaporClient
      * @param string $method
      * @param string $uri
      * @param array  $json
+     * @param int    $tries
      *
      * @return array
      */
-    protected function request($method, $uri, array $json = [])
+    protected function request($method, $uri, array $json = [], $tries = 0)
     {
         try {
             return $this->requestWithoutErrorHandling($method, $uri, $json);
         } catch (ClientException $e) {
-            $this->displayRequestErrors($e->getResponse());
+            $response = $e->getResponse();
+
+            if ($response->getStatusCode() === 429 && $response->hasHeader('retry-after') && $tries < 3) {
+                $retryAfter = $response->getHeader('retry-after')[0];
+
+                Helpers::line("You are attempting this action too often. Retrying in [{$retryAfter}] seconds...");
+
+                sleep($retryAfter + 1);
+
+                return $this->request($method, $uri, $json, $tries + 1);
+            }
+
+            $this->displayRequestErrors($response);
 
             throw $e;
         }
