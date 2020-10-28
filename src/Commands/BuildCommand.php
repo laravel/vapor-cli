@@ -18,6 +18,7 @@ use Laravel\VaporCli\BuildProcess\InjectHandlers;
 use Laravel\VaporCli\BuildProcess\InjectRdsCertificate;
 use Laravel\VaporCli\BuildProcess\ProcessAssets;
 use Laravel\VaporCli\BuildProcess\RemoveIgnoredFiles;
+use Laravel\VaporCli\BuildProcess\RemoveVendorPlatformCheck;
 use Laravel\VaporCli\BuildProcess\SetBuildEnvironment;
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
@@ -60,6 +61,7 @@ class BuildCommand extends Command
             new ConfigureArtisan(),
             new ConfigureComposerAutoloader(),
             new RemoveIgnoredFiles(),
+            new RemoveVendorPlatformCheck(),
             new ProcessAssets($this->option('asset-url')),
             new ExtractAssetsToSeparateDirectory(),
             new InjectHandlers(),
