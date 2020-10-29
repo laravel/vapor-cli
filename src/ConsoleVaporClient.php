@@ -746,7 +746,7 @@ class ConsoleVaporClient
      *
      * @return array
      */
-    public function requestCertificate($providerId, $domain, array $alternativeNames = [], $region, $validationMethod)
+    public function requestCertificate($providerId, $domain, array $alternativeNames, $region, $validationMethod)
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/certificates', [
             'cloud_provider_id' => $providerId,
