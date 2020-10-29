@@ -52,14 +52,6 @@ class CommandCommand extends Command
 
         $this->displayOutput($command);
 
-        // If there were problems with the invocation, we will display the logs for this
-        // invocation. Logs can take a minute to propogate to CloudWatch so they will
-        // not always be immediately available for viewing by an invocation author.
-        $this->displayLog(
-            $command,
-            $command['status_code'] ?? null
-        );
-
         Helpers::line();
         Helpers::line('<fg=magenta>Vapor Command ID:</> '.$command['id']);
         Helpers::line('<fg=magenta>AWS Request ID:</> '.$command['request_id']);
@@ -127,7 +119,14 @@ class CommandCommand extends Command
         if (isset($command['output'])) {
             Helpers::comment('Output:');
 
-            Helpers::write(PHP_EOL.base64_decode($command['output']));
+            $output = $command['output'];
+            $output = base64_decode($output);
+
+            if ($json = json_decode($output, true)) {
+                $output = $json['output'];
+            }
+
+            Helpers::write($output);
         }
     }
 
