@@ -35,7 +35,7 @@ class AwsStorageProvider
      *
      * @return void
      */
-    public function store($url, array $headers = [], $file, $withProgress = false)
+    public function store($url, array $headers, $file, $withProgress = false)
     {
         $stream = fopen($file, 'r+');
 
