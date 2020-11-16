@@ -699,6 +699,7 @@ class ConsoleVaporClient
     {
         return $this->requestWithErrorHandling('post', '/api/networks/'.$networkId.'/load-balancers', [
             'name' => $name,
+            'https_listener_ssl_policy' => 'ELBSecurityPolicy-TLS-1-2-Ext-2018-06',
         ]);
     }
 
