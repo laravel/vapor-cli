@@ -252,6 +252,7 @@ class DeployCommand extends Command
     protected function createVendorHash()
     {
         dump(md5(md5_file(Path::app().'/composer.json').md5_file(Path::app().'/composer.lock').md5_file(Path::vendor().'/composer/installed.json').md5_file(Path::vendor().'/composer/autoload_real.php')));
+
         return md5(md5_file(Path::app().'/composer.json').md5_file(Path::app().'/composer.lock').md5_file(Path::vendor().'/composer/installed.json').md5_file(Path::vendor().'/composer/autoload_real.php'));
     }
 
