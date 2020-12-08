@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\BuiltApplicationFiles;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Symfony\Component\Process\Process;
 use ZipArchive;
 
@@ -18,6 +19,10 @@ class CompressApplication
      */
     public function __invoke()
     {
+        if (Manifest::usesContainerImage($this->environment)) {
+            return;
+        }
+
         Helpers::step('<options=bold>Compressing Application</>');
 
         if (PHP_OS == 'Darwin') {

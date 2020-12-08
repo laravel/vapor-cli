@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Aws\AwsStorageProvider;
 use Laravel\VaporCli\Clipboard;
+use Laravel\VaporCli\Docker;
 use Laravel\VaporCli\Git;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
@@ -152,16 +153,18 @@ class DeployCommand extends Command
     {
         Helpers::line();
 
-        Helpers::step('<comment>Uploading Deployment Artifact</comment> ('.Helpers::megabytes(Path::artifact()).')');
+        if (! Manifest::usesContainerImage($environment)) {
+            Helpers::step('<comment>Uploading Deployment Artifact</comment> ('.Helpers::megabytes(Path::artifact()).')');
+        }
 
         $artifact = $this->vapor->createArtifact(
             Manifest::id(),
             $uuid,
             $environment,
-            Path::artifact(),
+            Manifest::usesContainerImage($environment) ? null : Path::artifact(),
             $this->option('commit') ?: Git::hash(),
             $this->option('message') ?: Git::message(),
-            Manifest::shouldSeparateVendor() ? $this->createVendorHash() : null,
+            Manifest::shouldSeparateVendor($environment) ? $this->createVendorHash() : null,
             $this->getCliVersion(),
             $this->getCoreVersion()
         );
@@ -172,6 +175,19 @@ class DeployCommand extends Command
             Helpers::step('<comment>Uploading Vendor Directory</comment> ('.Helpers::megabytes(Path::vendorArtifact()).')');
 
             Helpers::app(AwsStorageProvider::class)->store($artifact['vendor_url'], [], Path::vendorArtifact(), true);
+        }
+
+        if ($artifact['uses_container_image'] ?? false) {
+            Helpers::line();
+
+            Helpers::step('<comment>Pushing Container Image</comment>');
+
+            Docker::publish(
+                Path::app(),
+                Manifest::name(),
+                $environment,
+                $artifact['container_repository'],
+                $artifact['name']);
         }
 
         return $artifact;

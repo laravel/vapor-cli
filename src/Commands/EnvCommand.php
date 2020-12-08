@@ -2,10 +2,12 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class EnvCommand extends Command
 {
@@ -19,6 +21,7 @@ class EnvCommand extends Command
         $this
             ->setName('env')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
+            ->addOption('use-container-image', null, InputOption::VALUE_NONE, 'The asset base URL')
             ->setDescription('Create a new environment');
     }
 
@@ -33,10 +36,20 @@ class EnvCommand extends Command
 
         $this->vapor->createEnvironment(
             Manifest::id(),
-            $environment = $this->argument('environment')
+            $environment = $this->argument('environment'),
+            $this->option('use-container-image')
         );
 
-        Manifest::addEnvironment($environment);
+        Manifest::addEnvironment($environment,
+            ! $this->option('use-container-image') ? [] : [
+                'use-container-image' => true,
+                'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'],
+            ]
+        );
+
+        if ($this->option('use-container-image')) {
+            Dockerfile::fresh($environment);
+        }
 
         GitIgnore::add(['.env.'.$environment]);
 

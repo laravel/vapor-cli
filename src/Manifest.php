@@ -17,6 +17,16 @@ class Manifest
     }
 
     /**
+     * Get the project name from the current directory's manifest.
+     *
+     * @return int
+     */
+    public static function name()
+    {
+        return static::current()['name'];
+    }
+
+    /**
      * Retrieve the manifest for the current working directory.
      *
      * @return array
@@ -60,11 +70,27 @@ class Manifest
     /**
      * Determine if we should separate the vendor directory.
      *
+     * @param  string  $environment
      * @return bool
      */
-    public static function shouldSeparateVendor()
+    public static function shouldSeparateVendor($environment)
     {
+        if (static::current()['environments'][$environment]['use-container-image'] ?? false) {
+            return false;
+        }
+
         return static::current()['separate-vendor'] ?? false;
+    }
+
+    /**
+     * Determine if the environment uses a docker image.
+     *
+     * @param  string  $environment
+     * @return bool
+     */
+    public static function usesContainerImage($environment)
+    {
+        return static::current()['environments'][$environment]['use-container-image'] ?? false;
     }
 
     /**

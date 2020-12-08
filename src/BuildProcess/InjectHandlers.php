@@ -24,7 +24,7 @@ class InjectHandlers
 
         $stubPath = $this->appPath.'/vendor/laravel/vapor-core/stubs';
 
-        if (Manifest::shouldSeparateVendor()) {
+        if (Manifest::shouldSeparateVendor($this->environment)) {
             $this->files->copy($stubPath.'/runtime-with-vendor-download.php', $this->appPath.'/runtime.php');
         } else {
             $this->files->copy($stubPath.'/runtime.php', $this->appPath.'/runtime.php');
@@ -35,7 +35,7 @@ class InjectHandlers
         $this->files->copy($stubPath.'/httpRuntime.php', $this->appPath.'/httpRuntime.php');
         $this->files->copy($stubPath.'/httpHandler.php', $this->appPath.'/httpHandler.php');
 
-        if (Manifest::shouldSeparateVendor()) {
+        if (Manifest::shouldSeparateVendor($this->environment)) {
             file_put_contents(
                 $this->appPath.'/httpHandler.php',
                 $this->configureHttpHandler($this->appPath.'/httpHandler.php')

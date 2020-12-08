@@ -93,4 +93,15 @@ class Path
     {
         return getcwd().'/.vapor';
     }
+
+    /**
+     * Get the path to the environment's dockerfile.
+     *
+     * @param  string  $environment
+     * @return string
+     */
+    public static function dockerfile($environment)
+    {
+        return getcwd().'/'.$environment.'.Dockerfile';
+    }
 }
