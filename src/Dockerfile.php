@@ -19,10 +19,6 @@ class Dockerfile
 FROM vapor-alpine-php74:latest
 
 COPY . /var/task
-
-ENTRYPOINT []
-
-CMD /opt/bootstrap
 Dockerfile;
 
         static::write($environment, $content);
