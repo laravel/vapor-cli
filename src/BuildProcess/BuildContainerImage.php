@@ -2,12 +2,9 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\BuiltApplicationFiles;
 use Laravel\VaporCli\Docker;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
-use Symfony\Component\Process\Process;
-use ZipArchive;
 
 class BuildContainerImage
 {

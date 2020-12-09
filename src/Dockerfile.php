@@ -2,8 +2,6 @@
 
 namespace Laravel\VaporCli;
 
-use Symfony\Component\Yaml\Yaml;
-
 class Dockerfile
 {
     /**
