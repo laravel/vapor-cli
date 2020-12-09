@@ -177,7 +177,7 @@ class DeployCommand extends Command
             Helpers::app(AwsStorageProvider::class)->store($artifact['vendor_url'], [], Path::vendorArtifact(), true);
         }
 
-        if ($artifact['uses_container_image'] ?? false) {
+        if (Manifest::usesContainerImage($environment)) {
             Helpers::line();
 
             Helpers::step('<comment>Pushing Container Image</comment>');
@@ -186,6 +186,7 @@ class DeployCommand extends Command
                 Path::app(),
                 Manifest::name(),
                 $environment,
+                $artifact['container_registry_token'],
                 $artifact['container_repository'],
                 $artifact['name']);
         }

@@ -16,12 +16,15 @@ class Docker
      */
     public static function build($path, $project, $environment)
     {
-        (new Process([
-            'docker', 'build',
-            '--file='.$path.'/'.$environment.'.Dockerfile',
-            '--tag='.$project.':'.$environment,
-            '.'
-        ], $path))->mustRun();
+        Process::fromShellCommandline(
+            sprintf('docker build --file=%s.Dockerfile --tag=%s .',
+                $environment,
+                $project.':'.$environment
+            ),
+            $path
+        )->setTimeout(null)->mustRun(function ($type, $line) {
+            Helpers::write($line);
+        });
     }
 
     /**
@@ -30,41 +33,36 @@ class Docker
      * @param  string  $path
      * @param  string  $project
      * @param  string  $environment
+     * @param  string  $token
      * @param  string  $repoUri
      * @param  string  $name
      * @return void
      */
-    public static function publish($path, $project, $environment, $repoUri, $name)
+    public static function publish($path, $project, $environment, $token, $repoUri, $name)
     {
-        (new Process([
-            'docker', 'tag',
-            $project.':'.$environment,
-            $repoUri.':'.$name
-        ], $path))->mustRun();
+        Process::fromShellCommandline(
+            sprintf('docker tag %s %s',
+                $project.':'.$environment,
+                $repoUri.':'.$name
+            ),
+            $path
+        )->setTimeout(null)->mustRun();
 
-        (new Process([
-            'docker', 'push',
-            $repoUri.':'.$name
-        ], $path))
-            ->setTimeout(5 * 60)
-            ->mustRun(function ($type, $line) {
-                Helpers::write($line);
-            });
-    }
+        Process::fromShellCommandline(
+            sprintf('docker login --username AWS --password %s %s',
+                str_replace('AWS:', '', base64_decode($token)),
+                explode('/', $repoUri)[0]
+            ),
+            $path
+        )->setTimeout(null)->mustRun();
 
-    /**
-     * Write the given content to the environment dockerfile.
-     *
-     * @param string  $environment
-     * @param string  $content
-     *
-     * @return void
-     */
-    protected static function write($environment, $content)
-    {
-        file_put_contents(
-            Path::dockerfile(),
-            $content
-        );
+        Process::fromShellCommandline(
+            sprintf('docker push %s',
+                $repoUri.':'.$name
+            ),
+            $path
+        )->setTimeout(null)->mustRun(function ($type, $line) {
+            Helpers::write($line);
+        });
     }
 }
