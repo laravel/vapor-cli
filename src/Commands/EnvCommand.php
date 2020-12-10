@@ -42,7 +42,7 @@ class EnvCommand extends Command
 
         Manifest::addEnvironment($environment,
             ! $this->option('use-container-image') ? [] : [
-                'use-container-image' => true,
+                'runtime' => 'image',
                 'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'],
             ]
         );

@@ -1019,6 +1019,7 @@ class ConsoleVaporClient
             'vendor_hash'    => $vendorHash,
             'cli_version'    => $cliVersion,
             'core_version'   => $coreVersion,
+            'uses_container_image' => is_null($file),
         ]);
 
         if ($file) {

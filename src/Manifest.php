@@ -75,7 +75,7 @@ class Manifest
      */
     public static function shouldSeparateVendor($environment)
     {
-        if (static::current()['environments'][$environment]['use-container-image'] ?? false) {
+        if (static::usesContainerImage($environment)) {
             return false;
         }
 
@@ -90,7 +90,7 @@ class Manifest
      */
     public static function usesContainerImage($environment)
     {
-        return static::current()['environments'][$environment]['use-container-image'] ?? false;
+        return (static::current()['environments'][$environment]['runtime'] ?? null) == 'image';
     }
 
     /**
