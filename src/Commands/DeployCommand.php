@@ -188,7 +188,7 @@ class DeployCommand extends Command
                 $environment,
                 $artifact['container_registry_token'],
                 $artifact['container_repository'],
-                $artifact['name']);
+                $artifact['container_image_tag']);
         }
 
         return $artifact;

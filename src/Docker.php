@@ -35,15 +35,15 @@ class Docker
      * @param  string  $environment
      * @param  string  $token
      * @param  string  $repoUri
-     * @param  string  $name
+     * @param  string  $tag
      * @return void
      */
-    public static function publish($path, $project, $environment, $token, $repoUri, $name)
+    public static function publish($path, $project, $environment, $token, $repoUri, $tag)
     {
         Process::fromShellCommandline(
             sprintf('docker tag %s %s',
                 $project.':'.$environment,
-                $repoUri.':'.$name
+                $repoUri.':'.$tag
             ),
             $path
         )->setTimeout(null)->mustRun();
@@ -58,7 +58,7 @@ class Docker
 
         Process::fromShellCommandline(
             sprintf('docker push %s',
-                $repoUri.':'.$name
+                $repoUri.':'.$tag
             ),
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
