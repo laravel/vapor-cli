@@ -7,8 +7,7 @@ class Dockerfile
     /**
      * Add a fresh dockerfile for the given environment.
      *
-     * @param string $environment
-     *
+     * @param  string $environment
      * @return void
      */
     public static function fresh($environment)
@@ -23,23 +22,10 @@ Dockerfile;
     }
 
     /**
-     * Delete the docker file of the given environment.
-     *
-     * @param string $environment
-     *
-     * @return void
-     */
-    public static function deleteEnvironment($environment)
-    {
-        @unlink(Path::dockerfile($environment));
-    }
-
-    /**
      * Write the given content to the environment dockerfile.
      *
-     * @param string  $environment
-     * @param string  $content
-     *
+     * @param  string  $environment
+     * @param  string  $content
      * @return void
      */
     protected static function write($environment, $content)
@@ -48,5 +34,16 @@ Dockerfile;
             Path::dockerfile($environment),
             $content
         );
+    }    
+
+    /**
+     * Delete the docker file of the given environment.
+     *
+     * @param  string  $environment
+     * @return void
+     */
+    public static function deleteEnvironment($environment)
+    {
+        @unlink(Path::dockerfile($environment));
     }
 }
