@@ -23,6 +23,18 @@ Dockerfile;
     }
 
     /**
+     * Delete the docker file of the given environment.
+     *
+     * @param string $environment
+     *
+     * @return void
+     */
+    public function deleteEnvironment($environment)
+    {
+        @unlink(Path::dockerfile($environment));
+    }
+
+    /**
      * Write the given content to the environment dockerfile.
      *
      * @param string  $environment
