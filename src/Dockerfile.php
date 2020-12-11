@@ -29,7 +29,7 @@ Dockerfile;
      *
      * @return void
      */
-    public function deleteEnvironment($environment)
+    public static function deleteEnvironment($environment)
     {
         @unlink(Path::dockerfile($environment));
     }
