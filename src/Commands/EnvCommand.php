@@ -21,7 +21,7 @@ class EnvCommand extends Command
         $this
             ->setName('env')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
-            ->addOption('docker', null, InputOption::VALUE_NONE, 'The asset base URL')
+            ->addOption('docker', null, InputOption::VALUE_NONE, 'Indicate that the environment will use Docker images as its runtime')
             ->setDescription('Create a new environment');
     }
 
