@@ -17,7 +17,7 @@ class Docker
     public static function build($path, $project, $environment)
     {
         Process::fromShellCommandline(
-            sprintf('docker build --file=%s.Dockerfile --tag=%s .',
+            sprintf('docker build --pull --file=%s.Dockerfile --tag=%s .',
                 $environment,
                 $project.':'.$environment
             ),

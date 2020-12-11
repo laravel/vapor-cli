@@ -21,7 +21,7 @@ class EnvCommand extends Command
         $this
             ->setName('env')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
-            ->addOption('use-container-image', null, InputOption::VALUE_NONE, 'The asset base URL')
+            ->addOption('docker', null, InputOption::VALUE_NONE, 'The asset base URL')
             ->setDescription('Create a new environment');
     }
 
@@ -37,17 +37,17 @@ class EnvCommand extends Command
         $this->vapor->createEnvironment(
             Manifest::id(),
             $environment = $this->argument('environment'),
-            $this->option('use-container-image')
+            $this->option('docker')
         );
 
         Manifest::addEnvironment($environment,
-            ! $this->option('use-container-image') ? [] : [
+            ! $this->option('docker') ? [] : [
                 'runtime' => 'image',
                 'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'],
             ]
         );
 
-        if ($this->option('use-container-image')) {
+        if ($this->option('docker')) {
             Dockerfile::fresh($environment);
         }
 
