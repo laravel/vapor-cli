@@ -14,7 +14,7 @@ class Dockerfile
     public static function fresh($environment)
     {
         $content = <<<'Dockerfile'
-FROM vapor-alpine-php74:latest
+FROM laravelphp/vapor:php74
 
 COPY . /var/task
 Dockerfile;
