@@ -34,7 +34,7 @@ Dockerfile;
             Path::dockerfile($environment),
             $content
         );
-    }    
+    }
 
     /**
      * Delete the docker file of the given environment.
