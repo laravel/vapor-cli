@@ -90,7 +90,7 @@ class Manifest
      */
     public static function usesContainerImage($environment)
     {
-        return (static::current()['environments'][$environment]['runtime'] ?? null) == 'image';
+        return (static::current()['environments'][$environment]['runtime'] ?? null) == 'docker';
     }
 
     /**
