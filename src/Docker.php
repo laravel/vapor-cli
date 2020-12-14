@@ -28,7 +28,7 @@ class Docker
     }
 
     /**
-     * Build a docker image.
+     * Publish a docker image.
      *
      * @param  string  $path
      * @param  string  $project
