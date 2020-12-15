@@ -83,7 +83,7 @@ class Manifest
     }
 
     /**
-     * Determine if the environment uses a docker image.
+     * Determine if the environment uses a Docker image.
      *
      * @param  string  $environment
      * @return bool
