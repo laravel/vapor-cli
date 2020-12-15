@@ -4,7 +4,6 @@ namespace Laravel\VaporCli\Commands;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
-use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
