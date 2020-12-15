@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\Commands;
 
 use DateTime;
+use Laravel\VaporCli\BuildProcess\BuildContainerImage;
 use Laravel\VaporCli\BuildProcess\CollectSecrets;
 use Laravel\VaporCli\BuildProcess\CompressApplication;
 use Laravel\VaporCli\BuildProcess\CompressVendor;
@@ -58,19 +59,20 @@ class BuildCommand extends Command
             new HarmonizeConfigurationFiles(),
             new SetBuildEnvironment($this->argument('environment'), $this->option('asset-url')),
             new ExecuteBuildCommands($this->argument('environment')),
-            new ConfigureArtisan(),
-            new ConfigureComposerAutoloader(),
+            new ConfigureArtisan($this->argument('environment')),
+            new ConfigureComposerAutoloader($this->argument('environment')),
             new RemoveIgnoredFiles(),
             new RemoveVendorPlatformCheck(),
             new ProcessAssets($this->option('asset-url')),
             new ExtractAssetsToSeparateDirectory(),
-            new InjectHandlers(),
+            new InjectHandlers($this->argument('environment')),
             new CollectSecrets($this->argument('environment')),
             new InjectErrorPages(),
             new InjectRdsCertificate(),
-            new ExtractVendorToSeparateDirectory(),
-            new CompressApplication(),
-            new CompressVendor(),
+            new ExtractVendorToSeparateDirectory($this->argument('environment')),
+            new CompressApplication($this->argument('environment')),
+            new CompressVendor($this->argument('environment')),
+            new BuildContainerImage($this->argument('environment')),
         ])->each->__invoke();
 
         $time = (new DateTime())->diff($startedAt)->format('%im%Ss');

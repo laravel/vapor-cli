@@ -17,7 +17,7 @@ class ExtractVendorToSeparateDirectory
      */
     public function __invoke()
     {
-        if (! Manifest::shouldSeparateVendor()) {
+        if (! Manifest::shouldSeparateVendor($this->environment)) {
             return;
         }
 

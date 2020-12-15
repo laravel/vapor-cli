@@ -859,15 +859,16 @@ class ConsoleVaporClient
     /**
      * Create a new environment for the project.
      *
-     * @param int    $projectId
-     * @param string $environment
-     *
+     * @param  int  $projectId
+     * @param  string  $environment
+     * @param  bool  $usesContainerImage
      * @return array
      */
-    public function createEnvironment($projectId, $environment)
+    public function createEnvironment($projectId, $environment, $usesContainerImage = false)
     {
         return $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/environments', [
             'name' => $environment,
+            'uses_container_image' => $usesContainerImage,
         ]);
     }
 
@@ -1004,7 +1005,7 @@ class ConsoleVaporClient
         $projectId,
         $uuid,
         $environment,
-        $file,
+        $file = null,
         $commit = null,
         $commitMessage = null,
         $vendorHash = null,
@@ -1018,14 +1019,17 @@ class ConsoleVaporClient
             'vendor_hash'    => $vendorHash,
             'cli_version'    => $cliVersion,
             'core_version'   => $coreVersion,
+            'uses_container_image' => is_null($file),
         ]);
 
-        Helpers::app(AwsStorageProvider::class)->store($artifact['url'], [], $file, true);
+        if ($file) {
+            Helpers::app(AwsStorageProvider::class)->store($artifact['url'], [], $file, true);
 
-        try {
-            $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifact['id'].'/receipt');
-        } catch (ClientException $e) {
-            Helpers::abort('Unable to upload deployment artifact to cloud storage.');
+            try {
+                $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifact['id'].'/receipt');
+            } catch (ClientException $e) {
+                Helpers::abort('Unable to upload deployment artifact to cloud storage.');
+            }
         }
 
         return $artifact;

@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,6 +41,8 @@ class EnvDeleteCommand extends Command
         );
 
         Manifest::deleteEnvironment($environment);
+
+        Dockerfile::deleteEnvironment($environment);
 
         Helpers::info('Environment deletion initiated successfully.');
         Helpers::line();

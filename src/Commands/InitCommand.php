@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\Commands;
 
 use Illuminate\Support\Str;
+use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
@@ -45,6 +46,10 @@ class InitCommand extends Command
         );
 
         Manifest::fresh($response['project']);
+
+        Dockerfile::fresh('staging');
+
+        Dockerfile::fresh('production');
 
         // Finally we will add some files to the Gitignore file so that they don't get
         // placed in source control by accident. In particular, we need to ignore a

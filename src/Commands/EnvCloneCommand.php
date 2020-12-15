@@ -2,10 +2,13 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Console\Input\InputArgument;
 
 class EnvCloneCommand extends Command
@@ -45,6 +48,13 @@ class EnvCloneCommand extends Command
             $this->argument('to'),
             Arr::except($manifest['environments'][$this->argument('from')] ?? [], 'domain')
         );
+
+        if (file_exists(Path::dockerfile($this->argument('from')))) {
+            (new Filesystem())->copy(
+                Path::dockerfile($this->argument('from')),
+                Path::dockerfile($this->argument('to'))
+            );
+        }
 
         GitIgnore::add(['.env.'.$this->argument('to')]);
 
