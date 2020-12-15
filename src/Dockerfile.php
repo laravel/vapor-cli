@@ -5,7 +5,7 @@ namespace Laravel\VaporCli;
 class Dockerfile
 {
     /**
-     * Add a fresh dockerfile for the given environment.
+     * Add a fresh Dockerfile for the given environment.
      *
      * @param  string $environment
      * @return void
@@ -22,7 +22,7 @@ Dockerfile;
     }
 
     /**
-     * Write the given content to the environment dockerfile.
+     * Write the given content to the environment Dockerfile.
      *
      * @param  string  $environment
      * @param  string  $content
@@ -37,7 +37,7 @@ Dockerfile;
     }
 
     /**
-     * Delete the docker file of the given environment.
+     * Delete the Dockerfile for the given environment.
      *
      * @param  string  $environment
      * @return void
