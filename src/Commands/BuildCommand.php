@@ -56,7 +56,7 @@ class BuildCommand extends Command
 
         if (Manifest::usesContainerImage($this->argument('environment')) &&
             ! file_exists($file = Path::dockerfile($this->argument('environment')))) {
-            Helpers::abort("Please create a docker file at [$file].");
+            Helpers::abort("Please create a Dockerfile at [$file].");
         }
 
         $startedAt = new DateTime();
