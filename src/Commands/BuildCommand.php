@@ -22,6 +22,8 @@ use Laravel\VaporCli\BuildProcess\RemoveIgnoredFiles;
 use Laravel\VaporCli\BuildProcess\RemoveVendorPlatformCheck;
 use Laravel\VaporCli\BuildProcess\SetBuildEnvironment;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -51,6 +53,11 @@ class BuildCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         Helpers::line('Building project...');
+
+        if (Manifest::usesContainerImage($this->argument('environment')) &&
+            ! file_exists($file = Path::dockerfile($this->argument('environment')))) {
+            Helpers::abort("Please create a Dockerfile at [$file].");
+        }
 
         $startedAt = new DateTime();
 
