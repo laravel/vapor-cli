@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli;
 
+use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 
 class Docker
@@ -19,7 +20,7 @@ class Docker
         Process::fromShellCommandline(
             sprintf('docker build --pull --file=%s.Dockerfile --tag=%s .',
                 $environment,
-                $project.':'.$environment
+                Str::slug($project).':'.$environment
             ),
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
@@ -42,7 +43,7 @@ class Docker
     {
         Process::fromShellCommandline(
             sprintf('docker tag %s %s',
-                $project.':'.$environment,
+                Str::slug($project).':'.$environment,
                 $repoUri.':'.$tag
             ),
             $path
