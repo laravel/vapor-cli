@@ -18,6 +18,7 @@
     ],
     "require": {
         "php": "^7.2|^8.0",
+        "aws/aws-sdk-php": "^3.80",
         "ext-zip": "*",
         "guzzlehttp/guzzle": "^6.3|^7.0",
         "illuminate/container": "^6.0|^7.0|^8.0",

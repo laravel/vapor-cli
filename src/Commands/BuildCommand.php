@@ -4,7 +4,7 @@ namespace Laravel\VaporCli\Commands;
 
 use DateTime;
 use Laravel\VaporCli\BuildProcess\BuildContainerImage;
-use Laravel\VaporCli\BuildProcess\CollectSecrets;
+use Laravel\VaporCli\BuildProcess\CollectSecretsFromS3;
 use Laravel\VaporCli\BuildProcess\CompressApplication;
 use Laravel\VaporCli\BuildProcess\CompressVendor;
 use Laravel\VaporCli\BuildProcess\ConfigureArtisan;
@@ -73,7 +73,7 @@ class BuildCommand extends Command
             new ProcessAssets($this->option('asset-url')),
             new ExtractAssetsToSeparateDirectory(),
             new InjectHandlers($this->argument('environment')),
-            new CollectSecrets($this->argument('environment')),
+            new CollectSecretsFromS3($this->argument('environment')),
             new InjectErrorPages(),
             new InjectRdsCertificate(),
             new ExtractVendorToSeparateDirectory($this->argument('environment')),

@@ -8,3 +8,5 @@ seed.php
 .env.staging
 vapor.phar
 .phpunit.result.cache
+.idea/
+lsp/
