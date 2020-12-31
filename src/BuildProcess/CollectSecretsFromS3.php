@@ -30,15 +30,9 @@ class CollectSecretsFromS3
     {
         echo "Building [{$appName}] [{$envType}] environment." . PHP_EOL;
 
-        $s3Client = new S3Client($args = [
-            "version" => "latest",
-            "credentials" => [
-                "key" => $_ENV['S3_SECRETS_KEY'],
-                "secret" => $_ENV['S3_SECRETS_SECRET'],
-            ],
-            "region" => $_ENV['S3_SECRETS_REGION'],
-            "bucket" => $_ENV['S3_SECRETS_BUCKET'],
-        ]);
+        $args = $this->parseSecrets(getcwd().'/deploy-s3.env');
+
+        $s3Client = new S3Client($args);
 
         $envFiles = [
             "$envType-common-secrets.env" => __DIR__ . "/$envType-common-secrets.env",
