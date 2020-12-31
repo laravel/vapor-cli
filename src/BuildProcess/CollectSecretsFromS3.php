@@ -21,8 +21,8 @@ class CollectSecretsFromS3
         $secrets = $this->fetchSecrets($_ENV['ENV_TYPE'], $_ENV['APP_NAME']);
 
         $this->files->put(
-            $this->appPath.'/vaporSecrets.php',
-            '<?php return '.var_export($secrets, true).';'
+            $this->appPath . '/vaporSecrets.php',
+            '<?php return ' . var_export($secrets, true) . ';'
         );
     }
 
@@ -59,7 +59,7 @@ class CollectSecretsFromS3
             ]);
 
             foreach (self::parseSecrets($localPath) as $name => $value) {
-                echo "Injecting secret [{$name}] into runtime.".PHP_EOL;
+                echo "Injecting secret [{$name}] into runtime." . PHP_EOL;
 
                 $secrets[$name] = $value;
             }
