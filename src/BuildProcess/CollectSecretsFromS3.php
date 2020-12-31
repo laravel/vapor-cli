@@ -18,7 +18,7 @@ class CollectSecretsFromS3
     {
         Helpers::step('<options=bold>Collecting Secrets From S3</>');
 
-        $secrets = $this->fetchSecrets($_ENV['ENV_TYPE'], $_ENV['APP_NAME']);
+        $secrets = $this->fetchSecrets($this->parseSecrets(getcwd().'/deploy-s3.env'));
 
         $this->files->put(
             $this->appPath . '/vaporSecrets.php',
@@ -26,13 +26,22 @@ class CollectSecretsFromS3
         );
     }
 
-    public function fetchSecrets(string $envType, string $appName)
+    public function fetchSecrets(array $deployVars)
     {
+        $envType = $deployVars['ENV_TYPE'];
+        $appName = $deployVars['APP_NAME'];
+
         echo "Building [{$appName}] [{$envType}] environment." . PHP_EOL;
 
-        $args = $this->parseSecrets(getcwd().'/deploy-s3.env');
-
-        $s3Client = new S3Client($args);
+        $s3Client = new S3Client($args = [
+            "version" => "latest",
+            "credentials" => [
+                "key" => $deployVars['S3_SECRETS_KEY'],
+                "secret" => $deployVars['S3_SECRETS_SECRET'],
+            ],
+            "region" => $deployVars['S3_SECRETS_REGION'],
+            "bucket" => $deployVars['S3_SECRETS_BUCKET'],
+        ]);
 
         $envFiles = [
             "$envType-common-secrets.env" => __DIR__ . "/$envType-common-secrets.env",
