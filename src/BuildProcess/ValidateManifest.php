@@ -31,7 +31,7 @@ class ValidateManifest
         if (Manifest::shouldSeparateVendor($this->environment)) {
             Helpers::warn(
                 '- The "separate-vendor" option is deprecated.'
-                .' Please use docker based deployments instead:'
+                .' Please use Docker based deployments instead:'
                 .' https://docs.vapor.build/1.0/projects/environments.html#building-custom-docker-images'
             );
         }
