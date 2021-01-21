@@ -113,6 +113,18 @@ class Helpers
     }
 
     /**
+     * Display a warning message.
+     *
+     * @param string $text
+     *
+     * @return void
+     */
+    public static function warn($text)
+    {
+        static::app('output')->writeln('<fg=yellow>'.$text.'</>');
+    }
+
+    /**
      * Ensure that the user has authenticated with Laravel Vapor.
      *
      * @return void
