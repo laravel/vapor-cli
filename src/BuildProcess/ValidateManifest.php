@@ -32,7 +32,7 @@ class ValidateManifest
             Helpers::warn(
                 '- The "separate-vendor" option is deprecated.'
                 .' Please use Docker based deployments instead:'
-                .' https://docs.vapor.build/1.0/projects/environments.html#building-custom-docker-images'
+                .' https://docs.vapor.build/1.0/projects/environments.html#runtime'
             );
         }
 
