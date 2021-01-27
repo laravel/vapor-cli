@@ -109,9 +109,11 @@ class DatabaseCommand extends Command
         }
 
         return tap($this->option('serverless') ? 'aurora-serverless' : $this->menu('Which type of database would you like to create?', [
-            'rds'                     => 'Fixed Size MySQL Instance (Free Tier Eligible)',
+            'rds'                     => 'Fixed Size MySQL Instance 8.0 (Free Tier Eligible)',
+            'rds-mysql-5.7'           => 'Fixed Size MySQL Instance 5.7 (Free Tier Eligible)',
             'aurora-serverless'       => 'Serverless MySQL Aurora Cluster',
-            'rds-pgsql'               => 'Fixed Size PostgreSQL Instance',
+            'rds-pgsql-11.10'         => 'Fixed Size PostgreSQL Instance 11.10',
+            'rds-pgsql'               => 'Fixed Size PostgreSQL Instance 10.7',
             'aurora-serverless-pgsql' => 'Serverless PostgreSQL Aurora Cluster',
         ]), function ($type) use ($public) {
             if ($type == 'aurora-serverless' && $public) {
@@ -137,7 +139,10 @@ class DatabaseCommand extends Command
             return;
         }
 
-        if ($type == 'rds') {
+        if ($type == 'rds'
+            || $type == 'rds-mysql-5.7'
+            || $type == 'rds-pgsql'
+            || $type == 'rds-pgsql-11.10') {
             return $this->determineRdsInstanceClass();
         }
     }
