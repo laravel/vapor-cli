@@ -135,7 +135,7 @@ class Manifest
                     'build'      => [
                         'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                         'php artisan event:cache',
-                        'npm ci && npm run prod && rm -rf node_modules',
+                        'npm ci && npm run production && rm -rf node_modules',
                     ],
                 ]),
                 'staging' => array_filter([
