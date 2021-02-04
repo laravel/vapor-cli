@@ -17,6 +17,7 @@ class LocalCommand extends Command
      */
     public static $images = [
         '7.3' => 'laravelphp/vapor:php73',
+        '7.4' => 'laravelphp/vapor:php74',
     ];
 
     /**
