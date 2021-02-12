@@ -8,6 +8,7 @@ use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\Path;
+use Symfony\Component\Console\Input\InputArgument;
 
 class InitCommand extends Command
 {
@@ -20,7 +21,9 @@ class InitCommand extends Command
     {
         $this
             ->setName('init')
-            ->setDescription('Initialize a new project in the current directory');
+            ->setDescription('Initialize a new project in the current directory')
+            ->addArgument('name', InputArgument::OPTIONAL, 'The name of the project')
+            ->addArgument('region', InputArgument::OPTIONAL, 'The AWS region to use');
     }
 
     /**
@@ -42,7 +45,7 @@ class InitCommand extends Command
         $response = $this->vapor->createProject(
             $this->determineName(),
             $this->determineProvider('Which cloud provider should the project belong to?'),
-            $this->determineRegion('Which region should the project be placed in?')
+            $this->argument('region') ?: $this->determineRegion('Which region should the project be placed in?')
         );
 
         Manifest::fresh($response['project']);
@@ -76,12 +79,17 @@ class InitCommand extends Command
     }
 
     /**
-     * Determine the name of the project.
+     * Determine the name of the project
+     * Uses the --name= argument or prompt the user
      *
      * @return string
      */
     protected function determineName()
     {
+        if ($name = $this->argument('name')) {
+            return Str::slug($name);
+        }
+
         return Str::slug(Helpers::ask(
             'What is the name of this project',
             basename(Path::current())
