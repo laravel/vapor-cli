@@ -23,7 +23,7 @@ class InitCommand extends Command
             ->setName('init')
             ->setDescription('Initialize a new project in the current directory')
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the project')
-            ->addArgument('region', InputArgument::OPTIONAL, 'The AWS region to use');
+            ->addOption('region', null, InputArgument::OPTIONAL, 'The AWS region to use');
     }
 
     /**
@@ -45,7 +45,7 @@ class InitCommand extends Command
         $response = $this->vapor->createProject(
             $this->determineName(),
             $this->determineProvider('Which cloud provider should the project belong to?'),
-            $this->argument('region') ?: $this->determineRegion('Which region should the project be placed in?')
+            $this->option('region') ?: $this->determineRegion('Which region should the project be placed in?')
         );
 
         Manifest::fresh($response['project']);
@@ -79,8 +79,8 @@ class InitCommand extends Command
     }
 
     /**
-     * Determine the name of the project
-     * Uses the --name= argument or prompt the user
+     * Determine the name of the project.
+     * Uses the --name= argument or prompt the user.
      *
      * @return string
      */
