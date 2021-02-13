@@ -23,7 +23,7 @@ class InitCommand extends Command
             ->setName('init')
             ->setDescription('Initialize a new project in the current directory')
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the project')
-            ->addOption('region', null, InputArgument::OPTIONAL, 'The AWS region to use');
+            ->addOption('region', null, InputArgument::OPTIONAL, 'The AWS region the project will deploy to');
     }
 
     /**
