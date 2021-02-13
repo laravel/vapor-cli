@@ -80,7 +80,6 @@ class InitCommand extends Command
 
     /**
      * Determine the name of the project.
-     * Uses the --name= argument or prompt the user.
      *
      * @return string
      */
