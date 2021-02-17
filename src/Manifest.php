@@ -83,6 +83,18 @@ class Manifest
     }
 
     /**
+     * Get the runtime for the given environment.
+     *
+     * @param string $environment
+     *
+     * @return string|null
+     */
+    public static function runtime($environment)
+    {
+        return static::current()['environments'][$environment]['runtime'] ?? null;
+    }
+
+    /**
      * Determine if the environment uses a Docker image.
      *
      * @param  string  $environment
