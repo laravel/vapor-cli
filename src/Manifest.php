@@ -68,6 +68,16 @@ class Manifest
     }
 
     /**
+     * Determine if we should exclude the node_modules directory.
+     *
+     * @return bool
+     */
+    public static function excludeNodeModules()
+    {
+        return static::current()['exclude-node-modules'] ?? true;
+    }
+
+    /**
      * Determine if we should separate the vendor directory.
      *
      * @param  string  $environment

@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\ApplicationFiles;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use SplFileInfo;
 
 class CopyApplicationToBuildPath
@@ -21,7 +22,7 @@ class CopyApplicationToBuildPath
 
         $this->ensureBuildDirectoryExists();
 
-        foreach (ApplicationFiles::get($this->path) as $file) {
+        foreach ($this->getApplicationFiles() as $file) {
             if ($file->isLink()) {
                 continue;
             }
@@ -33,6 +34,25 @@ class CopyApplicationToBuildPath
 
         $this->flushCacheFiles();
         $this->flushStorageDirectories();
+    }
+
+    /**
+     * Get the included application files.
+     *
+     * @return \Symfony\Component\Finder\Finder
+     * @throws \Symfony\Component\Finder\Exception\DirectoryNotFoundException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Symfony\Component\Yaml\Exception\ParseException
+     */
+    public function getApplicationFiles()
+    {
+        $files = ApplicationFiles::get($this->path);
+
+        if (Manifest::excludeNodeModules()) {
+            $files->exclude('node_modules');
+        }
+
+        return $files;
     }
 
     /**
