@@ -64,6 +64,7 @@ class Manifest
     public static function ignoredFiles()
     {
         return static::current()['ignore'] ?? [];
+
         // return static::current()['environments'][$environment]['ignore'] ?? [];
     }
 

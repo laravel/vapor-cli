@@ -40,9 +40,6 @@ class CopyApplicationToBuildPath
      * Get the included application files.
      *
      * @return \Symfony\Component\Finder\Finder
-     * @throws \Symfony\Component\Finder\Exception\DirectoryNotFoundException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Symfony\Component\Yaml\Exception\ParseException
      */
     public function getApplicationFiles()
     {
