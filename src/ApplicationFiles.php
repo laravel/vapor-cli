@@ -20,7 +20,6 @@ class ApplicationFiles
                 ->exclude('.idea')
                 ->exclude('.vapor')
                 ->notPath('/^'.preg_quote('tests', '/').'/')
-                ->exclude('node_modules')
                 ->ignoreVcs(true)
                 ->ignoreDotFiles(false);
     }

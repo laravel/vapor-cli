@@ -64,7 +64,22 @@ class Manifest
     public static function ignoredFiles()
     {
         return static::current()['ignore'] ?? [];
+
         // return static::current()['environments'][$environment]['ignore'] ?? [];
+    }
+
+    /**
+     * Determine if we should exclude the node_modules directory.
+     *
+     * @return bool
+     */
+    public static function excludeNodeModules()
+    {
+        if (isset(static::current()['exclude-node-modules'])) {
+            return static::current()['exclude-node-modules'];
+        }
+
+        return true;
     }
 
     /**
