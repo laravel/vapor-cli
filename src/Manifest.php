@@ -74,7 +74,11 @@ class Manifest
      */
     public static function excludeNodeModules()
     {
-        return static::current()['exclude-node-modules'] ?? true;
+        if (isset(static::current()['exclude-node-modules'])) {
+            return static::current()['exclude-node-modules'];
+        }
+
+        return true;
     }
 
     /**
