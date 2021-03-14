@@ -18,6 +18,7 @@ class LocalCommand extends Command
     public static $images = [
         '7.3' => 'laravelphp/vapor:php73',
         '7.4' => 'laravelphp/vapor:php74',
+        '8.0' => 'laravelphp/vapor:php80',
     ];
 
     /**
@@ -112,7 +113,7 @@ class LocalCommand extends Command
                     'restart' => 'always',
                 ],
                 'mysql' => [
-                    'image'   => 'mysql:5.7',
+                    'image'   => 'mysql:8.0',
                     'volumes' => [
                         0 => 'vapor_mysql:/var/lib/mysql',
                     ],
@@ -125,7 +126,7 @@ class LocalCommand extends Command
                     ],
                 ],
                 'app' => [
-                    'image'      => static::$images[$this->option('php') ? $this->option('php') : '7.3'],
+                    'image'      => static::$images[$this->option('php') ? $this->option('php') : '8.0'],
                     'depends_on' => [
                         0 => 'mysql',
                         1 => 'redis',
