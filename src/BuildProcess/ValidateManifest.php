@@ -43,8 +43,8 @@ class ValidateManifest
         ])) {
             Helpers::warn(
                 'The runtimes "php-7.3", "php-7.4", and "php-8.0" are deprecated.'
-                .' Those runtimes are based on Amazon Linux 1 witch whose AWS standard support ended.'
-                .' Amazon Linux 1 is only receiving critical and important security updates and it may no work with new Vapor/AWS features.'
+                .' Those runtimes are based on Amazon Linux 1, for which AWS standard support has ended.'
+                .' Amazon Linux 1 is only receiving critical and important security updates and it may not work with new Vapor/AWS features.'
                 .' Please use Amazon Linux 2 with "php-7.4:al2" or "php-8.0:al2" instead.'
             );
         }
