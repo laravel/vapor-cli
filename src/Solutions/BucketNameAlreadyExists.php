@@ -10,7 +10,7 @@ class BucketNameAlreadyExists
     /**
      * The deployment that have failed.
      *
-     * @var \Laravel\VaporCli\Deployment 
+     * @var \Laravel\VaporCli\Deployment
      */
     protected $deployment;
 
