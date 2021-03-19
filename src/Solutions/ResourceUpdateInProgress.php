@@ -46,7 +46,7 @@ class ResourceUpdateInProgress
     public function all()
     {
         return [
-            'AWS is running updates in your infrastructure. Please try again in a few minutes.',
+            'AWS is running updates on your infrastructure. Please try again in a few minutes.',
         ];
     }
 }
