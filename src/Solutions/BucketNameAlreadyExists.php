@@ -46,7 +46,7 @@ class BucketNameAlreadyExists
     public function all()
     {
         return [
-            'Amazon S3 bucket names must be unique globally. You must use a different storage bucket name. These error messages indicate that another AWS account owns a bucket with the same name.',
+            'Amazon S3 bucket names must be globally unique across all AWS users. You must use a different storage bucket name.',
         ];
     }
 }
