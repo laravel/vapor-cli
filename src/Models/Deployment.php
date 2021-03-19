@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\Models;
 
 use Illuminate\Support\Str;
+use Laravel\VaporCli\Solutions;
 
 class Deployment
 {
@@ -105,6 +106,28 @@ class Deployment
     public function vanityDomain()
     {
         return $this->deployment['environment']['vanity_domain'];
+    }
+
+    /**
+     * Returns a list of solutions for the current deployment failure.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function solutions()
+    {
+        return collect([
+            Solutions\BucketNameAlreadyExists::class,
+            Solutions\DomainNameAlreadyExists::class,
+            Solutions\FunctionExceedsMaximumAllowedSize::class,
+            Solutions\ResourceUpdateInProgress::class,
+            Solutions\RunDeploymentHooksTimedOut::class,
+        ])->map(function ($solutionsClass) {
+            return new $solutionsClass($this);
+        })->filter
+        ->applicable()
+        ->map
+        ->all()
+        ->flatten();
     }
 
     /**
