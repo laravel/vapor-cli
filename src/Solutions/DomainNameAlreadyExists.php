@@ -46,7 +46,7 @@ class DomainNameAlreadyExists
     public function all()
     {
         return [
-            'Ensure the domain is not in use in different AWS Account or a different Vapor environment.',
+            'Please ensure the domain is not in use on a different AWS account or on a different Vapor environment.',
         ];
     }
 }
