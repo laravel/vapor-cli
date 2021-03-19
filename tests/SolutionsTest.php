@@ -23,7 +23,7 @@ class SolutionsTest extends TestCase
         ]);
 
         $this->assertCount(1, $deployment->solutions());
-        $this->assertStringContainsString('unique globally', $deployment->solutions()[0]);
+        $this->assertStringContainsString('globally unique', $deployment->solutions()[0]);
     }
 
     public function test_domain_name_already_exists()
@@ -53,7 +53,7 @@ class SolutionsTest extends TestCase
         ]);
 
         $this->assertCount(1, $deployment->solutions());
-        $this->assertStringContainsString('AWS is running updates in your infrastructure.', $deployment->solutions()[0]);
+        $this->assertStringContainsString('AWS is running updates on your infrastructure.', $deployment->solutions()[0]);
     }
 
     public function test_run_deployment_hooks_timed_out()
