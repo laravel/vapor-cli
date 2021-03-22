@@ -33,7 +33,7 @@ class SolutionsTest extends TestCase
         ]);
 
         $this->assertCount(1, $deployment->solutions());
-        $this->assertStringContainsString('Ensure the domain', $deployment->solutions()[0]);
+        $this->assertStringContainsString('Please ensure the domain', $deployment->solutions()[0]);
     }
 
     public function test_function_exceeds_maximum_allowed_size()
