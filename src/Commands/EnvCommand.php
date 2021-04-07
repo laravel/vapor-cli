@@ -40,12 +40,16 @@ class EnvCommand extends Command
             $this->option('docker')
         );
 
-        Manifest::addEnvironment($environment,
-            ! $this->option('docker') ? [] : [
-                'runtime' => 'docker',
-                'build' => ['COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'],
-            ]
-        );
+        Manifest::addEnvironment($environment, [
+            'memory'     => 1024,
+            'cli-memory' => 512,
+            'runtime'    => $this->option('docker') ? 'docker' : 'php-8.0:al2',
+            'build'      => [
+                'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
+                'php artisan event:cache',
+                'npm ci && npm run prod && rm -rf node_modules',
+            ],
+        ]);
 
         if ($this->option('docker')) {
             Dockerfile::fresh($environment);
