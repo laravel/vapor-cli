@@ -34,6 +34,7 @@ class CopyApplicationToBuildPath
 
         $this->flushCacheFiles();
         $this->flushStorageDirectories();
+        $this->removePossibleDockerignoreFile();
     }
 
     /**
@@ -127,5 +128,15 @@ class CopyApplicationToBuildPath
         $this->files->deleteDirectory($path.'/storage/framework/views', true);
         $this->files->deleteDirectory($path.'/storage/framework/testing', true);
         $this->files->deleteDirectory($path.'/storage/framework/sessions', true);
+    }
+
+    /**
+     * Delete a possible .dockerignore file that might exclude required files or directories.
+     *
+     * @return void
+     */
+    protected function removePossibleDockerignoreFile()
+    {
+        $this->files->delete($this->appPath.'/.dockerignore');
     }
 }
