@@ -3,7 +3,6 @@
 namespace Laravel\VaporCli\Commands;
 
 use Illuminate\Support\Str;
-use Laravel\VaporCli\Clipboard;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
@@ -58,8 +57,6 @@ class RollbackCommand extends Command
         $deployment = $this->displayDeploymentProgress(
             $this->vapor->rollbackTo($id)
         );
-
-        Clipboard::deployment($deployment);
     }
 
     /**
