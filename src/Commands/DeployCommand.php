@@ -6,7 +6,6 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Aws\AwsStorageProvider;
-use Laravel\VaporCli\Clipboard;
 use Laravel\VaporCli\Docker;
 use Laravel\VaporCli\Git;
 use Laravel\VaporCli\Helpers;
@@ -72,8 +71,6 @@ class DeployCommand extends Command
         if ($deployment['status'] == 'failed') {
             exit(1);
         }
-
-        Clipboard::deployment($deployment);
     }
 
     /**
