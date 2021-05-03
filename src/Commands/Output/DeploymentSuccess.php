@@ -33,6 +33,7 @@ class DeploymentSuccess
 
             Helpers::table([
                 '<comment>Deployment ID</comment>',
+                '<comment>Environment URL</comment>',
             ], [[
                 "<options=bold>{$deployment->id}</>",
                 "<options=bold>https://{$deployment->vanityDomain()}</>",
