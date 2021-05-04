@@ -44,16 +44,31 @@ class CacheCommand extends Command
         }
 
         $instanceClass = $this->determineInstanceClass();
+        $type = $this->determineCacheType();
 
         $response = $this->vapor->createCache(
             $networkId,
             $this->argument('name'),
+            $type,
             $instanceClass
         );
 
         Helpers::info('Cache creation initiated successfully.');
         Helpers::line();
         Helpers::line('Caches may take several minutes to finish provisioning.');
+    }
+
+    /**
+     * Determine the cache type.
+     *
+     * @return string
+     */
+    protected function determineCacheType()
+    {
+        return $this->menu('Which type of cache would you like to create?', [
+            'redis6.x-cluster' => 'Redis 6.x Cluster',
+            'redis-cluster'    => 'Redis 5.x Cluster',
+        ]);
     }
 
     /**
