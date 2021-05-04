@@ -45,7 +45,7 @@ class CacheListCommand extends Command
     }
 
     /**
-     * The cache type.
+     * Get the displayable cache type.
      *
      * @return string
      */
