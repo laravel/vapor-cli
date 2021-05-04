@@ -589,14 +589,16 @@ class ConsoleVaporClient
      *
      * @param string $networkId
      * @param string $name
+     * @param string $type
      * @param string $instanceClass
      *
      * @return array
      */
-    public function createCache($networkId, $name, $instanceClass)
+    public function createCache($networkId, $name, $type, $instanceClass)
     {
         return $this->requestWithErrorHandling('post', '/api/networks/'.$networkId.'/caches', [
             'name'           => $name,
+            'type'           => $type,
             'instance_class' => $instanceClass,
         ]);
     }

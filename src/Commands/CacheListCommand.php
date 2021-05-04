@@ -29,17 +29,28 @@ class CacheListCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $this->table([
-            'ID', 'Provider', 'Name', 'Region', 'Class', 'Scale', 'Status',
+            'ID', 'Provider', 'Name', 'Region', 'Type', 'Class', 'Scale', 'Status',
         ], collect($this->vapor->caches())->map(function ($cache) {
             return [
                 $cache['id'],
                 $cache['cloud_provider']['name'],
                 $cache['name'],
                 $cache['region'],
+                $this->cacheType($cache['type']),
                 $cache['instance_class'],
                 $cache['scale'],
                 Str::title(str_replace('_', ' ', $cache['status'])),
             ];
         })->all());
+    }
+
+    /**
+     * The cache type.
+     *
+     * @return string
+     */
+    protected function cacheType($type)
+    {
+        return $type == 'redis6.x-cluster' ? 'Redis 6.x Cluster' : 'Redis 5.x Cluster';
     }
 }
