@@ -11,17 +11,19 @@ class ServeAssets
      *
      * @param \Laravel\VaporCli\ConsoleVaporClient $vapor
      * @param array                                $artifact
+     * @param bool                                $fresh
      *
      * @return void
      */
-    public function __invoke(ConsoleVaporClient $vapor, array $artifact)
+    public function __invoke(ConsoleVaporClient $vapor, array $artifact, $fresh)
     {
         $assetPath = Path::build().'/assets';
 
         $requests = $this->getAuthorizedAssetRequests(
             $vapor,
             $artifact,
-            $assetFiles = $this->getAssetFiles($assetPath)
+            $assetFiles = $this->getAssetFiles($assetPath),
+            $fresh
         );
 
         $this->executeStoreAssetRequests($requests['store'], $assetPath);
@@ -72,7 +74,9 @@ class ServeAssets
             Helpers::step('<fg=magenta>Copying Unchanged Asset:</> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
         }
 
-        $storage->executeCopyRequests($requests);
+        if (! empty($requests)) {
+            $storage->executeCopyRequests($requests);
+        }
     }
 
     /**
@@ -87,11 +91,13 @@ class ServeAssets
     protected function getAuthorizedAssetRequests(
         ConsoleVaporClient $vapor,
         array $artifact,
-        array $assetFiles
+        array $assetFiles,
+        bool $fresh
     ) {
         return $vapor->authorizeArtifactAssets(
             $artifact['id'],
-            $assetFiles
+            $assetFiles,
+            $fresh
         );
     }
 

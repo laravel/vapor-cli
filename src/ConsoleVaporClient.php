@@ -1042,13 +1042,15 @@ class ConsoleVaporClient
      *
      * @param int   $artifactId
      * @param array $files
+     * @param  bool  $fresh
      *
      * @return array
      */
-    public function authorizeArtifactAssets($artifactId, array $files)
+    public function authorizeArtifactAssets($artifactId, array $files, bool $fresh = false)
     {
         return $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifactId.'/asset-authorizations', [
             'files' => $files,
+            'fresh' => $fresh
         ]);
     }
 
