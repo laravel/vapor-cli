@@ -1050,7 +1050,7 @@ class ConsoleVaporClient
     {
         return $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifactId.'/asset-authorizations', [
             'files' => $files,
-            'fresh' => $fresh
+            'fresh' => $fresh,
         ]);
     }
 
