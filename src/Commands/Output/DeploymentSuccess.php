@@ -71,7 +71,7 @@ class DeploymentSuccess
         })->each(function ($zone) {
             $zone = $zone['zone'];
 
-            Helpers::line("The DNS records of the zone <comment>$zone</comment> have changed in the last week. If you self-manage the DNS settings of this zone, please run <comment>vapor record:list $zone</comment>, and update the DNS settings of the domain accordingly.");
+            Helpers::line("The DNS records of the zone <comment>$zone</comment> have changed in the last week. If you self-manage the DNS settings of this zone, please run <comment>vapor record:list $zone</comment> and update the DNS settings of the domain accordingly.");
         });
     }
 }
