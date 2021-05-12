@@ -4,6 +4,8 @@ namespace Laravel\VaporCli\Commands\Output;
 
 use DateTime;
 use DateTimeInterface;
+use Illuminate\Support\Carbon;
+use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Models\Deployment;
 
@@ -25,7 +27,7 @@ class DeploymentSuccess
         Helpers::line("<info>Project deployed successfully.</info> ({$time})");
 
         if ($deployment->hasTargetDomains()) {
-            $this->displayTargetDomains($deployment);
+            $this->displayDnsRecordsChanges($deployment);
         }
 
         if ($deployment->vanityDomain()) {
@@ -42,13 +44,13 @@ class DeploymentSuccess
     }
 
     /**
-     * Display the target domains for the deployment domains.
+     * Display the DNS Records changes related to this environment.
      *
      * @param \Laravel\VaporCli\Models\Deployment $deployment
      *
      * @return void
      */
-    protected function displayTargetDomains(Deployment $deployment)
+    protected function displayDnsRecordsChanges(Deployment $deployment)
     {
         Helpers::line();
 
@@ -58,10 +60,18 @@ class DeploymentSuccess
             Helpers::line();
         }
 
-        Helpers::table([
-            'Domain', 'Alias / CNAME',
-        ], collect($deployment->target_domains)->map(function ($target, $domain) {
-            return [$domain, $target['domain']];
-        })->all());
+        $vapor = Helpers::app(ConsoleVaporClient::class);
+
+        collect($vapor->zones())->filter(function ($zone) use ($deployment) {
+            return in_array($zone['zone'], $deployment->root_domains);
+        })->filter(function ($zone) use ($vapor) {
+            return collect($vapor->records($zone['id']))->contains(function ($record) {
+                return Carbon::parse($record['updated_at'])->greaterThanOrEqualTo(Carbon::now()->subWeek());
+            });
+        })->each(function ($zone) {
+            $zone = $zone['zone'];
+
+            Helpers::line("The DNS records of the zone <comment>$zone</comment> have changed in the last week. If you self-manage the DNS settings of this zone, please run <comment>vapor record:list $zone</comment> and update the DNS settings of the domain accordingly.");
+        });
     }
 }
