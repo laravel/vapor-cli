@@ -208,11 +208,15 @@ class ConsoleVaporClient
     /**
      * Get the zones that belong to the account.
      *
+     * @param  int $teamId
+     *
      * @return array
      */
-    public function zones()
+    public function zones($teamId = null)
     {
-        return $this->request('get', '/api/teams/'.Helpers::config('team').'/zones');
+        $teamId = $teamId ?: Helpers::config('team');
+
+        return $this->request('get', '/api/teams/'.$teamId.'/zones');
     }
 
     /**

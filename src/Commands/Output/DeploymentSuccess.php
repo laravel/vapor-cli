@@ -62,7 +62,7 @@ class DeploymentSuccess
 
         $vapor = Helpers::app(ConsoleVaporClient::class);
 
-        collect($vapor->zones())->filter(function ($zone) use ($deployment) {
+        collect($vapor->zones($deployment->project['team_id']))->filter(function ($zone) use ($deployment) {
             return in_array($zone['zone'], $deployment->root_domains);
         })->filter(function ($zone) use ($vapor) {
             return collect($vapor->records($zone['id']))->contains(function ($record) {
