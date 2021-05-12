@@ -65,8 +65,8 @@ class DeploymentSuccess
         collect($vapor->zones())->filter(function ($zone) use ($deployment) {
             return in_array($zone['zone'], $deployment->root_domains);
         })->filter(function ($zone) use ($vapor) {
-            return collect($vapor->records($zone['id']))->contains(function ($zone) {
-                return Carbon::parse($zone['updated_at'])->greaterThanOrEqualTo(Carbon::now()->subWeek());
+            return collect($vapor->records($zone['id']))->contains(function ($record) {
+                return Carbon::parse($record['updated_at'])->greaterThanOrEqualTo(Carbon::now()->subWeek());
             });
         })->each(function ($zone) {
             $zone = $zone['zone'];
