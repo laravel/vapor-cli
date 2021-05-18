@@ -543,6 +543,23 @@ class ConsoleVaporClient
     }
 
     /**
+     * Upgrade the given database to new database with the given type.
+     *
+     * @param string $databaseId
+     * @param string $name
+     * @param string $type
+     *
+     * @return array
+     */
+    public function upgradeDatabase($databaseId, $name, $type)
+    {
+        return $this->requestWithErrorHandling('post', '/api/databases/'.$databaseId.'/upgrades', [
+            'name' => $name,
+            'type' => $type,
+        ]);
+    }
+
+    /**
      * Get the password for the given database user.
      *
      * @param string $databaseUserId
