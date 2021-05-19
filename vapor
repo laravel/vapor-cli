@@ -126,6 +126,7 @@ $app->add(new Commands\DatabaseProxyCommand);
 $app->add(new Commands\DatabaseDeleteProxyCommand);
 $app->add(new Commands\DatabaseRestoreCommand);
 $app->add(new Commands\DatabaseMetricsCommand);
+$app->add(new Commands\DatabaseUpgradeCommand);
 $app->add(new Commands\DatabaseUsersCommand);
 $app->add(new Commands\DatabaseUserCommand);
 $app->add(new Commands\DatabaseDropUserCommand);
