@@ -43,7 +43,7 @@ class DatabaseUpgradeCommand extends Command
             ->setName('database:upgrade')
             ->addArgument('from', InputArgument::REQUIRED, 'The name / ID of the existing database')
             ->addArgument('to', InputArgument::REQUIRED, 'The name of the new database')
-            ->setDescription('Create a new database with the selected type containing the contents of an existing database.');
+            ->setDescription('Create a new database of the selected type containing the contents of an existing database.');
     }
 
     /**
