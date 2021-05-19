@@ -73,7 +73,7 @@ class DatabaseUpgradeCommand extends Command
 
         if (! Helpers::confirm('Create a new database ['
             .$this->argument('to').'] that contains the contents of ['
-            .$this->argument('from').'] and the type ('.$this->databaseTypes[$databaseType].')', false)) {
+            .$this->argument('from').'] and is of the type ('.$this->databaseTypes[$databaseType].')', false)) {
             Helpers::abort('Action cancelled.');
         }
 
