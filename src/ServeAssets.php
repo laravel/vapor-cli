@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli;
 
 use Laravel\VaporCli\Aws\AwsStorageProvider;
+use Laravel\VaporCli\Exceptions\CopyRequestFailedException;
 
 class ServeAssets
 {
@@ -75,7 +76,16 @@ class ServeAssets
         }
 
         if (! empty($requests)) {
-            $storage->executeCopyRequests($requests);
+            try {
+                $storage->executeCopyRequests($requests);
+            } catch (CopyRequestFailedException $e) {
+                $request = $requests[$e->getIndex()];
+
+                Helpers::line("<fg=red>Copying:</> {$request['path']}");
+                Helpers::write($e->getMessage());
+
+                exit(1);
+            }
         }
     }
 
