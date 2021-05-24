@@ -39,9 +39,10 @@ class TeamListCommand extends Command
         })->all();
 
         $this->table([
-            'Name', 'Owner',
+            'ID', 'Name', 'Owner',
         ], collect($allTeams)->map(function ($team) use ($user) {
             return [
+                $team['id'],
                 $team['name'],
                 $team['owner']['id'] === $user['id']
                                 ? 'You'
