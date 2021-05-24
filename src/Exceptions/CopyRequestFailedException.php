@@ -22,6 +22,7 @@ class CopyRequestFailedException extends RuntimeException
     public function __construct($message = '', $index = 0)
     {
         parent::__construct($message);
+
         $this->index = $index;
     }
 
