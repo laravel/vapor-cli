@@ -155,7 +155,7 @@ class TailCommand extends Command
 
             $message = json_decode($message, true);
 
-            if ($message && ! empty($message)) {
+            if ($message && ! empty($message) && ! empty($message['level_name'])) {
                 $this->displayMessage($message);
             }
         }
