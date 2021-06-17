@@ -104,6 +104,7 @@ class DeployCommand extends Command
         $this->call('build', [
             'environment' => $this->argument('environment'),
             '--asset-url' => $this->assetDomain($project).'/'.$uuid,
+            '--manifest' => Path::manifest(),
         ]);
 
         return $this->uploadArtifact(
