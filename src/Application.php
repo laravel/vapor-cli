@@ -10,7 +10,8 @@ class Application extends SymfonyConsoleApplication
     protected function getDefaultInputDefinition()
     {
         $definition = parent::getDefaultInputDefinition();
-        $definition->addOption(new InputOption('manifest', null, InputOption::VALUE_OPTIONAL, 'Path to your vapor manifest'));
+
+        $definition->addOption(new InputOption('manifest', null, InputOption::VALUE_OPTIONAL, 'The path to your Vapor.yml manifest'));
 
         return $definition;
     }
