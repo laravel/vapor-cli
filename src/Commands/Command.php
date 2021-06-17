@@ -3,8 +3,10 @@
 namespace Laravel\VaporCli\Commands;
 
 use DateTime;
+use Illuminate\Container\Container;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -67,6 +69,7 @@ class Command extends SymfonyCommand
         Helpers::app()->instance('input', $this->input = $input);
         Helpers::app()->instance('output', $this->output = $output);
 
+        $this->configureManifestPath($input);
         $this->configureOutputStyles($output);
 
         return Helpers::app()->call([$this, 'handle']) ?: 0;
@@ -85,6 +88,18 @@ class Command extends SymfonyCommand
             'finished',
             new OutputFormatterStyle('green', 'default', ['bold'])
         );
+    }
+
+    /**
+     * Configure manifest style location
+     *
+     * @param InputInterface $input
+     *
+     * @return void
+     */
+    protected function configureManifestPath(InputInterface $input)
+    {
+        Helpers::app()->offsetSet('manifest', $input->getOption('manifest') ?? Path::defaultManifest());
     }
 
     /**

@@ -81,6 +81,16 @@ class Path
      */
     public static function manifest()
     {
+        return Helpers::app('manifest');
+    }
+
+    /**
+     * Get the path to the project's default manifest file.
+     *
+     * @return string
+     */
+    public static function defaultManifest()
+    {
         return getcwd().'/vapor.yml';
     }
 
