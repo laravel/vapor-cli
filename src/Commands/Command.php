@@ -3,7 +3,6 @@
 namespace Laravel\VaporCli\Commands;
 
 use DateTime;
-use Illuminate\Container\Container;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Path;
@@ -91,7 +90,7 @@ class Command extends SymfonyCommand
     }
 
     /**
-     * Configure manifest style location
+     * Configure manifest style location.
      *
      * @param InputInterface $input
      *
