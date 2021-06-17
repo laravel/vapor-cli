@@ -85,7 +85,7 @@ class Path
     }
 
     /**
-     * Get the path to the project's default manifest file.
+     * Get the path to the default manifest file location.
      *
      * @return string
      */

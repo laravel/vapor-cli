@@ -34,7 +34,7 @@ class Manifest
     public static function current()
     {
         if (! file_exists(Path::manifest())) {
-            Helpers::abort(sprintf('Unable to find a Vapor manifest at %s.', Path::manifest()));
+            Helpers::abort(sprintf('Unable to find a Vapor manifest at [%s].', Path::manifest()));
         }
 
         return Yaml::parse(file_get_contents(Path::manifest()));

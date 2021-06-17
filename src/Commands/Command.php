@@ -75,6 +75,17 @@ class Command extends SymfonyCommand
     }
 
     /**
+     * Configure the manifest location.
+     *
+     * @param  \Symfony\Component\Console\InputInterface  $input
+     * @return void
+     */
+    protected function configureManifestPath(InputInterface $input)
+    {
+        Helpers::app()->offsetSet('manifest', $input->getOption('manifest') ?? Path::defaultManifest());
+    }
+
+    /**
      * Configure the output styles for the application.
      *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
@@ -87,18 +98,6 @@ class Command extends SymfonyCommand
             'finished',
             new OutputFormatterStyle('green', 'default', ['bold'])
         );
-    }
-
-    /**
-     * Configure manifest style location.
-     *
-     * @param InputInterface $input
-     *
-     * @return void
-     */
-    protected function configureManifestPath(InputInterface $input)
-    {
-        Helpers::app()->offsetSet('manifest', $input->getOption('manifest') ?? Path::defaultManifest());
     }
 
     /**
