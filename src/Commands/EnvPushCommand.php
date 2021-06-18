@@ -18,7 +18,7 @@ class EnvPushCommand extends Command
         $this
             ->setName('env:push')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
-            ->addOption('file', InputArgument::OPTIONAL, 'File to upload the environment variables from')
+            ->addOption('file', null, InputArgument::OPTIONAL, 'File to upload the environment variables from')
             ->setDescription('Upload the environment file for the given environment');
     }
 
