@@ -18,6 +18,7 @@ class EnvPullCommand extends Command
         $this
             ->setName('env:pull')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
+            ->addOption('file', InputArgument::OPTIONAL, 'File to write the environment variables to')
             ->setDescription('Download the environment file for the given environment');
     }
 
@@ -34,14 +35,16 @@ class EnvPullCommand extends Command
 
         Helpers::step('<options=bold>Downloading Environment File...</>');
 
+        $file = $this->option('file') ?? getcwd().'/.env.'.$environment;
+
         file_put_contents(
-            getcwd().'/.env.'.$environment,
+            $file,
             trim($this->vapor->environmentVariables(
                 Manifest::id(),
                 $environment
             )).PHP_EOL
         );
 
-        Helpers::info(PHP_EOL."Environment variables written to [./.env.{$environment}].");
+        Helpers::info(PHP_EOL."Environment variables written to [{$file}].");
     }
 }
