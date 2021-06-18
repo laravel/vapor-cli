@@ -35,7 +35,7 @@ class EnvPullCommand extends Command
 
         Helpers::step('<options=bold>Downloading Environment File...</>');
 
-        $file = $this->option('file') ?? getcwd().'/.env.'.$environment;
+        $file = $this->option('file') ?: getcwd().'/.env.'.$environment;
 
         file_put_contents(
             $file,
