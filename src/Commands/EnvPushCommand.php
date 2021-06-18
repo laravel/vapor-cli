@@ -18,6 +18,7 @@ class EnvPushCommand extends Command
         $this
             ->setName('env:push')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
+            ->addOption('file', null, InputArgument::OPTIONAL, 'File to upload the environment variables from')
             ->setDescription('Upload the environment file for the given environment');
     }
 
@@ -32,7 +33,9 @@ class EnvPushCommand extends Command
 
         $environment = $this->argument('environment');
 
-        if (! file_exists($file = getcwd().'/.env.'.$environment)) {
+        $file = $this->option('file') ?: getcwd().'/.env.'.$environment;
+
+        if (! file_exists($file)) {
             Helpers::abort('The environment variables for that environment have not been downloaded.');
         }
 
