@@ -111,6 +111,12 @@ class CopyApplicationToBuildPath
     protected function flushCacheFiles()
     {
         $this->files->delete($this->appPath.'/bootstrap/cache/config.php');
+
+        $this->files->delete(
+            $this->files->glob(
+                $this->appPath.'/bootstrap/cache/routes*.php'
+            )
+        );
     }
 
     /**
