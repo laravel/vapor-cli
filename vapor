@@ -66,8 +66,6 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
  */
 Container::setInstance($container = new Container);
 
-require __DIR__.'/services.php';
-
 /**
  * Start the console application.
  */
