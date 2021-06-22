@@ -1,11 +1,5 @@
-bin/
-vendor/
-.vapor/
-public/*
-.env
-seed.php
-.env.production
-.env.staging
-vapor.phar
-.phpunit.result.cache
+/vendor
+/.env
 composer.lock
+/phpunit.xml
+.phpunit.result.cache
