@@ -188,6 +188,7 @@ $app->add(new Commands\UpCommand);
 // Commands / Invocations...
 $app->add(new Commands\CommandCommand);
 $app->add(new Commands\CommandLogCommand);
+$app->add(new Commands\CommandReRunCommand);
 $app->add(new Commands\TinkerCommand);
 
 // Logs...

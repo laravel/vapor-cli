@@ -880,6 +880,22 @@ class ConsoleVaporClient
     }
 
     /**
+     * Get the environment with the given ID.
+     *
+     * @param string $projectId
+     * @param string $environmentId
+     *
+     * @return array
+     */
+    public function environment($projectId, $environmentId)
+    {
+        return $this->request(
+            'get',
+            '/api/projects/'.$projectId.'/environments/'.$environmentId
+        );
+    }
+
+    /**
      * Create a new environment for the project.
      *
      * @param  int  $projectId
