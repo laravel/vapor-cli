@@ -2,10 +2,11 @@
 
 namespace Laravel\VaporCli\Commands;
 
+use Laravel\VaporCli\Commands\Output\CommandResult;
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CommandReRunCommand extends Command
+class CommandAgainCommand extends Command
 {
     /**
      * Configure the command options.
@@ -15,9 +16,9 @@ class CommandReRunCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('command:re-run')
+            ->setName('command:again')
             ->addArgument('id', InputArgument::OPTIONAL, 'The command ID')
-            ->setDescription('Re-execute a CLI command');
+            ->setDescription('Runs again a CLI command');
     }
 
     /**
@@ -42,12 +43,14 @@ class CommandReRunCommand extends Command
         Helpers::line('<fg=magenta>Vapor Command: </>php artisan '.$command['command']);
         Helpers::line('<fg=magenta>Vapor Command ID:</> '.$command['id']);
         Helpers::line('<fg=magenta>Vapor Environment:</> '.$environment['name']);
+        Helpers::line('<fg=magenta>Vapor Project:</> '.$environment['project']['name']);
 
-        if (Helpers::confirm('Are you sure you want to re-run this command?', true)) {
-            return $this->call('command', [
-                'environment' => $environment['name'],
-                '--command' => $command['command'],
-            ]);
+        if (! Helpers::confirm('Are you sure you want to run again this command?', true)) {
+            return 0;
         }
+
+        $command = $this->vapor->commandReRun($command['id']);
+
+        (new CommandResult)->render($command);
     }
 }

@@ -1294,6 +1294,18 @@ class ConsoleVaporClient
     }
 
     /**
+     * Re-runs the given command id.
+     *
+     * @param string $commandId
+     *
+     * @return array
+     */
+    public function commandReRun($commandId)
+    {
+        return $this->requestWithErrorHandling('post', '/api/commands/'.$commandId.'/re-run');
+    }
+
+    /**
      * Get all of the commands for the given project and environment.
      *
      * @param string $projectId
