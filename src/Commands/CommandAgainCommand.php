@@ -18,7 +18,7 @@ class CommandAgainCommand extends Command
         $this
             ->setName('command:again')
             ->addArgument('id', InputArgument::OPTIONAL, 'The command ID')
-            ->setDescription('Runs again a CLI command');
+            ->setDescription('Re-execute a CLI command');
     }
 
     /**
