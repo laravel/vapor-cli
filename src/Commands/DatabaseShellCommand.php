@@ -46,7 +46,7 @@ class DatabaseShellCommand extends Command
 
         $user = $this->findDatabaseUser($database);
 
-        if (in_array($database['type'], ['rds', 'aurora-serverless'])) {
+        if (in_array($database['type'], ['rds', 'rds-mysql-5.7', 'aurora-serverless'])) {
             passthru(sprintf(
                 'ssh -t ec2-user@%s -i %s -o LogLevel=error "mysql -u %s -p%s -h %s vapor"',
                 $jumpBox['endpoint'],
