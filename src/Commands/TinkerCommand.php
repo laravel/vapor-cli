@@ -31,6 +31,6 @@ class TinkerCommand extends CommandCommand
     {
         $code = $this->option('code') ?? Helpers::ask('What code would you like to execute');
 
-        return 'tinker --execute "'.$code.'"';
+        return 'tinker --execute '.escapeshellarg($code);
     }
 }
