@@ -59,7 +59,7 @@ class InitCommand extends Command
         Helpers::info(Helpers::exclaim().'! Your project has been initialized.');
 
         if (Helpers::confirm('Would you like to install the laravel/vapor-core package')) {
-            passthru('composer require laravel/vapor-core');
+            passthru('composer require laravel/vapor-core --update-with-dependencies');
         }
     }
 
