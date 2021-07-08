@@ -31,13 +31,14 @@ class ValidateApiToken
     protected function warnAboutExpiringDate()
     {
         $token = $this->vapor->currentToken();
+
         $expiresAt = Carbon::parse($token['expires_at']);
 
         if ($expiresAt->diffInMonths(Carbon::now()) < 6) {
             Helpers::warn(
-                '- Your API Token expires on '.$expiresAt->isoFormat('MMM Do, YYYY')
-                .'. To ensure deployments don\'t fail after the expiring date, you need'
-                .' to use a new API Token that you can generate in your Vapor API settings dashboard.'
+                '- Your API token expires on '.$expiresAt->isoFormat('MMM Do, YYYY')
+                .'. To ensure deployments don\'t fail after the expiration date, you may'
+                .' generate a new API token in your Vapor API settings dashboard.'
             );
         }
 
