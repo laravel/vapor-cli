@@ -21,6 +21,7 @@ use Laravel\VaporCli\BuildProcess\ProcessAssets;
 use Laravel\VaporCli\BuildProcess\RemoveIgnoredFiles;
 use Laravel\VaporCli\BuildProcess\RemoveVendorPlatformCheck;
 use Laravel\VaporCli\BuildProcess\SetBuildEnvironment;
+use Laravel\VaporCli\BuildProcess\ValidateApiToken;
 use Laravel\VaporCli\BuildProcess\ValidateManifest;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
@@ -63,6 +64,7 @@ class BuildCommand extends Command
         $startedAt = new DateTime();
 
         collect([
+            new ValidateApiToken(),
             new ValidateManifest($this->argument('environment')),
             new CopyApplicationToBuildPath(),
             new HarmonizeConfigurationFiles(),
