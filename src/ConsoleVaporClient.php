@@ -1436,6 +1436,16 @@ class ConsoleVaporClient
     }
 
     /**
+     * Get the current token for the user.
+     *
+     * @return array
+     */
+    public function currentToken()
+    {
+        return $this->requestWithErrorHandling('get', '/api/current-token');
+    }
+
+    /**
      * Make a request to the API and return the resulting JSON array.
      *
      * @param string $method
