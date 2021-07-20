@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Laravel\VaporCli\Docker;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 
@@ -17,7 +16,6 @@ class EchoName
      */
     public function __invoke()
     {
-        Helpers::line('Building ' . Manifest::name() . ' for ' .$this->environment.'...');
+        Helpers::line('Building '.Manifest::name().' for '.$this->environment.'...');
     }
-
 }
