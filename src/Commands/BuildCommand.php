@@ -10,6 +10,7 @@ use Laravel\VaporCli\BuildProcess\CompressVendor;
 use Laravel\VaporCli\BuildProcess\ConfigureArtisan;
 use Laravel\VaporCli\BuildProcess\ConfigureComposerAutoloader;
 use Laravel\VaporCli\BuildProcess\CopyApplicationToBuildPath;
+use Laravel\VaporCli\BuildProcess\EchoName;
 use Laravel\VaporCli\BuildProcess\ExecuteBuildCommands;
 use Laravel\VaporCli\BuildProcess\ExtractAssetsToSeparateDirectory;
 use Laravel\VaporCli\BuildProcess\ExtractVendorToSeparateDirectory;
@@ -54,7 +55,7 @@ class BuildCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        Helpers::line('Building project...');
+        (new EchoName())->__invoke();
 
         if (Manifest::usesContainerImage($this->argument('environment')) &&
             ! file_exists($file = Path::dockerfile($this->argument('environment')))) {
