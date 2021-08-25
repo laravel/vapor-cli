@@ -3,7 +3,6 @@
 namespace Laravel\VaporCli\Aws;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Laravel\VaporCli\ConsoleVaporClient;
@@ -112,7 +111,7 @@ class AwsStorageProvider
 
         (new Pool(new Client(), $requests(), [
             'concurrency' => 10,
-            'rejected' => function (RequestException $reason, $index) {
+            'rejected' => function ($reason, $index) {
                 throw new CopyRequestFailedException($reason->getMessage(), $index);
             },
         ]))
