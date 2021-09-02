@@ -60,6 +60,12 @@ class DeploymentSuccess
             Helpers::line();
         }
 
+        Helpers::table([
+            'Domain', 'Alias / CNAME',
+        ], collect($deployment->target_domains)->map(function ($target, $domain) {
+            return [$domain, $target['domain']];
+        })->all());
+
         $vapor = Helpers::app(ConsoleVaporClient::class);
 
         collect($vapor->zones($deployment->project['team_id']))->filter(function ($zone) use ($deployment) {
