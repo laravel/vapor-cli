@@ -19,6 +19,7 @@ class EnvPushCommand extends Command
             ->setName('env:push')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
             ->addOption('file', null, InputArgument::OPTIONAL, 'File to upload the environment variables from')
+            ->addOption('keep', null, InputArgument::OPTIONAL, 'Keep environment file after pushing')
             ->setDescription('Upload the environment file for the given environment');
     }
 
@@ -52,7 +53,7 @@ class EnvPushCommand extends Command
         Helpers::line();
         Helpers::line('You must deploy the project for the new variables to take effect.');
 
-        if (Helpers::confirm('Would you like to delete the environment file from your machine')) {
+        if (! $this->option('keep') && Helpers::confirm('Would you like to delete the environment file from your machine')) {
             @unlink($file);
         }
     }
