@@ -5,6 +5,7 @@ namespace Laravel\VaporCli\Commands;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class EnvPushCommand extends Command
 {
@@ -18,8 +19,8 @@ class EnvPushCommand extends Command
         $this
             ->setName('env:push')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
-            ->addOption('file', null, InputArgument::OPTIONAL, 'File to upload the environment variables from')
-            ->addOption('keep', null, InputArgument::OPTIONAL, 'Do not delete the environment file after pushing')
+            ->addOption('file', null, InputOption::VALUE_OPTIONAL, 'File to upload the environment variables from')
+            ->addOption('keep', null, InputOption::VALUE_NONE, 'Do not delete the environment file after pushing')
             ->setDescription('Upload the environment file for the given environment');
     }
 
@@ -53,7 +54,7 @@ class EnvPushCommand extends Command
         Helpers::line();
         Helpers::line('You must deploy the project for the new variables to take effect.');
 
-        if (! $this->option('keep') && Helpers::confirm('Would you like to delete the environment file from your machine')) {
+        if ($this->option('keep') !== true && Helpers::confirm('Would you like to delete the environment file from your machine')) {
             @unlink($file);
         }
     }
