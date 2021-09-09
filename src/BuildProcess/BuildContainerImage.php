@@ -8,7 +8,20 @@ use Laravel\VaporCli\Manifest;
 
 class BuildContainerImage
 {
-    use ParticipatesInBuildProcess;
+    use ParticipatesInBuildProcess {
+        __construct as private configure;
+    }
+
+    /**
+     * @var string|null
+     */
+    private $image;
+
+    public function __construct(?string $environment = null, ?string $image = null)
+    {
+        $this->configure($environment);
+        $this->image = $image;
+    }
 
     /**
      * Execute the build process step.
@@ -18,6 +31,13 @@ class BuildContainerImage
     public function __invoke()
     {
         if (! Manifest::usesContainerImage($this->environment)) {
+            return;
+        }
+
+        if ($this->image) {
+            Helpers::step('<options=bold>Pulling Container Image</>');
+            Docker::pull($this->appPath, Manifest::name(), $this->environment, $this->image);
+
             return;
         }
 

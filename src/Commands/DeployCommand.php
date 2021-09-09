@@ -33,6 +33,8 @@ class DeployCommand extends Command
             ->addOption('message', null, InputOption::VALUE_OPTIONAL, 'The message for the commit that is being deployed')
             ->addOption('without-waiting', null, InputOption::VALUE_NONE, 'Deploy without waiting for progress')
             ->addOption('fresh-assets', null, InputOption::VALUE_NONE, 'Upload a fresh copy of all assets')
+            ->addOption('keep-build-dir', null, InputOption::VALUE_NONE, 'Do not delete '.Path::vapor().' directory')
+            ->addOption('container-image', null, InputOption::VALUE_REQUIRED, 'An image with the application')
             ->setDescription('Deploy an environment');
     }
 
@@ -51,10 +53,13 @@ class DeployCommand extends Command
         // project deployment. Once that has been done we can upload the assets into
         // storage so that they can be accessed publicly or displayed on the site.
         $this->serveAssets($artifact = $this->buildProject(
-            $this->vapor->project(Manifest::id())
+            $this->vapor->project(Manifest::id()),
+            $this->option('container-image')
         ));
 
-        (new Filesystem())->deleteDirectory(Path::vapor());
+        if (! $this->option('keep-build-dir')) {
+            (new Filesystem())->deleteDirectory(Path::vapor());
+        }
 
         $deployment = $this->handleCancellations($this->vapor->deploy(
             $artifact['id'],
@@ -63,8 +68,9 @@ class DeployCommand extends Command
 
         if ($this->option('without-waiting')) {
             Helpers::line();
+            Helpers::info('Artifact uploaded successfully.');
 
-            return Helpers::info('Artifact uploaded successfully.');
+            return;
         }
 
         $deployment = $this->displayDeploymentProgress($deployment);
@@ -94,18 +100,21 @@ class DeployCommand extends Command
      * Build the project and create a new artifact for the deployment.
      *
      * @param  array  $project
-     *
      * @return array
      */
-    protected function buildProject(array $project)
+    protected function buildProject(array $project, ?string $image)
     {
         $uuid = (string) Str::uuid();
 
-        $this->call('build', [
+        $arguments = [
             'environment' => $this->argument('environment'),
             '--asset-url' => $this->assetDomain($project).'/'.$uuid,
             '--manifest' => Path::manifest(),
-        ]);
+        ];
+        if ($image) {
+            $arguments['--prebuilt-image'] = $image;
+        }
+        $this->call('build', $arguments);
 
         return $this->uploadArtifact(
             $this->argument('environment'),
@@ -117,14 +126,13 @@ class DeployCommand extends Command
      * Get the proper asset domain for the given project.
      *
      * @param  array  $project
-     *
      * @return string
      */
     protected function assetDomain(array $project)
     {
         if ($this->usesCloudFront() && $project['cloudfront_status'] == 'deployed') {
             return $project['asset_domains']['cloudfront'] ??
-                    $project['asset_domains']['s3'];
+                $project['asset_domains']['s3'];
         }
 
         return $project['asset_domains']['s3'];
@@ -145,7 +153,6 @@ class DeployCommand extends Command
      *
      * @param  string  $environment
      * @param  string  $uuid
-     *
      * @return array
      */
     protected function uploadArtifact($environment, $uuid)
@@ -197,7 +204,6 @@ class DeployCommand extends Command
      * Serve the artifact's assets at the given path.
      *
      * @param  array  $artifact
-     *
      * @return void
      */
     protected function serveAssets(array $artifact)
@@ -211,7 +217,6 @@ class DeployCommand extends Command
      * Setup a signal listener to handle deployment cancellations.
      *
      * @param  array  $deployment
-     *
      * @return array
      */
     protected function handleCancellations(array $deployment)
@@ -235,7 +240,6 @@ class DeployCommand extends Command
      * Attempt to cancel the given deployment.
      *
      * @param  array  $deployment
-     *
      * @return void
      */
     protected function cancelDeployment(array $deployment)
@@ -292,11 +296,11 @@ class DeployCommand extends Command
         }
 
         $version = collect(json_decode(file_get_contents($file)))
-                ->pipe(function ($composer) {
-                    return collect($composer->get('packages', $composer));
-                })
-                ->where('name', 'laravel/vapor-core')
-                ->first()->version;
+            ->pipe(function ($composer) {
+                return collect($composer->get('packages', $composer));
+            })
+            ->where('name', 'laravel/vapor-core')
+            ->first()->version;
 
         return ltrim($version, 'v');
     }

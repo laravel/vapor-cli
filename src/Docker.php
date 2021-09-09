@@ -29,6 +29,29 @@ class Docker
     }
 
     /**
+     * @param  string  $path
+     * @param  string  $project
+     * @param  string  $environment
+     * @param  string  $image
+     * @return void
+     */
+    public static function pull(string $path, string $project, string $environment, string $image): void
+    {
+        Process::fromShellCommandline(
+            sprintf('docker pull %s', escapeshellarg($image)),
+            $path
+        )->setTimeout(null)->mustRun(function ($type, $line) {
+            Helpers::write($line);
+        });
+        Process::fromShellCommandline(
+            sprintf('docker tag %s %s', escapeshellarg($image), Str::slug($project).':'.$environment),
+            $path
+        )->setTimeout(null)->mustRun(function ($type, $line) {
+            Helpers::write($line);
+        });
+    }
+
+    /**
      * Publish a docker image.
      *
      * @param  string  $path
