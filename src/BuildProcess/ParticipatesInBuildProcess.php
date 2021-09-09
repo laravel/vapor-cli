@@ -21,7 +21,7 @@ trait ParticipatesInBuildProcess
     /**
      * Create a new project builder.
      *
-     * @param string|null $environment
+     * @param  string|null  $environment
      *
      * @return void
      */

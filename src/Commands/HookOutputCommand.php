@@ -47,7 +47,7 @@ class HookOutputCommand extends Command
     /**
      * Write the output to the console.
      *
-     * @param string $output
+     * @param  string  $output
      *
      * @return void
      */

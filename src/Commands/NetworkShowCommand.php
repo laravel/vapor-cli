@@ -60,7 +60,7 @@ class NetworkShowCommand extends Command
     /**
      * Display the network's details.
      *
-     * @param array $network
+     * @param  array  $network
      *
      * @return void
      */

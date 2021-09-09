@@ -7,7 +7,7 @@ class Dockerfile
     /**
      * Add a fresh Dockerfile for the given environment.
      *
-     * @param  string $environment
+     * @param  string  $environment
      * @return void
      */
     public static function fresh($environment)

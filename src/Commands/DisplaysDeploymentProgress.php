@@ -19,7 +19,7 @@ trait DisplaysDeploymentProgress
     /**
      * Display the server-side deployment pipeline for the given deployment.
      *
-     * @param array $deployment
+     * @param  array  $deployment
      *
      * @return array
      */
@@ -43,7 +43,7 @@ trait DisplaysDeploymentProgress
     /**
      * Display the deployment steps until the deployment is finished.
      *
-     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      *
      * @return \Laravel\VaporCli\Models\Deployment
      */
@@ -63,7 +63,7 @@ trait DisplaysDeploymentProgress
     /**
      * Display any new, active deployment steps.
      *
-     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      *
      * @return void
      */
@@ -79,7 +79,7 @@ trait DisplaysDeploymentProgress
     /**
      * Display the deployment success message.
      *
-     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      *
      * @return void
      */
@@ -91,7 +91,7 @@ trait DisplaysDeploymentProgress
     /**
      * Display the deployment failure message.
      *
-     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      *
      * @return void
      */

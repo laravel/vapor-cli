@@ -14,8 +14,8 @@ class DeploymentSuccess
     /**
      * Render the output.
      *
-     * @param \Laravel\VaporCli\Models\Deployment $deployment
-     * @param \DateTimeInterface                  $startedAt
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @param  \DateTimeInterface  $startedAt
      *
      * @return void
      */
@@ -46,7 +46,7 @@ class DeploymentSuccess
     /**
      * Display the DNS Records changes related to this environment.
      *
-     * @param \Laravel\VaporCli\Models\Deployment $deployment
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      *
      * @return void
      */

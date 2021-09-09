@@ -71,7 +71,7 @@ class LoginCommand extends Command
     /**
      * Store the API token.
      *
-     * @param string $token
+     * @param  string  $token
      *
      * @return void
      */
@@ -85,7 +85,7 @@ class LoginCommand extends Command
     /**
      * Display the authentication failure message.
      *
-     * @param ResponseInterface $response
+     * @param  ResponseInterface  $response
      *
      * @return void
      */

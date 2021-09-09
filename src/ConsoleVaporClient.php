@@ -12,9 +12,9 @@ class ConsoleVaporClient
     /**
      * Attempt to obtain an API token from Vapor using a email / password.
      *
-     * @param string      $email
-     * @param string      $password
-     * @param string|null $twoFactorAuthenticationToken
+     * @param  string  $email
+     * @param  string  $password
+     * @param  string|null  $twoFactorAuthenticationToken
      *
      * @return string
      */
@@ -73,7 +73,7 @@ class ConsoleVaporClient
     /**
      * Create a new team.
      *
-     * @param string $name
+     * @param  string  $name
      *
      * @return array
      */
@@ -97,8 +97,8 @@ class ConsoleVaporClient
     /**
      * Add a team member to the current team.
      *
-     * @param string $email
-     * @param array  $permissions
+     * @param  string  $email
+     * @param  array  $permissions
      *
      * @return void
      */
@@ -113,7 +113,7 @@ class ConsoleVaporClient
     /**
      * Remove a team member from the current team.
      *
-     * @param string $email
+     * @param  string  $email
      *
      * @return void
      */
@@ -127,7 +127,7 @@ class ConsoleVaporClient
     /**
      * Switch the current team the user is interacting with.
      *
-     * @param string $teamId
+     * @param  string  $teamId
      *
      * @return void
      */
@@ -161,9 +161,9 @@ class ConsoleVaporClient
     /**
      * Add a server provider to the authenticated account.
      *
-     * @param string $type
-     * @param string $name
-     * @param array  $credentials
+     * @param  string  $type
+     * @param  string  $name
+     * @param  array  $credentials
      *
      * @return void
      */
@@ -179,9 +179,9 @@ class ConsoleVaporClient
     /**
      * Update a server provider.
      *
-     * @param string $providerId
-     * @param string $name
-     * @param array  $credentials
+     * @param  string  $providerId
+     * @param  string  $name
+     * @param  array  $credentials
      *
      * @return array
      */
@@ -196,7 +196,7 @@ class ConsoleVaporClient
     /**
      * Delete the given provider.
      *
-     * @param string $providerId
+     * @param  string  $providerId
      *
      * @return void
      */
@@ -208,7 +208,7 @@ class ConsoleVaporClient
     /**
      * Get the zones that belong to the account.
      *
-     * @param  int $teamId
+     * @param  int  $teamId
      *
      * @return array
      */
@@ -222,7 +222,7 @@ class ConsoleVaporClient
     /**
      * Get the zone with the given ID.
      *
-     * @param string $zoneId
+     * @param  string  $zoneId
      *
      * @return array
      */
@@ -234,8 +234,8 @@ class ConsoleVaporClient
     /**
      * Create a new zone.
      *
-     * @param string $providerId
-     * @param string $zone
+     * @param  string  $providerId
+     * @param  string  $zone
      *
      * @return array
      */
@@ -250,7 +250,7 @@ class ConsoleVaporClient
     /**
      * Delete the given zone.
      *
-     * @param string $zoneId
+     * @param  string  $zoneId
      *
      * @return void
      */
@@ -262,7 +262,7 @@ class ConsoleVaporClient
     /**
      * Get the DNS records for the given zone.
      *
-     * @param string $zone
+     * @param  string  $zone
      *
      * @return array
      */
@@ -274,10 +274,10 @@ class ConsoleVaporClient
     /**
      * Create or update a record.
      *
-     * @param string $zoneId
-     * @param string $type
-     * @param string $name
-     * @param string $value
+     * @param  string  $zoneId
+     * @param  string  $type
+     * @param  string  $name
+     * @param  string  $value
      *
      * @return array
      */
@@ -293,10 +293,10 @@ class ConsoleVaporClient
     /**
      * Delete the given record.
      *
-     * @param string $zoneId
-     * @param string $type
-     * @param string $name
-     * @param string $value
+     * @param  string  $zoneId
+     * @param  string  $type
+     * @param  string  $name
+     * @param  string  $value
      *
      * @return void
      */
@@ -318,7 +318,7 @@ class ConsoleVaporClient
     /**
      * Get the network with the given ID.
      *
-     * @param string $networkId
+     * @param  string  $networkId
      *
      * @return array
      */
@@ -330,10 +330,10 @@ class ConsoleVaporClient
     /**
      * Create a new network.
      *
-     * @param int    $providerId
-     * @param string $name
-     * @param string $region
-     * @param bool   $withInternetAccess
+     * @param  int  $providerId
+     * @param  string  $name
+     * @param  string  $region
+     * @param  bool  $withInternetAccess
      *
      * @return array
      */
@@ -350,7 +350,7 @@ class ConsoleVaporClient
     /**
      * Grant the given network Internet access via a NAT Gateway.
      *
-     * @param int $networkId
+     * @param  int  $networkId
      *
      * @return void
      */
@@ -362,7 +362,7 @@ class ConsoleVaporClient
     /**
      * Remove the given network's Internet access.
      *
-     * @param int $networkId
+     * @param  int  $networkId
      *
      * @return void
      */
@@ -374,7 +374,7 @@ class ConsoleVaporClient
     /**
      * Delete the network with the given ID.
      *
-     * @param string $networkId
+     * @param  string  $networkId
      *
      * @return array
      */
@@ -396,7 +396,7 @@ class ConsoleVaporClient
     /**
      * Get the database with the given ID.
      *
-     * @param string $databaseId
+     * @param  string  $databaseId
      *
      * @return array
      */
@@ -408,13 +408,13 @@ class ConsoleVaporClient
     /**
      * Create a new database.
      *
-     * @param string $networkId
-     * @param string $name
-     * @param string $type
-     * @param string $instanceClass
-     * @param string $storage
-     * @param bool   $public
-     * @param bool   $pause
+     * @param  string  $networkId
+     * @param  string  $name
+     * @param  string  $type
+     * @param  string  $instanceClass
+     * @param  string  $storage
+     * @param  bool  $public
+     * @param  bool  $pause
      *
      * @return array
      */
@@ -433,9 +433,9 @@ class ConsoleVaporClient
     /**
      * Scale the given database.
      *
-     * @param string $databaseId
-     * @param string $instanceClass
-     * @param int    $storage
+     * @param  string  $databaseId
+     * @param  string  $instanceClass
+     * @param  int  $storage
      *
      * @return void
      */
@@ -450,7 +450,7 @@ class ConsoleVaporClient
     /**
      * Get the database users for the given database.
      *
-     * @param string $databaseId
+     * @param  string  $databaseId
      *
      * @return array
      */
@@ -462,8 +462,8 @@ class ConsoleVaporClient
     /**
      * Create a new database user.
      *
-     * @param string $databaseId
-     * @param string $username
+     * @param  string  $databaseId
+     * @param  string  $username
      *
      * @return array
      */
@@ -477,7 +477,7 @@ class ConsoleVaporClient
     /**
      * Drop the given database user.
      *
-     * @param string $databaseUserId
+     * @param  string  $databaseUserId
      *
      * @return void
      */
@@ -489,7 +489,7 @@ class ConsoleVaporClient
     /**
      * Create a new database proxy.
      *
-     * @param string $databaseId
+     * @param  string  $databaseId
      *
      * @return array
      */
@@ -501,7 +501,7 @@ class ConsoleVaporClient
     /**
      * Delete the proxy associated to the given database.
      *
-     * @param string $databaseId
+     * @param  string  $databaseId
      *
      * @return void
      */
@@ -513,7 +513,7 @@ class ConsoleVaporClient
     /**
      * Rotate the given database's password.
      *
-     * @param string $databaseId
+     * @param  string  $databaseId
      *
      * @return string
      */
@@ -528,9 +528,9 @@ class ConsoleVaporClient
     /**
      * Restore the given database to new database at a given point in time.
      *
-     * @param string $databaseId
-     * @param string $name
-     * @param int    $restoreTo
+     * @param  string  $databaseId
+     * @param  string  $name
+     * @param  int  $restoreTo
      *
      * @return array
      */
@@ -545,9 +545,9 @@ class ConsoleVaporClient
     /**
      * Upgrade the given database to new database with the given type.
      *
-     * @param string $databaseId
-     * @param string $name
-     * @param string $type
+     * @param  string  $databaseId
+     * @param  string  $name
+     * @param  string  $type
      *
      * @return array
      */
@@ -562,7 +562,7 @@ class ConsoleVaporClient
     /**
      * Get the password for the given database user.
      *
-     * @param string $databaseUserId
+     * @param  string  $databaseUserId
      *
      * @return array
      */
@@ -574,7 +574,7 @@ class ConsoleVaporClient
     /**
      * Delete the database with the given ID.
      *
-     * @param string $databaseId
+     * @param  string  $databaseId
      *
      * @return void
      */
@@ -596,7 +596,7 @@ class ConsoleVaporClient
     /**
      * Get the cache with the given ID.
      *
-     * @param string $cacheId
+     * @param  string  $cacheId
      *
      * @return array
      */
@@ -608,10 +608,10 @@ class ConsoleVaporClient
     /**
      * Create a new cache.
      *
-     * @param string $networkId
-     * @param string $name
-     * @param string $type
-     * @param string $instanceClass
+     * @param  string  $networkId
+     * @param  string  $name
+     * @param  string  $type
+     * @param  string  $instanceClass
      *
      * @return array
      */
@@ -627,8 +627,8 @@ class ConsoleVaporClient
     /**
      * Scale the given cache.
      *
-     * @param string $cacheId
-     * @param int    $scale
+     * @param  string  $cacheId
+     * @param  int  $scale
      *
      * @return void
      */
@@ -642,7 +642,7 @@ class ConsoleVaporClient
     /**
      * Delete the cache with the given ID.
      *
-     * @param string $cacheId
+     * @param  string  $cacheId
      *
      * @return void
      */
@@ -664,8 +664,8 @@ class ConsoleVaporClient
     /**
      * Create a new jump-box.
      *
-     * @param string $networkId
-     * @param string $name
+     * @param  string  $networkId
+     * @param  string  $name
      *
      * @return array
      */
@@ -679,7 +679,7 @@ class ConsoleVaporClient
     /**
      * Get the public / private key for the given jump-box.
      *
-     * @param string $jumpBoxId
+     * @param  string  $jumpBoxId
      *
      * @return array
      */
@@ -691,7 +691,7 @@ class ConsoleVaporClient
     /**
      * Delete the jump box with the given ID.
      *
-     * @param string $jumpBoxId
+     * @param  string  $jumpBoxId
      *
      * @return void
      */
@@ -713,8 +713,8 @@ class ConsoleVaporClient
     /**
      * Create a new load balancer.
      *
-     * @param string $networkId
-     * @param string $name
+     * @param  string  $networkId
+     * @param  string  $name
      *
      * @return array
      */
@@ -729,7 +729,7 @@ class ConsoleVaporClient
     /**
      * Delete the load balancer with the given ID.
      *
-     * @param string $balancerId
+     * @param  string  $balancerId
      *
      * @return void
      */
@@ -741,7 +741,7 @@ class ConsoleVaporClient
     /**
      * Get all of the certificates for the current team.
      *
-     * @param string $domain
+     * @param  string  $domain
      *
      * @return array
      */
@@ -763,10 +763,10 @@ class ConsoleVaporClient
     /**
      * Request a certificate for the given domain.
      *
-     * @param string $providerId
-     * @param string $domain
-     * @param array  $alternativeNames
-     * @param string $validationMethod
+     * @param  string  $providerId
+     * @param  string  $domain
+     * @param  array  $alternativeNames
+     * @param  string  $validationMethod
      *
      * @return array
      */
@@ -784,7 +784,7 @@ class ConsoleVaporClient
     /**
      * Resend the validation email for the given certificate.
      *
-     * @param string $certificateId
+     * @param  string  $certificateId
      *
      * @return void
      */
@@ -799,7 +799,7 @@ class ConsoleVaporClient
     /**
      * Delete the given certificate.
      *
-     * @param string $certificateId
+     * @param  string  $certificateId
      *
      * @return void
      */
@@ -814,7 +814,7 @@ class ConsoleVaporClient
     /**
      * Get the project with the given ID.
      *
-     * @param string $projectId
+     * @param  string  $projectId
      *
      * @return array
      */
@@ -826,9 +826,9 @@ class ConsoleVaporClient
     /**
      * Create a new project.
      *
-     * @param string $name
-     * @param int    $providerId
-     * @param string $region
+     * @param  string  $name
+     * @param  int  $providerId
+     * @param  string  $region
      *
      * @return array
      */
@@ -844,7 +844,7 @@ class ConsoleVaporClient
     /**
      * Get all of the environments for the given project.
      *
-     * @param string $projectId
+     * @param  string  $projectId
      *
      * @return array
      */
@@ -856,7 +856,7 @@ class ConsoleVaporClient
     /**
      * Get the environment by a specific name for the given project.
      *
-     * @param string $projectId
+     * @param  string  $projectId
      *
      * @return array
      */
@@ -870,7 +870,7 @@ class ConsoleVaporClient
     /**
      * Delete the given project.
      *
-     * @param string $projectId
+     * @param  string  $projectId
      *
      * @return void
      */
@@ -882,8 +882,8 @@ class ConsoleVaporClient
     /**
      * Get the environment with the given ID.
      *
-     * @param string $projectId
-     * @param string $environmentId
+     * @param  string  $projectId
+     * @param  string  $environmentId
      *
      * @return array
      */
@@ -914,9 +914,9 @@ class ConsoleVaporClient
     /**
      * Clone the given environment.
      *
-     * @param string $projectId
-     * @param string $fromEnvironment
-     * @param string $toEnvironment
+     * @param  string  $projectId
+     * @param  string  $fromEnvironment
+     * @param  string  $toEnvironment
      *
      * @return array
      */
@@ -931,8 +931,8 @@ class ConsoleVaporClient
     /**
      * Get the environment variables for the given environment.
      *
-     * @param int    $projectId
-     * @param string $environment
+     * @param  int  $projectId
+     * @param  string  $environment
      *
      * @return string
      */
@@ -944,9 +944,9 @@ class ConsoleVaporClient
     /**
      * Update the environment variables for the given environment.
      *
-     * @param int    $projectId
-     * @param string $environment
-     * @param string $variables
+     * @param  int  $projectId
+     * @param  string  $environment
+     * @param  string  $variables
      *
      * @return string
      */
@@ -962,8 +962,8 @@ class ConsoleVaporClient
     /**
      * Delete the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
+     * @param  string  $projectId
+     * @param  string  $environment
      *
      * @return void
      */
@@ -978,8 +978,8 @@ class ConsoleVaporClient
     /**
      * Get all of the secrets for the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
+     * @param  string  $projectId
+     * @param  string  $environment
      *
      * @return array
      */
@@ -994,10 +994,10 @@ class ConsoleVaporClient
     /**
      * Store a secret for the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
-     * @param string $name
-     * @param string $value
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @param  string  $name
+     * @param  string  $value
      *
      * @return array
      */
@@ -1013,7 +1013,7 @@ class ConsoleVaporClient
     /**
      * Delete the given secret.
      *
-     * @param string $secretId
+     * @param  string  $secretId
      *
      * @return void
      */
@@ -1028,15 +1028,15 @@ class ConsoleVaporClient
     /**
      * Get a pre-signed storage URL for the given project.
      *
-     * @param int    $projectId
-     * @param string $uuid
-     * @param string $environment
-     * @param string $file
-     * @param string $commit
-     * @param string $commitMessage
-     * @param string $vendorHash
-     * @param string $cliVersion
-     * @param string $coreVersion
+     * @param  int  $projectId
+     * @param  string  $uuid
+     * @param  string  $environment
+     * @param  string  $file
+     * @param  string  $commit
+     * @param  string  $commitMessage
+     * @param  string  $vendorHash
+     * @param  string  $cliVersion
+     * @param  string  $coreVersion
      *
      * @return array
      */
@@ -1077,8 +1077,8 @@ class ConsoleVaporClient
     /**
      * Get authorized URLs to store the given artifact assets.
      *
-     * @param int   $artifactId
-     * @param array $files
+     * @param  int  $artifactId
+     * @param  array  $files
      * @param  bool  $fresh
      *
      * @return array
@@ -1094,8 +1094,8 @@ class ConsoleVaporClient
     /**
      * Store meta information for the given artifact assets.
      *
-     * @param int   $artifactId
-     * @param array $files
+     * @param  int  $artifactId
+     * @param  array  $files
      *
      * @return array
      */
@@ -1109,8 +1109,8 @@ class ConsoleVaporClient
     /**
      * Get all of the deployments for the given project.
      *
-     * @param string $projectId
-     * @param string $environment
+     * @param  string  $projectId
+     * @param  string  $environment
      *
      * @return array
      */
@@ -1122,7 +1122,7 @@ class ConsoleVaporClient
     /**
      * Get the deployment with the given ID.
      *
-     * @param string $deploymentId
+     * @param  string  $deploymentId
      *
      * @return array
      */
@@ -1134,11 +1134,11 @@ class ConsoleVaporClient
     /**
      * Validate the given manifest for the project.
      *
-     * @param string $projectId
-     * @param string $environment
-     * @param array  $manifest
-     * @param string $cliVersion
-     * @param string $coreVersion
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @param  array  $manifest
+     * @param  string  $cliVersion
+     * @param  string  $coreVersion
      *
      * @return void
      */
@@ -1154,8 +1154,8 @@ class ConsoleVaporClient
     /**
      * Deploy the given artifact.
      *
-     * @param int   $artifactId
-     * @param array $manifest
+     * @param  int  $artifactId
+     * @param  array  $manifest
      *
      * @return array
      */
@@ -1169,7 +1169,7 @@ class ConsoleVaporClient
     /**
      * Get the deployment hooks for the given deployment.
      *
-     * @param string $deploymentId
+     * @param  string  $deploymentId
      *
      * @return array
      */
@@ -1191,7 +1191,7 @@ class ConsoleVaporClient
     /**
      * Get the deployment hook with the given ID.
      *
-     * @param string $hookId
+     * @param  string  $hookId
      *
      * @return array
      */
@@ -1203,7 +1203,7 @@ class ConsoleVaporClient
     /**
      * Get the deployment hook output with the given ID.
      *
-     * @param string $hookId
+     * @param  string  $hookId
      *
      * @return string
      */
@@ -1215,7 +1215,7 @@ class ConsoleVaporClient
     /**
      * Rollback to the given deployment ID.
      *
-     * @param string $deploymentId
+     * @param  string  $deploymentId
      *
      * @return array
      */
@@ -1229,9 +1229,9 @@ class ConsoleVaporClient
     /**
      * Enable maintenance mode for the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
-     * @param string $secret
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @param  string  $secret
      *
      * @return array
      */
@@ -1249,8 +1249,8 @@ class ConsoleVaporClient
     /**
      * Disable maintenance mode for the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
+     * @param  string  $projectId
+     * @param  string  $environment
      *
      * @return array
      */
@@ -1265,8 +1265,8 @@ class ConsoleVaporClient
     /**
      * Redeploy the given environment's latest deployment.
      *
-     * @param string $projectId
-     * @param string $environment
+     * @param  string  $projectId
+     * @param  string  $environment
      *
      * @return array
      */
@@ -1281,7 +1281,7 @@ class ConsoleVaporClient
     /**
      * Attempt to the cancel the given deployment.
      *
-     * @param string $deploymentId
+     * @param  string  $deploymentId
      *
      * @return void
      */
@@ -1296,7 +1296,7 @@ class ConsoleVaporClient
     /**
      * Re-runs the given command id.
      *
-     * @param string $commandId
+     * @param  string  $commandId
      *
      * @return array
      */
@@ -1308,8 +1308,8 @@ class ConsoleVaporClient
     /**
      * Get all of the commands for the given project and environment.
      *
-     * @param string $projectId
-     * @param string $environment
+     * @param  string  $projectId
+     * @param  string  $environment
      *
      * @return array
      */
@@ -1331,7 +1331,7 @@ class ConsoleVaporClient
     /**
      * Get the command with the given ID.
      *
-     * @param string $commandId
+     * @param  string  $commandId
      *
      * @return array
      */
@@ -1343,9 +1343,9 @@ class ConsoleVaporClient
     /**
      * Execute a command in a given environment.
      *
-     * @param string $projectId
-     * @param string $environment
-     * @param string $command
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @param  string  $command
      *
      * @return array
      */
@@ -1359,7 +1359,7 @@ class ConsoleVaporClient
     /**
      * Get the command log for the given command.
      *
-     * @param string $commandId
+     * @param  string  $commandId
      *
      * @return string
      */
@@ -1371,12 +1371,12 @@ class ConsoleVaporClient
     /**
      * Get the latest log information for the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
-     * @param bool   $cli
-     * @param string $filter
-     * @param int    $start
-     * @param string $nextToken
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @param  bool  $cli
+     * @param  string  $filter
+     * @param  int  $start
+     * @param  string  $nextToken
      *
      * @return array
      */
@@ -1398,9 +1398,9 @@ class ConsoleVaporClient
     /**
      * Get the metric information for the given environment.
      *
-     * @param string $projectId
-     * @param string $environment
-     * @param string $period
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @param  string  $period
      *
      * @return array
      */
@@ -1412,8 +1412,8 @@ class ConsoleVaporClient
     /**
      * Get the metric information for the given database.
      *
-     * @param string $databaseId
-     * @param string $period
+     * @param  string  $databaseId
+     * @param  string  $period
      *
      * @return array
      */
@@ -1425,8 +1425,8 @@ class ConsoleVaporClient
     /**
      * Get the metric information for the given cache.
      *
-     * @param string $cacheId
-     * @param string $period
+     * @param  string  $cacheId
+     * @param  string  $period
      *
      * @return array
      */
@@ -1448,10 +1448,10 @@ class ConsoleVaporClient
     /**
      * Make a request to the API and return the resulting JSON array.
      *
-     * @param string $method
-     * @param string $uri
-     * @param array  $json
-     * @param int    $tries
+     * @param  string  $method
+     * @param  string  $uri
+     * @param  array  $json
+     * @param  int  $tries
      *
      * @return array
      */
@@ -1481,9 +1481,9 @@ class ConsoleVaporClient
     /**
      * Make a request to the API and return the resulting JSON array.
      *
-     * @param string $method
-     * @param string $uri
-     * @param array  $json
+     * @param  string  $method
+     * @param  string  $uri
+     * @param  array  $json
      *
      * @return array
      */
@@ -1502,9 +1502,9 @@ class ConsoleVaporClient
     /**
      * Make an HTTP request and display any validation errors.
      *
-     * @param string $method
-     * @param string $uri
-     * @param array  $json
+     * @param  string  $method
+     * @param  string  $uri
+     * @param  array  $json
      *
      * @return array
      */
@@ -1528,7 +1528,7 @@ class ConsoleVaporClient
     /**
      * Display the errors for the request.
      *
-     * @param Response $response
+     * @param  Response  $response
      *
      * @return void
      */
@@ -1562,7 +1562,7 @@ class ConsoleVaporClient
     /**
      * Display the validation errors for the given response.
      *
-     * @param Response $response
+     * @param  Response  $response
      *
      * @return void
      */

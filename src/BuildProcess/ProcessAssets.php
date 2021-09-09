@@ -20,7 +20,7 @@ class ProcessAssets
     /**
      * Create a new project builder.
      *
-     * @param string|null $assetUrl
+     * @param  string|null  $assetUrl
      *
      * @return void
      */

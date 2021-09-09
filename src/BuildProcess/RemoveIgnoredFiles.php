@@ -145,7 +145,7 @@ class RemoveIgnoredFiles
     /**
      * Parse the given ignore pattern into a base directory and file pattern.
      *
-     * @param string $pattern
+     * @param  string  $pattern
      *
      * @return array
      */

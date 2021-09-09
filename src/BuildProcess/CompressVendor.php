@@ -41,7 +41,7 @@ class CompressVendor
             $archive->setExternalAttributesName(
                 $relativePathName,
                 ZipArchive::OPSYS_UNIX,
-                ($this->getPermissions($file) & 0xffff) << 16
+                ($this->getPermissions($file) & 0xFFFF) << 16
             );
         }
 
@@ -61,7 +61,7 @@ class CompressVendor
     /**
      * Get the proper file permissions for the file.
      *
-     * @param \SplFileInfo $file
+     * @param  \SplFileInfo  $file
      *
      * @return int
      */

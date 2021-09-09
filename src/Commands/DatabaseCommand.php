@@ -98,7 +98,7 @@ class DatabaseCommand extends Command
     /**
      * Determine the database type.
      *
-     * @param bool $public
+     * @param  bool  $public
      *
      * @return string
      */
@@ -125,7 +125,7 @@ class DatabaseCommand extends Command
     /**
      * Determine the instance class of the database.
      *
-     * @param string $type
+     * @param  string  $type
      *
      * @return string|null
      */
@@ -175,7 +175,7 @@ class DatabaseCommand extends Command
     /**
      * Determine how much storage should be allocated to the database.
      *
-     * @param string $type
+     * @param  string  $type
      *
      * @return int
      */
@@ -201,7 +201,7 @@ class DatabaseCommand extends Command
     /**
      * Determine if the given network has a NAT gateway.
      *
-     * @param int $networkId
+     * @param  int  $networkId
      *
      * @return bool
      */

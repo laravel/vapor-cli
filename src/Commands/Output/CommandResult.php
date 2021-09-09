@@ -37,7 +37,7 @@ class CommandResult
     /**
      * Wait for the given command to finish executing.
      *
-     * @param array $command
+     * @param  array  $command
      *
      * @return array
      */
@@ -56,7 +56,7 @@ class CommandResult
     /**
      * Display the status code of the command.
      *
-     * @param array $command
+     * @param  array  $command
      *
      * @return void
      */
@@ -74,7 +74,7 @@ class CommandResult
     /**
      * Display the output of the command.
      *
-     * @param array $command
+     * @param  array  $command
      *
      * @return void
      */
@@ -99,8 +99,8 @@ class CommandResult
     /**
      * Display the command's log messages.
      *
-     * @param array $command
-     * @param int   $statusCode
+     * @param  array  $command
+     * @param  int  $statusCode
      *
      * @return void
      */

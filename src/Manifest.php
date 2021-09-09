@@ -43,7 +43,7 @@ class Manifest
     /**
      * Get the build commands for the given environment.
      *
-     * @param string $environment
+     * @param  string  $environment
      *
      * @return array
      */
@@ -100,7 +100,7 @@ class Manifest
     /**
      * Get the runtime for the given environment.
      *
-     * @param string $environment
+     * @param  string  $environment
      *
      * @return string|null
      */
@@ -133,7 +133,7 @@ class Manifest
     /**
      * Write a fresh manifest file for the given project.
      *
-     * @param array $project
+     * @param  array  $project
      *
      * @return void
      */
@@ -145,7 +145,7 @@ class Manifest
     /**
      * Write a fresh main manifest file for the given project.
      *
-     * @param array $project
+     * @param  array  $project
      *
      * @return void
      */
@@ -182,8 +182,8 @@ class Manifest
     /**
      * Add an environment to the manifest.
      *
-     * @param string $environment
-     * @param array  $config
+     * @param  string  $environment
+     * @param  array  $config
      *
      * @return void
      */
@@ -209,7 +209,7 @@ class Manifest
     /**
      * Delete the given environment from the manifest.
      *
-     * @param string $environment
+     * @param  string  $environment
      *
      * @return void
      */
@@ -225,8 +225,8 @@ class Manifest
     /**
      * Write the given array to disk as the new manifest.
      *
-     * @param array       $manifest
-     * @param string|null $path
+     * @param  array  $manifest
+     * @param  string|null  $path
      *
      * @return void
      */

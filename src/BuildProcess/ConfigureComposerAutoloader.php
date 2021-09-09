@@ -31,7 +31,7 @@ class ConfigureComposerAutoloader
     /**
      * Configure the Artisan executable.
      *
-     * @param string $file
+     * @param  string  $file
      *
      * @return string
      */

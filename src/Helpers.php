@@ -14,7 +14,7 @@ class Helpers
     /**
      * Display a danger message and exit.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -28,7 +28,7 @@ class Helpers
     /**
      * Resolve a service from the container.
      *
-     * @param string|null $name
+     * @param  string|null  $name
      *
      * @return mixed
      */
@@ -40,8 +40,8 @@ class Helpers
     /**
      * Ask the user a question.
      *
-     * @param string $question
-     * @param mixed  $default
+     * @param  string  $question
+     * @param  mixed  $default
      *
      * @return mixed
      */
@@ -55,7 +55,7 @@ class Helpers
     /**
      * Display a comment message.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -67,8 +67,8 @@ class Helpers
     /**
      * Get or set configuration values.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string  $key
+     * @param  mixed  $value
      *
      * @return mixed
      */
@@ -88,8 +88,8 @@ class Helpers
     /**
      * Ask the user a confirmation question.
      *
-     * @param string $question
-     * @param mixed  $default
+     * @param  string  $question
+     * @param  mixed  $default
      *
      * @return mixed
      */
@@ -103,7 +103,7 @@ class Helpers
     /**
      * Display a danger message.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -115,7 +115,7 @@ class Helpers
     /**
      * Display a warning message.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -178,7 +178,7 @@ class Helpers
     /**
      * Display an informational message.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -190,7 +190,7 @@ class Helpers
     /**
      * Get the file size in kilobytes.
      *
-     * @param string $file
+     * @param  string  $file
      *
      * @return string
      */
@@ -202,7 +202,7 @@ class Helpers
     /**
      * Display a message.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -214,7 +214,7 @@ class Helpers
     /**
      * Get the file size in megabytes.
      *
-     * @param string $file
+     * @param  string  $file
      *
      * @return string
      */
@@ -226,8 +226,8 @@ class Helpers
     /**
      * Ask the user to select from the given choices.
      *
-     * @param string $question
-     * @param mixed  $default
+     * @param  string  $question
+     * @param  mixed  $default
      *
      * @return mixed
      */
@@ -241,7 +241,7 @@ class Helpers
     /**
      * Ask the user a secret question.
      *
-     * @param string $question
+     * @param  string  $question
      *
      * @return mixed
      */
@@ -255,7 +255,7 @@ class Helpers
     /**
      * Display a "step" message.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */
@@ -267,9 +267,9 @@ class Helpers
     /**
      * Format input into a textual table.
      *
-     * @param array  $headers
-     * @param array  $rows
-     * @param string $style
+     * @param  array  $headers
+     * @param  array  $rows
+     * @param  string  $style
      *
      * @return void
      */
@@ -287,7 +287,7 @@ class Helpers
     /**
      * Display the date in "humanized" time-ago form.
      *
-     * @param string $date
+     * @param  string  $date
      *
      * @return string
      */
@@ -299,7 +299,7 @@ class Helpers
     /**
      * Write text to the console.
      *
-     * @param string $text
+     * @param  string  $text
      *
      * @return void
      */

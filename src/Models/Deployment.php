@@ -17,7 +17,7 @@ class Deployment
     /**
      * Create a new model instance.
      *
-     * @param array $deployment
+     * @param  array  $deployment
      *
      * @return void
      */
@@ -29,7 +29,7 @@ class Deployment
     /**
      * Get the names of the displayable steps.
      *
-     * @param array $displayedSteps
+     * @param  array  $displayedSteps
      *
      * @return array
      */
@@ -49,7 +49,7 @@ class Deployment
     /**
      * Determine if the given deployment step should be displayed.
      *
-     * @param array $step
+     * @param  array  $step
      *
      * @return bool
      */
@@ -62,7 +62,7 @@ class Deployment
     /**
      * Format the deployment step name into a displayable value.
      *
-     * @param string $name
+     * @param  string  $name
      *
      * @return string
      */
@@ -153,7 +153,7 @@ class Deployment
     /**
      * Get an item from the deployment data.
      *
-     * @param string $key
+     * @param  string  $key
      *
      * @return mixed
      */

@@ -18,8 +18,8 @@ class SetBuildEnvironment
     /**
      * Create a new project builder.
      *
-     * @param string|null $environment
-     * @param string|null $assetUrl
+     * @param  string|null  $environment
+     * @param  string|null  $assetUrl
      *
      * @return void
      */

@@ -58,8 +58,8 @@ class JumpCommand extends Command
     /**
      * Store the private key for the jump-box if the user desires.
      *
-     * @param array  $jumpBox
-     * @param string $privateKey
+     * @param  array  $jumpBox
+     * @param  string  $privateKey
      *
      * @return void
      */

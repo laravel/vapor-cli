@@ -10,9 +10,9 @@ class ServeAssets
     /**
      * Serve the project's assets.
      *
-     * @param \Laravel\VaporCli\ConsoleVaporClient $vapor
-     * @param array                                $artifact
-     * @param bool                                $fresh
+     * @param  \Laravel\VaporCli\ConsoleVaporClient  $vapor
+     * @param  array  $artifact
+     * @param  bool  $fresh
      *
      * @return void
      */
@@ -39,8 +39,8 @@ class ServeAssets
     /**
      * Execute the given requests to store assets.
      *
-     * @param array  $requests
-     * @param string $assetPath
+     * @param  array  $requests
+     * @param  string  $assetPath
      *
      * @return void
      */
@@ -62,8 +62,8 @@ class ServeAssets
     /**
      * Execute the given requests to copy assets.
      *
-     * @param array  $requests
-     * @param string $assetPath
+     * @param  array  $requests
+     * @param  string  $assetPath
      *
      * @return void
      */
@@ -92,9 +92,9 @@ class ServeAssets
     /**
      * Get the pre-signed URLs for storing the artifact's assets.
      *
-     * @param \Laravel\VaporCli\ConsoleVaporClient $vapor
-     * @param array                                $artifact
-     * @param string                               $assetFiles
+     * @param  \Laravel\VaporCli\ConsoleVaporClient  $vapor
+     * @param  array  $artifact
+     * @param  string  $assetFiles
      *
      * @return array
      */
@@ -114,7 +114,7 @@ class ServeAssets
     /**
      * Get the asset files within the given directory.
      *
-     * @param string $assetPath
+     * @param  string  $assetPath
      *
      * @return array
      */

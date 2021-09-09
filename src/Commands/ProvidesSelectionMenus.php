@@ -10,7 +10,7 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to select a cloud provider from a list.
      *
-     * @param string $message
+     * @param  string  $message
      *
      * @return string
      */
@@ -41,7 +41,7 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to select a network from a list.
      *
-     * @param string $message
+     * @param  string  $message
      *
      * @return string
      */
@@ -74,8 +74,8 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to choose a certificate from the list.
      *
-     * @param string $message
-     * @param array  $certificates
+     * @param  string  $message
+     * @param  array  $certificates
      *
      * @return string
      */
@@ -94,7 +94,7 @@ trait ProvidesSelectionMenus
     /**
      * Allow the user to choose a region for the operation.
      *
-     * @param string $message
+     * @param  string  $message
      *
      * @return string
      */

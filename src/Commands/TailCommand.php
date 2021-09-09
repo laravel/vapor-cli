@@ -96,7 +96,7 @@ class TailCommand extends Command
     /**
      * Display the unseen log messages.
      *
-     * @param string|null $nextToken
+     * @param  string|null  $nextToken
      *
      * @return string
      */
@@ -135,7 +135,7 @@ class TailCommand extends Command
     /**
      * Display the given log event.
      *
-     * @param array $event
+     * @param  array  $event
      *
      * @return void
      */
@@ -164,7 +164,7 @@ class TailCommand extends Command
     /**
      * Display the event message.
      *
-     * @param array $message
+     * @param  array  $message
      *
      * @return void
      */
@@ -187,7 +187,7 @@ class TailCommand extends Command
     /**
      * Format the given level name for display.
      *
-     * @param string $name
+     * @param  string  $name
      *
      * @return string
      */
@@ -208,7 +208,7 @@ class TailCommand extends Command
     /**
      * Format the given log message date.
      *
-     * @param string|array $date
+     * @param  string|array  $date
      *
      * @return string
      */
@@ -224,7 +224,7 @@ class TailCommand extends Command
     /**
      * Format the log message.
      *
-     * @param string $message
+     * @param  string  $message
      *
      * @return string
      */
@@ -240,7 +240,7 @@ class TailCommand extends Command
     /**
      * Display the message context.
      *
-     * @param array $context
+     * @param  array  $context
      *
      * @return void
      */
@@ -260,7 +260,7 @@ class TailCommand extends Command
     /**
      * Determine if the given message is skippable.
      *
-     * @param array $event
+     * @param  array  $event
      *
      * @return bool
      */
@@ -279,7 +279,7 @@ class TailCommand extends Command
     /**
      * Determine if the message content makes it skippable.
      *
-     * @param string $message
+     * @param  string  $message
      *
      * @return bool
      */

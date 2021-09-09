@@ -9,8 +9,8 @@ class Config
     /**
      * Get the given configuration value.
      *
-     * @param string $key
-     * @param mixed  $default
+     * @param  string  $key
+     * @param  mixed  $default
      *
      * @return void
      */
@@ -22,8 +22,8 @@ class Config
     /**
      * Store the given configuration value.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string  $key
+     * @param  mixed  $value
      *
      * @return void
      */

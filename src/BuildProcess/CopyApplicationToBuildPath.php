@@ -56,7 +56,7 @@ class CopyApplicationToBuildPath
     /**
      * Create a directory for the application copy operation.
      *
-     * @param \SplFileInfo $file
+     * @param  \SplFileInfo  $file
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class CopyApplicationToBuildPath
     /**
      * Create a file for the application copy operation.
      *
-     * @param \SplFileInfo $file
+     * @param  \SplFileInfo  $file
      *
      * @return void
      */

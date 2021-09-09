@@ -43,7 +43,7 @@ class CompressApplication
             $archive->setExternalAttributesName(
                 $relativePathName,
                 ZipArchive::OPSYS_UNIX,
-                ($this->getPermissions($file) & 0xffff) << 16
+                ($this->getPermissions($file) & 0xFFFF) << 16
             );
         }
 
@@ -65,7 +65,7 @@ class CompressApplication
     /**
      * Get the proper file permissions for the file.
      *
-     * @param \SplFileInfo $file
+     * @param  \SplFileInfo  $file
      *
      * @return int
      */
@@ -94,7 +94,7 @@ class CompressApplication
     /**
      * Get the size of the given directory.
      *
-     * @param string $path
+     * @param  string  $path
      *
      * @return int
      */

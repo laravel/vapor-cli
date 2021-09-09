@@ -9,7 +9,7 @@ class BuiltApplicationFiles
     /**
      * Get a built application Finder instance.
      *
-     * @param string $path
+     * @param  string  $path
      *
      * @return \Symfony\Component\Finder\Finder
      */
