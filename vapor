@@ -165,6 +165,7 @@ $app->add(new Commands\EnvPullCommand);
 $app->add(new Commands\EnvPushCommand);
 $app->add(new Commands\EnvCloneCommand);
 $app->add(new Commands\EnvDeleteCommand);
+$app->add(new Commands\OpenCommand);
 
 // Secrets
 $app->add(new Commands\SecretListCommand);
