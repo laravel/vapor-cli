@@ -72,7 +72,6 @@ class LoginCommand extends Command
      * Store the API token.
      *
      * @param  string  $token
-     *
      * @return void
      */
     protected function store($token)
@@ -86,7 +85,6 @@ class LoginCommand extends Command
      * Display the authentication failure message.
      *
      * @param  ResponseInterface  $response
-     *
      * @return void
      */
     protected function displayFailureMessage($response)

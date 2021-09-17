@@ -62,7 +62,6 @@ class CompressVendor
      * Get the proper file permissions for the file.
      *
      * @param  \SplFileInfo  $file
-     *
      * @return int
      */
     protected function getPermissions($file)

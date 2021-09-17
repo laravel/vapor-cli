@@ -13,7 +13,6 @@ class ServeAssets
      * @param  \Laravel\VaporCli\ConsoleVaporClient  $vapor
      * @param  array  $artifact
      * @param  bool  $fresh
-     *
      * @return void
      */
     public function __invoke(ConsoleVaporClient $vapor, array $artifact, $fresh)
@@ -41,7 +40,6 @@ class ServeAssets
      *
      * @param  array  $requests
      * @param  string  $assetPath
-     *
      * @return void
      */
     protected function executeStoreAssetRequests($requests, $assetPath)
@@ -64,7 +62,6 @@ class ServeAssets
      *
      * @param  array  $requests
      * @param  string  $assetPath
-     *
      * @return void
      */
     protected function executeCopyAssetRequests($requests, $assetPath)
@@ -95,7 +92,6 @@ class ServeAssets
      * @param  \Laravel\VaporCli\ConsoleVaporClient  $vapor
      * @param  array  $artifact
      * @param  string  $assetFiles
-     *
      * @return array
      */
     protected function getAuthorizedAssetRequests(
@@ -115,7 +111,6 @@ class ServeAssets
      * Get the asset files within the given directory.
      *
      * @param  string  $assetPath
-     *
      * @return array
      */
     protected function getAssetFiles($assetPath)

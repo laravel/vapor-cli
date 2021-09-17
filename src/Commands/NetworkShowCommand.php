@@ -61,7 +61,6 @@ class NetworkShowCommand extends Command
      * Display the network's details.
      *
      * @param  array  $network
-     *
      * @return void
      */
     protected function displayNetworkDetails(array $network)

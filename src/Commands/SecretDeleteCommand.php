@@ -45,7 +45,6 @@ class SecretDeleteCommand extends Command
      * Get the ID for the secret that should be deleted.
      *
      * @param  array  $secrets
-     *
      * @return string
      */
     protected function getSecretId(array $secrets)
@@ -71,7 +70,6 @@ class SecretDeleteCommand extends Command
      *
      * @param  array  $secrets
      * @param  string  $name
-     *
      * @return string
      */
     protected function getSecretIdByName(array $secrets, $name)

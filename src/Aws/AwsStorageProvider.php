@@ -18,7 +18,6 @@ class AwsStorageProvider
      * Create a new storage provider instance.
      *
      * @param  \Laravel\VaporCli\ConsoleVaporClient  $vapor
-     *
      * @return void
      */
     public function __construct(ConsoleVaporClient $vapor)
@@ -33,7 +32,6 @@ class AwsStorageProvider
      * @param  array  $headers
      * @param  string  $file
      * @param  bool  $progress
-     *
      * @return void
      */
     public function store($url, array $headers, $file, $withProgress = false)
@@ -77,7 +75,6 @@ class AwsStorageProvider
      * @param  string  $method
      * @param  string  $url
      * @param  array  $headers
-     *
      * @return void
      */
     public function request($method, $url, array $headers = [])
@@ -91,7 +88,6 @@ class AwsStorageProvider
      * Execute the given copy requests.
      *
      * @param  array  $requests
-     *
      * @return void
      */
     public function executeCopyRequests($requests)

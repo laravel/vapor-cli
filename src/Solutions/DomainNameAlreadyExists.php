@@ -18,7 +18,6 @@ class DomainNameAlreadyExists
      * Create a new solution instance.
      *
      * @param  \Laravel\VaporCli\Deployment  $deployment
-     *
      * @return void
      */
     public function __construct($deployment)

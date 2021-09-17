@@ -11,7 +11,6 @@ class CommandResult
      * Render the output.
      *
      * @param  array  $output
-     *
      * @return void
      */
     public function render($command)
@@ -38,7 +37,6 @@ class CommandResult
      * Wait for the given command to finish executing.
      *
      * @param  array  $command
-     *
      * @return array
      */
     protected function waitForCommandToFinish($command)
@@ -57,7 +55,6 @@ class CommandResult
      * Display the status code of the command.
      *
      * @param  array  $command
-     *
      * @return void
      */
     protected function displayStatusCode($command)
@@ -75,7 +72,6 @@ class CommandResult
      * Display the output of the command.
      *
      * @param  array  $command
-     *
      * @return void
      */
     protected function displayOutput($command)
@@ -101,7 +97,6 @@ class CommandResult
      *
      * @param  array  $command
      * @param  int  $statusCode
-     *
      * @return void
      */
     protected function displayLog($command, $statusCode)

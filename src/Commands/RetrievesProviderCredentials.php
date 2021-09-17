@@ -45,7 +45,6 @@ trait RetrievesProviderCredentials
      * Determine which credential to load from the credential file.
      *
      * @param  array  $credentials
-     *
      * @return string
      */
     protected function determineCredential(array $credentials)

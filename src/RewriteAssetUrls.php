@@ -11,7 +11,6 @@ class RewriteAssetUrls
      *
      * @param  string  $css
      * @param  string  $baseUrl
-     *
      * @return string
      */
     public static function inCssString($css, $baseUrl)

@@ -49,9 +49,9 @@ class LocalCommand extends Command
     /**
      * Execute the command.
      *
-     * @throws Exception
-     *
      * @return int
+     *
+     * @throws Exception
      */
     public function handle()
     {
@@ -92,9 +92,9 @@ class LocalCommand extends Command
     /**
      * Get the Docker configuration.
      *
-     * @throws Exception
-     *
      * @return array
+     *
+     * @throws Exception
      */
     protected function dockerConfiguration()
     {

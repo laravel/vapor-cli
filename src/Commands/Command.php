@@ -56,7 +56,6 @@ class Command extends SymfonyCommand
      *
      * @param  \Symfony\Component\Console\Input\InputInterface  $input
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
-     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -89,7 +88,6 @@ class Command extends SymfonyCommand
      * Configure the output styles for the application.
      *
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
-     *
      * @return void
      */
     protected function configureOutputStyles(OutputInterface $output)
@@ -104,7 +102,6 @@ class Command extends SymfonyCommand
      * Get an argument from the input list.
      *
      * @param  string  $key
-     *
      * @return mixed
      */
     protected function argument($key)
@@ -116,7 +113,6 @@ class Command extends SymfonyCommand
      * Get an option from the input list.
      *
      * @param  string  $key
-     *
      * @return mixed
      */
     protected function option($key)
@@ -129,7 +125,6 @@ class Command extends SymfonyCommand
      *
      * @param  string  $environment
      * @param  bool  $force
-     *
      * @return void
      */
     protected function confirmIfProduction($environment, $force = null)
@@ -151,7 +146,6 @@ class Command extends SymfonyCommand
      * @param  array  $headers
      * @param  array  $rows
      * @param  string  $style
-     *
      * @return void
      */
     public function table(array $headers, array $rows, $style = 'borderless')
@@ -164,7 +158,6 @@ class Command extends SymfonyCommand
      *
      * @param  array  $headers
      * @param  array  $rows
-     *
      * @return void
      */
     protected function refreshTable(array $headers, array $rows)
@@ -183,7 +176,6 @@ class Command extends SymfonyCommand
      *
      * @param  string  $title
      * @param  array  $choices
-     *
      * @return mixed
      */
     public function menu($title, $choices)
@@ -196,7 +188,6 @@ class Command extends SymfonyCommand
      *
      * @param  array  $items
      * @param  string  $name
-     *
      * @return int
      */
     protected function findIdByName(array $items, $name, $attribute = 'name')
@@ -211,7 +202,6 @@ class Command extends SymfonyCommand
      *
      * @param  string  $command
      * @param  array  $arguments
-     *
      * @return int
      */
     public function call($command, array $arguments = [])

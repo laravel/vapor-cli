@@ -15,7 +15,6 @@ class ConsoleVaporClient
      * @param  string  $email
      * @param  string  $password
      * @param  string|null  $twoFactorAuthenticationToken
-     *
      * @return string
      */
     public function login($email, $password, $twoFactorAuthenticationToken = null)
@@ -74,7 +73,6 @@ class ConsoleVaporClient
      * Create a new team.
      *
      * @param  string  $name
-     *
      * @return array
      */
     public function createTeam($name)
@@ -99,7 +97,6 @@ class ConsoleVaporClient
      *
      * @param  string  $email
      * @param  array  $permissions
-     *
      * @return void
      */
     public function addTeamMember($email, array $permissions)
@@ -114,7 +111,6 @@ class ConsoleVaporClient
      * Remove a team member from the current team.
      *
      * @param  string  $email
-     *
      * @return void
      */
     public function removeTeamMember($email)
@@ -128,7 +124,6 @@ class ConsoleVaporClient
      * Switch the current team the user is interacting with.
      *
      * @param  string  $teamId
-     *
      * @return void
      */
     public function switchCurrentTeam($teamId)
@@ -164,7 +159,6 @@ class ConsoleVaporClient
      * @param  string  $type
      * @param  string  $name
      * @param  array  $credentials
-     *
      * @return void
      */
     public function createProvider($type, $name, array $credentials)
@@ -182,7 +176,6 @@ class ConsoleVaporClient
      * @param  string  $providerId
      * @param  string  $name
      * @param  array  $credentials
-     *
      * @return array
      */
     public function updateProvider($providerId, $name, array $credentials)
@@ -197,7 +190,6 @@ class ConsoleVaporClient
      * Delete the given provider.
      *
      * @param  string  $providerId
-     *
      * @return void
      */
     public function deleteProvider($providerId)
@@ -209,7 +201,6 @@ class ConsoleVaporClient
      * Get the zones that belong to the account.
      *
      * @param  int  $teamId
-     *
      * @return array
      */
     public function zones($teamId = null)
@@ -223,7 +214,6 @@ class ConsoleVaporClient
      * Get the zone with the given ID.
      *
      * @param  string  $zoneId
-     *
      * @return array
      */
     public function zone($zoneId)
@@ -236,7 +226,6 @@ class ConsoleVaporClient
      *
      * @param  string  $providerId
      * @param  string  $zone
-     *
      * @return array
      */
     public function createZone($providerId, $zone)
@@ -251,7 +240,6 @@ class ConsoleVaporClient
      * Delete the given zone.
      *
      * @param  string  $zoneId
-     *
      * @return void
      */
     public function deleteZone($zoneId)
@@ -263,7 +251,6 @@ class ConsoleVaporClient
      * Get the DNS records for the given zone.
      *
      * @param  string  $zone
-     *
      * @return array
      */
     public function records($zoneId)
@@ -278,7 +265,6 @@ class ConsoleVaporClient
      * @param  string  $type
      * @param  string  $name
      * @param  string  $value
-     *
      * @return array
      */
     public function createRecord($zoneId, $type, $name, $value)
@@ -297,7 +283,6 @@ class ConsoleVaporClient
      * @param  string  $type
      * @param  string  $name
      * @param  string  $value
-     *
      * @return void
      */
     public function deleteRecord($zoneId, $type, $name, $value = null)
@@ -319,7 +304,6 @@ class ConsoleVaporClient
      * Get the network with the given ID.
      *
      * @param  string  $networkId
-     *
      * @return array
      */
     public function network($networkId)
@@ -334,7 +318,6 @@ class ConsoleVaporClient
      * @param  string  $name
      * @param  string  $region
      * @param  bool  $withInternetAccess
-     *
      * @return array
      */
     public function createNetwork($providerId, $name, $region, $withInternetAccess)
@@ -351,7 +334,6 @@ class ConsoleVaporClient
      * Grant the given network Internet access via a NAT Gateway.
      *
      * @param  int  $networkId
-     *
      * @return void
      */
     public function grantNetworkInternetAccess($networkId)
@@ -363,7 +345,6 @@ class ConsoleVaporClient
      * Remove the given network's Internet access.
      *
      * @param  int  $networkId
-     *
      * @return void
      */
     public function removeNetworkInternetAccess($networkId)
@@ -375,7 +356,6 @@ class ConsoleVaporClient
      * Delete the network with the given ID.
      *
      * @param  string  $networkId
-     *
      * @return array
      */
     public function deleteNetwork($networkId)
@@ -397,7 +377,6 @@ class ConsoleVaporClient
      * Get the database with the given ID.
      *
      * @param  string  $databaseId
-     *
      * @return array
      */
     public function database($databaseId)
@@ -415,7 +394,6 @@ class ConsoleVaporClient
      * @param  string  $storage
      * @param  bool  $public
      * @param  bool  $pause
-     *
      * @return array
      */
     public function createDatabase($networkId, $name, $type, $instanceClass, $storage, $public, $pause = false)
@@ -436,7 +414,6 @@ class ConsoleVaporClient
      * @param  string  $databaseId
      * @param  string  $instanceClass
      * @param  int  $storage
-     *
      * @return void
      */
     public function scaleDatabase($databaseId, $instanceClass, $storage)
@@ -451,7 +428,6 @@ class ConsoleVaporClient
      * Get the database users for the given database.
      *
      * @param  string  $databaseId
-     *
      * @return array
      */
     public function databaseUsers($databaseId)
@@ -464,7 +440,6 @@ class ConsoleVaporClient
      *
      * @param  string  $databaseId
      * @param  string  $username
-     *
      * @return array
      */
     public function createDatabaseUser($databaseId, $username)
@@ -478,7 +453,6 @@ class ConsoleVaporClient
      * Drop the given database user.
      *
      * @param  string  $databaseUserId
-     *
      * @return void
      */
     public function dropDatabaseUser($databaseUserId)
@@ -490,7 +464,6 @@ class ConsoleVaporClient
      * Create a new database proxy.
      *
      * @param  string  $databaseId
-     *
      * @return array
      */
     public function createDatabaseProxy($databaseId)
@@ -502,7 +475,6 @@ class ConsoleVaporClient
      * Delete the proxy associated to the given database.
      *
      * @param  string  $databaseId
-     *
      * @return void
      */
     public function deleteDatabaseProxy($databaseId)
@@ -514,7 +486,6 @@ class ConsoleVaporClient
      * Rotate the given database's password.
      *
      * @param  string  $databaseId
-     *
      * @return string
      */
     public function rotateDatabasePassword($databaseId)
@@ -531,7 +502,6 @@ class ConsoleVaporClient
      * @param  string  $databaseId
      * @param  string  $name
      * @param  int  $restoreTo
-     *
      * @return array
      */
     public function restoreDatabase($databaseId, $name, $restoreTo)
@@ -548,7 +518,6 @@ class ConsoleVaporClient
      * @param  string  $databaseId
      * @param  string  $name
      * @param  string  $type
-     *
      * @return array
      */
     public function upgradeDatabase($databaseId, $name, $type)
@@ -563,7 +532,6 @@ class ConsoleVaporClient
      * Get the password for the given database user.
      *
      * @param  string  $databaseUserId
-     *
      * @return array
      */
     public function databaseUserPassword($databaseUserId)
@@ -575,7 +543,6 @@ class ConsoleVaporClient
      * Delete the database with the given ID.
      *
      * @param  string  $databaseId
-     *
      * @return void
      */
     public function deleteDatabase($databaseId)
@@ -597,7 +564,6 @@ class ConsoleVaporClient
      * Get the cache with the given ID.
      *
      * @param  string  $cacheId
-     *
      * @return array
      */
     public function cache($cacheId)
@@ -612,7 +578,6 @@ class ConsoleVaporClient
      * @param  string  $name
      * @param  string  $type
      * @param  string  $instanceClass
-     *
      * @return array
      */
     public function createCache($networkId, $name, $type, $instanceClass)
@@ -629,7 +594,6 @@ class ConsoleVaporClient
      *
      * @param  string  $cacheId
      * @param  int  $scale
-     *
      * @return void
      */
     public function scaleCache($cacheId, $scale)
@@ -643,7 +607,6 @@ class ConsoleVaporClient
      * Delete the cache with the given ID.
      *
      * @param  string  $cacheId
-     *
      * @return void
      */
     public function deleteCache($cacheId)
@@ -666,7 +629,6 @@ class ConsoleVaporClient
      *
      * @param  string  $networkId
      * @param  string  $name
-     *
      * @return array
      */
     public function createJumpBox($networkId, $name)
@@ -680,7 +642,6 @@ class ConsoleVaporClient
      * Get the public / private key for the given jump-box.
      *
      * @param  string  $jumpBoxId
-     *
      * @return array
      */
     public function jumpBoxKey($jumpBoxId)
@@ -692,7 +653,6 @@ class ConsoleVaporClient
      * Delete the jump box with the given ID.
      *
      * @param  string  $jumpBoxId
-     *
      * @return void
      */
     public function deleteJumpBox($jumpBoxId)
@@ -715,7 +675,6 @@ class ConsoleVaporClient
      *
      * @param  string  $networkId
      * @param  string  $name
-     *
      * @return array
      */
     public function createBalancer($networkId, $name)
@@ -730,7 +689,6 @@ class ConsoleVaporClient
      * Delete the load balancer with the given ID.
      *
      * @param  string  $balancerId
-     *
      * @return void
      */
     public function deleteBalancer($balancerId)
@@ -742,7 +700,6 @@ class ConsoleVaporClient
      * Get all of the certificates for the current team.
      *
      * @param  string  $domain
-     *
      * @return array
      */
     public function certificates($domain = null)
@@ -767,7 +724,6 @@ class ConsoleVaporClient
      * @param  string  $domain
      * @param  array  $alternativeNames
      * @param  string  $validationMethod
-     *
      * @return array
      */
     public function requestCertificate($providerId, $domain, array $alternativeNames, $region, $validationMethod)
@@ -785,7 +741,6 @@ class ConsoleVaporClient
      * Resend the validation email for the given certificate.
      *
      * @param  string  $certificateId
-     *
      * @return void
      */
     public function resendCertificateValidationEmail($certificateId)
@@ -800,7 +755,6 @@ class ConsoleVaporClient
      * Delete the given certificate.
      *
      * @param  string  $certificateId
-     *
      * @return void
      */
     public function deleteCertificate($certificateId)
@@ -815,7 +769,6 @@ class ConsoleVaporClient
      * Get the project with the given ID.
      *
      * @param  string  $projectId
-     *
      * @return array
      */
     public function project($projectId)
@@ -829,7 +782,6 @@ class ConsoleVaporClient
      * @param  string  $name
      * @param  int  $providerId
      * @param  string  $region
-     *
      * @return array
      */
     public function createProject($name, $providerId, $region)
@@ -845,7 +797,6 @@ class ConsoleVaporClient
      * Get all of the environments for the given project.
      *
      * @param  string  $projectId
-     *
      * @return array
      */
     public function environments($projectId)
@@ -857,7 +808,6 @@ class ConsoleVaporClient
      * Get the environment by a specific name for the given project.
      *
      * @param  string  $projectId
-     *
      * @return array
      */
     public function environmentNamed($projectId, $name)
@@ -871,7 +821,6 @@ class ConsoleVaporClient
      * Delete the given project.
      *
      * @param  string  $projectId
-     *
      * @return void
      */
     public function deleteProject($projectId)
@@ -884,7 +833,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environmentId
-     *
      * @return array
      */
     public function environment($projectId, $environmentId)
@@ -917,7 +865,6 @@ class ConsoleVaporClient
      * @param  string  $projectId
      * @param  string  $fromEnvironment
      * @param  string  $toEnvironment
-     *
      * @return array
      */
     public function cloneEnvironment($projectId, $fromEnvironment, $toEnvironment)
@@ -933,7 +880,6 @@ class ConsoleVaporClient
      *
      * @param  int  $projectId
      * @param  string  $environment
-     *
      * @return string
      */
     public function environmentVariables($projectId, $environment)
@@ -947,7 +893,6 @@ class ConsoleVaporClient
      * @param  int  $projectId
      * @param  string  $environment
      * @param  string  $variables
-     *
      * @return string
      */
     public function updateEnvironmentVariables($projectId, $environment, $variables)
@@ -964,7 +909,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     *
      * @return void
      */
     public function deleteEnvironment($projectId, $environment)
@@ -980,7 +924,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     *
      * @return array
      */
     public function secrets($projectId, $environment)
@@ -998,7 +941,6 @@ class ConsoleVaporClient
      * @param  string  $environment
      * @param  string  $name
      * @param  string  $value
-     *
      * @return array
      */
     public function storeSecret($projectId, $environment, $name, $value)
@@ -1014,7 +956,6 @@ class ConsoleVaporClient
      * Delete the given secret.
      *
      * @param  string  $secretId
-     *
      * @return void
      */
     public function deleteSecret($secretId)
@@ -1037,7 +978,6 @@ class ConsoleVaporClient
      * @param  string  $vendorHash
      * @param  string  $cliVersion
      * @param  string  $coreVersion
-     *
      * @return array
      */
     public function createArtifact(
@@ -1080,7 +1020,6 @@ class ConsoleVaporClient
      * @param  int  $artifactId
      * @param  array  $files
      * @param  bool  $fresh
-     *
      * @return array
      */
     public function authorizeArtifactAssets($artifactId, array $files, bool $fresh = false)
@@ -1096,7 +1035,6 @@ class ConsoleVaporClient
      *
      * @param  int  $artifactId
      * @param  array  $files
-     *
      * @return array
      */
     public function recordArtifactAssets($artifactId, array $files)
@@ -1111,7 +1049,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     *
      * @return array
      */
     public function deployments($projectId, $environment)
@@ -1123,7 +1060,6 @@ class ConsoleVaporClient
      * Get the deployment with the given ID.
      *
      * @param  string  $deploymentId
-     *
      * @return array
      */
     public function deployment($deploymentId)
@@ -1139,7 +1075,6 @@ class ConsoleVaporClient
      * @param  array  $manifest
      * @param  string  $cliVersion
      * @param  string  $coreVersion
-     *
      * @return void
      */
     public function validateManifest($projectId, $environment, array $manifest, $cliVersion = null, $coreVersion = null)
@@ -1156,7 +1091,6 @@ class ConsoleVaporClient
      *
      * @param  int  $artifactId
      * @param  array  $manifest
-     *
      * @return array
      */
     public function deploy($artifactId, array $manifest)
@@ -1170,7 +1104,6 @@ class ConsoleVaporClient
      * Get the deployment hooks for the given deployment.
      *
      * @param  string  $deploymentId
-     *
      * @return array
      */
     public function deploymentHooks($deploymentId)
@@ -1192,7 +1125,6 @@ class ConsoleVaporClient
      * Get the deployment hook with the given ID.
      *
      * @param  string  $hookId
-     *
      * @return array
      */
     public function deploymentHook($hookId)
@@ -1204,7 +1136,6 @@ class ConsoleVaporClient
      * Get the deployment hook output with the given ID.
      *
      * @param  string  $hookId
-     *
      * @return string
      */
     public function deploymentHookOutput($hookId)
@@ -1216,7 +1147,6 @@ class ConsoleVaporClient
      * Rollback to the given deployment ID.
      *
      * @param  string  $deploymentId
-     *
      * @return array
      */
     public function rollbackTo($deploymentId)
@@ -1232,7 +1162,6 @@ class ConsoleVaporClient
      * @param  string  $projectId
      * @param  string  $environment
      * @param  string  $secret
-     *
      * @return array
      */
     public function enableMaintenanceMode($projectId, $environment, $secret = null)
@@ -1251,7 +1180,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     *
      * @return array
      */
     public function disableMaintenanceMode($projectId, $environment)
@@ -1267,7 +1195,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     *
      * @return array
      */
     public function redeploy($projectId, $environment)
@@ -1282,7 +1209,6 @@ class ConsoleVaporClient
      * Attempt to the cancel the given deployment.
      *
      * @param  string  $deploymentId
-     *
      * @return void
      */
     public function cancelDeployment($deploymentId)
@@ -1297,7 +1223,6 @@ class ConsoleVaporClient
      * Re-runs the given command id.
      *
      * @param  string  $commandId
-     *
      * @return array
      */
     public function commandReRun($commandId)
@@ -1310,7 +1235,6 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     *
      * @return array
      */
     public function commands($projectId, $environment)
@@ -1332,7 +1256,6 @@ class ConsoleVaporClient
      * Get the command with the given ID.
      *
      * @param  string  $commandId
-     *
      * @return array
      */
     public function command($commandId)
@@ -1346,7 +1269,6 @@ class ConsoleVaporClient
      * @param  string  $projectId
      * @param  string  $environment
      * @param  string  $command
-     *
      * @return array
      */
     public function invoke($projectId, $environment, $command)
@@ -1360,7 +1282,6 @@ class ConsoleVaporClient
      * Get the command log for the given command.
      *
      * @param  string  $commandId
-     *
      * @return string
      */
     public function commandLog($commandId)
@@ -1377,7 +1298,6 @@ class ConsoleVaporClient
      * @param  string  $filter
      * @param  int  $start
      * @param  string  $nextToken
-     *
      * @return array
      */
     public function tail($projectId, $environment, $cli, $filter, $start, $nextToken = null)
@@ -1401,7 +1321,6 @@ class ConsoleVaporClient
      * @param  string  $projectId
      * @param  string  $environment
      * @param  string  $period
-     *
      * @return array
      */
     public function metrics($projectId, $environment, $period)
@@ -1414,7 +1333,6 @@ class ConsoleVaporClient
      *
      * @param  string  $databaseId
      * @param  string  $period
-     *
      * @return array
      */
     public function databaseMetrics($databaseId, $period)
@@ -1427,7 +1345,6 @@ class ConsoleVaporClient
      *
      * @param  string  $cacheId
      * @param  string  $period
-     *
      * @return array
      */
     public function cacheMetrics($cacheId, $period)
@@ -1452,7 +1369,6 @@ class ConsoleVaporClient
      * @param  string  $uri
      * @param  array  $json
      * @param  int  $tries
-     *
      * @return array
      */
     protected function request($method, $uri, array $json = [], $tries = 0)
@@ -1484,7 +1400,6 @@ class ConsoleVaporClient
      * @param  string  $method
      * @param  string  $uri
      * @param  array  $json
-     *
      * @return array
      */
     protected function requestWithoutErrorHandling($method, $uri, array $json = [])
@@ -1505,7 +1420,6 @@ class ConsoleVaporClient
      * @param  string  $method
      * @param  string  $uri
      * @param  array  $json
-     *
      * @return array
      */
     protected function requestWithErrorHandling($method, $uri, array $json = [])
@@ -1529,7 +1443,6 @@ class ConsoleVaporClient
      * Display the errors for the request.
      *
      * @param  Response  $response
-     *
      * @return void
      */
     protected function displayRequestErrors($response)
@@ -1563,7 +1476,6 @@ class ConsoleVaporClient
      * Display the validation errors for the given response.
      *
      * @param  Response  $response
-     *
      * @return void
      */
     protected function displayValidationErrors($response)

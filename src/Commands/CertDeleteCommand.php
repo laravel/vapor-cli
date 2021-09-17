@@ -81,7 +81,6 @@ class CertDeleteCommand extends Command
      *
      * @param  array  $certificates
      * @param  string  $domain
-     *
      * @return string
      */
     protected function getCertificateForDomain(array $certificates, $domain)
