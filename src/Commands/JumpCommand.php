@@ -60,7 +60,6 @@ class JumpCommand extends Command
      *
      * @param  array  $jumpBox
      * @param  string  $privateKey
-     *
      * @return void
      */
     protected function storePrivateKey($name, $privateKey)

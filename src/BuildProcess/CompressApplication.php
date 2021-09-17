@@ -66,7 +66,6 @@ class CompressApplication
      * Get the proper file permissions for the file.
      *
      * @param  \SplFileInfo  $file
-     *
      * @return int
      */
     protected function getPermissions($file)
@@ -95,7 +94,6 @@ class CompressApplication
      * Get the size of the given directory.
      *
      * @param  string  $path
-     *
      * @return int
      */
     protected function getDirectorySize($path)

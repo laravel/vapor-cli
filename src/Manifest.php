@@ -44,7 +44,6 @@ class Manifest
      * Get the build commands for the given environment.
      *
      * @param  string  $environment
-     *
      * @return array
      */
     public static function buildCommands($environment)
@@ -101,7 +100,6 @@ class Manifest
      * Get the runtime for the given environment.
      *
      * @param  string  $environment
-     *
      * @return string|null
      */
     public static function runtime($environment)
@@ -134,7 +132,6 @@ class Manifest
      * Write a fresh manifest file for the given project.
      *
      * @param  array  $project
-     *
      * @return void
      */
     public static function fresh($project)
@@ -146,7 +143,6 @@ class Manifest
      * Write a fresh main manifest file for the given project.
      *
      * @param  array  $project
-     *
      * @return void
      */
     protected static function freshConfiguration($project)
@@ -184,7 +180,6 @@ class Manifest
      *
      * @param  string  $environment
      * @param  array  $config
-     *
      * @return void
      */
     public static function addEnvironment($environment, array $config = [])
@@ -210,7 +205,6 @@ class Manifest
      * Delete the given environment from the manifest.
      *
      * @param  string  $environment
-     *
      * @return void
      */
     public static function deleteEnvironment($environment)
@@ -227,7 +221,6 @@ class Manifest
      *
      * @param  array  $manifest
      * @param  string|null  $path
-     *
      * @return void
      */
     protected static function write(array $manifest, $path = null)

@@ -47,7 +47,6 @@ class HookLogCommand extends Command
      * Write the log to the console.
      *
      * @param  string  $log
-     *
      * @return void
      */
     public static function writeLog($log)

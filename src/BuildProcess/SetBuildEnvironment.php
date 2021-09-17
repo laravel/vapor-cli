@@ -20,7 +20,6 @@ class SetBuildEnvironment
      *
      * @param  string|null  $environment
      * @param  string|null  $assetUrl
-     *
      * @return void
      */
     public function __construct($environment = null, $assetUrl = null)

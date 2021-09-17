@@ -84,7 +84,6 @@ class DatabaseScaleCommand extends Command
      * Determine how much storage should be allocated to the database.
      *
      * @param  array  $database
-     *
      * @return int
      */
     protected function determineAllocatedStorage(array $database)

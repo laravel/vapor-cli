@@ -56,7 +56,6 @@ class RecordListCommand extends Command
      * Gets the DNS Record concern.
      *
      * @param  array  $record
-     *
      * @return string
      */
     public function getDnsRecordConcern($record)

@@ -92,7 +92,6 @@ class DatabaseUpgradeCommand extends Command
      * Determine the database type.
      *
      * @param  int  $databaseId
-     *
      * @return string|null
      */
     protected function determineDatabaseType($databaseId)

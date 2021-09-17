@@ -34,7 +34,6 @@ class HarmonizeConfigurationFiles
      * The keys and secrets are automatically injected by Lambda.
      *
      * @param  \SplFileInfo  $file
-     *
      * @return string
      */
     protected function replaceAwsEnvironmentVariables($file)

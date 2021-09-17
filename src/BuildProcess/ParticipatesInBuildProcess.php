@@ -22,7 +22,6 @@ trait ParticipatesInBuildProcess
      * Create a new project builder.
      *
      * @param  string|null  $environment
-     *
      * @return void
      */
     public function __construct($environment = null)

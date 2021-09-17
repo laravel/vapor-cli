@@ -83,7 +83,6 @@ class CertCommand extends Command
      *
      * @param  string  $domain
      * @param  array  $additionalDomains
-     *
      * @return void
      */
     protected function displayDomains($domain, array $additionalDomains)
@@ -97,7 +96,6 @@ class CertCommand extends Command
      * Display the certificate verification email addresses.
      *
      * @param  string  $domain
-     *
      * @return void
      */
     protected function displayEmailAddresses($domain)

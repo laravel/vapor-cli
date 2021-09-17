@@ -11,7 +11,6 @@ class Config
      *
      * @param  string  $key
      * @param  mixed  $default
-     *
      * @return void
      */
     public static function get($key, $default = null)
@@ -24,7 +23,6 @@ class Config
      *
      * @param  string  $key
      * @param  mixed  $value
-     *
      * @return void
      */
     public static function set($key, $value)
