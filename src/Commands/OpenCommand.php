@@ -53,6 +53,14 @@ class OpenCommand extends Command
             ));
         }
 
-        passthru(sprintf('open https://%s', $domain));
+        $openerCommand = 'open';
+
+        if (PHP_OS_FAMILY === 'Windows') {
+            $openerCommand = 'start';
+        } elseif (PHP_OS_FAMILY === 'Linux') {
+            $openerCommand = 'xdg-open';
+        }
+
+        passthru(sprintf('%s https://%s', $openerCommand, $domain));
     }
 }
