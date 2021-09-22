@@ -108,6 +108,17 @@ class Manifest
     }
 
     /**
+     * Determine if the environment uses Octane.
+     *
+     * @param  string  $environment
+     * @return bool
+     */
+    public static function octane($environment)
+    {
+        return static::current()['environments'][$environment]['octane'] ?? false;
+    }
+
+    /**
      * Determine if the environment uses a Docker image.
      *
      * @param  string  $environment
