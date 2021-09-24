@@ -20,7 +20,23 @@ class ValidateOctaneDependencies
         if (Manifest::octane($this->environment)) {
             Helpers::step('<options=bold>Validating Octane Dependencies</>');
 
+            $this->ensureNoSeparateVendor();
             $this->warnAboutMissingDependencies();
+        }
+    }
+
+
+    /**
+     * Ensures the separate vendor option is not being used.
+     *
+     * @return void
+     */
+    protected function ensureNoSeparateVendor()
+    {
+        if (Manifest::shouldSeparateVendor($this->environment)) {
+            Helpers::abort(
+                'Octane is not compatible with the "separate-vendor" option.'
+            );
         }
     }
 
@@ -33,6 +49,7 @@ class ValidateOctaneDependencies
     {
         $this->ensurePackageRequirement('laravel/vapor-core', '2.12.3');
         $this->ensurePackageRequirement('laravel/octane', '1.0.11');
+        $this->ensurePackageRequirement('laravel/framework', '8.62.0');
 
         return $this;
     }
@@ -57,7 +74,7 @@ class ValidateOctaneDependencies
                 ->where('name', $package)
                 ->first())->version;
 
-        if (Str::endsWith($currentVersion ?? '', 'x-dev')) {
+        if (Str::startsWith($currentVersion ?? '', 'dev-') || Str::endsWith($currentVersion ?? '', 'x-dev')) {
             return;
         }
 
