@@ -25,7 +25,6 @@ class ValidateOctaneDependencies
         }
     }
 
-
     /**
      * Ensures the separate vendor option is not being used.
      *
