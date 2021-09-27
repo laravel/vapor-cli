@@ -21,7 +21,23 @@ class ValidateOctaneDependencies
             Helpers::step('<options=bold>Validating Octane Dependencies</>');
 
             $this->ensureNoSeparateVendor();
+            $this->ensureNoDbProxyWhenUsingSharedSessions();
             $this->warnAboutMissingDependencies();
+        }
+    }
+
+    /**
+     * Ensures the separate vendor option is not being used.
+     *
+     * @return void
+     */
+    protected function ensureNoDbProxyWhenUsingSharedSessions()
+    {
+        if (Manifest::octaneDatabaseSessionTtl($this->environment)
+            && Manifest::databaseProxy($this->environment)) {
+            Helpers::abort(
+                'Octane "octane-database-session-ttl" option is not compatible with the "database-proxy" option.'
+            );
         }
     }
 
