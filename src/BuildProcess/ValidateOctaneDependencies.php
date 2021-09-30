@@ -31,7 +31,7 @@ class ValidateOctaneDependencies
      */
     protected function warnAboutMissingDependencies()
     {
-        $this->ensurePackageRequirement('laravel/vapor-core', '2.13.0');
+        $this->ensurePackageRequirement('laravel/vapor-core', '2.14.0');
         $this->ensurePackageRequirement('laravel/octane', '1.0.12');
         $this->ensurePackageRequirement('laravel/framework', '8.62.0');
 
