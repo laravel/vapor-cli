@@ -41,6 +41,10 @@ class InjectHandlers
                 $this->configureHttpHandler($this->appPath.'/httpHandler.php')
             );
         }
+
+        if (file_exists($stubPath.'/octaneRuntime.php')) {
+            $this->files->copy($stubPath.'/octaneRuntime.php', $this->appPath.'/octaneRuntime.php');
+        }
     }
 
     /**

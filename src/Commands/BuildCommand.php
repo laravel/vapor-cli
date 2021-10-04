@@ -23,6 +23,7 @@ use Laravel\VaporCli\BuildProcess\RemoveVendorPlatformCheck;
 use Laravel\VaporCli\BuildProcess\SetBuildEnvironment;
 use Laravel\VaporCli\BuildProcess\ValidateApiToken;
 use Laravel\VaporCli\BuildProcess\ValidateManifest;
+use Laravel\VaporCli\BuildProcess\ValidateOctaneDependencies;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\Path;
@@ -70,6 +71,7 @@ class BuildCommand extends Command
             new HarmonizeConfigurationFiles(),
             new SetBuildEnvironment($this->argument('environment'), $this->option('asset-url')),
             new ExecuteBuildCommands($this->argument('environment')),
+            new ValidateOctaneDependencies($this->argument('environment')),
             new ConfigureArtisan($this->argument('environment')),
             new ConfigureComposerAutoloader($this->argument('environment')),
             new RemoveIgnoredFiles(),

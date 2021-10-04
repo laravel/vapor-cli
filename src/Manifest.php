@@ -56,6 +56,17 @@ class Manifest
     }
 
     /**
+     * Determine if the environment uses a database proxy.
+     *
+     * @param  string  $environment
+     * @return bool
+     */
+    public static function databaseProxy($environment)
+    {
+        return static::current()['environments'][$environment]['database-proxy'] ?? false;
+    }
+
+    /**
      * Get the ignored file patterns for the project.
      *
      * @return array
@@ -105,6 +116,28 @@ class Manifest
     public static function runtime($environment)
     {
         return static::current()['environments'][$environment]['runtime'] ?? null;
+    }
+
+    /**
+     * Determine if the environment uses Octane.
+     *
+     * @param  string  $environment
+     * @return bool
+     */
+    public static function octane($environment)
+    {
+        return static::current()['environments'][$environment]['octane'] ?? false;
+    }
+
+    /**
+     * Determine if the environment uses Octane database session ttl.
+     *
+     * @param  string  $environment
+     * @return int
+     */
+    public static function octaneDatabaseSessionTtl($environment)
+    {
+        return static::current()['environments'][$environment]['octane-database-session-ttl'] ?? 0;
     }
 
     /**
