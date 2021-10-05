@@ -517,13 +517,15 @@ class ConsoleVaporClient
      *
      * @param  string  $databaseId
      * @param  string  $name
+     * @param  int  $storage
      * @param  string  $type
      * @return array
      */
-    public function upgradeDatabase($databaseId, $name, $type)
+    public function upgradeDatabase($databaseId, $name, $storage, $type)
     {
         return $this->requestWithErrorHandling('post', '/api/databases/'.$databaseId.'/upgrades', [
             'name' => $name,
+            'storage' => $storage,
             'type' => $type,
         ]);
     }

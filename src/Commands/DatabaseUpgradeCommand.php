@@ -64,6 +64,7 @@ class DatabaseUpgradeCommand extends Command
         }
 
         $databaseType = $this->determineDatabaseType($databaseId);
+        $databaseStorage = $this->determineDatabaseStorage($databaseId, $databaseType);
 
         if (is_null($databaseType)) {
             Helpers::danger('No possible upgrades were found for the given database');
@@ -80,7 +81,8 @@ class DatabaseUpgradeCommand extends Command
         $this->vapor->upgradeDatabase(
             $databaseId,
             $this->argument('to'),
-            $databaseType,
+            $databaseStorage,
+            $databaseType
         );
 
         Helpers::info('Database upgrade initiated successfully.');
@@ -106,5 +108,25 @@ class DatabaseUpgradeCommand extends Command
                 })->all(),
             );
         }
+    }
+
+    /**
+     * Determine how much storage should be allocated to the database.
+     *
+     * @param  int  $databaseId
+     * @param  string  $type
+     * @return int
+     */
+    protected function determineDatabaseStorage($databaseId, $type)
+    {
+        $storage = $this->vapor->database($databaseId)['storage'];
+
+        $allocatedStorage = Helpers::ask('What is the maximum amount of storage that may be allocated to your new database (between 25GB and 32768GB) ($0.115 / GB)', $storage);
+
+        if ($allocatedStorage < 25 || $allocatedStorage > 32768) {
+            Helpers::abort('Maximum allocated storage must be between 25GB and 32TB.');
+        }
+
+        return $allocatedStorage;
     }
 }
