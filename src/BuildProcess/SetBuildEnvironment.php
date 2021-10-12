@@ -72,5 +72,10 @@ class SetBuildEnvironment
             $envPath,
             'ASSET_URL='.$this->assetUrl.PHP_EOL
         );
+        
+        $this->files->append(
+            $envPath,
+            'VITE_ASSET_URL='.$this->assetUrl.PHP_EOL
+        );
     }
 }
