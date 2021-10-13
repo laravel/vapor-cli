@@ -38,7 +38,7 @@ class AwsStorageProvider
     {
         $stream = fopen($file, 'r+');
 
-        $size = round(filesize($file) / 1024, 2);
+        $size = (int) round(filesize($file) / 1024, 2);
 
         if ($withProgress) {
             $progressBar = new ProgressBar(Helpers::app('output'), $size);
@@ -49,9 +49,8 @@ class AwsStorageProvider
         }
 
         $progressCallback = $withProgress ? function ($_, $__, $___, $uploaded) use ($progressBar) {
-            $progressBar->setProgress(round($uploaded / 1024, 2));
-        }
-        : null;
+            $progressBar->setProgress((int) round($uploaded / 1024, 2));
+        } : null;
 
         $response = (new Client())->request('PUT', $url, array_filter([
             'body'     => $stream,
