@@ -784,14 +784,16 @@ class ConsoleVaporClient
      * @param  string  $name
      * @param  int  $providerId
      * @param  string  $region
+     * @param  bool  $usesVanityDomain
      * @return array
      */
-    public function createProject($name, $providerId, $region)
+    public function createProject($name, $providerId, $region, $usesVanityDomain)
     {
         return $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/projects', array_filter([
             'cloud_provider_id' => $providerId,
-            'name'              => $name,
-            'region'            => $region,
+            'name' => $name,
+            'region' => $region,
+            'uses_vanity_domain' => $usesVanityDomain,
         ]));
     }
 
@@ -853,11 +855,12 @@ class ConsoleVaporClient
      * @param  bool  $usesContainerImage
      * @return array
      */
-    public function createEnvironment($projectId, $environment, $usesContainerImage = false)
+    public function createEnvironment($projectId, $environment, $usesContainerImage = false, $usesVanityDomain = true)
     {
         return $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/environments', [
             'name' => $environment,
             'uses_container_image' => $usesContainerImage,
+            'uses_vanity_domain' => $usesVanityDomain,
         ]);
     }
 

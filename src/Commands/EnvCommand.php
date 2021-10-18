@@ -22,6 +22,7 @@ class EnvCommand extends Command
             ->setName('env')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
             ->addOption('docker', null, InputOption::VALUE_NONE, 'Indicate that the environment will use Docker images as its runtime')
+            ->addOption('no-vanity-domain', null, InputOption::VALUE_NONE, 'Indicate that the environment should not be assigned vanity domains')
             ->setDescription('Create a new environment');
     }
 
@@ -37,7 +38,8 @@ class EnvCommand extends Command
         $this->vapor->createEnvironment(
             Manifest::id(),
             $environment = $this->argument('environment'),
-            $this->option('docker')
+            $this->option('docker'),
+            ! $this->option('no-vanity-domain')
         );
 
         Manifest::addEnvironment($environment, [
