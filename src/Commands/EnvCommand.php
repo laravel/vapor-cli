@@ -22,7 +22,7 @@ class EnvCommand extends Command
             ->setName('env')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
             ->addOption('docker', null, InputOption::VALUE_NONE, 'Indicate that the environment will use Docker images as its runtime')
-            ->addOption('no-vanity-domain', null, InputOption::VALUE_NONE, 'Indicate that the environment does not use vanity domains')
+            ->addOption('no-vanity-domain', null, InputOption::VALUE_NONE, 'Indicate that the environment should not be assigned vanity domains')
             ->setDescription('Create a new environment');
     }
 
