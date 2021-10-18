@@ -42,7 +42,8 @@ class InitCommand extends Command
         $response = $this->vapor->createProject(
             $this->determineName(),
             $this->determineProvider('Which cloud provider should the project belong to?'),
-            $this->determineRegion('Which region should the project be placed in?')
+            $this->determineRegion('Which region should the project be placed in?'),
+            Helpers::confirm('Would you like Vapor to assign vanity domains to each of your environments?')
         );
 
         Manifest::fresh($response['project']);
