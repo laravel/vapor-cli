@@ -72,5 +72,10 @@ class SetBuildEnvironment
             $envPath,
             'ASSET_URL='.$this->assetUrl.PHP_EOL
         );
+
+        $this->files->append(
+            $envPath,
+            'MIX_VAPOR_ASSET_URL='.$this->assetUrl.PHP_EOL
+        );
     }
 }
