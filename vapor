@@ -167,6 +167,9 @@ $app->add(new Commands\EnvCloneCommand);
 $app->add(new Commands\EnvDeleteCommand);
 $app->add(new Commands\OpenCommand);
 
+// Vanity Domains...
+$app->add(new Commands\VanityDomainDeleteCommand);
+
 // Secrets
 $app->add(new Commands\SecretListCommand);
 $app->add(new Commands\SecretCommand);
