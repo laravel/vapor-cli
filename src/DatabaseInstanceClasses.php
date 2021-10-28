@@ -36,6 +36,13 @@ class DatabaseInstanceClasses
             'db.t3.xlarge' => 'db.t3.xlarge - (4 VCPU, 16Gib RAM) - ~$200 / month',
             'db.t3.2xlarge' => 'db.t3.2xlarge - (8 VCPU, 32Gib RAM) - ~$400 / month',
 
+            'db.t4g.micro' => 'db.t4g.micro - (2 VCPU, 1Gib RAM) - ~$20 / month',
+            'db.t4g.small' => 'db.t4g.small - (2 VCPU, 2Gib RAM) - ~$40 / month',
+            'db.t4g.medium' => 'db.t4g.medium - (2 VCPU, 4Gib RAM) - ~$80 / month',
+            'db.t4g.large' => 'db.t4g.large - (2 VCPU, 8Gib RAM) - ~$160 / month',
+            'db.t4g.xlarge' => 'db.t4g.xlarge - (4 VCPU, 16Gib RAM) - ~$320 / month',
+            'db.t4g.2xlarge' => 'db.t4g.2xlarge - (8 VCPU, 32Gib RAM) - ~$640 / month',
+
             'db.m5.large'    => 'db.m5.large - (2 VCPU, 8GB RAM) - ~$125 / month',
             'db.m5.xlarge'   => 'db.m5.xlarge - (4 VCPU, 16Gib RAM) - ~$250 / month',
             'db.m5.2xlarge'  => 'db.m5.2xlarge - (8 VCPU, 32Gib RAM) - ~$500 / month',
