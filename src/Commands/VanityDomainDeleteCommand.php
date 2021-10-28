@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
