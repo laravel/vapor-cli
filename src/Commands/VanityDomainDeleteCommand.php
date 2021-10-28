@@ -18,7 +18,7 @@ class VanityDomainDeleteCommand extends Command
         $this
             ->setName('vanity-domain:delete')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
-            ->setDescription('Delete the vanity domain');
+            ->setDescription('Delete the vanity domain associated with the given environment');
     }
 
     /**
