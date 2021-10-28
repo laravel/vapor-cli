@@ -925,6 +925,21 @@ class ConsoleVaporClient
     }
 
     /**
+     * Delete the vanity domain of given environment.
+     *
+     * @param  string  $projectId
+     * @param  string  $environment
+     * @return void
+     */
+    public function deleteVanityDomain($projectId, $environment)
+    {
+        return $this->requestWithErrorHandling(
+            'delete',
+            'api/projects/'.$projectId.'/environments/'.$environment.'/vanity-domain'
+        );
+    }
+
+    /**
      * Get all of the secrets for the given environment.
      *
      * @param  string  $projectId
