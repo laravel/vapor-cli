@@ -20,6 +20,7 @@ class SecretCommand extends Command
             ->setName('secret')
             ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
             ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'The secret name')
+            ->addOption('value', null, InputOption::VALUE_OPTIONAL, 'The secret value')
             ->addOption('file', null, InputOption::VALUE_OPTIONAL, 'The file that contains the secret value')
             ->setDescription('Create or update an environment secret');
     }
@@ -37,7 +38,7 @@ class SecretCommand extends Command
             Manifest::id(),
             $this->argument('environment'),
             $this->option('name') ?? Helpers::ask('Name'),
-            $this->determineValue()
+            $this->option('value') ?? $this->determineValue()
         );
 
         Helpers::info('Secret stored successfully.');
