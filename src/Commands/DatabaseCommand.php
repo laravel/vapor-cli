@@ -111,6 +111,7 @@ class DatabaseCommand extends Command
             'rds'                     => 'Fixed Size MySQL Instance 8.0 (Free Tier Eligible)',
             'rds-mysql-5.7'           => 'Fixed Size MySQL Instance 5.7 (Free Tier Eligible)',
             'aurora-serverless'       => 'Serverless MySQL Aurora Cluster',
+            'rds-pgsql-13.4'          => 'Fixed Size PostgreSQL Instance 13.4',
             'rds-pgsql-11.10'         => 'Fixed Size PostgreSQL Instance 11.10',
             'rds-pgsql'               => 'Fixed Size PostgreSQL Instance 10.7',
             'aurora-serverless-pgsql' => 'Serverless PostgreSQL Aurora Cluster',
@@ -140,7 +141,8 @@ class DatabaseCommand extends Command
         if ($type == 'rds'
             || $type == 'rds-mysql-5.7'
             || $type == 'rds-pgsql'
-            || $type == 'rds-pgsql-11.10') {
+            || $type == 'rds-pgsql-11.10'
+            || $type == 'rds-pgsql-13.4') {
             return $this->determineRdsInstanceClass();
         }
     }
