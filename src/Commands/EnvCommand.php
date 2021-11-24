@@ -45,7 +45,7 @@ class EnvCommand extends Command
         Manifest::addEnvironment($environment, [
             'memory'     => 1024,
             'cli-memory' => 512,
-            'runtime'    => $this->option('docker') ? 'docker' : 'php-8.0:al2',
+            'runtime'    => $this->option('docker') ? 'docker' : 'php-8.1:al2',
             'build'      => [
                 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                 'php artisan event:cache',
