@@ -45,6 +45,7 @@ class DeployCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
+        $this->ensureProjectDependenciesAreInstalled();
         $this->ensureManifestIsValid();
 
         // First we will build the project and create a new deployment artifact for the
@@ -88,6 +89,20 @@ class DeployCommand extends Command
             $this->getCliVersion(),
             $this->getCoreVersion()
         );
+    }
+
+    /**
+     * Ensure the project's dependencies are installed.
+     *
+     * @return void
+     */
+    protected function ensureProjectDependenciesAreInstalled()
+    {
+        if (! file_exists(Path::current().'/vendor/composer/installed.json')) {
+            Helpers::abort(
+                'Unable to find your project\'s dependencies. Please run the composer "install" command first.'
+            );
+        }
     }
 
     /**
