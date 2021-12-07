@@ -44,6 +44,7 @@ class Docker
                 ->merge(Collection::make($cliBuildArgs)
                     ->mapWithKeys(function ($value) {
                         [$key, $value] = explode('=', $value, 2);
+                        
                         return [$key => $value];
                     })
                 )->map(function ($value, $key) {
