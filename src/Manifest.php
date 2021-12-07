@@ -56,9 +56,9 @@ class Manifest
     }
 
     /**
-     * Get the Docker build arguments
+     * Get the Docker build arguments.
      *
-     * @param string $environment
+     * @param  string  $environment
      * @return array
      */
     public static function buildArgs($environment)

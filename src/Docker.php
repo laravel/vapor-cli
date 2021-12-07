@@ -27,12 +27,12 @@ class Docker
     }
 
     /**
-     * Build docker build command string
+     * Build docker build command string.
      *
-     * @param string $project
-     * @param string $environment
-     * @param array $cliBuildArgs
-     * @param array $manifestBuildArgs
+     * @param  string  $project
+     * @param  string  $environment
+     * @param  array  $cliBuildArgs
+     * @param  array  $manifestBuildArgs
      * @return string
      */
     public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs)

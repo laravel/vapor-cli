@@ -17,8 +17,9 @@ class BuildContainerImage
     /**
      * Create a new project builder.
      *
-     * @param string|null $environment
-     * @param array $buildArgs
+     * @param  string|null  $environment
+     * @param  array  $buildArgs
+     * @return void
      */
     public function __construct($environment = null, $buildArgs = [])
     {
