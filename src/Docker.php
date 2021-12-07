@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 
@@ -15,17 +16,40 @@ class Docker
      * @param  string  $environment
      * @return void
      */
-    public static function build($path, $project, $environment)
+    public static function build($path, $project, $environment, $cliBuildArgs)
     {
         Process::fromShellCommandline(
-            sprintf('docker build --pull --file=%s.Dockerfile --tag=%s .',
-                $environment,
-                Str::slug($project).':'.$environment
-            ),
+            static::buildCommand($project, $environment, $cliBuildArgs, Manifest::buildArgs($environment)),
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
             Helpers::write($line);
         });
+    }
+
+    /**
+     * Build docker build command string
+     *
+     * @param string $project
+     * @param string $environment
+     * @param array $cliBuildArgs
+     * @param array $manifestBuildArgs
+     * @return string
+     */
+    public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs)
+    {
+        return sprintf('docker build --pull --file=%s.Dockerfile --tag=%s %s.',
+            $environment,
+            Str::slug($project).':'.$environment,
+            Collection::make($manifestBuildArgs)
+                ->merge(Collection::make($cliBuildArgs)
+                    ->mapWithKeys(function ($value) {
+                        [$key, $value] = explode('=', $value, 2);
+                        return [$key => $value];
+                    })
+                )->map(function ($value, $key) {
+                    return '--build-arg='.escapeshellarg("{$key}={$value}").' ';
+                })->implode('')
+        );
     }
 
     /**
