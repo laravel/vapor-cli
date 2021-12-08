@@ -61,9 +61,9 @@ class Manifest
      * @param  string  $environment
      * @return array
      */
-    public static function buildArgs($environment)
+    public static function dockerBuildArgs($environment)
     {
-        return static::current()['environments'][$environment]['build-arg'] ?? [];
+        return static::current()['environments'][$environment]['docker-build-args'] ?? [];
     }
 
     /**

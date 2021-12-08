@@ -19,7 +19,7 @@ class Docker
     public static function build($path, $project, $environment, $cliBuildArgs)
     {
         Process::fromShellCommandline(
-            static::buildCommand($project, $environment, $cliBuildArgs, Manifest::buildArgs($environment)),
+            static::buildCommand($project, $environment, $cliBuildArgs, Manifest::dockerBuildArgs($environment)),
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
             Helpers::write($line);
@@ -27,7 +27,7 @@ class Docker
     }
 
     /**
-     * Build docker build command string.
+     * Create the Docker build command string.
      *
      * @param  string  $project
      * @param  string  $environment
