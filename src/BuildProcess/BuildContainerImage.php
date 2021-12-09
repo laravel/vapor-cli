@@ -8,7 +8,30 @@ use Laravel\VaporCli\Manifest;
 
 class BuildContainerImage
 {
-    use ParticipatesInBuildProcess;
+    use ParticipatesInBuildProcess {
+        ParticipatesInBuildProcess::__construct as baseConstructor;
+    }
+
+    /**
+     * The Docker build arguments.
+     *
+     * @var array
+     */
+    protected $buildArgs;
+
+    /**
+     * Create a new project builder.
+     *
+     * @param  string|null  $environment
+     * @param  array  $buildArgs
+     * @return void
+     */
+    public function __construct($environment = null, $buildArgs = [])
+    {
+        $this->baseConstructor($environment);
+
+        $this->buildArgs = $buildArgs;
+    }
 
     /**
      * Execute the build process step.
@@ -23,7 +46,7 @@ class BuildContainerImage
 
         Helpers::step('<options=bold>Building Container Image</>');
 
-        Docker::build($this->appPath, Manifest::name(), $this->environment);
+        Docker::build($this->appPath, Manifest::name(), $this->environment, $this->buildArgs);
     }
 
     /**

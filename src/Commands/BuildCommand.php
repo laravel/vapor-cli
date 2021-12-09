@@ -43,6 +43,7 @@ class BuildCommand extends Command
             ->setName('build')
             ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
             ->addOption('asset-url', null, InputOption::VALUE_OPTIONAL, 'The asset base URL')
+            ->addOption('build-arg', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Docker build argument')
             ->setDescription('Build the project archive');
     }
 
@@ -85,7 +86,7 @@ class BuildCommand extends Command
             new ExtractVendorToSeparateDirectory($this->argument('environment')),
             new CompressApplication($this->argument('environment')),
             new CompressVendor($this->argument('environment')),
-            new BuildContainerImage($this->argument('environment')),
+            new BuildContainerImage($this->argument('environment'), $this->option('build-arg')),
         ])->each->__invoke();
 
         $time = (new DateTime())->diff($startedAt)->format('%im%Ss');
