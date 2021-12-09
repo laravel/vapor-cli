@@ -14,6 +14,7 @@ class Docker
      * @param  string  $path
      * @param  string  $project
      * @param  string  $environment
+     * @param  array  $cliBuildArgs
      * @return void
      */
     public static function build($path, $project, $environment, $cliBuildArgs)
