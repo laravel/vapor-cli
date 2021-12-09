@@ -779,6 +779,16 @@ class ConsoleVaporClient
     }
 
     /**
+     * Get the projects that belong to the account.
+     *
+     * @return array
+     */
+    public function projects()
+    {
+        return $this->request('get', 'api/teams/'.Helpers::config('team').'/projects');
+    }
+
+    /**
      * Create a new project.
      *
      * @param  string  $name
