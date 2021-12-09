@@ -322,7 +322,7 @@ class ConsoleVaporClient
      */
     public function createNetwork($providerId, $name, $region, $withInternetAccess)
     {
-        $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/networks', [
+        return $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/networks', [
             'cloud_provider_id'    => $providerId,
             'name'                 => $name,
             'region'               => $region,
