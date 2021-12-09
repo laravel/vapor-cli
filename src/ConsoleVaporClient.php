@@ -318,7 +318,7 @@ class ConsoleVaporClient
      * @param  string  $name
      * @param  string  $region
      * @param  bool  $withInternetAccess
-     * @return array
+     * @return void
      */
     public function createNetwork($providerId, $name, $region, $withInternetAccess)
     {

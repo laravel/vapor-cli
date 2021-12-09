@@ -29,7 +29,7 @@ class NetworkCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
-        $network = $this->vapor->createNetwork(
+        $this->vapor->createNetwork(
             $this->determineProvider('Which cloud provider should the network belong to?'),
             $this->argument('network'),
             $this->determineRegion('Which region should the network be placed in?'),
