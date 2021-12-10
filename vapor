@@ -156,6 +156,7 @@ $app->add(new Commands\InitCommand);
 $app->add(new Commands\UiCommand);
 $app->add(new Commands\ProjectDeleteCommand);
 $app->add(new Commands\ProjectDescribeCommand);
+$app->add(new Commands\ProjectListCommand);
 
 // Environments...
 $app->add(new Commands\EnvListCommand);
