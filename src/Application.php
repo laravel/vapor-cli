@@ -3,11 +3,12 @@
 namespace Laravel\VaporCli;
 
 use Symfony\Component\Console\Application as SymfonyConsoleApplication;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
 class Application extends SymfonyConsoleApplication
 {
-    protected function getDefaultInputDefinition()
+    protected function getDefaultInputDefinition(): InputDefinition
     {
         $definition = parent::getDefaultInputDefinition();
 
