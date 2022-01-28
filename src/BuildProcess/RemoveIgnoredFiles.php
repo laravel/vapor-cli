@@ -55,7 +55,7 @@ class RemoveIgnoredFiles
             }
         }
 
-        if (!$this->files->exists(Path::app().'/database')) {
+        if (! $this->files->exists(Path::app().'/database')) {
             return;
         }
 
