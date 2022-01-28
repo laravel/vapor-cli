@@ -55,6 +55,10 @@ class RemoveIgnoredFiles
             }
         }
 
+        if (!$this->files->exists(Path::app().'/database')) {
+            return;
+        }
+
         $files = (new Finder())
             ->in(Path::app().'/database')
             ->depth('== 0')
