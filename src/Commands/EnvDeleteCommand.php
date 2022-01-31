@@ -6,6 +6,7 @@ use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class EnvDeleteCommand extends Command
 {
@@ -19,6 +20,7 @@ class EnvDeleteCommand extends Command
         $this
             ->setName('env:delete')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
+            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion, use wisely')
             ->setDescription('Delete an environment');
     }
 
@@ -30,8 +32,9 @@ class EnvDeleteCommand extends Command
     public function handle()
     {
         $environment = $this->argument('environment');
+        $forceDeletion = $this->option('force', false);
 
-        if (! Helpers::confirm("Are you sure you want to delete the [{$environment}] environment", false)) {
+        if (! $forceDeletion && ! Helpers::confirm("Are you sure you want to delete the [{$environment}] environment", false)) {
             Helpers::abort('Action cancelled.');
         }
 

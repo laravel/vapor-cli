@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class DatabaseDeleteCommand extends Command
 {
@@ -17,6 +18,7 @@ class DatabaseDeleteCommand extends Command
         $this
             ->setName('database:delete')
             ->addArgument('database', InputArgument::REQUIRED, 'The database name / ID')
+            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion, use wisely')
             ->setDescription('Delete a database');
     }
 
@@ -27,7 +29,9 @@ class DatabaseDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm('Are you sure you want to delete this database', false)) {
+        $forceDeletion = $this->option('force', false);
+
+        if (! $forceDeletion && ! Helpers::confirm('Are you sure you want to delete this database', false)) {
             Helpers::abort('Action cancelled.');
         }
 
