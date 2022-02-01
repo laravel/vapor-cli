@@ -20,7 +20,7 @@ class EnvDeleteCommand extends Command
         $this
             ->setName('env:delete')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
-            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion, use wisely')
+            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion of the environment without confirmation')
             ->setDescription('Delete an environment');
     }
 
