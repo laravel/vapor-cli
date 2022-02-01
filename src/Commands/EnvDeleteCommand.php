@@ -32,6 +32,7 @@ class EnvDeleteCommand extends Command
     public function handle()
     {
         $environment = $this->argument('environment');
+
         $forceDeletion = $this->option('force', false);
 
         if (! $forceDeletion && ! Helpers::confirm("Are you sure you want to delete the [{$environment}] environment", false)) {
