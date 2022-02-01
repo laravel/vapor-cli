@@ -18,7 +18,7 @@ class DatabaseDeleteCommand extends Command
         $this
             ->setName('database:delete')
             ->addArgument('database', InputArgument::REQUIRED, 'The database name / ID')
-            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion, use wisely')
+            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion of the database without confirmation')
             ->setDescription('Delete a database');
     }
 
