@@ -35,8 +35,7 @@ class InjectHandlers
         $this->copyMissing($stubPath.'/httpRuntime.php', $this->appPath.'/httpRuntime.php');
         $this->copyMissing($stubPath.'/httpHandler.php', $this->appPath.'/httpHandler.php');
 
-        if (Manifest::shouldSeparateVendor($this->environment) &&
-            ! $this->files->exists($this->appPath.'/httpHandler.php')) {
+        if (Manifest::shouldSeparateVendor($this->environment)) {
             file_put_contents(
                 $this->appPath.'/httpHandler.php',
                 $this->configureHttpHandler($this->appPath.'/httpHandler.php')
