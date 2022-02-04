@@ -64,7 +64,7 @@ class InjectHandlers
     }
 
     /**
-     * Copy a file to a new location if that file does not exist
+     * Copy a file to a new location if that file does not exist.
      *
      * @param  string  $path
      * @param  string  $target
