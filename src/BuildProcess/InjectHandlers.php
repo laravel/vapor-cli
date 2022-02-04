@@ -30,12 +30,13 @@ class InjectHandlers
             $this->files->copy($stubPath.'/runtime.php', $this->appPath.'/runtime.php');
         }
 
-        $this->files->copy($stubPath.'/cliRuntime.php', $this->appPath.'/cliRuntime.php');
-        $this->files->copy($stubPath.'/fpmRuntime.php', $this->appPath.'/fpmRuntime.php');
-        $this->files->copy($stubPath.'/httpRuntime.php', $this->appPath.'/httpRuntime.php');
-        $this->files->copy($stubPath.'/httpHandler.php', $this->appPath.'/httpHandler.php');
+        $this->copyMissing($stubPath.'/cliRuntime.php', $this->appPath.'/cliRuntime.php');
+        $this->copyMissing($stubPath.'/fpmRuntime.php', $this->appPath.'/fpmRuntime.php');
+        $this->copyMissing($stubPath.'/httpRuntime.php', $this->appPath.'/httpRuntime.php');
+        $this->copyMissing($stubPath.'/httpHandler.php', $this->appPath.'/httpHandler.php');
 
-        if (Manifest::shouldSeparateVendor($this->environment)) {
+        if (Manifest::shouldSeparateVendor($this->environment) &&
+            ! $this->files->exists($this->appPath.'/httpHandler.php')) {
             file_put_contents(
                 $this->appPath.'/httpHandler.php',
                 $this->configureHttpHandler($this->appPath.'/httpHandler.php')
@@ -60,5 +61,21 @@ class InjectHandlers
             "require '/tmp/vendor/autoload.php';",
             file_get_contents($file)
         );
+    }
+
+    /**
+     * Copy a file to a new location if that file does not exist
+     *
+     * @param  string  $path
+     * @param  string  $target
+     * @return bool
+     */
+    protected function copyMissing($path, $target)
+    {
+        if ($this->files->exists($target)) {
+            return true;
+        }
+
+        return $this->files->copy($path, $target);
     }
 }
