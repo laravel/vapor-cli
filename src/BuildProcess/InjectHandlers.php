@@ -65,16 +65,14 @@ class InjectHandlers
     /**
      * Copy a file to a new location if that file does not exist.
      *
-     * @param  string  $path
-     * @param  string  $target
-     * @return bool
+     * @param  string  $from
+     * @param  string  $to
+     * @return void
      */
-    protected function copyMissing($path, $target)
+    protected function copyMissing($from, $to)
     {
-        if ($this->files->exists($target)) {
-            return true;
+        if (! $this->files->exists($to)) {
+            $this->files->copy($from, $to);
         }
-
-        return $this->files->copy($path, $target);
     }
 }
