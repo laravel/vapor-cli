@@ -17,7 +17,7 @@ class DatabaseMetricsCommand extends Command
         $this
             ->setName('database:metrics')
             ->addArgument('database', InputArgument::REQUIRED, 'The database name / ID')
-            ->addArgument('period', InputArgument::OPTIONAL, 'The metric period (1m, 5m, 30m, 1h, 8h, 1d, 3d, 7d, 1M)', '1d')
+            ->addArgument('period', InputArgument::OPTIONAL, 'The metric period (1m, 5m, 30m, 1h, 8h, 1d, 7d, 1M)', '1d')
             ->setDescription('Get usage and performance metrics for a database');
     }
 
