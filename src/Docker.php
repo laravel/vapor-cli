@@ -76,7 +76,7 @@ class Docker
         )->setTimeout(null)->mustRun();
 
         Process::fromShellCommandline(
-            sprintf('docker login --username AWS --password %s %s',
+            sprintf('docker login --username AWS --password-stdin %s %s',
                 str_replace('AWS:', '', base64_decode($token)),
                 explode('/', $repoUri)[0]
             ),
