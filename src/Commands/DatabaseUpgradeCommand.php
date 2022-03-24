@@ -106,7 +106,7 @@ class DatabaseUpgradeCommand extends Command
             return $this->menu('Which type of database would you like to create?', collect($this->databaseTypes)
                 ->filter(function ($label, $type) use ($possibleUpgrades) {
                     return in_array($type, $possibleUpgrades);
-                })->all(),
+                })->all()
             );
         }
     }
