@@ -42,7 +42,7 @@ class EnvDescribeCommand extends Command
             $this->argument('environment')
         );
 
-        $domains =  [];
+        $domains = [];
 
         if ($environment['latest_deployment']) {
             $domains = $environment['latest_deployment']['root_domains'] ?: [];
