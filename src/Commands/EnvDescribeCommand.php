@@ -42,7 +42,11 @@ class EnvDescribeCommand extends Command
             $this->argument('environment')
         );
 
-        $domains = $environment['latest_deployment']['root_domains'] ?: [];
+        $domains = [];
+
+        if ($environment['latest_deployment']) {
+            $domains = $environment['latest_deployment']['root_domains'] ?: [];
+        }
 
         $domain = count($domains) ? $domains[0] : null;
 
@@ -53,7 +57,7 @@ class EnvDescribeCommand extends Command
             'name'                     => $environment['name'],
             'vanity_domain'            => $environment['vanity_domain'],
             'latest_deployment_id'     => $environment['latest_deployment_id'],
-            'latest_deployment_status' => $environment['latest_deployment']['status'],
+            'latest_deployment_status' => $environment['latest_deployment'] ? $environment['latest_deployment']['status'] : null,
             'latest_deployment_url'    => 'https://vapor.laravel.com/app/projects/'.$environment['project_id'].'/environments/'.$environment['name'].'/deployments/'.$environment['latest_deployment_id'],
             'deployment_status'        => $environment['deployment_status'],
             'domains'                  => $domains,
