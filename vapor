@@ -172,6 +172,7 @@ $app->add(new Commands\OpenCommand);
 $app->add(new Commands\VanityDomainDeleteCommand);
 
 // Secrets
+$app->add(new Commands\SecretUpdateCommand);
 $app->add(new Commands\SecretListCommand);
 $app->add(new Commands\SecretCommand);
 $app->add(new Commands\SecretPassportCommand);
