@@ -56,6 +56,17 @@ class Manifest
     }
 
     /**
+     * Get the Dockerfile for the given environment.
+     *
+     * @param  string  $environment
+     * @return string
+     */
+    public static function dockerfile($environment)
+    {
+        return static::current()['environments'][$environment]['dockerfile'] ?? "{$environment}.Dockerfile";
+    }
+
+    /**
      * Get the Docker build arguments.
      *
      * @param  string  $environment
@@ -64,17 +75,6 @@ class Manifest
     public static function dockerBuildArgs($environment)
     {
         return static::current()['environments'][$environment]['docker-build-args'] ?? [];
-    }
-
-    /**
-     * Get the Dockerfile.
-     *
-     * @param  string  $environment
-     * @return string
-     */
-    public static function dockerfile($environment)
-    {
-        return static::current()['environments'][$environment]['dockerfile'] ?? "{$environment}.Dockerfile";
     }
 
     /**
