@@ -38,8 +38,8 @@ class Docker
      */
     public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs)
     {
-        return sprintf('docker build --pull --file=%s.Dockerfile --tag=%s %s.',
-            $environment,
+        return sprintf('docker build --pull --file=%s --tag=%s %s.',
+            Manifest::dockerfile($environment),
             Str::slug($project).':'.$environment,
             Collection::make($manifestBuildArgs)
                 ->merge(Collection::make($cliBuildArgs)

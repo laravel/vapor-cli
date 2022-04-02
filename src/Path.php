@@ -112,6 +112,6 @@ class Path
      */
     public static function dockerfile($environment)
     {
-        return getcwd().'/'.$environment.'.Dockerfile';
+        return getcwd().'/'.Manifest::dockerfile($environment);
     }
 }

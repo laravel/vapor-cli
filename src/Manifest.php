@@ -67,6 +67,17 @@ class Manifest
     }
 
     /**
+     * Get the Dockerfile.
+     *
+     * @param  string  $environment
+     * @return string
+     */
+    public static function dockerfile($environment)
+    {
+        return static::current()['environments'][$environment]['dockerfile'] ?? "{$environment}.Dockerfile";
+    }
+
+    /**
      * Determine if the environment uses a database proxy.
      *
      * @param  string  $environment
