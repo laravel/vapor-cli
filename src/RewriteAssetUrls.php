@@ -16,7 +16,7 @@ class RewriteAssetUrls
     public static function inCssString($css, $baseUrl)
     {
         return preg_replace_callback('/url\([\'"]?(?<url>[^)]+?)[\'"]?\)/', function ($matches) use ($baseUrl) {
-            return Str::startsWith($url = $matches[1], ['/'])
+            return Str::startsWith($matches[1], ['/'])
                         ? Str::replaceFirst('/', $baseUrl.'/', $matches[0])
                         : $matches[0];
         }, $css);
