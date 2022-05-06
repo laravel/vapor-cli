@@ -16,7 +16,8 @@ class DatabaseUpgradeCommand extends Command
     protected $databaseTypes = [
         'rds'                     => 'Fixed Size MySQL Instance 8.0 (Free Tier Eligible)',
         'rds-mysql-5.7'           => 'Fixed Size MySQL Instance 5.7 (Free Tier Eligible)',
-        'aurora-serverless'       => 'Serverless MySQL Aurora Cluster',
+        'aurora-serverless'       => 'Serverless v1 MySQL 5.7 Aurora Cluster',
+        'aurora-serverless-v2'    => 'Serverless v2 MySQL 8.0 Aurora Cluster',
         'rds-pgsql-13.4'          => 'Fixed Size PostgreSQL Instance 13.4',
         'rds-pgsql-11.10'         => 'Fixed Size PostgreSQL Instance 11.10',
         'rds-pgsql'               => 'Fixed Size PostgreSQL Instance 10.7',

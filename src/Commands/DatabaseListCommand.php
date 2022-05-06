@@ -36,7 +36,9 @@ class DatabaseListCommand extends Command
                 $database['cloud_provider']['name'],
                 $database['name'],
                 $database['region'],
-                $database['type'] == 'aurora-serverless' ? 'Serverless' : 'Fixed Size',
+                in_array($database['type'], ['aurora-serverless', 'aurora-serverless-v2', 'aurora-serverless-pgsql'])
+                    ? 'Serverless'
+                    : 'Fixed Size',
                 $database['instance_class'],
                 $database['storage'].'GB',
                 Str::title(str_replace('_', ' ', $database['status'])),

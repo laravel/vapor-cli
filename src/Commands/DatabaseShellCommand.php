@@ -46,7 +46,7 @@ class DatabaseShellCommand extends Command
 
         $user = $this->findDatabaseUser($database);
 
-        if (in_array($database['type'], ['rds', 'rds-mysql-5.7', 'aurora-serverless'])) {
+        if (in_array($database['type'], ['rds', 'rds-mysql-5.7', 'aurora-serverless', 'aurora-serverless-v2'])) {
             passthru(sprintf(
                 'ssh -t ec2-user@%s -i %s -o LogLevel=error "mysql -u %s -p%s -h %s vapor"',
                 $jumpBox['endpoint'],
@@ -79,7 +79,7 @@ class DatabaseShellCommand extends Command
             return $jumpBox['network_id'] == $database['network_id'];
         });
 
-        $jumpBox = in_array($database['type'], ['rds', 'aurora-serverless'])
+        $jumpBox = in_array($database['type'], ['rds', 'aurora-serverless', 'aurora-serverless-v2'])
             ? $jumpBoxes->first()
             : $jumpBoxes->firstWhere('version', '>', 1);
 
