@@ -70,7 +70,7 @@ class DatabaseTunnelCommand extends Command
             return $jumpBox['network_id'] == $database['network_id'];
         });
 
-        $jumpBox = in_array($database['type'], ['rds', 'aurora-serverless'])
+        $jumpBox = in_array($database['type'], ['rds', 'aurora-serverless', 'aurora-serverless-v2'])
             ? $jumpBoxes->first()
             : $jumpBoxes->firstWhere('version', '>', 1);
 
