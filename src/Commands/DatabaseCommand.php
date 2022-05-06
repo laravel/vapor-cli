@@ -116,7 +116,7 @@ class DatabaseCommand extends Command
             'rds-pgsql-11.10'         => 'Fixed Size PostgreSQL Instance 11.10',
             'aurora-serverless-pgsql' => 'Serverless PostgreSQL Aurora Cluster',
         ]), function ($type) use ($public) {
-            if (in_array($type, ['aurora-serverless', 'aurora-serverless-v2', 'aurora-serverless-pgsql'])  && $public) {
+            if (in_array($type, ['aurora-serverless', 'aurora-serverless-v2', 'aurora-serverless-pgsql']) && $public) {
                 Helpers::abort('Aurora Serverless clusters may not be publicly accessible.');
             }
         });
