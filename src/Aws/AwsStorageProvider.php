@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\Request;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Exceptions\CopyRequestFailedException;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class AwsStorageProvider
@@ -92,14 +93,15 @@ class AwsStorageProvider
      */
     public function executeCopyRequests($requests)
     {
-        $requests = function () use ($requests) {
+        $assetsMaxAge = Manifest::assetsMaxAge();
+        $requests = function () use ($requests, $assetsMaxAge) {
             foreach ($requests as $request) {
                 yield new Request(
                     'PUT',
                     $request['url'],
                     array_merge(
                         $request['headers'],
-                        ['Cache-Control' => 'public, max-age=2628000']
+                        ['Cache-Control' => "public, max-age={$assetsMaxAge}"]
                     )
                 );
             }

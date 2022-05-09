@@ -184,6 +184,16 @@ class Manifest
     }
 
     /**
+     * Let the possibility set the max-age for assets. 30 days by default.
+     *
+     * @return int
+     */
+    public static function assetsMaxAge()
+    {
+       return static::current()['assets-max-age'] ?? 2628000;
+    }
+
+    /**
      * Write a fresh manifest file for the given project.
      *
      * @param  array  $project

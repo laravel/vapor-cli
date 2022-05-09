@@ -45,13 +45,14 @@ class ServeAssets
     protected function executeStoreAssetRequests($requests, $assetPath)
     {
         $storage = Helpers::app(AwsStorageProvider::class);
+        $assetsMaxAge = Manifest::assetsMaxAge();
 
         foreach ($requests as $request) {
             Helpers::step('<comment>Uploading Asset:</comment> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
 
             $storage->store(
                 $request['url'],
-                array_merge($request['headers'], ['Cache-Control' => 'public, max-age=2628000']),
+                array_merge($request['headers'], ['Cache-Control' => "public, max-age={$assetsMaxAge}"]),
                 $assetPath.'/'.$request['path']
             );
         }
