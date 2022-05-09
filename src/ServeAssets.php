@@ -51,7 +51,7 @@ class ServeAssets
 
             $storage->store(
                 $request['url'],
-                array_merge($request['headers'], ['Cache-Control' => 'public, max-age=2628000']),
+                array_merge($request['headers'], ['Cache-Control' => 'public, max-age=31536000']),
                 $assetPath.'/'.$request['path']
             );
         }
