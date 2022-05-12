@@ -114,7 +114,7 @@ class AwsStorageProvider
                             $request['headers'],
                             ['Cache-Control' => 'public, max-age=31536000']
                         ),
-                        $request['stream'],
+                        $request['stream']
                     );
                 }
             };

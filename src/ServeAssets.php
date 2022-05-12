@@ -29,7 +29,7 @@ class ServeAssets
                     $vapor,
                     $artifact,
                     $chunkOfAssetFiles,
-                    $fresh,
+                    $fresh
                 );
 
                 $this->executeStoreAssetRequests($requests['store'], $assetPath);
