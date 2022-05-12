@@ -143,7 +143,7 @@ class AwsStorageProvider
      */
     public function executeCopyRequests($requests, $callback)
     {
-        $generator = function () use ($requests) {
+        $generator = function () use ($requests, $callback) {
             foreach ($requests as $request) {
                 $callback($request);
 

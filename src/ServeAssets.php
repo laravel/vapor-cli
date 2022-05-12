@@ -82,7 +82,7 @@ class ServeAssets
 
         if (! empty($requests)) {
             try {
-                $storage->executeCopyRequests($requests, function () use ($assetPath) {
+                $storage->executeCopyRequests($requests, function ($request) use ($assetPath) {
                     Helpers::step('<fg=magenta>Copying Unchanged Asset:</> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
                 });
             } catch (RequestFailedException $e) {
