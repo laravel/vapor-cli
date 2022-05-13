@@ -4,7 +4,7 @@ namespace Laravel\VaporCli\Exceptions;
 
 use RuntimeException;
 
-class CopyRequestFailedException extends RuntimeException
+class RequestFailedException extends RuntimeException
 {
     /**
      * The file index.

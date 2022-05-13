@@ -3,7 +3,7 @@
 namespace Laravel\VaporCli;
 
 use Laravel\VaporCli\Aws\AwsStorageProvider;
-use Laravel\VaporCli\Exceptions\CopyRequestFailedException;
+use Laravel\VaporCli\Exceptions\RequestFailedException;
 
 class ServeAssets
 {
@@ -18,21 +18,28 @@ class ServeAssets
     public function __invoke(ConsoleVaporClient $vapor, array $artifact, $fresh)
     {
         $assetPath = Path::build().'/assets';
+        $assetFiles = $this->getAssetFiles($assetPath);
 
-        $requests = $this->getAuthorizedAssetRequests(
-            $vapor,
-            $artifact,
-            $assetFiles = $this->getAssetFiles($assetPath),
-            $fresh
-        );
+        collect($assetFiles)
+            ->chunk(400)
+            ->map
+            ->all()
+            ->each(function ($chunkOfAssetFiles) use ($assetPath, $vapor, $artifact, $fresh) {
+                $requests = $this->getAuthorizedAssetRequests(
+                    $vapor,
+                    $artifact,
+                    $chunkOfAssetFiles,
+                    $fresh
+                );
 
-        $this->executeStoreAssetRequests($requests['store'], $assetPath);
-        $this->executeCopyAssetRequests($requests['copy'], $assetPath);
+                $this->executeStoreAssetRequests($requests['store'], $assetPath);
+                $this->executeCopyAssetRequests($requests['copy'], $assetPath);
 
-        $vapor->recordArtifactAssets(
-            $artifact['id'],
-            $assetFiles
-        );
+                $vapor->recordArtifactAssets(
+                    $artifact['id'],
+                    $chunkOfAssetFiles
+                );
+            });
     }
 
     /**
@@ -46,14 +53,19 @@ class ServeAssets
     {
         $storage = Helpers::app(AwsStorageProvider::class);
 
-        foreach ($requests as $request) {
-            Helpers::step('<comment>Uploading Asset:</comment> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
+        if (! empty($requests)) {
+            try {
+                $storage->executeStoreRequests($requests, $assetPath, function ($request) use ($assetPath) {
+                    Helpers::step('<comment>Uploading Asset:</comment> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
+                });
+            } catch (RequestFailedException $e) {
+                $request = $requests[$e->getIndex()];
 
-            $storage->store(
-                $request['url'],
-                array_merge($request['headers'], ['Cache-Control' => 'public, max-age=31536000']),
-                $assetPath.'/'.$request['path']
-            );
+                Helpers::line("<fg=red>Uploading:</> {$request['path']}");
+                Helpers::write($e->getMessage());
+
+                exit(1);
+            }
         }
     }
 
@@ -68,14 +80,12 @@ class ServeAssets
     {
         $storage = Helpers::app(AwsStorageProvider::class);
 
-        foreach ($requests as $request) {
-            Helpers::step('<fg=magenta>Copying Unchanged Asset:</> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
-        }
-
         if (! empty($requests)) {
             try {
-                $storage->executeCopyRequests($requests);
-            } catch (CopyRequestFailedException $e) {
+                $storage->executeCopyRequests($requests, function ($request) use ($assetPath) {
+                    Helpers::step('<fg=magenta>Copying Unchanged Asset:</> '.$request['path'].' ('.Helpers::kilobytes($assetPath.'/'.$request['path']).')');
+                });
+            } catch (RequestFailedException $e) {
                 $request = $requests[$e->getIndex()];
 
                 Helpers::line("<fg=red>Copying:</> {$request['path']}");
