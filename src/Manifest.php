@@ -41,6 +41,16 @@ class Manifest
     }
 
     /**
+     * Get the default environment of the project.
+     *
+     * @return string
+     */
+    public static function defaultEnvironment()
+    {
+        return static::current()['default-environment'] ?? 'staging';
+    }
+
+    /**
      * Get the build commands for the given environment.
      *
      * @param  string  $environment
@@ -53,16 +63,6 @@ class Manifest
         }
 
         return static::current()['environments'][$environment]['build'] ?? [];
-    }
-
-    /**
-     * Get the default environment of the project.
-     *
-     * @return string
-     */
-    public static function defaultEnvironment()
-    {
-        return static::current()['default-environment'] ?? 'staging';
     }
 
     /**
