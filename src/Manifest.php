@@ -56,6 +56,16 @@ class Manifest
     }
 
     /**
+     * Get the default environment of the project.
+     *
+     * @return string
+     */
+    public static function defaultEnvironment()
+    {
+        return static::current()['default-environment'] ?? 'staging';
+    }
+
+    /**
      * Get the Dockerfile for the given environment.
      *
      * @param  string  $environment

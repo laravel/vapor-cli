@@ -18,7 +18,7 @@ class SecretCommand extends Command
     {
         $this
             ->setName('secret')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
             ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'The secret name')
             ->addOption('value', null, InputOption::VALUE_OPTIONAL, 'The secret value')
             ->addOption('file', null, InputOption::VALUE_OPTIONAL, 'The file that contains the secret value')

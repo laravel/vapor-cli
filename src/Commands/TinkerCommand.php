@@ -3,6 +3,7 @@
 namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -17,7 +18,7 @@ class TinkerCommand extends CommandCommand
     {
         $this
             ->setName('tinker')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
             ->addOption('code', null, InputOption::VALUE_OPTIONAL, 'The code to execute with Tinker')
             ->setDescription('Execute a code with Tinker');
     }
