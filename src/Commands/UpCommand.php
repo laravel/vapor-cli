@@ -19,7 +19,7 @@ class UpCommand extends Command
     {
         $this
             ->setName('up')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->setDescription('Remove an environment from maintenance mode');
     }
 

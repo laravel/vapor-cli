@@ -19,7 +19,7 @@ class RedeployCommand extends Command
     {
         $this
             ->setName('redeploy')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->setDescription("Redeploy an environment's latest deployment");
     }
 

@@ -17,7 +17,7 @@ class SecretListCommand extends Command
     {
         $this
             ->setName('secret:list')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->setDescription('List the secrets for a given environment');
     }
 

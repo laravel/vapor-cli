@@ -21,7 +21,7 @@ class RollbackCommand extends Command
     {
         $this
             ->setName('rollback')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('select', null, InputOption::VALUE_NONE, 'Present a list of deployments to choose from')
             ->setDescription('Rollback an environment to a previous deployment');
     }

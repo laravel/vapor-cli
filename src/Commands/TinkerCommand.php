@@ -17,7 +17,7 @@ class TinkerCommand extends CommandCommand
     {
         $this
             ->setName('tinker')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('code', null, InputOption::VALUE_OPTIONAL, 'The code to execute with Tinker')
             ->setDescription('Execute a code with Tinker');
     }

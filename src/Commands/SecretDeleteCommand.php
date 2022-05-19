@@ -18,7 +18,7 @@ class SecretDeleteCommand extends Command
     {
         $this
             ->setName('secret:delete')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('name', null, InputOption::VALUE_OPTIONAL, 'The secret name')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Perform the action without confirmation')
             ->setDescription('Delete a secret from an environment');

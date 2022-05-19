@@ -17,7 +17,7 @@ class MetricsCommand extends Command
     {
         $this
             ->setName('metrics')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addArgument('period', InputArgument::OPTIONAL, 'The metric period (1m, 5m, 30m, 1h, 8h, 1d, 3d, 7d, 1M)', '1d')
             ->setDescription('Get usage and performance metrics for an environment');
     }

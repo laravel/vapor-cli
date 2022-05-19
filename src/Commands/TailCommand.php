@@ -42,7 +42,7 @@ class TailCommand extends Command
     {
         $this
             ->setName('tail')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', 'staging')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('filter', null, InputOption::VALUE_OPTIONAL, 'The text that should be used to filter the logs')
             ->addOption('cli', null, InputOption::VALUE_NONE, 'Tail the log for the CLI / queue function')
             ->addOption('without-queue', null, InputOption::VALUE_NONE, 'Hide Vapor generated queue processing messages')
