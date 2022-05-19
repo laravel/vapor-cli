@@ -18,7 +18,7 @@ class DeployListCommand extends Command
     {
         $this
             ->setName('deploy:list')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->setDescription('List the deployments for an environment');
     }
 

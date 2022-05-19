@@ -5,6 +5,7 @@ namespace Laravel\VaporCli\Commands;
 use DateTime;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
+use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\Path;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
@@ -106,7 +107,13 @@ class Command extends SymfonyCommand
      */
     protected function argument($key)
     {
-        return $this->input->getArgument($key);
+        $value = $this->input->getArgument($key);
+
+        if ($key == 'environment' && is_null($value)) {
+            $value = Manifest::defaultEnvironment();
+        }
+
+        return $value;
     }
 
     /**

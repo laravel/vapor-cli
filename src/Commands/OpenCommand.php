@@ -17,7 +17,7 @@ class OpenCommand extends Command
     {
         $this
             ->setName('open')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->setDescription('Open an environment in your default browser');
     }
 

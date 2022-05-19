@@ -19,7 +19,7 @@ class CommandCommand extends Command
     {
         $this
             ->setName('command')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('command', null, InputOption::VALUE_OPTIONAL, 'The command that should be executed')
             ->setDescription('Execute a CLI command');
     }

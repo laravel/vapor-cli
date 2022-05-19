@@ -41,7 +41,7 @@ class BuildCommand extends Command
     {
         $this
             ->setName('build')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('asset-url', null, InputOption::VALUE_OPTIONAL, 'The asset base URL')
             ->addOption('build-arg', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Docker build argument')
             ->setDescription('Build the project archive');

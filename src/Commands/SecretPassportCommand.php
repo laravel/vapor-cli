@@ -17,7 +17,7 @@ class SecretPassportCommand extends Command
     {
         $this
             ->setName('secret:passport')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->setDescription('Store the application\'s Passport keys as secrets');
     }
 

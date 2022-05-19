@@ -20,7 +20,7 @@ class DownCommand extends Command
     {
         $this
             ->setName('down')
-            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name', Manifest::defaultEnvironment('default-environment'))
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('secret', null, InputOption::VALUE_REQUIRED, 'The secret phrase that may be used to bypass maintenance mode')
             ->setDescription('Place an environment in maintenance mode');
     }
