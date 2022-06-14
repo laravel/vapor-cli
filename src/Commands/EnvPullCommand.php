@@ -17,7 +17,7 @@ class EnvPullCommand extends Command
     {
         $this
             ->setName('env:pull')
-            ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
+            ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('file', null, InputArgument::OPTIONAL, 'File to write the environment variables to')
             ->setDescription('Download the environment file for the given environment');
     }
