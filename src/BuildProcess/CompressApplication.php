@@ -82,7 +82,7 @@ class CompressApplication
     /**
      * Ensure the application archive is within supported size limits.
      *
-     * @param  float $bytes
+     * @param  float  $bytes
      * @return void
      */
     protected function ensureArchiveIsWithinSizeLimits($bytes)
