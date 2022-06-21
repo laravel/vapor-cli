@@ -5,6 +5,7 @@ namespace Laravel\VaporCli\BuildProcess;
 use Laravel\VaporCli\BuiltApplicationFiles;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Process\Process;
 use ZipArchive;
 
@@ -23,12 +24,15 @@ class CompressApplication
             return;
         }
 
-        Helpers::step('<options=bold>Compressing Application</>');
+        $appSizeInBytes = $this->getDirectorySize(Path::app());
+        $appSizeInMegabytes = round($appSizeInBytes / 1048576, 2);
+
+        Helpers::step('<options=bold>Compressing Application</> ('.$appSizeInMegabytes.'MB)');
 
         if (PHP_OS == 'Darwin') {
             $this->compressApplicationOnMac();
 
-            return $this->ensureArchiveIsWithinSizeLimits();
+            return $this->ensureArchiveIsWithinSizeLimits($appSizeInBytes);
         }
 
         $archive = new ZipArchive();
@@ -49,7 +53,7 @@ class CompressApplication
 
         $archive->close();
 
-        $this->ensureArchiveIsWithinSizeLimits();
+        $this->ensureArchiveIsWithinSizeLimits($appSizeInBytes);
     }
 
     /**
@@ -78,11 +82,12 @@ class CompressApplication
     /**
      * Ensure the application archive is within supported size limits.
      *
+     * @param  float  $bytes
      * @return void
      */
-    protected function ensureArchiveIsWithinSizeLimits()
+    protected function ensureArchiveIsWithinSizeLimits($bytes)
     {
-        $size = ceil($this->getDirectorySize($this->buildPath.'/app') / 1048576);
+        $size = ceil($bytes / 1048576);
 
         if ($size > 250) {
             Helpers::line();
