@@ -19,6 +19,7 @@ use Laravel\VaporCli\BuildProcess\InjectHandlers;
 use Laravel\VaporCli\BuildProcess\InjectRdsCertificate;
 use Laravel\VaporCli\BuildProcess\ProcessAssets;
 use Laravel\VaporCli\BuildProcess\RemoveIgnoredFiles;
+use Laravel\VaporCli\BuildProcess\RemovePintBinary;
 use Laravel\VaporCli\BuildProcess\RemoveVendorPlatformCheck;
 use Laravel\VaporCli\BuildProcess\SetBuildEnvironment;
 use Laravel\VaporCli\BuildProcess\ValidateApiToken;
@@ -76,6 +77,7 @@ class BuildCommand extends Command
             new ConfigureArtisan($this->argument('environment')),
             new ConfigureComposerAutoloader($this->argument('environment')),
             new RemoveIgnoredFiles(),
+            new RemovePintBinary(),
             new RemoveVendorPlatformCheck(),
             new ProcessAssets($this->option('asset-url')),
             new ExtractAssetsToSeparateDirectory(),
