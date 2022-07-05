@@ -25,6 +25,18 @@ class DeploymentSuccess
         Helpers::line();
         Helpers::line("<info>Project deployed successfully.</info> ({$time})");
 
+        if ($deployment->functionUrl()) {
+            Helpers::line();
+
+            return Helpers::table([
+                '<comment>Deployment ID</comment>',
+                '<comment>Environment URL</comment>',
+            ], [[
+                "<options=bold>{$deployment->id}</>",
+                "<options=bold>https://{$deployment->functionUrl()}</>",
+            ]]);
+        }
+
         if ($deployment->hasTargetDomains()) {
             $this->displayDnsRecordsChanges($deployment);
         }

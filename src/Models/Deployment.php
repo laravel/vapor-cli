@@ -34,14 +34,14 @@ class Deployment
     public function displayableSteps(array $displayedSteps = [])
     {
         return collect($this->steps)
-                ->filter(function ($step) {
-                    return $step['status'] !== 'pending' &&
-                           $step['status'] !== 'cancelled';
-                })->map(function ($step) {
-                    return $this->formatDeploymentStepName($step['name']);
-                })->filter(function ($step) use ($displayedSteps) {
-                    return ! in_array($step, $displayedSteps);
-                })->all();
+            ->filter(function ($step) {
+                return $step['status'] !== 'pending' &&
+                    $step['status'] !== 'cancelled';
+            })->map(function ($step) {
+                return $this->formatDeploymentStepName($step['name']);
+            })->filter(function ($step) use ($displayedSteps) {
+                return ! in_array($step, $displayedSteps);
+            })->all();
     }
 
     /**
@@ -53,7 +53,7 @@ class Deployment
     protected function stepShouldBeDisplayed(array $step)
     {
         return $step['status'] !== 'pending' &&
-               ! in_array($step['name'], $this->displayedSteps);
+            ! in_array($step['name'], $this->displayedSteps);
     }
 
     /**
@@ -79,7 +79,7 @@ class Deployment
     public function hasTargetDomains()
     {
         return isset($this->deployment['target_domains']) &&
-               ! empty($this->deployment['target_domains']);
+            ! empty($this->deployment['target_domains']);
     }
 
     /**
@@ -104,6 +104,11 @@ class Deployment
         return $this->deployment['environment']['vanity_domain'];
     }
 
+    public function functionUrl()
+    {
+        return $this->deployment['environment']['function_url'];
+    }
+
     /**
      * Returns a list of solutions for the current deployment failure.
      *
@@ -120,10 +125,10 @@ class Deployment
         ])->map(function ($solutionsClass) {
             return new $solutionsClass($this);
         })->filter
-        ->applicable()
-        ->map
-        ->all()
-        ->flatten();
+            ->applicable()
+            ->map
+            ->all()
+            ->flatten();
     }
 
     /**
