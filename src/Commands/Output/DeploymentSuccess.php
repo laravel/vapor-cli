@@ -28,12 +28,12 @@ class DeploymentSuccess
         if ($deployment->functionUrl()) {
             Helpers::line();
 
-            return Helpers::table([
+            Helpers::table([
                 '<comment>Deployment ID</comment>',
                 '<comment>Environment URL</comment>',
             ], [[
                 "<options=bold>{$deployment->id}</>",
-                "<options=bold>https://{$deployment->functionUrl()}</>",
+                "<options=bold>{$deployment->functionUrl()}</>",
             ]]);
         }
 
