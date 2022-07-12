@@ -223,7 +223,7 @@ class Manifest
                     'build'      => [
                         'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                         'php artisan event:cache',
-                        file_exists(Path::current() . '/webpack.mix.js')
+                        file_exists(Path::current().'/webpack.mix.js')
                             ? 'npm ci && npm run prod && rm -rf node_modules'
                             : 'npm ci && npm run build && rm -rf node_modules',
                     ],
@@ -235,7 +235,7 @@ class Manifest
                     'build'      => [
                         'COMPOSER_MIRROR_PATH_REPOS=1 composer install',
                         'php artisan event:cache',
-                        file_exists(Path::current() . '/webpack.mix.js')
+                        file_exists(Path::current().'/webpack.mix.js')
                             ? 'npm ci && npm run dev && rm -rf node_modules'
                             : 'npm ci && npm run build && rm -rf node_modules',
                     ],
