@@ -6,6 +6,7 @@ use Laravel\VaporCli\Dockerfile;
 use Laravel\VaporCli\GitIgnore;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -49,7 +50,9 @@ class EnvCommand extends Command
             'build'      => [
                 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                 'php artisan event:cache',
-                'npm ci && npm run prod && rm -rf node_modules',
+                file_exists(Path::current().'/webpack.mix.js')
+                    ? 'npm ci && npm run prod && rm -rf node_modules'
+                    : 'npm ci && npm run build && rm -rf node_modules',
             ],
         ]);
 
