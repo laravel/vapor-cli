@@ -26,7 +26,6 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
  */
 (function () {
     if (class_exists(RepositoryBuilder::class)) {
-
         $adapters = [
             V4orV5EnvConstAdapter::class,
             V4orV5ServerConstAdapter::class,
@@ -56,7 +55,7 @@ if (file_exists(__DIR__.'/../../autoload.php')) {
         )->safeLoad();
     } else { // V3
         Dotenv::create(__DIR__, null, new DotenvFactory([
-            new V3EnvConstAdapter, new V3ServerConstAdapter
+            new V3EnvConstAdapter, new V3ServerConstAdapter,
         ]))->safeLoad();
     }
 })();
@@ -205,5 +204,8 @@ $app->add(new Commands\MetricsCommand);
 // Docker...
 $app->add(new Commands\LocalCommand);
 $app->add(new Commands\TestCommand);
+
+// Assets...
+$app->add(new Commands\InvalidateAssetCacheCommand);
 
 $app->run();
