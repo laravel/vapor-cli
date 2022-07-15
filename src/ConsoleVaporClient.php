@@ -1075,6 +1075,17 @@ class ConsoleVaporClient
     }
 
     /**
+     * Invalidate the asset cache for the given environment.
+     *
+     * @param  string  $environment
+     * @return array
+     */
+    public function invalidateAssetCache($projectId, $environment)
+    {
+        return $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/environments/'.$environment.'/invalidate-assets');
+    }
+
+    /**
      * Get all of the deployments for the given project.
      *
      * @param  string  $projectId
