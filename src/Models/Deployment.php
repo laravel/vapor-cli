@@ -104,11 +104,6 @@ class Deployment
         return $this->deployment['environment']['vanity_domain'];
     }
 
-    public function functionUrl()
-    {
-        return $this->deployment['environment']['function_url'];
-    }
-
     /**
      * Returns a list of solutions for the current deployment failure.
      *
