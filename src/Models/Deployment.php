@@ -105,6 +105,16 @@ class Deployment
     }
 
     /**
+     * Get the function URL for the deployment environment.
+     *
+     * @return string
+     */
+    public function functionUrl()
+    {
+        return $this->deployment['environment']['function_url'];
+    }
+
+    /**
      * Returns a list of solutions for the current deployment failure.
      *
      * @return \Illuminate\Support\Collection
