@@ -42,7 +42,7 @@ class SecretCommand extends Command
         );
 
         Helpers::info('Secret stored successfully.');
-        Helpers::line('You should deploy the project to ensure the new secrets are available.');
+        Helpers::line('You should deploy the project using the "deploy" command to ensure the new secrets are available.');
     }
 
     /**
