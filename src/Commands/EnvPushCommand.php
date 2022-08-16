@@ -52,7 +52,7 @@ class EnvPushCommand extends Command
         Helpers::line();
         Helpers::info('Environment variables uploaded successfully.');
         Helpers::line();
-        Helpers::line('You must deploy the project for the new variables to take effect.');
+        Helpers::line('You must deploy the project using the "deploy" command for the new variables to take effect.');
 
         if ($this->option('keep') !== true && Helpers::confirm('Would you like to delete the environment file from your machine')) {
             @unlink($file);

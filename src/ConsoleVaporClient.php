@@ -1501,7 +1501,7 @@ class ConsoleVaporClient
         }
 
         if ($response->getStatusCode() === 404) {
-            Helpers::abort('The requested resource does not exist.');
+            Helpers::abort('The requested resource does not exist. Please ensure you are accessing the CLI with the correct team using the "team:current" command.');
         }
 
         if ($response->getStatusCode() === 409) {

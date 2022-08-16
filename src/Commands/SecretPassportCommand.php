@@ -39,7 +39,7 @@ class SecretPassportCommand extends Command
         $this->storePublicKey();
 
         Helpers::info('Keys stored successfully as secrets.');
-        Helpers::line('You should deploy the project to ensure the keys are available.');
+        Helpers::line('You should deploy the project using the "deploy" command to ensure the keys are available.');
     }
 
     /**
