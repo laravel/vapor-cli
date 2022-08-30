@@ -100,11 +100,11 @@ class DeploymentSuccess
      */
     protected function displayFunctionUrl(Deployment $deployment)
     {
-        if($deployment->hasTargetDomains() || $deployment->hasVanityDomain()) {
+        if ($deployment->hasTargetDomains() || $deployment->hasVanityDomain()) {
             return;
         }
 
-        if(! $deployment->hasFunctionUrl()) {
+        if (! $deployment->hasFunctionUrl()) {
             return;
         }
 
