@@ -95,6 +95,16 @@ class Deployment
     }
 
     /**
+     * Determine if the deployment has a vanity domain.
+     *
+     * @return bool
+     */
+    public function hasVanityDomain()
+    {
+        return $this->vanityDomain() !== '';
+    }
+
+    /**
      * Get the vanity domain for the deployment environment.
      *
      * @return string
@@ -105,9 +115,19 @@ class Deployment
     }
 
     /**
+     * Determine if the deployment has a function URL.
+     *
+     * @return bool
+     */
+    public function hasFunctionUrl()
+    {
+        return ! is_null($this->functionUrl());
+    }
+
+    /**
      * Get the function URL for the deployment environment.
      *
-     * @return string
+     * @return string|null
      */
     public function functionUrl()
     {
