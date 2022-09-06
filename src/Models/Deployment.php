@@ -131,7 +131,7 @@ class Deployment
      */
     public function functionUrl()
     {
-        return $this->deployment['environment']['function_url'];
+        return isset($this->deployment['environment']['function_url']) ? $this->deployment['environment']['function_url'] : null;
     }
 
     /**
