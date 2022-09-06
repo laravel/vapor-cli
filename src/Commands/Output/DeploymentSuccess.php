@@ -29,17 +29,11 @@ class DeploymentSuccess
             $this->displayDnsRecordsChanges($deployment);
         }
 
-        if ($deployment->vanityDomain()) {
-            Helpers::line();
-
-            Helpers::table([
-                '<comment>Deployment ID</comment>',
-                '<comment>Environment URL</comment>',
-            ], [[
-                "<options=bold>{$deployment->id}</>",
-                "<options=bold>https://{$deployment->vanityDomain()}</>",
-            ]]);
+        if ($deployment->hasVanityDomain()) {
+            $this->displayVanityUrl($deployment);
         }
+
+        $this->displayFunctionUrl($deployment);
     }
 
     /**
@@ -77,5 +71,51 @@ class DeploymentSuccess
 
             Helpers::line("The DNS records of the zone <comment>$zone</comment> have changed in the last week. If you self-manage the DNS settings of this zone, please run <comment>vapor record:list $zone</comment> and update the DNS settings of the domain accordingly.");
         });
+    }
+
+    /**
+     * Display the vanity domain associated with this environment.
+     *
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @return void
+     */
+    protected function displayVanityUrl(Deployment $deployment)
+    {
+        Helpers::line();
+
+        Helpers::table([
+            '<comment>Deployment ID</comment>',
+            '<comment>Environment URL</comment>',
+        ], [[
+            "<options=bold>{$deployment->id}</>",
+            "<options=bold>https://{$deployment->vanityDomain()}</>",
+        ]]);
+    }
+
+    /**
+     * Display the function URL associated with this environment.
+     *
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @return void
+     */
+    protected function displayFunctionUrl(Deployment $deployment)
+    {
+        if ($deployment->hasTargetDomains() || $deployment->hasVanityDomain()) {
+            return;
+        }
+
+        if (! $deployment->hasFunctionUrl()) {
+            return;
+        }
+
+        Helpers::line();
+
+        Helpers::table([
+            '<comment>Deployment ID</comment>',
+            '<comment>Environment URL</comment>',
+        ], [[
+            "<options=bold>{$deployment->id}</>",
+            "<options=bold>{$deployment->functionUrl()}</>",
+        ]]);
     }
 }

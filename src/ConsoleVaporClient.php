@@ -1493,7 +1493,17 @@ class ConsoleVaporClient
         }
 
         if ($response->getStatusCode() === 402) {
-            Helpers::abort('An active subscription is required to perform this action.');
+            Helpers::line('');
+            Helpers::danger('A valid subscription is required to perform this action.');
+            Helpers::line('');
+
+            if ($content = $response->getBody()->getContents()) {
+                Helpers::line("    - {$content}");
+            }
+
+            Helpers::line('');
+
+            exit(1);
         }
 
         if ($response->getStatusCode() === 403) {
