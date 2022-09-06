@@ -225,7 +225,7 @@ class Manifest
             ],
         ]);
 
-        if (! $project['is_sandboxed']) {
+        if (! (isset($project['is_sandboxed']) && $project['is_sandboxed'])) {
             $environments['staging'] = array_filter([
                 'memory' => 1024,
                 'cli-memory' => 512,
