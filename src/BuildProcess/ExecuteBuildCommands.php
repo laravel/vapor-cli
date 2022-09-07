@@ -22,7 +22,7 @@ class ExecuteBuildCommands
         foreach (Manifest::buildCommands($this->environment) as $command) {
             Helpers::step('<comment>Running Command</comment>: '.$command);
 
-            $process = Process::fromShellCommandline($command, $this->appPath, null, null, null);
+            $process = Process::fromShellCommandline($command, $this->appPath, ['LARAVEL_VAPOR' => 1], null, null);
 
             $process->mustRun(function ($type, $line) {
                 Helpers::write($line);
