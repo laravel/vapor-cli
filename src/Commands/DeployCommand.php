@@ -137,6 +137,10 @@ class DeployCommand extends Command
      */
     protected function assetDomain(array $project)
     {
+        if ($this->usesCloudFront() && $domain = $this->customAssetDomain()) {
+            return "https://$domain";
+        }
+
         if ($this->usesCloudFront() && $project['cloudfront_status'] == 'deployed') {
             return $project['asset_domains']['cloudfront'] ??
                     $project['asset_domains']['s3'];
@@ -153,6 +157,16 @@ class DeployCommand extends Command
     protected function usesCloudFront()
     {
         return Manifest::current()['environments'][$this->argument('environment')]['cloudfront'] ?? true;
+    }
+
+    /**
+     * Determine if the project uses a custom asset domain.
+     *
+     * @return string|null
+     */
+    protected function customAssetDomain()
+    {
+        return Manifest::current()['asset-domain'] ?? null;
     }
 
     /**

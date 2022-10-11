@@ -34,6 +34,8 @@ class DeploymentSuccess
         }
 
         $this->displayFunctionUrl($deployment);
+
+        $this->displayAssetDomainDnsRecordChanges($deployment);
     }
 
     /**
@@ -116,6 +118,33 @@ class DeploymentSuccess
         ], [[
             "<options=bold>{$deployment->id}</>",
             "<options=bold>{$deployment->functionUrl()}</>",
+        ]]);
+    }
+
+    /**
+     * Display the DNS Records changes related to the asset domain.
+     *
+     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
+     * @return void
+     */
+    protected function displayAssetDomainDnsRecordChanges(Deployment $deployment)
+    {
+        if (! $assetDomain = $deployment->manifest['asset-domain'] ?? null) {
+            return;
+        }
+
+        Helpers::line();
+
+        if ($deployment->created_asset_domain) {
+            Helpers::line('<comment>Custom asset domain created:</comment> Custom domains may take up to an hour to become active after provisioning.');
+
+            Helpers::line();
+        }
+
+        Helpers::table([
+            'Domain', 'Alias / CNAME',
+        ], [[
+            $assetDomain, $deployment->project['cloudfront_domain'],
         ]]);
     }
 }
