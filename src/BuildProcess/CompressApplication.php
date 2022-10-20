@@ -40,6 +40,12 @@ class CompressApplication
         $archive->open($this->buildPath.'/app.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach (BuiltApplicationFiles::get($this->appPath) as $file) {
+            if ($file->isDir()) {
+                $this->processDirectory($file, $archive);
+
+                continue;
+            }
+
             $relativePathName = str_replace('\\', '/', $file->getRelativePathname());
 
             $archive->addFile($file->getRealPath(), $relativePathName);
@@ -110,5 +116,44 @@ class CompressApplication
         }
 
         return $size;
+    }
+
+    /**
+     * Determine whether the given path is an empty directory.
+     *
+     * @param  string  $path
+     * @return bool
+     */
+    protected function isEmpty($path)
+    {
+        return count(scandir($path)) === 2;
+    }
+
+    /**
+     * Process
+     *
+     * @param  \Symfony\Component\Finder\SplFileInfo  $file
+     * @param  \ZipArchive  $archive
+     * @return bool|void
+     */
+    protected function processDirectory($file, $archive)
+    {
+        if (! $file->isDir()) {
+            return;
+        }
+
+        if (! $this->isEmpty($file->getRealPath())) {
+            return;
+        }
+
+        $path = str_replace('\\', '/', $file->getRelativePathname());
+
+        $archive->addEmptyDir($path);
+
+        $archive->setExternalAttributesName(
+            $file,
+            ZipArchive::OPSYS_UNIX,
+            ($this->getPermissions($file) & 0xFFFF) << 16
+        );
     }
 }

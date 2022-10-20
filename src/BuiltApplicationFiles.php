@@ -16,7 +16,6 @@ class BuiltApplicationFiles
     {
         return (new Finder())
                 ->in($path)
-                ->files()
                 ->ignoreVcs(true)
                 ->ignoreDotFiles(false);
     }
