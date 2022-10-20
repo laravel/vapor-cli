@@ -41,7 +41,7 @@ class CompressApplication
 
         foreach (BuiltApplicationFiles::get($this->appPath) as $file) {
             if ($file->isDir()) {
-                $this->processDirectory($file, $archive);
+                $this->copyEmptyDirectories($file, $archive);
 
                 continue;
             }
@@ -130,13 +130,13 @@ class CompressApplication
     }
 
     /**
-     * Process
+     * Copy empty directories into the archive.
      *
      * @param  \Symfony\Component\Finder\SplFileInfo  $file
      * @param  \ZipArchive  $archive
      * @return bool|void
      */
-    protected function processDirectory($file, $archive)
+    protected function copyEmptyDirectories($file, $archive)
     {
         if (! $file->isDir()) {
             return;
