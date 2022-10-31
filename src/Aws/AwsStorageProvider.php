@@ -3,17 +3,24 @@
 namespace Laravel\VaporCli\Aws;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Str;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Exceptions\RequestFailedException;
 use Laravel\VaporCli\Helpers;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class AwsStorageProvider
 {
     protected $vapor;
+
+    const MAX_RETRIES = 3;
 
     /**
      * Create a new storage provider instance.
@@ -55,8 +62,8 @@ class AwsStorageProvider
         : null;
 
         $response = (new Client())->request('PUT', $url, array_filter([
-            'body'     => $stream,
-            'headers'  => empty($headers) ? null : $headers,
+            'body' => $stream,
+            'headers' => empty($headers) ? null : $headers,
             'progress' => $progressCallback,
         ]));
 
@@ -119,7 +126,7 @@ class AwsStorageProvider
                 }
             };
 
-            (new Pool(new Client(), $generator(), [
+            (new Pool(new Client(['handler' => $this->retryHandler()]), $generator(), [
                 'concurrency' => 10,
                 'rejected' => function ($reason, $index) {
                     throw new RequestFailedException($reason->getMessage(), $index);
@@ -158,7 +165,7 @@ class AwsStorageProvider
             }
         };
 
-        (new Pool(new Client(), $generator(), [
+        (new Pool(new Client(['handler' => $this->retryHandler()]), $generator(), [
             'concurrency' => 10,
             'rejected' => function ($reason, $index) {
                 throw new RequestFailedException($reason->getMessage(), $index);
@@ -166,5 +173,30 @@ class AwsStorageProvider
         ]))
             ->promise()
             ->wait();
+    }
+
+    /**
+     * Get a handler stack containing the retry middleware configuration.
+     *
+     * @return \GuzzleHttp\HandlerStack
+     */
+    private function retryHandler()
+    {
+        $stack = HandlerStack::create();
+        $stack->push(Middleware::retry(function (int $retries, RequestInterface $request, ResponseInterface $response = null) {
+            if ($retries === 0) {
+                return true;
+            }
+
+            if ($response && $response->getStatusCode() < 300) {
+                return false;
+            }
+
+            Helpers::step('<comment>Retrying Request: </comment><options=bold>'.$request->getMethod().'</> '.Str::before($request->getUri(), '?'));
+
+            return $retries < self::MAX_RETRIES;
+        }));
+
+        return $stack;
     }
 }
