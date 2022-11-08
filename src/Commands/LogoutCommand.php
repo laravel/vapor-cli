@@ -2,11 +2,7 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use GuzzleHttp\Exception\ClientException;
-use Laravel\VaporCli\Config;
-use Laravel\VaporCli\Exceptions\NeedsTwoFactorAuthenticationTokenException;
 use Laravel\VaporCli\Helpers;
-use Psr\Http\Message\ResponseInterface;
 
 class LogoutCommand extends Command
 {
