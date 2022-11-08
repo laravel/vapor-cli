@@ -28,6 +28,7 @@ class LogoutCommand extends Command
         $token = Helpers::config('token');
         if (empty($token)) {
             Helpers::abort("You're not logged in.");
+
             return;
         }
 
