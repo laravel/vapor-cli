@@ -180,9 +180,10 @@ class AwsStorageProvider
      *
      * @return \GuzzleHttp\HandlerStack
      */
-    private function retryHandler()
+    protected function retryHandler()
     {
         $stack = HandlerStack::create();
+
         $stack->push(Middleware::retry(function (int $retries, RequestInterface $request, ResponseInterface $response = null) {
             if ($retries === 0) {
                 return true;
