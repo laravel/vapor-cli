@@ -3,7 +3,6 @@
 namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
-use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -28,32 +27,12 @@ class SecretCommand extends Command
     /**
      * Execute the command.
      *
-     * @return void
+     * @return int
      */
     public function handle()
     {
-        Helpers::ensure_api_token_is_available();
+        Helpers::danger('Secrets have been deprecated. Instead, please utilize environment variables and / or encrypted environment files.');
 
-        $this->vapor->storeSecret(
-            Manifest::id(),
-            $this->argument('environment'),
-            $this->option('name') ?? Helpers::ask('Name'),
-            $this->option('value') ?? $this->determineValue()
-        );
-
-        Helpers::info('Secret stored successfully.');
-        Helpers::line('You should deploy the project using the "deploy" command to ensure the new secrets are available.');
-    }
-
-    /**
-     * Determine the secret's value.
-     *
-     * @return string
-     */
-    protected function determineValue()
-    {
-        return $this->option('file')
-                    ? file_get_contents($this->option('file'))
-                    : Helpers::ask('Value');
+        return 1;
     }
 }
