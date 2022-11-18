@@ -32,7 +32,7 @@ class SecretCommand extends Command
     public function handle()
     {
         Helpers::danger('Secrets are no longer supported. Instead, you may utilize environment variables and / or encrypted environment files.');
-        
+
         return 1;
     }
 }
