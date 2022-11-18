@@ -27,10 +27,12 @@ class SecretCommand extends Command
     /**
      * Execute the command.
      *
-     * @return void
+     * @return int
      */
     public function handle()
     {
         Helpers::danger('Secrets are no longer supported. Instead, you may utilize environment variables and / or encrypted environment files.');
+        
+        return 1;
     }
 }
