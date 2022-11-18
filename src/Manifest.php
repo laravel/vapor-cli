@@ -13,6 +13,10 @@ class Manifest
      */
     public static function id()
     {
+        if (! array_key_exists('id', static::current() ?? [])) {
+            Helpers::abort(sprintf('Invalid project ID. Please verify your Vapor manifest at [%s].', Path::manifest()));
+        }
+
         return static::current()['id'];
     }
 
@@ -23,6 +27,10 @@ class Manifest
      */
     public static function name()
     {
+        if (! array_key_exists('name', static::current() ?? [])) {
+            Helpers::abort(sprintf('Invalid project name. Please verify your Vapor manifest at [%s].', Path::manifest()));
+        }
+
         return static::current()['name'];
     }
 
