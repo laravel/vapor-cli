@@ -26,6 +26,10 @@ class CollectSecrets
             return [$secret['name'] => $secret['version']];
         })->toArray();
 
+        if (! empty($secrets)) {
+            Helpers::warn('Using secrets may result in unexpected increased AWS billing charges. Instead, we recommend you utilize environment variables and / or encrypted environment files.');
+        }
+
         $this->files->put(
             $this->appPath.'/vaporSecrets.php',
             '<?php return '.var_export($secrets, true).';'

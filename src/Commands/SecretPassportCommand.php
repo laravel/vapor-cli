@@ -30,6 +30,8 @@ class SecretPassportCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
+        Helpers::warn('Using secrets may result in unexpected increased AWS billing charges. Instead, we recommend you utilize environment variables and / or encrypted environment files.');
+
         if (! file_exists(getcwd().'/storage/oauth-private.key') ||
             ! file_exists(getcwd().'/storage/oauth-public.key')) {
             Helpers::abort('Unable to find Passport keys in [storage] directory.');

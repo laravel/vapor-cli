@@ -34,6 +34,8 @@ class SecretCommand extends Command
     {
         Helpers::ensure_api_token_is_available();
 
+        Helpers::warn('Using secrets may result in unexpected increased AWS billing charges. Instead, we recommend you utilize environment variables and / or encrypted environment files.');
+
         $this->vapor->storeSecret(
             Manifest::id(),
             $this->argument('environment'),
