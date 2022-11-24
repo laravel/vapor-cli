@@ -29,7 +29,7 @@ class EnvPassportCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm('Passport keys are too large to be stored directly as environment variables. You should only use this command when using encrypted environments. Do you wish to continue?', false)) {
+        if (! Helpers::confirm('Passport keys are too large to be stored directly as environment variables. You should only use this command when using encrypted environments. Would you like to proceed?', false)) {
             return static::FAILURE;
         }
 
