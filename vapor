@@ -161,6 +161,7 @@ $app->add(new Commands\ProjectListCommand);
 $app->add(new Commands\EnvListCommand);
 $app->add(new Commands\EnvCommand);
 $app->add(new Commands\EnvDescribeCommand);
+$app->add(new Commands\EnvPassportCommand);
 $app->add(new Commands\EnvPullCommand);
 $app->add(new Commands\EnvPushCommand);
 $app->add(new Commands\EnvCloneCommand);
