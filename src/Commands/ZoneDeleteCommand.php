@@ -16,8 +16,9 @@ class ZoneDeleteCommand extends Command
     {
         $this
             ->setName('zone:delete')
-            ->addArgument('zone', InputArgument::REQUIRED, 'The zone name / ID')
-            ->setDescription('Delete a DNS zone');
+            ->setAliases(['domain:delete'])
+            ->addArgument('domain', InputArgument::REQUIRED, 'The domain name / ID')
+            ->setDescription('Delete a domain');
     }
 
     /**
@@ -27,22 +28,22 @@ class ZoneDeleteCommand extends Command
      */
     public function handle()
     {
-        $zone = $this->argument('zone');
-
-        if (! is_numeric($zoneId = $this->argument('zone'))) {
+        if (! is_numeric($zoneId = $this->argument('domain'))) {
             $zoneId = $this->findIdByName($this->vapor->zones(), $zoneId, 'zone');
         }
 
         if (is_null($zoneId)) {
-            Helpers::abort('Unable to find a zone with that name / ID.');
+            Helpers::abort('Unable to find a domain with that name / ID.');
         }
 
-        if (! Helpers::confirm("Are you sure you want to delete the zone for {$zone}", false)) {
+        $zone = $this->vapor->zone($zoneId);
+
+        if (! Helpers::confirm("Are you sure you want to delete [{$zone['zone']}] from Vapor", false)) {
             Helpers::abort('Action cancelled.');
         }
 
         $this->vapor->deleteZone($zoneId);
 
-        Helpers::info('Zone deleted successfully.');
+        Helpers::info('Domain successfully deleted from Vapor. Please note that the DNS zone will still persist on AWS.');
     }
 }

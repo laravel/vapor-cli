@@ -15,7 +15,8 @@ class ZoneListCommand extends Command
     {
         $this
             ->setName('zone:list')
-            ->setDescription('List the DNS zones that belong to the current team');
+            ->setAliases(['domain:list'])
+            ->setDescription('List the domains that belong to the current team');
     }
 
     /**
@@ -28,7 +29,7 @@ class ZoneListCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $this->table([
-            'ID', 'Zone', 'Nameservers',
+            'ID', 'Domain', 'Nameservers',
         ], collect($this->vapor->zones())->map(function ($zone) {
             return [
                 $zone['id'],

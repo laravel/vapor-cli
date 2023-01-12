@@ -16,8 +16,9 @@ class ZoneCommand extends Command
     {
         $this
             ->setName('zone')
-            ->addArgument('zone', InputArgument::REQUIRED, 'The zone name')
-            ->setDescription('Create a new DNS zone');
+            ->setAliases(['domain'])
+            ->addArgument('domain', InputArgument::REQUIRED, 'The domain name')
+            ->setDescription('Add a domain to Vapor');
     }
 
     /**
@@ -30,11 +31,11 @@ class ZoneCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         $zone = $this->vapor->createZone(
-            $this->determineProvider('Which cloud provider should the zone belong to?'),
-            $this->argument('zone')
+            $this->determineProvider('Which cloud provider should the domain belong to?'),
+            $this->argument('domain')
         );
 
-        Helpers::info('Zone created successfully.');
+        Helpers::info('Domain added successfully.');
         Helpers::line();
         Helpers::info('Nameservers:');
         Helpers::line();
