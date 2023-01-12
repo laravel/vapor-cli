@@ -18,7 +18,7 @@ class ZoneCommand extends Command
             ->setName('zone')
             ->setAliases(['domain'])
             ->addArgument('domain', InputArgument::REQUIRED, 'The domain name')
-            ->setDescription('Add a domain to Vapor');
+            ->setDescription('Add a domain');
     }
 
     /**
