@@ -23,6 +23,7 @@ class Regions
             'ap-northeast-2' => 'Asia Pacific (Seoul) (ap-northeast-2)',
             'ap-southeast-1' => 'Asia Pacific (Singapore) (ap-southeast-1)',
             'ap-southeast-2' => 'Asia Pacific (Sydney) (ap-southeast-2)',
+            'ap-southeast-3' => 'Asia Pacific (Jakarta) (ap-southeast-3)',
             'ap-northeast-1' => 'Asia Pacific (Tokyo) (ap-northeast-1)',
             'ca-central-1'   => 'Canada (Central) (ca-central-1)',
             // 'cn-north-1' => 'China (Beijing) (cn-north-1)',
