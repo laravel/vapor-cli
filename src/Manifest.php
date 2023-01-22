@@ -223,7 +223,7 @@ class Manifest
         $environments['production'] = array_filter([
             'memory' => 1024,
             'cli-memory' => 512,
-            'runtime' => 'php-8.1:al2',
+            'runtime' => 'php-8.2:al2',
             'build' => [
                 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                 'php artisan event:cache',
@@ -237,7 +237,7 @@ class Manifest
             $environments['staging'] = array_filter([
                 'memory' => 1024,
                 'cli-memory' => 512,
-                'runtime' => 'php-8.1:al2',
+                'runtime' => 'php-8.2:al2',
                 'build' => [
                     'COMPOSER_MIRROR_PATH_REPOS=1 composer install',
                     'php artisan event:cache',
