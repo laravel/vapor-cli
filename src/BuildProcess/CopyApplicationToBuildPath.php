@@ -5,6 +5,7 @@ namespace Laravel\VaporCli\BuildProcess;
 use Laravel\VaporCli\ApplicationFiles;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 use SplFileInfo;
 
 class CopyApplicationToBuildPath
@@ -108,11 +109,11 @@ class CopyApplicationToBuildPath
      */
     protected function flushCacheFiles()
     {
-        $this->files->delete($this->appPath.'/bootstrap/cache/config.php');
+        $this->files->delete(Path::bootstrap().'/cache/config.php');
 
         $this->files->delete(
             $this->files->glob(
-                $this->appPath.'/bootstrap/cache/routes*.php'
+                Path::bootstrap().'/cache/routes*.php'
             )
         );
     }

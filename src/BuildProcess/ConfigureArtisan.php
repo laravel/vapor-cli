@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\BuildProcess;
 
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 
 class ConfigureArtisan
 {
@@ -35,15 +36,25 @@ class ConfigureArtisan
         return str_replace(
             [
                 '<?php',
-                "\$app = require_once __DIR__.'/bootstrap/app.php';",
+                "\$app = require_once __DIR__.'/{$this->bootstrapDirectory()}/app.php';",
                 "require __DIR__.'/vendor/autoload.php';",
             ],
             [
                 '<?php'.PHP_EOL."ini_set('display_errors', '1');".PHP_EOL.'error_reporting(E_ALL);'.PHP_EOL,
-                "\$app = require_once __DIR__.'/bootstrap/app.php';".PHP_EOL.'$app->useStoragePath(Laravel\Vapor\Runtime\StorageDirectories::PATH);'.PHP_EOL,
+                "\$app = require_once __DIR__.'/{$this->bootstrapDirectory()}/app.php';".PHP_EOL.'$app->useStoragePath(Laravel\Vapor\Runtime\StorageDirectories::PATH);'.PHP_EOL,
                 Manifest::shouldSeparateVendor($this->environment) ? "require '/tmp/vendor/autoload.php';".PHP_EOL : "require __DIR__.'/vendor/autoload.php';".PHP_EOL,
             ],
             file_get_contents($file)
         );
+    }
+
+    /**
+     * Get the bootstrap directory.
+     *
+     * @return string
+     */
+    protected function bootstrapDirectory()
+    {
+        return str_contains(Path::bootstrap(), '.laravel') ? '.laravel' : 'bootstrap';
     }
 }

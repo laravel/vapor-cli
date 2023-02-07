@@ -2,6 +2,8 @@
 
 namespace Laravel\VaporCli;
 
+use Illuminate\Filesystem\Filesystem;
+
 class Path
 {
     /**
@@ -12,6 +14,18 @@ class Path
     public static function app()
     {
         return static::build().'/app';
+    }
+
+    /**
+     * Get the path to the bootstrap directory.
+     *
+     * @return string
+     */
+    public static function bootstrap()
+    {
+        return (new Filesystem)->exists(static::app().'/.laravel')
+                    ? static::app().'/.laravel'
+                    : static::app().'/bootstrap';
     }
 
     /**
