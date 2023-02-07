@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
-use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\Path;
