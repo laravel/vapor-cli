@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
+use Illuminate\Support\Str;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Laravel\VaporCli\Path;
@@ -55,6 +56,6 @@ class ConfigureArtisan
      */
     protected function bootstrapDirectory()
     {
-        return str_contains(Path::bootstrap(), '.laravel') ? '.laravel' : 'bootstrap';
+        return mb_strpos(Path::bootstrap(), '.laravel') !== false ? '.laravel' : 'bootstrap';
     }
 }
