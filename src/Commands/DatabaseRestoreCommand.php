@@ -65,7 +65,7 @@ class DatabaseRestoreCommand extends Command
     /**
      * Determine which timezone the time will be specified in.
      *
-     * @return string
+     * @return string|never
      */
     protected function determineTimezone()
     {

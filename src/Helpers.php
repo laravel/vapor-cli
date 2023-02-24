@@ -15,7 +15,7 @@ class Helpers
      * Display a danger message and exit.
      *
      * @param  string  $text
-     * @return void
+     * @return never
      */
     public static function abort($text)
     {

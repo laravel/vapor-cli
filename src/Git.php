@@ -9,7 +9,7 @@ class Git
     /**
      * Get the Git current commit hash for the project.
      *
-     * @return string
+     * @return string|null
      */
     public static function hash()
     {
@@ -21,7 +21,7 @@ class Git
     /**
      * Get the Git current commit message for the project.
      *
-     * @return string
+     * @return string|null
      */
     public static function message()
     {

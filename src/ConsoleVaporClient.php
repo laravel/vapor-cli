@@ -726,7 +726,7 @@ class ConsoleVaporClient
      * @param  string  $domain
      * @param  array  $alternativeNames
      * @param  string  $validationMethod
-     * @return array
+     * @return void
      */
     public function requestCertificate($providerId, $domain, array $alternativeNames, $region, $validationMethod)
     {
