@@ -52,11 +52,11 @@ class LoginCommand extends Command
      */
     protected function attemptLogin()
     {
+        $email = Helpers::ask('Email Address');
+        $password = Helpers::secret('Password');
+
         try {
-            $token = $this->vapor->login(
-                $email = Helpers::ask('Email Address'),
-                $password = Helpers::secret('Password')
-            );
+            $token = $this->vapor->login($email, $password);
         } catch (NeedsTwoFactorAuthenticationTokenException $e) {
             $token = $this->vapor->login(
                 $email,

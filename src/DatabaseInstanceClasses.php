@@ -5,16 +5,6 @@ namespace Laravel\VaporCli;
 class DatabaseInstanceClasses
 {
     /**
-     * Get the available RDS instance classes.
-     *
-     * @return array
-     */
-    public static function keys()
-    {
-        return array_keys(static::available());
-    }
-
-    /**
      * Get the available general purpose RDS instance classes.
      *
      * @return array
