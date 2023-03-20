@@ -43,7 +43,7 @@ class ExecuteBuildCommandsTest extends TestCase
 
         $this->assertSame(
             ['php artisan migrate', 'php artisan optimize'],
-            (new ExecuteBuildCommands('production'))->supportedCommands(),
+            (new ExecuteBuildCommands('production'))->supportedCommands()
         );
     }
 }
