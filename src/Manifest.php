@@ -189,7 +189,7 @@ class Manifest
     public static function usesContainerImage($environment)
     {
         return in_array(
-            (static::current()['environments'][$environment]['runtime'] ?? null),
+            static::current()['environments'][$environment]['runtime'] ?? null,
             ['docker', 'docker-arm']
         );
     }
