@@ -72,22 +72,40 @@ class BuildContainerImage
      * Ensure the provided Dockerfile is compatible with the runtime.
      *
      * @param  string  $environment
+     * @return null|void
      */
     protected function validateDockerFile($environment)
     {
         $runtime = Manifest::runtime($environment);
         $contents = file_get_contents(Path::dockerfile($environment));
 
-        // Return early if the image isn't built from a Laravel base image.
-        if (! Str::contains($contents, 'vapor:php')) {
+        $fromInstructions = Str::of($contents)
+            ->explode("\n")
+            ->filter(function ($line) {
+                return Str::startsWith($line, 'FROM');
+            });
+
+        $isCustomImage = $fromInstructions->doesntContain(function ($instruction) {
+            return Str::contains($instruction, 'vapor:php');
+        });
+
+        if ($isCustomImage) {
             return;
         }
 
-        if ($runtime === 'docker' && Str::contains($contents, '-arm')) {
+        $hasArmInstruction = $fromInstructions->contains(function ($instruction) {
+            return Str::contains($instruction, 'vapor:php') && Str::endsWith($instruction, '-arm');
+        });
+
+        $hasX86Instruction = $fromInstructions->contains(function ($instruction) {
+            return Str::contains($instruction, 'vapor:php') && ! Str::endsWith($instruction, '-arm');
+        });
+
+        if ($runtime === 'docker' && $hasArmInstruction) {
             Helpers::abort('An ARM based image cannot be used with the "docker" runtime.');
         }
 
-        if ($runtime === 'docker-arm' && ! Str::contains($contents, '-arm')) {
+        if ($runtime === 'docker-arm' && $hasX86Instruction) {
             Helpers::abort('An x86 based image cannot be used with the "docker-arm" runtime.');
         }
     }
