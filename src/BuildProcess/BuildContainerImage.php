@@ -2,9 +2,11 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
+use Illuminate\Support\Str;
 use Laravel\VaporCli\Docker;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
+use Laravel\VaporCli\Path;
 
 class BuildContainerImage
 {
@@ -44,6 +46,8 @@ class BuildContainerImage
             return;
         }
 
+        $this->validateDockerFile($this->environment);
+
         Helpers::step('<options=bold>Building Container Image</>');
 
         Docker::build(
@@ -62,5 +66,29 @@ class BuildContainerImage
     protected function getTagName()
     {
         return Manifest::name().':'.$this->environment;
+    }
+
+    /**
+     * Ensure the provided Dockerfile is compatible with the runtime.
+     *
+     * @param  string  $environment
+     */
+    protected function validateDockerFile($environment)
+    {
+        $runtime = Manifest::runtime($environment);
+        $contents = file_get_contents(Path::dockerfile($environment));
+
+        // Return early if the image isn't built from a Laravel base image.
+        if (! Str::contains($contents, 'vapor:php')) {
+            return;
+        }
+
+        if ($runtime === 'docker' && Str::contains($contents, '-arm')) {
+            Helpers::abort('An ARM based image cannot be used with the "docker" runtime.');
+        }
+
+        if ($runtime === 'docker-arm' && ! Str::contains($contents, '-arm')) {
+            Helpers::abort('An x86 based image cannot be used with the "docker-arm" runtime.');
+        }
     }
 }
