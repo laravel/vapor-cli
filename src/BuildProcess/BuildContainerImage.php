@@ -46,7 +46,12 @@ class BuildContainerImage
 
         Helpers::step('<options=bold>Building Container Image</>');
 
-        Docker::build($this->appPath, Manifest::name(), $this->environment, $this->buildArgs);
+        Docker::build(
+            $this->appPath,
+            Manifest::name(),
+            $this->environment,
+            array_merge(['__VAPOR_RUNTIME='.Manifest::runtime($this->environment)], $this->buildArgs)
+        );
     }
 
     /**
