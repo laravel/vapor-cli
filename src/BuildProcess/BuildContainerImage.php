@@ -46,7 +46,9 @@ class BuildContainerImage
             return;
         }
 
-        $this->validateDockerFile($this->environment);
+        if (! $this->validateDockerFile($this->environment, $runtime = Manifest::runtime($this->environment))) {
+            Helpers::abort('The base image used in the '.Path::dockerfile($this->environment).'cannot be used with the "'.$runtime.'" runtime.');
+        }
 
         Helpers::step('<options=bold>Building Container Image</>');
 
@@ -72,11 +74,10 @@ class BuildContainerImage
      * Ensure the provided Dockerfile is compatible with the runtime.
      *
      * @param  string  $environment
-     * @return null|void
+     * @return bool
      */
-    protected function validateDockerFile($environment)
+    public function validateDockerFile($environment, $runtime)
     {
-        $runtime = Manifest::runtime($environment);
         $contents = file_get_contents(Path::dockerfile($environment));
 
         $fromInstructions = Str::of($contents)
@@ -90,7 +91,7 @@ class BuildContainerImage
         });
 
         if ($isCustomImage) {
-            return;
+            return true;
         }
 
         $hasArmInstruction = $fromInstructions->contains(function ($instruction) {
@@ -102,11 +103,13 @@ class BuildContainerImage
         });
 
         if ($runtime === 'docker' && $hasArmInstruction) {
-            Helpers::abort('An ARM based image cannot be used with the "docker" runtime.');
+            return false;
         }
 
         if ($runtime === 'docker-arm' && $hasX86Instruction) {
-            Helpers::abort('An x86 based image cannot be used with the "docker-arm" runtime.');
+            return false;
         }
+
+        return true;
     }
 }

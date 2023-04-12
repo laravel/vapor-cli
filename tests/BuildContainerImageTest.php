@@ -1,0 +1,100 @@
+<?php
+
+namespace Laravel\VaporCli\Tests;
+
+use Illuminate\Container\Container;
+use Laravel\VaporCli\BuildProcess\BuildContainerImage;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+class BuildContainerImageTest extends TestCase
+{
+    protected $testManifest;
+
+    protected $dockerFile;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        touch($this->testManifest = getcwd().'/test.vapor.yml');
+        touch($this->dockerFile = getcwd().'/production.Dockerfile');
+        Container::getInstance()->offsetSet('manifest', $this->testManifest);
+        Container::getInstance()->offsetSet('output', new ConsoleOutput);
+    }
+
+    protected function tearDown(): void
+    {
+        @unlink(Container::getInstance()->offsetGet('manifest'));
+        @unlink($this->dockerFile);
+        parent::tearDown();
+    }
+
+    /**
+     * @dataProvider runtimeProvider
+     */
+    public function test_cannot_build_with_x86_runtime_and_arm_base_image($runtime, $dockerFileContents, $expectation)
+    {
+        file_put_contents($this->dockerFile, $dockerFileContents);
+
+        $this->assertSame(
+            $expectation,
+            (new BuildContainerImage('production'))->validateDockerFile('production', $runtime)
+        );
+    }
+
+    public function runtimeProvider()
+    {
+        return [
+            [
+                'docker',
+                'FROM laravelphp/vapor:php82-arm',
+                false,
+            ],
+            [
+                'docker',
+                'FROM laravelphp/vapor:php82',
+                true,
+            ],
+            [
+                'docker-arm',
+                'FROM laravelphp/vapor:php82',
+                false,
+            ],
+            [
+                'docker-arm',
+                'FROM laravelphp/vapor:php82-arm',
+                true,
+            ],
+            [
+                'docker-arm',
+                'FROM custom/image',
+                true,
+            ],
+            [
+                'docker',
+                'FROM custom/image',
+                true,
+            ],
+            [
+                'docker',
+                "FROM custom/image\nFROM laravelphp/vapor:php82",
+                true,
+            ],
+            [
+                'docker',
+                "FROM custom/image\nFROM laravelphp/vapor:php82-arm",
+                false,
+            ],
+            [
+                'docker-arm',
+                "FROM custom/image\nFROM laravelphp/vapor:php82-arm",
+                true,
+            ],
+            [
+                'docker-arm',
+                "FROM custom/image\nFROM laravelphp/vapor:php82",
+                false,
+            ],
+        ];
+    }
+}
