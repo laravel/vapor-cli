@@ -56,7 +56,7 @@ class BuildContainerImage
             $this->appPath,
             Manifest::name(),
             $this->environment,
-            $this->formatBuildArguments(),
+            $this->formatBuildArguments()
         );
     }
 
