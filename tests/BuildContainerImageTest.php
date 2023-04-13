@@ -112,22 +112,22 @@ class BuildContainerImageTest extends TestCase
             ],
             [
                 'docker',
-                "FROM custom/image\nFROM laravelphp/vapor:php82",
+                'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82',
                 true,
             ],
             [
                 'docker',
-                "FROM custom/image\nFROM laravelphp/vapor:php82-arm",
+                'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82-arm',
                 false,
             ],
             [
                 'docker-arm',
-                "FROM custom/image\nFROM laravelphp/vapor:php82-arm",
+                'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82-arm',
                 true,
             ],
             [
                 'docker-arm',
-                "FROM custom/image\nFROM laravelphp/vapor:php82",
+                'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82',
                 false,
             ],
             [
