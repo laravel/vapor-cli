@@ -15,6 +15,28 @@ class BuildContainerImage
     }
 
     /**
+     * The Docker for various PHP x86 versions.
+     *
+     * @var array<int, string>
+     */
+    public static $x86Images = [
+        'laravelphp/vapor:php73',
+        'laravelphp/vapor:php74',
+        'laravelphp/vapor:php80',
+        'laravelphp/vapor:php81',
+        'laravelphp/vapor:php82',
+    ];
+
+    /**
+     * The Docker for various PHP Arm versions.
+     *
+     * @var array<int, string>
+     */
+    public static $armImages = [
+        'laravelphp/vapor:php82-arm',
+    ];
+
+    /**
      * The Docker build arguments.
      *
      * @var array
@@ -47,7 +69,7 @@ class BuildContainerImage
         }
 
         if (! $this->validateDockerFile($this->environment, $runtime = Manifest::runtime($this->environment))) {
-            Helpers::abort('The base image used in '.Path::dockerfile($this->environment).' is incompatible with the "'.$runtime.'" runtime.');
+            Helpers::abort('The base image used in '.Path::dockerfile($this->environment).' is incompatible with the "'.$runtime.'" runtime, or you are running an outdated version of Vapor CLI.');
         }
 
         Helpers::step('<options=bold>Building Container Image</>');
@@ -81,36 +103,27 @@ class BuildContainerImage
     {
         $contents = file_get_contents(Path::dockerfile($environment));
 
-        $fromInstructions = collect(explode(PHP_EOL, $contents))
-            ->filter(function ($line) {
-                return Str::startsWith($line, 'FROM');
-            });
-
-        $isCustomImage = ! $fromInstructions->contains(function ($instruction) {
-            return Str::contains($instruction, 'laravelphp/vapor:php');
-        });
-
-        if ($isCustomImage) {
+        if (! Str::contains($contents, 'laravelphp/vapor:php')) {
+            // Custom image...
             return true;
         }
 
-        $hasArmInstruction = $fromInstructions->contains(function ($instruction) {
-            return Str::contains($instruction, 'laravelphp/vapor:php') && Str::endsWith($instruction, '-arm');
-        });
-
-        $hasX86Instruction = $fromInstructions->contains(function ($instruction) {
-            return Str::contains($instruction, 'laravelphp/vapor:php') && ! Str::endsWith($instruction, '-arm');
-        });
-
-        if ($runtime === 'docker' && $hasArmInstruction) {
-            return false;
+        if ($runtime === 'docker') {
+            foreach (static::$x86Images as $image) {
+                if (! Str::contains($contents, 'FROM '.$image.'-')
+                    && Str::contains($contents, 'FROM '.$image)) {
+                    return true;
+                }
+            }
+        } elseif ($runtime === 'docker-arm') {
+            foreach (static::$armImages as $image) {
+                if (Str::contains($contents, 'FROM '.$image)) {
+                    return true;
+                }
+            }
         }
 
-        if ($runtime === 'docker-arm' && $hasX86Instruction) {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 
     /**
