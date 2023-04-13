@@ -74,6 +74,7 @@ class BuildContainerImage
      * Ensure the provided Dockerfile is compatible with the runtime.
      *
      * @param  string  $environment
+     * @param  string  $runtime
      * @return bool
      */
     public function validateDockerFile($environment, $runtime)
