@@ -166,32 +166,32 @@ class BuildContainerImageTest extends TestCase
             // PHP versions tests...
             [
                 'docker',
-                "FROM laravelphp/vapor:php82",
+                'FROM laravelphp/vapor:php82',
                 true,
             ],
             [
                 'docker',
-                "FROM laravelphp/vapor:php83",
+                'FROM laravelphp/vapor:php83',
                 false,
             ],
             [
                 'docker-arm',
-                "FROM laravelphp/vapor:php82-arm",
+                'FROM laravelphp/vapor:php82-arm',
                 true,
             ],
             [
                 'docker-arm',
-                "FROM laravelphp/vapor:php82-arm",
+                'FROM laravelphp/vapor:php82-arm',
                 true,
             ],
             [
                 'docker-arm',
-                "FROM laravelphp/vapor:php83-arm",
+                'FROM laravelphp/vapor:php83-arm',
                 false,
             ],
             [
                 'docker-arm',
-                "FROM laravelphp/vapor:php84-arm",
+                'FROM laravelphp/vapor:php84-arm',
                 false,
             ],
         ];

@@ -104,21 +104,20 @@ class BuildContainerImage
         $contents = file_get_contents(Path::dockerfile($environment));
 
         if (! Str::contains($contents, 'laravelphp/vapor:php')) {
-
             // Custom image...
             return true;
         }
 
         if ($runtime === 'docker') {
             foreach (static::$x86Images as $image) {
-                if (! Str::contains($contents, 'FROM ' . $image . '-')
-                    && Str::contains($contents, 'FROM ' . $image)) {
+                if (! Str::contains($contents, 'FROM '.$image.'-')
+                    && Str::contains($contents, 'FROM '.$image)) {
                     return true;
                 }
             }
-        } else if ($runtime === 'docker-arm') {
+        } elseif ($runtime === 'docker-arm') {
             foreach (static::$armImages as $image) {
-                if (Str::contains($contents, 'FROM ' . $image)) {
+                if (Str::contains($contents, 'FROM '.$image)) {
                     return true;
                 }
             }
