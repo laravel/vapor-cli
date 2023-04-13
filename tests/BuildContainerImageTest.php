@@ -140,6 +140,60 @@ class BuildContainerImageTest extends TestCase
                 'FROM custom/vapor:php82',
                 true,
             ],
+
+            // End of line tests...
+            [
+                'docker',
+                "\r\nFROM laravelphp/vapor:php82-arm\r\n",
+                false,
+            ],
+            [
+                'docker',
+                "\nFROM laravelphp/vapor:php82-arm\n",
+                false,
+            ],
+            [
+                'docker',
+                "\nFROM laravelphp/vapor:php82-arm\n",
+                false,
+            ],
+            [
+                'docker-arm',
+                "\nFROM laravelphp/vapor:php82\n",
+                false,
+            ],
+
+            // PHP versions tests...
+            [
+                'docker',
+                "FROM laravelphp/vapor:php82",
+                true,
+            ],
+            [
+                'docker',
+                "FROM laravelphp/vapor:php83",
+                false,
+            ],
+            [
+                'docker-arm',
+                "FROM laravelphp/vapor:php82-arm",
+                true,
+            ],
+            [
+                'docker-arm',
+                "FROM laravelphp/vapor:php82-arm",
+                true,
+            ],
+            [
+                'docker-arm',
+                "FROM laravelphp/vapor:php83-arm",
+                false,
+            ],
+            [
+                'docker-arm',
+                "FROM laravelphp/vapor:php84-arm",
+                false,
+            ],
         ];
     }
 }
