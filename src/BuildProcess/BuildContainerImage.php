@@ -81,7 +81,7 @@ class BuildContainerImage
     {
         $contents = file_get_contents(Path::dockerfile($environment));
 
-        $fromInstructions = collect(explode("\n", $contents))
+        $fromInstructions = collect(explode(PHP_EOL, $contents))
             ->filter(function ($line) {
                 return Str::startsWith($line, 'FROM');
             });
