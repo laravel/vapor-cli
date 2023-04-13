@@ -56,7 +56,7 @@ class BuildContainerImage
             $this->appPath,
             Manifest::name(),
             $this->environment,
-            array_merge(['__VAPOR_RUNTIME='.Manifest::runtime($this->environment)], $this->buildArgs)
+            $this->formatBuildArguments(),
         );
     }
 
@@ -86,8 +86,8 @@ class BuildContainerImage
                 return Str::startsWith($line, 'FROM');
             });
 
-        $isCustomImage = $fromInstructions->doesntContain(function ($instruction) {
-            return Str::contains($instruction, 'vapor:php');
+        $isCustomImage = ! $fromInstructions->contains(function ($instruction) {
+            return Str::contains($instruction, 'laravelphp/vapor:php');
         });
 
         if ($isCustomImage) {
@@ -95,11 +95,11 @@ class BuildContainerImage
         }
 
         $hasArmInstruction = $fromInstructions->contains(function ($instruction) {
-            return Str::contains($instruction, 'vapor:php') && Str::endsWith($instruction, '-arm');
+            return Str::contains($instruction, 'laravelphp/vapor:php') && Str::endsWith($instruction, '-arm');
         });
 
         $hasX86Instruction = $fromInstructions->contains(function ($instruction) {
-            return Str::contains($instruction, 'vapor:php') && ! Str::endsWith($instruction, '-arm');
+            return Str::contains($instruction, 'laravelphp/vapor:php') && ! Str::endsWith($instruction, '-arm');
         });
 
         if ($runtime === 'docker' && $hasArmInstruction) {
@@ -111,5 +111,20 @@ class BuildContainerImage
         }
 
         return true;
+    }
+
+    /**
+     * Format the Docker build arguments.
+     *
+     * @return array<int, string>
+     */
+    public function formatBuildArguments()
+    {
+        return array_merge(
+            ['__VAPOR_RUNTIME='.Manifest::runtime($this->environment)],
+            array_filter($this->buildArgs, function ($value) {
+                return ! Str::startsWith($value, '__VAPOR_RUNTIME');
+            })
+        );
     }
 }
