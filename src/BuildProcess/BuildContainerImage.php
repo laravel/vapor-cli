@@ -47,7 +47,7 @@ class BuildContainerImage
         }
 
         if (! $this->validateDockerFile($this->environment, $runtime = Manifest::runtime($this->environment))) {
-            Helpers::abort('The base image used in the '.Path::dockerfile($this->environment).'cannot be used with the "'.$runtime.'" runtime.');
+            Helpers::abort('The base image used in '.Path::dockerfile($this->environment).' is incompatible with the "'.$runtime.'" runtime.');
         }
 
         Helpers::step('<options=bold>Building Container Image</>');
