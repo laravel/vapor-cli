@@ -188,7 +188,10 @@ class Manifest
      */
     public static function usesContainerImage($environment)
     {
-        return (static::current()['environments'][$environment]['runtime'] ?? null) == 'docker';
+        return in_array(
+            static::current()['environments'][$environment]['runtime'] ?? null,
+            ['docker', 'docker-arm']
+        );
     }
 
     /**
@@ -259,7 +262,6 @@ class Manifest
      * Add an environment to the manifest.
      *
      * @param  string  $environment
-     * @param  array  $config
      * @return void
      */
     public static function addEnvironment($environment, array $config = [])
@@ -299,7 +301,6 @@ class Manifest
     /**
      * Write the given array to disk as the new manifest.
      *
-     * @param  array  $manifest
      * @param  string|null  $path
      * @return void
      */
