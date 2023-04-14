@@ -105,7 +105,7 @@ class BuildContainerImage
 
         if (! Str::contains($contents, 'laravelphp/vapor:php')) {
             // Custom image...
-            return true;
+            return false;
         }
 
         if ($runtime === 'docker') {

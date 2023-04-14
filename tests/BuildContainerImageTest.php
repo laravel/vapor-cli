@@ -103,12 +103,12 @@ class BuildContainerImageTest extends TestCase
             [
                 'docker-arm',
                 'FROM custom/image',
-                true,
+                false,
             ],
             [
                 'docker',
                 'FROM custom/image',
-                true,
+                false,
             ],
             [
                 'docker',
@@ -133,12 +133,12 @@ class BuildContainerImageTest extends TestCase
             [
                 'docker',
                 'FROM custom/vapor:php82-arm',
-                true,
+                false,
             ],
             [
                 'docker-arm',
                 'FROM custom/vapor:php82',
-                true,
+                false,
             ],
 
             // End of line tests...
