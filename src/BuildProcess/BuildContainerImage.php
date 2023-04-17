@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli\BuildProcess;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Docker;
 use Laravel\VaporCli\Helpers;
@@ -37,11 +38,18 @@ class BuildContainerImage
     ];
 
     /**
-     * The Docker build arguments.
+     * The Docker CLI build arguments.
      *
      * @var array
      */
-    protected $buildArgs;
+    protected $cliBuildArgs;
+
+    /**
+     * The Docker manifest build arguments.
+     *
+     * @var array
+     */
+    protected $manifestBuildArgs;
 
     /**
      * Create a new project builder.
@@ -50,11 +58,12 @@ class BuildContainerImage
      * @param  array  $buildArgs
      * @return void
      */
-    public function __construct($environment = null, $buildArgs = [])
+    public function __construct($environment = null, $cliBuildArgs = [], $manifestBuildArgs = [])
     {
         $this->baseConstructor($environment);
 
-        $this->buildArgs = $buildArgs;
+        $this->cliBuildArgs = $cliBuildArgs;
+        $this->manifestBuildArgs = $manifestBuildArgs;
     }
 
     /**
@@ -68,7 +77,16 @@ class BuildContainerImage
             return;
         }
 
-        if (! $this->validateDockerFile($this->environment, $runtime = Manifest::runtime($this->environment))) {
+        $buildArgs = Collection::make($this->manifestBuildArgs)
+                ->merge(Collection::make($this->cliBuildArgs)
+                    ->mapWithKeys(function ($value) {
+                        [$key, $value] = explode('=', $value, 2);
+
+                        return [$key => $value];
+                    })
+                )->toArray();
+
+        if (! $this->validateDockerFile($this->environment, $runtime = Manifest::runtime($this->environment), $buildArgs)) {
             Helpers::abort('The base image used in '.Path::dockerfile($this->environment).' is incompatible with the "'.$runtime.'" runtime, or you are running an outdated version of Vapor CLI.');
         }
 
@@ -97,15 +115,19 @@ class BuildContainerImage
      *
      * @param  string  $environment
      * @param  string  $runtime
+     * @param  array  $buildArgs
      * @return bool
      */
-    public function validateDockerFile($environment, $runtime)
+    public function validateDockerFile($environment, $runtime, $buildArgs)
     {
         $contents = file_get_contents(Path::dockerfile($environment));
 
-        if (! Str::contains($contents, 'laravelphp/vapor:php')) {
-            // Custom image...
+        if (! Str::contains($contents, 'FROM laravelphp/vapor')) {
             return false;
+        }
+
+        foreach ($buildArgs as $key => $value) {
+            $contents = str_replace('${'.$key.'}', $value, $contents);
         }
 
         if ($runtime === 'docker') {
@@ -127,7 +149,7 @@ class BuildContainerImage
     }
 
     /**
-     * Format the Docker build arguments.
+     * Format the Docker CLI build arguments.
      *
      * @return array<int, string>
      */
@@ -135,7 +157,7 @@ class BuildContainerImage
     {
         return array_merge(
             ['__VAPOR_RUNTIME='.Manifest::runtime($this->environment)],
-            array_filter($this->buildArgs, function ($value) {
+            array_filter($this->cliBuildArgs, function ($value) {
                 return ! Str::startsWith($value, '__VAPOR_RUNTIME');
             })
         );

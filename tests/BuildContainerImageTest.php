@@ -33,13 +33,13 @@ class BuildContainerImageTest extends TestCase
     /**
      * @dataProvider runtimeProvider
      */
-    public function test_cannot_build_with_x86_runtime_and_arm_base_image($runtime, $dockerFileContents, $expectation)
+    public function test_cannot_build_with_x86_runtime_and_arm_base_image($runtime, $dockerFileContents, $buildArgs, $expectation)
     {
         file_put_contents($this->dockerFile, $dockerFileContents);
 
         $this->assertSame(
             $expectation,
-            (new BuildContainerImage('production'))->validateDockerFile('production', $runtime)
+            (new BuildContainerImage('production'))->validateDockerFile('production', $runtime, $buildArgs)
         );
     }
 
@@ -83,61 +83,73 @@ class BuildContainerImageTest extends TestCase
             [
                 'docker',
                 'FROM laravelphp/vapor:php82-arm',
+                [],
                 false,
             ],
             [
                 'docker',
                 'FROM laravelphp/vapor:php82',
+                [],
                 true,
             ],
             [
                 'docker-arm',
                 'FROM laravelphp/vapor:php82',
+                [],
                 false,
             ],
             [
                 'docker-arm',
                 'FROM laravelphp/vapor:php82-arm',
+                [],
                 true,
             ],
             [
                 'docker-arm',
                 'FROM custom/image',
+                [],
                 false,
             ],
             [
                 'docker',
                 'FROM custom/image',
+                [],
                 false,
             ],
             [
                 'docker',
                 'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82',
+                [],
                 true,
             ],
             [
                 'docker',
                 'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82-arm',
+                [],
                 false,
             ],
             [
                 'docker-arm',
                 'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82-arm',
+                [],
                 true,
             ],
             [
                 'docker-arm',
                 'FROM custom/image'.PHP_EOL.'FROM laravelphp/vapor:php82',
+                [],
                 false,
             ],
             [
                 'docker',
                 'FROM custom/vapor:php82-arm',
+                [],
                 false,
             ],
             [
                 'docker-arm',
                 'FROM custom/vapor:php82',
+                [],
                 false,
             ],
 
@@ -145,21 +157,25 @@ class BuildContainerImageTest extends TestCase
             [
                 'docker',
                 "\r\nFROM laravelphp/vapor:php82-arm\r\n",
+                [],
                 false,
             ],
             [
                 'docker',
                 "\nFROM laravelphp/vapor:php82-arm\n",
+                [],
                 false,
             ],
             [
                 'docker',
                 "\nFROM laravelphp/vapor:php82-arm\n",
+                [],
                 false,
             ],
             [
                 'docker-arm',
                 "\nFROM laravelphp/vapor:php82\n",
+                [],
                 false,
             ],
 
@@ -167,31 +183,87 @@ class BuildContainerImageTest extends TestCase
             [
                 'docker',
                 'FROM laravelphp/vapor:php82',
+                [],
                 true,
             ],
             [
                 'docker',
                 'FROM laravelphp/vapor:php83',
+                [],
                 false,
             ],
             [
                 'docker-arm',
                 'FROM laravelphp/vapor:php82-arm',
+                [],
                 true,
             ],
             [
                 'docker-arm',
                 'FROM laravelphp/vapor:php82-arm',
+                [],
                 true,
             ],
             [
                 'docker-arm',
                 'FROM laravelphp/vapor:php83-arm',
+                [],
                 false,
             ],
             [
                 'docker-arm',
                 'FROM laravelphp/vapor:php84-arm',
+                [],
+                false,
+            ],
+            [
+                'docker-arm',
+                'FROM laravelphp/vapor:php84-arm',
+                [],
+                false,
+            ],
+
+            // Build arguments
+            [
+                'docker-arm',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}-arm",
+                [],
+                false,
+            ],
+            [
+                'docker',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}",
+                [],
+                false,
+            ],
+            [
+                'docker-arm',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}",
+                ['VERSION' => 'php82-arm'],
+                true,
+            ],
+            [
+                'docker',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}",
+                ['VERSION' => 'php82'],
+                true,
+            ],
+            [
+                'docker-arm',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}",
+                ['VERSION' => 'php82-arm'],
+                true,
+            ],
+            [
+                'docker-arm',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}",
+                ['VERSION' => 'php82'],
+                false,
+            ],
+            [
+                'docker',
+                "ARG VERSION=php81\nFROM laravelphp/vapor:\${VERSION}",
+                ['VERSION' => 'php82-arm'],
                 false,
             ],
         ];
