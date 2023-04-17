@@ -5,7 +5,7 @@ namespace Laravel\VaporCli\Tests;
 use Illuminate\Container\Container;
 use Laravel\VaporCli\BuildProcess\BuildContainerImage;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Yaml\Yaml;
 
 class BuildContainerImageTest extends TestCase
@@ -20,7 +20,7 @@ class BuildContainerImageTest extends TestCase
         touch($this->testManifest = getcwd().'/test.vapor.yml');
         touch($this->dockerFile = getcwd().'/production.Dockerfile');
         Container::getInstance()->offsetSet('manifest', $this->testManifest);
-        Container::getInstance()->offsetSet('output', new ConsoleOutput);
+        Container::getInstance()->offsetSet('output', new BufferedOutput);
     }
 
     protected function tearDown(): void
@@ -114,7 +114,7 @@ class BuildContainerImageTest extends TestCase
                 'docker',
                 'FROM custom/image',
                 [],
-                false,
+                true,
             ],
             [
                 'docker',
@@ -144,7 +144,7 @@ class BuildContainerImageTest extends TestCase
                 'docker',
                 'FROM custom/vapor:php82-arm',
                 [],
-                false,
+                true,
             ],
             [
                 'docker-arm',
