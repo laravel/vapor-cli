@@ -84,7 +84,7 @@ class BuildContainerImage
 
                         return [$key => $value];
                     })
-                );
+                )->toArray();
 
         if (! $this->validateDockerFile($this->environment, $runtime = Manifest::runtime($this->environment), $buildArgs)) {
             Helpers::abort('The base image used in '.Path::dockerfile($this->environment).' is incompatible with the "'.$runtime.'" runtime, or you are running an outdated version of Vapor CLI.');
@@ -115,6 +115,7 @@ class BuildContainerImage
      *
      * @param  string  $environment
      * @param  string  $runtime
+     * @param  array  $buildArgs
      * @return bool
      */
     public function validateDockerFile($environment, $runtime, $buildArgs)
