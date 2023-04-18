@@ -129,7 +129,7 @@ class BuildContainerImage
         }
 
         if (! Str::contains($contents, 'FROM laravelphp/vapor')) {
-            return false;
+            return true;
         }
 
         foreach ($buildArgs as $key => $value) {
