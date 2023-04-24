@@ -127,6 +127,12 @@ class BuildContainerImage
 
             return true;
         }
+        
+        if ($runtime === 'docker-arm' && ! Str::contains($contents, 'FROM laravelphp/vapor')) {
+            Helpers::warn('To ensure compatibility with the "docker-arm" runtime, please make sure that your image is correctly configured for the ARM architecture.');
+
+            return true;
+        }
 
         if (! Str::contains($contents, 'FROM laravelphp/vapor')) {
             return false;

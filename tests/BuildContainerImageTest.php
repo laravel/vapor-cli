@@ -108,7 +108,7 @@ class BuildContainerImageTest extends TestCase
                 'docker-arm',
                 'FROM custom/image',
                 [],
-                false,
+                true,
             ],
             [
                 'docker',
