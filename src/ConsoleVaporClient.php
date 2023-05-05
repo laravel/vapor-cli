@@ -1132,12 +1132,14 @@ class ConsoleVaporClient
      *
      * @param  int  $artifactId
      * @param  array  $manifest
+     * @param  bool  $debugMode
      * @return array
      */
-    public function deploy($artifactId, array $manifest)
+    public function deploy($artifactId, array $manifest, bool $debugMode = false)
     {
         return $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifactId.'/deployments', [
             'manifest' => $manifest,
+            'debug_mode' => $debugMode,
         ]);
     }
 
@@ -1236,13 +1238,15 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
+     * @param  bool  $debugMode
      * @return array
      */
-    public function redeploy($projectId, $environment)
+    public function redeploy($projectId, $environment, $debugMode = false)
     {
         return $this->requestWithErrorHandling(
             'post',
-            '/api/projects/'.$projectId.'/environments/'.$environment.'/redeployments'
+            '/api/projects/'.$projectId.'/environments/'.$environment.'/redeployments',
+            ['debug_mode' => $debugMode]
         );
     }
 

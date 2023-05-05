@@ -5,6 +5,7 @@ namespace Laravel\VaporCli\Commands;
 use Laravel\VaporCli\Helpers;
 use Laravel\VaporCli\Manifest;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class RedeployCommand extends Command
 {
@@ -20,6 +21,7 @@ class RedeployCommand extends Command
         $this
             ->setName('redeploy')
             ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
+            ->addOption('debug', null, InputOption::VALUE_NONE, 'Redeploy with debug mode enabled')
             ->setDescription("Redeploy an environment's latest deployment");
     }
 
@@ -35,7 +37,7 @@ class RedeployCommand extends Command
         Helpers::step('<options=bold>Initiating Redeployment</>');
 
         $deployment = $this->displayDeploymentProgress(
-            $this->vapor->redeploy(Manifest::id(), $this->argument('environment'))
+            $this->vapor->redeploy(Manifest::id(), $this->argument('environment'), $this->option('debug') ?: false)
         );
     }
 }
