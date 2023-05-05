@@ -1238,15 +1238,13 @@ class ConsoleVaporClient
      *
      * @param  string  $projectId
      * @param  string  $environment
-     * @param  bool  $debugMode
      * @return array
      */
-    public function redeploy($projectId, $environment, $debugMode = false)
+    public function redeploy($projectId, $environment)
     {
         return $this->requestWithErrorHandling(
             'post',
-            '/api/projects/'.$projectId.'/environments/'.$environment.'/redeployments',
-            ['debug_mode' => $debugMode]
+            '/api/projects/'.$projectId.'/environments/'.$environment.'/redeployments'
         );
     }
 
