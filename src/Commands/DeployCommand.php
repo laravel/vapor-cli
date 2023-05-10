@@ -34,6 +34,7 @@ class DeployCommand extends Command
             ->addOption('without-waiting', null, InputOption::VALUE_NONE, 'Deploy without waiting for progress')
             ->addOption('fresh-assets', null, InputOption::VALUE_NONE, 'Upload a fresh copy of all assets')
             ->addOption('build-arg', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Docker build argument')
+            ->addOption('debug', null, InputOption::VALUE_OPTIONAL, 'Deploy with debug mode enabled', 'unset')
             ->setDescription('Deploy an environment');
     }
 
@@ -60,7 +61,8 @@ class DeployCommand extends Command
 
         $deployment = $this->handleCancellations($this->vapor->deploy(
             $artifact['id'],
-            Manifest::current()
+            Manifest::current(),
+            $this->debugMode()
         ));
 
         if ($this->option('without-waiting')) {
@@ -324,5 +326,24 @@ class DeployCommand extends Command
                 ->first()->version;
 
         return ltrim($version, 'v');
+    }
+
+    /**
+     * Get the debug mode setting for the deployment.
+     *
+     * @return bool|null
+     */
+    protected function debugMode()
+    {
+        switch ($this->option('debug')) {
+            case 'true':
+                return true;
+            case 'false':
+                return false;
+            case 'unset':
+                return null;
+            default:
+                return true;
+        }
     }
 }

@@ -1132,12 +1132,14 @@ class ConsoleVaporClient
      *
      * @param  int  $artifactId
      * @param  array  $manifest
+     * @param  bool|null  $debugMode
      * @return array
      */
-    public function deploy($artifactId, array $manifest)
+    public function deploy($artifactId, array $manifest, $debugMode)
     {
         return $this->requestWithErrorHandling('post', '/api/artifacts/'.$artifactId.'/deployments', [
             'manifest' => $manifest,
+            'debug_mode' => $debugMode,
         ]);
     }
 
