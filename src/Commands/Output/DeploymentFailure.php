@@ -20,10 +20,17 @@ class DeploymentFailure
         Helpers::line('');
         Helpers::danger('    <bg=red;options=bold> Deployment Failed </>');
 
-        if ($deployment->status_message) {
+        if ($message = $deployment->status_message) {
             Helpers::line('');
-            $message = $deployment->status_message;
-            Helpers::line("    $message");
+
+            $limitEnvironmentMessage = 'AWS: Lambda was unable to configure your environment variables because the environment variables you have provided exceeded the 4KB limit';
+
+            $output = str_contains($message, $limitEnvironmentMessage)
+                ? "    $limitEnvironmentMessage"
+                : "    $message";
+
+            Helpers::line('');
+            Helpers::line($output);
         }
 
         $deployment->solutions()->whenNotEmpty(function ($solutions) {
