@@ -76,7 +76,7 @@ class SolutionsTest extends TestCase
             'status_message' => 'Lambda was unable to configure your environment variables because the environment variables you have provided exceeded the 4KB limit',
         ]);
 
-        $this->assertCount(2, $deployment->solutions());
-        $this->assertStringContainsString('https://vapor.laravel.com/app/projects/1/environments/foo/secrets', $deployment->solutions()[1]);
+        $this->assertCount(1, $deployment->solutions());
+        $this->assertStringContainsString('Use encrypted environment files in place of or in addition to environment variables', $deployment->solutions()[0]);
     }
 }
