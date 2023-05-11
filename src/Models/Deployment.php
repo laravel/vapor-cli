@@ -15,9 +15,17 @@ class Deployment
     public $deployment;
 
     /**
+     * Error messsages containing sensitive information.
+     *
+     * @var array
+     */
+    protected $senstiveStatusMessages = [
+        'AWS: Lambda was unable to configure your environment variables because the environment variables you have provided exceeded the 4KB limit',
+    ];
+
+    /**
      * Create a new model instance.
      *
-     * @param  array  $deployment
      * @return void
      */
     public function __construct(array $deployment)
@@ -28,16 +36,15 @@ class Deployment
     /**
      * Get the names of the displayable steps.
      *
-     * @param  array  $displayedSteps
      * @return array
      */
     public function displayableSteps(array $displayedSteps = [])
     {
         return collect($this->steps)
-                ->filter(function ($step) {
-                    return $step['status'] !== 'pending' &&
-                           $step['status'] !== 'cancelled';
-                })->map(function ($step) {
+            ->filter(function ($step) {
+                return $step['status'] !== 'pending' &&
+                       $step['status'] !== 'cancelled';
+            })->map(function ($step) {
                     return $this->formatDeploymentStepName($step['name']);
                 })->filter(function ($step) use ($displayedSteps) {
                     return ! in_array($step, $displayedSteps);
@@ -47,7 +54,6 @@ class Deployment
     /**
      * Determine if the given deployment step should be displayed.
      *
-     * @param  array  $step
      * @return bool
      */
     protected function stepShouldBeDisplayed(array $step)
@@ -151,10 +157,23 @@ class Deployment
         ])->map(function ($solutionsClass) {
             return new $solutionsClass($this);
         })->filter
-        ->applicable()
-        ->map
-        ->all()
-        ->flatten();
+            ->applicable()
+            ->map
+            ->all()
+            ->flatten();
+    }
+
+    /**
+     * Format the deployment status message removing any sensitive information.
+     *
+     * @return string
+     */
+    public function formattedStatusMessage()
+    {
+        return collect($this->senstiveStatusMessages)
+            ->first(function ($message) {
+                return Str::contains($this->status_message, $message);
+            }) ?: $this->status_message;
     }
 
     /**

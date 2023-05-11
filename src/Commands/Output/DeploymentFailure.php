@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\Commands\Output;
 
-use Illuminate\Support\Str;
 use Laravel\VaporCli\Commands\HookOutputCommand;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Helpers;
@@ -13,7 +12,6 @@ class DeploymentFailure
     /**
      * Render the output.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      * @return void
      */
     public function render(Deployment $deployment)
@@ -21,17 +19,9 @@ class DeploymentFailure
         Helpers::line('');
         Helpers::danger('    <bg=red;options=bold> Deployment Failed </>');
 
-        if ($message = $deployment->status_message) {
+        if ($deployment->status_message) {
             Helpers::line('');
-
-            $limitEnvironmentMessage = 'AWS: Lambda was unable to configure your environment variables because the environment variables you have provided exceeded the 4KB limit';
-
-            $output = Str::contains($message, $limitEnvironmentMessage)
-                ? "    $limitEnvironmentMessage"
-                : "    $message";
-
-            Helpers::line('');
-            Helpers::line($output);
+            Helpers::line($deployment->formattedStatusMessage());
         }
 
         $deployment->solutions()->whenNotEmpty(function ($solutions) {
