@@ -5,7 +5,7 @@ namespace Laravel\VaporCli\Solutions;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\Deployment;
 
-class EnvironmentHasExceededLimit
+class EnvironmentVariableLimitReached
 {
     /**
      * The deployment that have failed.
@@ -45,8 +45,7 @@ class EnvironmentHasExceededLimit
     public function all()
     {
         return [
-            'You can use encrypted environment files in place of or in addition to environment variables: https://docs.vapor.build/1.0/projects/environments.html#encrypted-environment-files',
-            'You can also use the "Secrets" feature in conjunction with "Keys": https://vapor.laravel.com/app/projects/'.$this->deployment->project_id.'/environments/'.$this->deployment->environment['name'].'/secrets',
+            'Use encrypted environment files in place of or in addition to environment variables: https://docs.vapor.build/1.0/projects/environments.html#encrypted-environment-files',
         ];
     }
 }

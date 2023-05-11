@@ -153,7 +153,7 @@ class Deployment
             Solutions\FunctionExceedsMaximumAllowedSize::class,
             Solutions\ResourceUpdateInProgress::class,
             Solutions\RunDeploymentHooksTimedOut::class,
-            Solutions\EnvironmentHasExceededLimit::class,
+            Solutions\EnvironmentVariableLimitReached::class,
         ])->map(function ($solutionsClass) {
             return new $solutionsClass($this);
         })->filter
