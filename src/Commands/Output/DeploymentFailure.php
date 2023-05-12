@@ -12,7 +12,6 @@ class DeploymentFailure
     /**
      * Render the output.
      *
-     * @param  \Laravel\VaporCli\Models\Deployment  $deployment
      * @return void
      */
     public function render(Deployment $deployment)
@@ -22,8 +21,7 @@ class DeploymentFailure
 
         if ($deployment->status_message) {
             Helpers::line('');
-            $message = $deployment->status_message;
-            Helpers::line("    $message");
+            Helpers::line($deployment->formattedStatusMessage());
         }
 
         $deployment->solutions()->whenNotEmpty(function ($solutions) {

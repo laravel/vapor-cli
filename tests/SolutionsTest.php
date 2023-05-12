@@ -67,4 +67,16 @@ class SolutionsTest extends TestCase
         $this->assertCount(2, $deployment->solutions());
         $this->assertStringContainsString('https://vapor.laravel.com/app/projects/1/environments/foo/logs', $deployment->solutions()[1]);
     }
+
+    public function test_environment_has_exceeded_limit()
+    {
+        $deployment = new Deployment([
+            'project_id' => 1,
+            'environment' => ['name' => 'foo'],
+            'status_message' => 'Lambda was unable to configure your environment variables because the environment variables you have provided exceeded the 4KB limit',
+        ]);
+
+        $this->assertCount(1, $deployment->solutions());
+        $this->assertStringContainsString('Use encrypted environment files in place of or in addition to environment variables', $deployment->solutions()[0]);
+    }
 }
