@@ -154,6 +154,7 @@ class Deployment
             Solutions\ResourceUpdateInProgress::class,
             Solutions\RunDeploymentHooksTimedOut::class,
             Solutions\EnvironmentVariableLimitReached::class,
+            Solutions\EnvironmentIsUnhealthy::class,
         ])->map(function ($solutionsClass) {
             return new $solutionsClass($this);
         })->filter
