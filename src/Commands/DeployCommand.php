@@ -139,7 +139,7 @@ class DeployCommand extends Command
      */
     protected function assetDomain(array $project)
     {
-        if ($this->usesCloudFront() && $domain = $this->customAssetDomain()) {
+        if ($domain = $this->customAssetDomain()) {
             return "https://$domain";
         }
 
