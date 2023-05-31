@@ -36,6 +36,7 @@ class ExecuteBuildCommandsTest extends TestCase
                         'a optimize:clear',
                         'php artisan optimize',
                         'php artisan optimize:clear',
+                        'php artisan route:cache',
                     ],
                 ],
             ],

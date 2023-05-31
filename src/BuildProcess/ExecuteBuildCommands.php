@@ -17,6 +17,7 @@ class ExecuteBuildCommands
     protected $unsupportedCommands = [
         'clear-compiled',
         'optimize:clear',
+        'route:cache',
     ];
 
     /**
