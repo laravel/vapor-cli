@@ -122,14 +122,11 @@ class BuildContainerImage
     {
         $contents = file_get_contents(Path::dockerfile($environment));
 
-        if ($runtime === 'docker' && ! Str::contains($contents, 'FROM laravelphp/vapor')) {
-            Helpers::warn('To ensure compatibility with the "docker" runtime, please make sure that your image is correctly configured for the x86 architecture.');
+        if (in_array($runtime, ['docker', 'docker-arm']) && ! Str::contains($contents, 'FROM laravelphp/vapor')) {
+            $arch = $runtime === 'docker' ? 'x86' : 'ARM';
+            Helpers::warn("To ensure compatibility with the \"{$runtime}\" runtime, please make sure that your image is correctly configured for the {$arch} architecture.");
 
             return true;
-        }
-
-        if (! Str::contains($contents, 'FROM laravelphp/vapor')) {
-            return false;
         }
 
         foreach ($buildArgs as $key => $value) {
