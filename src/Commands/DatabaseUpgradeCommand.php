@@ -14,12 +14,12 @@ class DatabaseUpgradeCommand extends Command
      * @var array
      */
     protected $databaseTypes = [
-        'rds'                     => 'Fixed Size MySQL Instance 8.0 (Free Tier Eligible)',
-        'rds-mysql-5.7'           => 'Fixed Size MySQL Instance 5.7 (Free Tier Eligible)',
-        'aurora-serverless'       => 'Serverless v1 MySQL 5.7 Aurora Cluster',
-        'aurora-serverless-v2'    => 'Serverless v2 MySQL 8.0 Aurora Cluster',
-        'rds-pgsql-13.4'          => 'Fixed Size PostgreSQL Instance 13.4',
-        'rds-pgsql'               => 'Fixed Size PostgreSQL Instance 10.7',
+        'rds' => 'Fixed Size MySQL Instance 8.0 (Free Tier Eligible)',
+        'rds-mysql-5.7' => 'Fixed Size MySQL Instance 5.7 (Free Tier Eligible)',
+        'aurora-serverless' => 'Serverless v1 MySQL 5.7 Aurora Cluster',
+        'aurora-serverless-v2' => 'Serverless v2 MySQL 8.0 Aurora Cluster',
+        'rds-pgsql-13.11' => 'Fixed Size PostgreSQL Instance 13.11',
+        'rds-pgsql' => 'Fixed Size PostgreSQL Instance 10.7',
         'aurora-serverless-pgsql' => 'Serverless PostgreSQL 10.7 Aurora Cluster',
         'aurora-serverless-v2-pgsql' => 'Serverless v2 PostgreSQL 14.3 Aurora Cluster',
     ];
