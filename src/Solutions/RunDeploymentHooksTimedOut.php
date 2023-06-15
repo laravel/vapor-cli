@@ -3,7 +3,6 @@
 namespace Laravel\VaporCli\Solutions;
 
 use Illuminate\Support\Str;
-use Laravel\VaporCli\Deployment;
 
 class RunDeploymentHooksTimedOut
 {
