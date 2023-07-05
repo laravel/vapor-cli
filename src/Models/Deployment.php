@@ -21,6 +21,7 @@ class Deployment
      */
     protected $senstiveStatusMessages = [
         'AWS: Lambda was unable to configure your environment variables because the environment variables you have provided exceeded the 4KB limit',
+        'Unable to obtain a healthy response from the environment being deployed.',
     ];
 
     /**

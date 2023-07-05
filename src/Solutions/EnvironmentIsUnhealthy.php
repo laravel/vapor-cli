@@ -43,8 +43,11 @@ class EnvironmentIsUnhealthy
      */
     public function all()
     {
+        $requestId = Str::afterLast($this->deployment->status_message, 'Request ID: ');
+        $start = (time() - 300) * 1000;
+
         return [
-            'Review "CLI" environment logs: https://vapor.laravel.com/app/projects/'.$this->deployment->project_id.'/environments/'.$this->deployment->environment['name'].'/logs?period=5m&type=cli',
+            'Review "CLI" environment logs: https://vapor.laravel.com/app/projects/'.$this->deployment->project_id.'/environments/'.$this->deployment->environment['name'].'/logs/'.$requestId.'?start=' . $start . '&type=cli&level=error',
         ];
     }
 }
