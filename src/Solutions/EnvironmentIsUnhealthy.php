@@ -47,7 +47,7 @@ class EnvironmentIsUnhealthy
         $start = (time() - 300) * 1000;
 
         return [
-            'Review "CLI" environment logs: https://vapor.laravel.com/app/projects/'.$this->deployment->project_id.'/environments/'.$this->deployment->environment['name'].'/logs/'.$requestId.'?start=' . $start . '&type=cli&level=error',
+            'Review "CLI" environment logs: https://vapor.laravel.com/app/projects/'.$this->deployment->project_id.'/environments/'.$this->deployment->environment['name'].'/logs/'.$requestId.'?start='.$start.'&type=cli&level=error',
         ];
     }
 }
