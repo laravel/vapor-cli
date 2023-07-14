@@ -14,13 +14,21 @@ class Docker
      * @param  string  $path
      * @param  string  $project
      * @param  string  $environment
+     * @param  array  $cliDockerArgs
      * @param  array  $cliBuildArgs
      * @return void
      */
-    public static function build($path, $project, $environment, $cliBuildArgs)
+    public static function build($path, $project, $environment, $cliDockerArgs, $cliBuildArgs)
     {
         Process::fromShellCommandline(
-            static::buildCommand($project, $environment, $cliBuildArgs, Manifest::dockerBuildArgs($environment)),
+            static::buildCommand(
+                $project,
+                $environment,
+                $cliDockerArgs,
+                Manifest::dockerArgs($environment),
+                $cliBuildArgs,
+                Manifest::dockerBuildArgs($environment)
+            ),
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
             Helpers::write($line);
@@ -32,16 +40,17 @@ class Docker
      *
      * @param  string  $project
      * @param  string  $environment
+     * @param  array  $cliDockerBuildArgs
      * @param  array  $cliBuildArgs
      * @param  array  $manifestBuildArgs
      * @return string
      */
-    public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs)
+    public static function buildCommand($project, $environment, $cliDockerArgs, $manifestDockerArgs, $cliBuildArgs, $manifestBuildArgs)
     {
-        return sprintf('docker build --pull --file=%s --tag=%s %s.',
+        return sprintf('docker build --pull --file=%s --tag=%s %s %s .',
             Manifest::dockerfile($environment),
             Str::slug($project).':'.$environment,
-            Collection::make($manifestBuildArgs)
+            trim(Collection::make($manifestBuildArgs)
                 ->merge(Collection::make($cliBuildArgs)
                     ->mapWithKeys(function ($value) {
                         [$key, $value] = explode('=', $value, 2);
@@ -50,7 +59,17 @@ class Docker
                     })
                 )->map(function ($value, $key) {
                     return '--build-arg='.escapeshellarg("{$key}={$value}").' ';
-                })->implode('')
+                })->implode('')),
+            trim(Collection::make($manifestDockerArgs)
+                ->merge(Collection::make($cliDockerArgs)
+                    ->mapWithKeys(function ($value) {
+                        [$key, $value] = explode('=', $value, 2);
+
+                        return [$key => $value];
+                    })
+                )->map(function ($value, $key) {
+                    return "--${key}=".escapeshellarg($value).' ';
+                })->implode(''))
         );
     }
 

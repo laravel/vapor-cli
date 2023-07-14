@@ -45,6 +45,13 @@ class BuildContainerImage
     protected $cliBuildArgs;
 
     /**
+     * The Docker CLI arguments.
+     *
+     * @var array
+     */
+    protected $cliDockerArgs;
+
+    /**
      * The Docker manifest build arguments.
      *
      * @var array
@@ -55,13 +62,16 @@ class BuildContainerImage
      * Create a new project builder.
      *
      * @param  string|null  $environment
-     * @param  array  $buildArgs
+     * @param  array  $cliDockerArgs
+     * @param  array  $cliBuildArgs
+     * @param  array  $manifestBuildArgs
      * @return void
      */
-    public function __construct($environment = null, $cliBuildArgs = [], $manifestBuildArgs = [])
+    public function __construct($environment = null, $cliDockerArgs = [], $cliBuildArgs = [], $manifestBuildArgs = [])
     {
         $this->baseConstructor($environment);
 
+        $this->cliDockerArgs = $cliDockerArgs;
         $this->cliBuildArgs = $cliBuildArgs;
         $this->manifestBuildArgs = $manifestBuildArgs;
     }
@@ -96,6 +106,7 @@ class BuildContainerImage
             $this->appPath,
             Manifest::name(),
             $this->environment,
+            $this->cliDockerArgs,
             $this->formatBuildArguments()
         );
     }

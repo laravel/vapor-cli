@@ -55,7 +55,7 @@ class BuildContainerImageTest extends TestCase
             ],
         ]));
 
-        $buildArgs = (new BuildContainerImage('production', ['FOO=BAR', 'BAR=BAZ']))->formatBuildArguments();
+        $buildArgs = (new BuildContainerImage('production', [], ['FOO=BAR', 'BAR=BAZ']))->formatBuildArguments();
 
         $this->assertSame(['__VAPOR_RUNTIME=docker', 'FOO=BAR', 'BAR=BAZ'], $buildArgs);
     }

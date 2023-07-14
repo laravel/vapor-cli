@@ -96,6 +96,17 @@ class Manifest
     }
 
     /**
+     * Get the Docker arguments.
+     *
+     * @param  string  $environment
+     * @return array
+     */
+    public static function dockerArgs($environment)
+    {
+        return static::current()['environments'][$environment]['docker-args'] ?? [];
+    }
+
+    /**
      * Determine if the environment uses a database proxy.
      *
      * @param  string  $environment

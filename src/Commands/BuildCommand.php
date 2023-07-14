@@ -88,7 +88,12 @@ class BuildCommand extends Command
             new ExtractVendorToSeparateDirectory($this->argument('environment')),
             new CompressApplication($this->argument('environment')),
             new CompressVendor($this->argument('environment')),
-            new BuildContainerImage($this->argument('environment'), $this->option('build-arg'), Manifest::dockerBuildArgs($this->argument('environment'))),
+            new BuildContainerImage(
+                $this->argument('environment'),
+                $this->option('docker-arg'),
+                $this->option('build-arg'),
+                Manifest::dockerBuildArgs($this->argument('environment'))
+            ),
         ])->each->__invoke();
 
         $time = (new DateTime())->diff($startedAt)->format('%im%Ss');
