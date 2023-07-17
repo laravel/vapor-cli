@@ -40,7 +40,8 @@ class Docker
      *
      * @param  string  $project
      * @param  string  $environment
-     * @param  array  $cliDockerBuildArgs
+     * @param  array  $cliDockerArgs
+     * @param  array  $manifestDockerArgs
      * @param  array  $cliBuildArgs
      * @param  array  $manifestBuildArgs
      * @return string
