@@ -62,13 +62,27 @@ class Docker
                     return '--build-arg='.escapeshellarg("{$key}={$value}").' ';
                 })->implode('')),
             trim(Collection::make($manifestDockerArgs)
+                ->mapWithKeys(function ($value) {
+                    if (is_array($value)) {
+                        return $value;
+                    }
+
+                    return [$value => null];
+                })
                 ->merge(Collection::make($cliDockerArgs)
                     ->mapWithKeys(function ($value) {
-                        [$key, $value] = explode('=', $value, 2);
+                        if (!str_contains($value, '=')) {
+                            return [$value => null];
+                        }
 
+                        [$key, $value] = explode('=', $value, 2);
                         return [$key => $value];
                     })
                 )->map(function ($value, $key) {
+                    if ($value === null) {
+                        return "--${key} ";
+                    }
+
                     return "--${key}=".escapeshellarg($value).' ';
                 })->implode(''))
         );
