@@ -76,6 +76,7 @@ class Docker
                         }
 
                         [$key, $value] = explode('=', $value, 2);
+
                         return [$key => $value];
                     })
                 )->map(function ($value, $key) {
