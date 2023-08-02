@@ -71,7 +71,7 @@ class Docker
                 })
                 ->merge(Collection::make($cliDockerArgs)
                     ->mapWithKeys(function ($value) {
-                        if (!str_contains($value, '=')) {
+                        if (! str_contains($value, '=')) {
                             return [$value => null];
                         }
 
