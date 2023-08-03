@@ -90,7 +90,7 @@ class BuildCommand extends Command
             new CompressVendor($this->argument('environment')),
             new BuildContainerImage(
                 $this->argument('environment'),
-                $this->option('docker-arg'),
+                $this->option('docker-option'),
                 $this->option('build-arg'),
                 Manifest::dockerBuildArgs($this->argument('environment'))
             ),

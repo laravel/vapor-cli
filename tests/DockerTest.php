@@ -57,19 +57,19 @@ class DockerTest extends TestCase
         $this->assertEquals($expectedCommand, $command);
     }
 
-    public function test_build_command_cli_docker_args()
+    public function test_build_command_cli_docker_options()
     {
-        $cliDockerArgs = ['BAR=FOO', 'FIZZ=BAZZ', 'FIZZLE', 'BUZZLE'];
-        $command = Docker::buildCommand('my-project', 'production', $cliDockerArgs, [], [], []);
+        $cliDockerOptions = ['BAR=FOO', 'FIZZ=BAZZ', 'FIZZLE', 'BUZZLE'];
+        $command = Docker::buildCommand('my-project', 'production', $cliDockerOptions, [], [], []);
         $expectedCommand = 'docker build --pull --file=production.Dockerfile --tag=my-project:production  '.
             "--BAR='FOO' --FIZZ='BAZZ' --FIZZLE --BUZZLE .";
         $this->assertEquals($expectedCommand, $command);
     }
 
-    public function test_build_command_manifest_docker_args()
+    public function test_build_command_manifest_docker_options()
     {
-        $manifestDockerArgs = [['FOO' => 'BAR'], ['FIZZ' => 'BUZZ'], 'FIZZLE', 'BUZZLE'];
-        $command = Docker::buildCommand('my-project', 'production', [], $manifestDockerArgs, [], []);
+        $manifestDockerOptions = [['FOO' => 'BAR'], ['FIZZ' => 'BUZZ'], 'FIZZLE', 'BUZZLE'];
+        $command = Docker::buildCommand('my-project', 'production', [], $manifestDockerOptions, [], []);
         $expectedCommand = 'docker build --pull --file=production.Dockerfile --tag=my-project:production  '.
             "--FOO='BAR' --FIZZ='BUZZ' --FIZZLE --BUZZLE .";
         $this->assertEquals($expectedCommand, $command);
@@ -77,19 +77,19 @@ class DockerTest extends TestCase
 
     public function test_build_command_cli_and_manifest_docker_args()
     {
-        $cliDockerArgs = ['BAR=FOO', 'FIZZ=BAZZ', 'FIZZLE', 'BUZZLE'];
-        $manifestDockerArgs = [['FOO' => 'BAR'], ['FIZZ' => 'BUZZ'], 'FIZZLY', 'BUZZLY'];
-        $command = Docker::buildCommand('my-project', 'production', $cliDockerArgs, $manifestDockerArgs, [], []);
+        $cliDockerOptions = ['BAR=FOO', 'FIZZ=BAZZ', 'FIZZLE', 'BUZZLE'];
+        $manifestDockerOptions = [['FOO' => 'BAR'], ['FIZZ' => 'BUZZ'], 'FIZZLY', 'BUZZLY'];
+        $command = Docker::buildCommand('my-project', 'production', $cliDockerOptions, $manifestDockerOptions, [], []);
         $expectedCommand = 'docker build --pull --file=production.Dockerfile --tag=my-project:production  '.
             "--FOO='BAR' --FIZZ='BAZZ' --FIZZLY --BUZZLY --BAR='FOO' --FIZZLE --BUZZLE .";
         $this->assertEquals($expectedCommand, $command);
     }
 
-    public function test_build_command_cli_docker_args_and_cli_build_args()
+    public function test_build_command_cli_docker_options_and_cli_build_args()
     {
-        $cliDockerArgs = ['BAR=FOO', 'FIZZ=BAZZ'];
+        $cliDockerOptions = ['BAR=FOO', 'FIZZ=BAZZ'];
         $cliBuildArgs = ['BAR=FOO', 'FIZZ=BAZZ'];
-        $command = Docker::buildCommand('my-project', 'production', $cliDockerArgs, [], $cliBuildArgs, []);
+        $command = Docker::buildCommand('my-project', 'production', $cliDockerOptions, [], $cliBuildArgs, []);
         $expectedCommand = 'docker build --pull --file=production.Dockerfile --tag=my-project:production '.
             "--build-arg='BAR=FOO' --build-arg='FIZZ=BAZZ' --BAR='FOO' --FIZZ='BAZZ' .";
         $this->assertEquals($expectedCommand, $command);

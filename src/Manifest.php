@@ -96,14 +96,14 @@ class Manifest
     }
 
     /**
-     * Get the Docker arguments.
+     * Get the Docker options.
      *
      * @param  string  $environment
      * @return array
      */
-    public static function dockerArgs($environment)
+    public static function dockerOptions($environment)
     {
-        return static::current()['environments'][$environment]['docker-args'] ?? [];
+        return static::current()['environments'][$environment]['docker-options'] ?? [];
     }
 
     /**
