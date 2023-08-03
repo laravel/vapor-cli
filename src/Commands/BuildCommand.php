@@ -45,6 +45,7 @@ class BuildCommand extends Command
             ->addArgument('environment', InputArgument::OPTIONAL, 'The environment name')
             ->addOption('asset-url', null, InputOption::VALUE_OPTIONAL, 'The asset base URL')
             ->addOption('build-arg', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Docker build argument')
+            ->addOption('build-option', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Docker build option')
             ->setDescription('Build the project archive');
     }
 
@@ -90,7 +91,7 @@ class BuildCommand extends Command
             new CompressVendor($this->argument('environment')),
             new BuildContainerImage(
                 $this->argument('environment'),
-                $this->option('docker-option'),
+                $this->option('build-option'),
                 $this->option('build-arg'),
                 Manifest::dockerBuildArgs($this->argument('environment'))
             ),
