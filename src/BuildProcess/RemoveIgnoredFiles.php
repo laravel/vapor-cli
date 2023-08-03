@@ -40,7 +40,7 @@ class RemoveIgnoredFiles
             Path::app().'/.env.example',
             Path::app().'/.phpunit.result.cache',
             Path::app().'/package-lock.json',
-            // Path::app().'/phpunit.xml',
+            Path::app().'/phpunit.xml',
             Path::app().'/readme.md',
             Path::app().'/server.php',
             Path::app().'/storage/oauth-private.key',
@@ -132,10 +132,10 @@ class RemoveIgnoredFiles
                 $this->files->deleteDirectory($directory.'/'.$filePattern, $preserve = false);
             } else {
                 $files = (new Finder())
-                    ->in($directory)
-                    ->depth('== 0')
-                    ->ignoreDotFiles(false)
-                    ->name($filePattern);
+                            ->in($directory)
+                            ->depth('== 0')
+                            ->ignoreDotFiles(false)
+                            ->name($filePattern);
 
                 foreach ($files as $file) {
                     Helpers::step('<comment>Removing Ignored File:</comment> '.str_replace(Path::app().'/', '', $file->getRealPath()));
