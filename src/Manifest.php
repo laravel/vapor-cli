@@ -101,9 +101,9 @@ class Manifest
      * @param  string  $environment
      * @return array
      */
-    public static function dockerOptions($environment)
+    public static function dockerBuildOptions($environment)
     {
-        return static::current()['environments'][$environment]['docker-options'] ?? [];
+        return static::current()['environments'][$environment]['docker-build-options'] ?? [];
     }
 
     /**

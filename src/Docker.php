@@ -14,18 +14,18 @@ class Docker
      * @param  string  $path
      * @param  string  $project
      * @param  string  $environment
-     * @param  array  $cliDockerOptions
+     * @param  array  $cliBuildOptions
      * @param  array  $cliBuildArgs
      * @return void
      */
-    public static function build($path, $project, $environment, $cliDockerOptions, $cliBuildArgs)
+    public static function build($path, $project, $environment, $cliBuildOptions, $cliBuildArgs)
     {
         Process::fromShellCommandline(
             static::buildCommand(
                 $project,
                 $environment,
-                $cliDockerOptions,
-                Manifest::dockerOptions($environment),
+                $cliBuildOptions,
+                Manifest::dockerBuildOptions($environment),
                 $cliBuildArgs,
                 Manifest::dockerBuildArgs($environment)
             ),
@@ -40,13 +40,13 @@ class Docker
      *
      * @param  string  $project
      * @param  string  $environment
-     * @param  array  $cliDockerOptions
-     * @param  array  $manifestDockerOptions
+     * @param  array  $cliBuildOptions
+     * @param  array  $manifestBuildOptions
      * @param  array  $cliBuildArgs
      * @param  array  $manifestBuildArgs
      * @return string
      */
-    public static function buildCommand($project, $environment, $cliDockerOptions, $manifestDockerOptions, $cliBuildArgs, $manifestBuildArgs)
+    public static function buildCommand($project, $environment, $cliBuildOptions, $manifestBuildOptions, $cliBuildArgs, $manifestBuildArgs)
     {
         $command = sprintf(
             'docker build --pull --file=%s --tag=%s ', 
@@ -65,7 +65,7 @@ class Docker
                 return '--build-arg='.escapeshellarg("{$key}={$value}");
             })->implode(' ');
 
-        $dockerOptions = Collection::make($manifestDockerOptions)
+        $buildOptions = Collection::make($manifestBuildOptions)
             ->mapWithKeys(function ($value) {
                 if (is_array($value)) {
                     return $value;
@@ -73,7 +73,7 @@ class Docker
 
                 return [$value => null];
             })
-            ->merge(Collection::make($cliDockerOptions)
+            ->merge(Collection::make($cliBuildOptions)
                 ->mapWithKeys(function ($value) {
                     if (! str_contains($value, '=')) {
                         return [$value => null];
@@ -92,7 +92,7 @@ class Docker
             })->implode(' ');
 
         $command = $buildArgs ? $command.$buildArgs.' ' : $command;
-        $command = $dockerOptions ? $command.$dockerOptions.' ' : $command;
+        $command = $buildOptions ? $command.$buildOptions.' ' : $command;
         $command .= '.';
 
         return $command;
