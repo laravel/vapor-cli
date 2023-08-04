@@ -20,15 +20,19 @@ class Docker
      */
     public static function build($path, $project, $environment, $cliBuildOptions, $cliBuildArgs)
     {
+        $buildCommand = static::buildCommand(
+            $project,
+            $environment,
+            $cliBuildOptions,
+            Manifest::dockerBuildOptions($environment),
+            $cliBuildArgs,
+            Manifest::dockerBuildArgs($environment)
+        );
+
+        Helpers::line(sprintf('Build command: %s', $buildCommand));
+
         Process::fromShellCommandline(
-            static::buildCommand(
-                $project,
-                $environment,
-                $cliBuildOptions,
-                Manifest::dockerBuildOptions($environment),
-                $cliBuildArgs,
-                Manifest::dockerBuildArgs($environment)
-            ),
+            $buildCommand,
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
             Helpers::write($line);
@@ -49,7 +53,7 @@ class Docker
     public static function buildCommand($project, $environment, $cliBuildOptions, $manifestBuildOptions, $cliBuildArgs, $manifestBuildArgs)
     {
         $command = sprintf(
-            'docker build --pull --file=%s --tag=%s ', 
+            'docker build --pull --file=%s --tag=%s ',
             Manifest::dockerfile($environment),
             Str::slug($project).':'.$environment
         );
