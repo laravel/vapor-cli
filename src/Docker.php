@@ -23,10 +23,10 @@ class Docker
         $buildCommand = static::buildCommand(
             $project,
             $environment,
-            $cliBuildOptions,
-            Manifest::dockerBuildOptions($environment),
             $cliBuildArgs,
-            Manifest::dockerBuildArgs($environment)
+            Manifest::dockerBuildArgs($environment),
+            $cliBuildOptions,
+            Manifest::dockerBuildOptions($environment)
         );
 
         Helpers::line(sprintf('Build command: %s', $buildCommand));
@@ -44,13 +44,13 @@ class Docker
      *
      * @param  string  $project
      * @param  string  $environment
-     * @param  array  $cliBuildOptions
-     * @param  array  $manifestBuildOptions
      * @param  array  $cliBuildArgs
      * @param  array  $manifestBuildArgs
+     * @param  array  $cliBuildOptions
+     * @param  array  $manifestBuildOptions
      * @return string
      */
-    public static function buildCommand($project, $environment, $cliBuildOptions, $manifestBuildOptions, $cliBuildArgs, $manifestBuildArgs)
+    public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs, $cliBuildOptions, $manifestBuildOptions)
     {
         $command = sprintf(
             'docker build --pull --file=%s --tag=%s ',

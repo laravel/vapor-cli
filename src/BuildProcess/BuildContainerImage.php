@@ -62,17 +62,17 @@ class BuildContainerImage
      * Create a new project builder.
      *
      * @param  string|null  $environment
-     * @param  array  $cliBuildOptions
      * @param  array  $cliBuildArgs
+     * @param  array  $cliBuildOptions
      * @param  array  $manifestBuildArgs
      * @return void
      */
-    public function __construct($environment = null, $cliBuildOptions = [], $cliBuildArgs = [], $manifestBuildArgs = [])
+    public function __construct($environment = null, $cliBuildArgs = [], $cliBuildOptions = [], $manifestBuildArgs = [])
     {
         $this->baseConstructor($environment);
 
-        $this->cliBuildOptions = $cliBuildOptions;
         $this->cliBuildArgs = $cliBuildArgs;
+        $this->cliBuildOptions = $cliBuildOptions;
         $this->manifestBuildArgs = $manifestBuildArgs;
     }
 
