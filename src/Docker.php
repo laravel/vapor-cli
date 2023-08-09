@@ -14,11 +14,11 @@ class Docker
      * @param  string  $path
      * @param  string  $project
      * @param  string  $environment
-     * @param  array  $cliBuildOptions
      * @param  array  $cliBuildArgs
+     * @param  array  $cliBuildOptions
      * @return void
      */
-    public static function build($path, $project, $environment, $cliBuildOptions, $cliBuildArgs)
+    public static function build($path, $project, $environment, $cliBuildArgs, $cliBuildOptions)
     {
         $buildCommand = static::buildCommand(
             $project,

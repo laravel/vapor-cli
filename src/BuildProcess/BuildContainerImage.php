@@ -106,8 +106,8 @@ class BuildContainerImage
             $this->appPath,
             Manifest::name(),
             $this->environment,
-            $this->cliBuildOptions,
-            $this->formatBuildArguments()
+            $this->formatBuildArguments(),
+            $this->cliBuildOptions
         );
     }
 
