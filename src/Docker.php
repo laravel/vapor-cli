@@ -15,12 +15,24 @@ class Docker
      * @param  string  $project
      * @param  string  $environment
      * @param  array  $cliBuildArgs
+     * @param  array  $cliBuildOptions
      * @return void
      */
-    public static function build($path, $project, $environment, $cliBuildArgs)
+    public static function build($path, $project, $environment, $cliBuildArgs, $cliBuildOptions)
     {
+        $buildCommand = static::buildCommand(
+            $project,
+            $environment,
+            $cliBuildArgs,
+            Manifest::dockerBuildArgs($environment),
+            $cliBuildOptions,
+            Manifest::dockerBuildOptions($environment)
+        );
+
+        Helpers::line(sprintf('Build command: %s', $buildCommand));
+
         Process::fromShellCommandline(
-            static::buildCommand($project, $environment, $cliBuildArgs, Manifest::dockerBuildArgs($environment)),
+            $buildCommand,
             $path
         )->setTimeout(null)->mustRun(function ($type, $line) {
             Helpers::write($line);
@@ -34,24 +46,60 @@ class Docker
      * @param  string  $environment
      * @param  array  $cliBuildArgs
      * @param  array  $manifestBuildArgs
+     * @param  array  $cliBuildOptions
+     * @param  array  $manifestBuildOptions
      * @return string
      */
-    public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs)
+    public static function buildCommand($project, $environment, $cliBuildArgs, $manifestBuildArgs, $cliBuildOptions, $manifestBuildOptions)
     {
-        return sprintf('docker build --pull --file=%s --tag=%s %s.',
+        $command = sprintf(
+            'docker build --pull --file=%s --tag=%s ',
             Manifest::dockerfile($environment),
-            Str::slug($project).':'.$environment,
-            Collection::make($manifestBuildArgs)
-                ->merge(Collection::make($cliBuildArgs)
-                    ->mapWithKeys(function ($value) {
-                        [$key, $value] = explode('=', $value, 2);
-
-                        return [$key => $value];
-                    })
-                )->map(function ($value, $key) {
-                    return '--build-arg='.escapeshellarg("{$key}={$value}").' ';
-                })->implode('')
+            Str::slug($project).':'.$environment
         );
+
+        $buildArgs = Collection::make($manifestBuildArgs)
+            ->merge(Collection::make($cliBuildArgs)
+                ->mapWithKeys(function ($value) {
+                    [$key, $value] = explode('=', $value, 2);
+
+                    return [$key => $value];
+                })
+            )->map(function ($value, $key) {
+                return '--build-arg='.escapeshellarg("{$key}={$value}");
+            })->implode(' ');
+
+        $buildOptions = Collection::make($manifestBuildOptions)
+            ->mapWithKeys(function ($value) {
+                if (is_array($value)) {
+                    return $value;
+                }
+
+                return [$value => null];
+            })
+            ->merge(Collection::make($cliBuildOptions)
+                ->mapWithKeys(function ($value) {
+                    if (! str_contains($value, '=')) {
+                        return [$value => null];
+                    }
+
+                    [$key, $value] = explode('=', $value, 2);
+
+                    return [$key => $value];
+                })
+            )->map(function ($value, $key) {
+                if ($value === null) {
+                    return "--{$key}";
+                }
+
+                return "--{$key}=".escapeshellarg($value);
+            })->implode(' ');
+
+        $command = $buildArgs ? $command.$buildArgs.' ' : $command;
+        $command = $buildOptions ? $command.$buildOptions.' ' : $command;
+        $command .= '.';
+
+        return $command;
     }
 
     /**

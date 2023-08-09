@@ -96,6 +96,17 @@ class Manifest
     }
 
     /**
+     * Get the Docker options.
+     *
+     * @param  string  $environment
+     * @return array
+     */
+    public static function dockerBuildOptions($environment)
+    {
+        return static::current()['environments'][$environment]['docker-build-options'] ?? [];
+    }
+
+    /**
      * Determine if the environment uses a database proxy.
      *
      * @param  string  $environment
