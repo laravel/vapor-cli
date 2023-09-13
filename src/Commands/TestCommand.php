@@ -30,7 +30,7 @@ class TestCommand extends Command
         $this
             ->setName('test')
             ->addOption('php', null, InputOption::VALUE_OPTIONAL, 'The PHP version that should be used to execute the tests')
-            ->setDescription('Run PHPUnit inside a simulated Vapor environment');
+            ->setDescription('Run PHPUnit or Pest inside a simulated Vapor environment');
     }
 
     /**
@@ -42,10 +42,20 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        array_splice($_SERVER['argv'], 2, 0, 'vendor/bin/phpunit');
+        array_splice($_SERVER['argv'], 2, 0, $this->getTestRunnerBinary());
 
         $this->getApplication()->find('local')->run(new ArrayInput([
             '--php' => $this->option('php'),
         ]), $this->output);
+    }
+
+    /**
+     * Returns the test runner binary.
+     *
+     * @return string
+     */
+    protected function getTestRunnerBinary()
+    {
+        return is_executable('vendor/bin/pest') ? 'vendor/bin/pest' : 'vendor/bin/phpunit';
     }
 }
