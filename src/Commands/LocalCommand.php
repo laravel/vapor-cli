@@ -79,6 +79,7 @@ class LocalCommand extends Command
                 '-e DB_USERNAME=vapor',
                 '-e DB_PASSWORD=secret',
                 '-e REDIS_HOST=redis',
+                '-w /app',
                 '-v',
                 Path::current().':/app',
                 'app',
