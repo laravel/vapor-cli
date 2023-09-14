@@ -57,7 +57,7 @@ class LocalCommand extends Command
      */
     public function handle()
     {
-        $options = array_slice($_SERVER['argv'], $this->option('php') ? 3 : 2);
+        $options = array_slice($_SERVER['argv'], $this->option('php') && array_search('--php='.$this->option('php'), $_SERVER['argv']) !== false ? 3 : 2);
 
         $status = 0;
 
