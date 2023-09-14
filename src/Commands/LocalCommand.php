@@ -128,7 +128,7 @@ class LocalCommand extends Command
                     ],
                 ],
                 'app' => [
-                    'image'      => static::$images[$this->option('php') ? $this->option('php') : '8.0'],
+                    'image'      => static::$images[$this->option('php') ? $this->option('php') : '8.2'],
                     'depends_on' => [
                         0 => 'mysql',
                         1 => 'redis',
