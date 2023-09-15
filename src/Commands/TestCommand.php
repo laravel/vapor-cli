@@ -51,7 +51,7 @@ class TestCommand extends Command
     }
 
     /**
-     * Returns the test runner binary.
+     * Determine the test runner binary.
      *
      * @return string
      */
