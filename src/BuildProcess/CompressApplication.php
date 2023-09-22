@@ -42,6 +42,10 @@ class CompressApplication
         foreach (BuiltApplicationFiles::get($this->appPath) as $file) {
             $relativePathName = str_replace('\\', '/', $file->getRelativePathname());
 
+            if (PHP_OS == "WINNT" && is_dir($relativePathName) && count(array_diff(stat($relativePathName), lstat($relativePathName))) > 0) {
+                continue;
+            }
+
             $archive->addFile($file->getRealPath(), $relativePathName);
 
             $archive->setExternalAttributesName(
