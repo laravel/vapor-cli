@@ -1002,7 +1002,7 @@ class ConsoleVaporClient
      * @param  int  $projectId
      * @param  string  $uuid
      * @param  string  $environment
-     * @param  array<int, string> $regions
+     * @param  array<int, string>  $regions
      * @param  string  $file
      * @param  string  $commit
      * @param  string  $commitMessage
