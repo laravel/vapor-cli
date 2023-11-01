@@ -199,6 +199,7 @@ class DeployCommand extends Command
             Manifest::id(),
             $uuid,
             $environment,
+            Manifest::regions($environment),
             Manifest::usesContainerImage($environment) ? null : Path::artifact(),
             $this->option('commit') ?: Git::hash(),
             $this->option('message') ?: Git::message(),
@@ -227,6 +228,21 @@ class DeployCommand extends Command
                 $artifact['container_registry_token'],
                 $artifact['container_repository'],
                 $artifact['container_image_tag']);
+
+            foreach (Manifest::current()['environments'][$environment]['regions'] ?? [] as $region)
+            {
+                Helpers::step('<comment>Pushing Container Image to '.$region.'</comment>');
+
+                Docker::publish(
+                    Path::app(),
+                    Manifest::name(),
+                    $environment,
+                    $artifact['container_registry_token'],
+                    $artifact['container_repository'],
+                    $artifact['container_image_tag'],
+                    $region
+                );
+            }
         }
 
         return $artifact;
