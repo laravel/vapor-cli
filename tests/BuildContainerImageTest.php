@@ -190,7 +190,7 @@ class BuildContainerImageTest extends TestCase
                 'docker',
                 'FROM laravelphp/vapor:php83',
                 [],
-                false,
+                true,
             ],
             [
                 'docker-arm',
@@ -208,7 +208,7 @@ class BuildContainerImageTest extends TestCase
                 'docker-arm',
                 'FROM laravelphp/vapor:php83-arm',
                 [],
-                false,
+                true,
             ],
             [
                 'docker-arm',
