@@ -62,8 +62,7 @@ class ValidateManifest
 
         if (Manifest::runtime($this->environment) === 'php-8.0:al2') {
             Helpers::warn(
-                'The runtime "php-8.0:al2" will be deprecated on November 26th, 2023 when PHP 8.0 stops receiving security updates.'
-                .' From this date, it will not be possible to deploy new environments using this runtime and support will be removed for existing runtimes on February 26, 2024.'
+                'The runtime "php-8.0:al2" is now deprecated and it is no longer possible to deploy new environments using this runtime. Support will be removed for existing runtimes on February 26, 2024.'
                 .' For a full list of supported runtimes, please see: https://docs.vapor.build/1.0/projects/environments.html#runtime'
             );
         }
