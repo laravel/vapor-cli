@@ -15,7 +15,7 @@ class RewriteAssetUrlsTest extends TestCase
         $this->assertEquals($expected, RewriteAssetUrls::inCssString($css, 'http://example.com'));
     }
 
-    public function assetUrlDataProvider()
+    public static function assetUrlDataProvider()
     {
         return [
             ['something url("/foo/bar.jpg") something', 'something url("http://example.com/foo/bar.jpg") something'],

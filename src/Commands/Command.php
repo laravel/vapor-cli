@@ -59,7 +59,7 @@ class Command extends SymfonyCommand
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->startedAt = new DateTime();
 
@@ -71,7 +71,7 @@ class Command extends SymfonyCommand
         $this->configureManifestPath($input);
         $this->configureOutputStyles($output);
 
-        return Helpers::app()->call([$this, 'handle']) ?: 0;
+        return (int) (Helpers::app()->call([$this, 'handle']) ?: 0);
     }
 
     /**
