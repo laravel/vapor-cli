@@ -51,6 +51,14 @@ class CacheListCommand extends Command
      */
     protected function cacheType($type)
     {
-        return $type == 'redis6.x-cluster' ? 'Redis 6.x Cluster' : 'Redis 5.x Cluster';
+        if ($type == 'redis7.x-serverless') {
+            return 'Redis 7.x Serverless';
+        }
+
+        if ($type == 'redis6.x-cluster') {
+            return 'Redis 6.x Cluster';
+        }
+
+        return 'Redis 5.x Cluster';
     }
 }
