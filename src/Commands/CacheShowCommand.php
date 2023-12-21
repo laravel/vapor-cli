@@ -40,6 +40,50 @@ class CacheShowCommand extends Command
 
         $cache = $this->vapor->cache($cacheId);
 
+        if ($cache['type'] === 'redis7.x-serverless') {
+            $this->showServerlessCache($cache);
+        } else {
+            $this->showClusterCache($cache);
+        }
+
+        if ($cache['endpoint']) {
+            Helpers::line();
+
+            Helpers::line(' <info>Endpoint:</info> '.$cache['endpoint']);
+        }
+
+        Helpers::line();
+
+        $this->call('cache:metrics', ['cache' => $this->argument('cache')]);
+    }
+
+    /**
+     * Render serverless cache details.
+     */
+    protected function showServerlessCache(array $cache): void
+    {
+        $this->table([
+            'ID', 'Provider', 'Name', 'Region', 'Class', 'Snapshot Retention (Days)', 'Memory Limit (Bytes)', 'ECPU Limit', 'Status',
+        ], collect([$cache])->map(function ($cache) {
+            return [
+                $cache['id'],
+                $cache['cloud_provider']['name'],
+                $cache['name'],
+                $cache['region'],
+                'Serverless',
+                ($snapshotLimit = $cache['snapshot_retention_limit'] ?? null) ? $snapshotLimit : 'N/A',
+                ($memoryLimit = $cache['memory_limit'] ?? null) ? $memoryLimit : 'Unlimited',
+                ($cpuLimit = $cache['cpu_limit'] ?? null) ? $cpuLimit : 'Unlimited',
+                Str::title(str_replace('_', ' ', $cache['status'])),
+            ];
+        })->all());
+    }
+
+    /**
+     * Render cluster cache details.
+     */
+    protected function showClusterCache(array $cache): void
+    {
         $this->table([
             'ID', 'Provider', 'Name', 'Region', 'Class', 'Scale', 'Status',
         ], collect([$cache])->map(function ($cache) {
@@ -53,15 +97,5 @@ class CacheShowCommand extends Command
                 Str::title(str_replace('_', ' ', $cache['status'])),
             ];
         })->all());
-
-        if ($cache['endpoint']) {
-            Helpers::line();
-
-            Helpers::line(' <info>Endpoint:</info> '.$cache['endpoint']);
-        }
-
-        Helpers::line();
-
-        $this->call('cache:metrics', ['cache' => $this->argument('cache')]);
     }
 }
