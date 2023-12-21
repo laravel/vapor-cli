@@ -43,7 +43,7 @@ class CacheShowCommand extends Command
         if ($cache['type'] === 'redis7.x-serverless') {
             $this->showServerlessCache($cache);
         } else {
-            $this->showClusterCache($cache);
+            $this->showCacheCluster($cache);
         }
 
         if ($cache['endpoint']) {
@@ -82,7 +82,7 @@ class CacheShowCommand extends Command
     /**
      * Render cluster cache details.
      */
-    protected function showClusterCache(array $cache): void
+    protected function showCacheCluster(array $cache): void
     {
         $this->table([
             'ID', 'Provider', 'Name', 'Region', 'Class', 'Scale', 'Status',
