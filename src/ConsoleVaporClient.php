@@ -598,10 +598,12 @@ class ConsoleVaporClient
      * @param  int  $scale
      * @return void
      */
-    public function scaleCache($cacheId, $scale)
+    public function scaleCache($cacheId, $scale = null, $memoryLimit = null, $cpuLimit = null)
     {
         $this->requestWithErrorHandling('put', '/api/caches/'.$cacheId.'/size', [
             'scale' => $scale,
+            'memory_limit' => $memoryLimit,
+            'cpu_limit' => $cpuLimit,
         ]);
     }
 

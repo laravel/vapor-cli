@@ -44,7 +44,13 @@ class CacheCommand extends Command
         }
 
         $instanceClass = $this->determineInstanceClass();
-        $type = $this->determineCacheType();
+
+        if ($instanceClass == 'serverless') {
+            $instanceClass = null;
+            $type = 'redis7.x-serverless';
+        } else {
+            $type = $this->determineCacheType();
+        }
 
         $response = $this->vapor->createCache(
             $networkId,
@@ -67,7 +73,7 @@ class CacheCommand extends Command
     {
         return $this->menu('Which type of cache would you like to create?', [
             'redis6.x-cluster' => 'Redis 6.x Cluster',
-            'redis-cluster'    => 'Redis 5.x Cluster',
+            'redis-cluster' => 'Redis 5.x Cluster',
         ]);
     }
 
@@ -79,15 +85,20 @@ class CacheCommand extends Command
     protected function determineInstanceClass()
     {
         $type = $this->menu('Which type of cache instance would you like to create?', [
+            'serverless' => 'Serverless',
             'general' => 'General Purpose',
-            'memory'  => 'Memory Optimized',
+            'memory' => 'Memory Optimized',
         ]);
+
+        if ($type == 'serverless') {
+            return 'serverless';
+        }
 
         if ($type == 'general') {
             return $this->determineGeneralInstanceClass();
-        } else {
-            return $this->determineMemoryOptimizedInstanceClass();
         }
+
+        return $this->determineMemoryOptimizedInstanceClass();
     }
 
     /**
