@@ -61,11 +61,8 @@ class CacheMetricsCommand extends Command
 
     /**
      * Format the serverless metrics for display.
-     *
-     * @param  array  $metrics
-     * @return void
      */
-    protected function serverlessMetrics($metrics)
+    protected function serverlessMetrics(array $metrics): void
     {
         $this->table([
             'Average CPU (ECPU Units)', 'Average Memory Utilization (Bytes)', 'Cache Hits', 'Cache Misses',
