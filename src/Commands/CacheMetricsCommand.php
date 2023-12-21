@@ -17,7 +17,7 @@ class CacheMetricsCommand extends Command
         $this
             ->setName('cache:metrics')
             ->addArgument('cache', InputArgument::REQUIRED, 'The cache name / ID')
-            ->addArgument('period', InputArgument::OPTIONAL, 'The metric period (1m, 5m, 1h, 8h, 1d, 3d, 7d, 1M)', '1d')
+            ->addArgument('period', InputArgument::OPTIONAL, 'The metric period (5m, 30m, 1h, 8h, 1d, 3d, 7d, 1M)', '1d')
             ->setDescription('Get usage and performance metrics for a cache');
     }
 
@@ -43,6 +43,10 @@ class CacheMetricsCommand extends Command
             $this->argument('period')
         );
 
+        if (isset($metrics['averageCacheProcessingUnits'])) {
+            return $this->serverlessMetrics($metrics);
+        }
+
         $this->table([
             'Node', 'Average CPU Utilization', 'Cache Hits', 'Cache Misses',
         ], collect(range(0, count($metrics['totalCacheHits']) - 1))->map(function ($node) use ($metrics) {
@@ -53,5 +57,23 @@ class CacheMetricsCommand extends Command
                 $metrics['totalCacheMisses'][$node],
             ];
         })->all());
+    }
+
+    /**
+     * Format the serverless metrics for display.
+     *
+     * @param  array  $metrics
+     * @return void
+     */
+    protected function serverlessMetrics($metrics)
+    {
+        $this->table([
+            'Average CPU (ECPU Units)', 'Average Memory Utilization (Bytes)', 'Cache Hits', 'Cache Misses',
+        ], [[
+            number_format($metrics['averageCacheProcessingUnits'][0]),
+            number_format($metrics['averageCacheBytesUsed'][0]),
+            $metrics['totalCacheHits'][0],
+            $metrics['totalCacheMisses'][0],
+        ]]);
     }
 }
