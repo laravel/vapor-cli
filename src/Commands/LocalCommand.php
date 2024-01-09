@@ -106,36 +106,36 @@ class LocalCommand extends Command
         }
 
         return [
-            'version'  => '3.7',
+            'version' => '3.7',
             'services' => [
                 'redis' => [
-                    'image'   => 'redis:alpine',
+                    'image' => 'redis:alpine',
                     'volumes' => [
                         'vapor_redis:/data',
                     ],
                     'restart' => 'always',
                 ],
                 'mysql' => [
-                    'image'   => 'mysql:8.0',
+                    'image' => 'mysql:8.0',
                     'volumes' => [
                         0 => 'vapor_mysql:/var/lib/mysql',
                     ],
-                    'restart'     => 'always',
+                    'restart' => 'always',
                     'environment' => [
                         'MYSQL_ROOT_PASSWORD' => 'secret',
-                        'MYSQL_DATABASE'      => 'vapor',
-                        'MYSQL_USER'          => 'vapor',
-                        'MYSQL_PASSWORD'      => 'secret',
+                        'MYSQL_DATABASE' => 'vapor',
+                        'MYSQL_USER' => 'vapor',
+                        'MYSQL_PASSWORD' => 'secret',
                     ],
                 ],
                 'app' => [
-                    'image'      => static::$images[$this->option('php') ? $this->option('php') : '8.2'],
+                    'image' => static::$images[$this->option('php') ? $this->option('php') : '8.2'],
                     'depends_on' => [
                         0 => 'mysql',
                         1 => 'redis',
                     ],
                     'restart' => 'always',
-                    'init'    => true,
+                    'init' => true,
                 ],
             ],
             'volumes' => [

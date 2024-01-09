@@ -98,11 +98,11 @@ class DockerTest extends TestCase
     public function test_dockerfile_from_manifest()
     {
         file_put_contents(Container::getInstance()->offsetGet('manifest'), Yaml::dump([
-            'id'           => 1,
-            'name'         => 'Test',
+            'id' => 1,
+            'name' => 'Test',
             'environments' => [
                 'production' => [
-                    'runtime'    => 'docker',
+                    'runtime' => 'docker',
                     'dockerfile' => 'docker/shared.Dockerfile',
                 ],
             ],

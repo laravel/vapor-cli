@@ -64,7 +64,7 @@ class DatabaseScaleCommand extends Command
     {
         $type = $this->menu('Which type of database instance would you like to scale to?', [
             'general' => 'General Purpose',
-            'memory'  => 'Memory Optimized',
+            'memory' => 'Memory Optimized',
         ]);
 
         if ($type == 'general') {
