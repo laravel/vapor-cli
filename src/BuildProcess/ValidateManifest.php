@@ -39,23 +39,12 @@ class ValidateManifest
         if (in_array(Manifest::runtime($this->environment), [
             'php-7.3',
             'php-7.4',
+            'php-7.4:al2',
+            'php-7.4:imagick',
             'php-8.0',
         ])) {
             Helpers::warn(
-                'The runtimes "php-7.3", "php-7.4", and "php-8.0" are deprecated and support will be fully removed from Vapor on December 31st, 2023.'
-                .' Those runtimes are based on Amazon Linux 1, for which AWS standard support has ended.'
-                .' Amazon Linux 1 is only receiving critical and important security updates and it may not work with new Vapor/AWS features.'
-                .' Please use Amazon Linux 2 with "php-7.4:al2" or "php-8.0:al2" instead.'
-            );
-        }
-
-        if (in_array(Manifest::runtime($this->environment), [
-            'php-7.4:al2',
-            'php-7.4:imagick',
-        ])) {
-            Helpers::warn(
-                'The runtimes "php-7.4:al2", and "php-7.4:imagick" are deprecated and support will be fully removed from Vapor on December 31st, 2023.'
-                .' PHP 7.4 is no longer being maintained or receiving security updates.'
+                'The runtimes "php-7.3", "php-7.4", "php-7.4:al2", "php-7.4:imagick", and "php-8.0" are deprecated and will no longer be supported or receiving any updates.'
                 .' For a full list of supported runtimes, please see: https://docs.vapor.build/1.0/projects/environments.html#runtime'
             );
         }
