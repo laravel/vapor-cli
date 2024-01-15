@@ -77,7 +77,7 @@ class BuildContainerImageTest extends TestCase
         $this->assertSame(['__VAPOR_RUNTIME=docker'], $buildArgs);
     }
 
-    public function runtimeProvider()
+    public static function runtimeProvider()
     {
         return [
             [
