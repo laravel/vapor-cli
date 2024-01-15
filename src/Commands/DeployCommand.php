@@ -68,7 +68,7 @@ class DeployCommand extends Command
 
         if ($deployment['database'] && $deployment['database']['certificate_authority_status'] === 'expiring') {
             Helpers::line();
-            Helpers::warn('You database is uses a certificate which expires in August 2024. To prevent connectivity issues after this date, please update the Certificate Authority of your database from the AWS console using the link below.');
+            Helpers::warn('Your database is using a certificate which expires in August 2024. To prevent connectivity issues after this date, please update the Certificate Authority of your database from the AWS console using the link below.');
             Helpers::line();
             Helpers::line("https://{$deployment['database']['region']}.console.aws.amazon.com/rds/home?region={$deployment['database']['region']}#ca-cert-update:");
         }

@@ -44,10 +44,10 @@ class EnvCommand extends Command
         );
 
         Manifest::addEnvironment($environment, [
-            'memory'     => 1024,
+            'memory' => 1024,
             'cli-memory' => 512,
-            'runtime'    => $this->option('docker') ? 'docker' : 'php-8.2:al2',
-            'build'      => [
+            'runtime' => $this->option('docker') ? 'docker' : 'php-8.2:al2',
+            'build' => [
                 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev',
                 'php artisan event:cache',
                 file_exists(Path::current().'/webpack.mix.js')

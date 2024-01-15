@@ -21,9 +21,9 @@ class ConsoleVaporClient
     {
         try {
             return $this->request('post', '/api/login', [
-                'host'             => gethostname(),
-                'email'            => $email,
-                'password'         => $password,
+                'host' => gethostname(),
+                'email' => $email,
+                'password' => $password,
                 'two_factor_token' => $twoFactorAuthenticationToken,
             ])['access_token'];
         } catch (ClientException $e) {
@@ -102,7 +102,7 @@ class ConsoleVaporClient
     public function addTeamMember($email, array $permissions)
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/members', [
-            'email'       => $email,
+            'email' => $email,
             'permissions' => $permissions,
         ]);
     }
@@ -232,7 +232,7 @@ class ConsoleVaporClient
     {
         return $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/zones', [
             'cloud_provider_id' => $providerId,
-            'zone'              => $zone,
+            'zone' => $zone,
         ]);
     }
 
@@ -270,8 +270,8 @@ class ConsoleVaporClient
     public function createRecord($zoneId, $type, $name, $value)
     {
         return $this->requestWithErrorHandling('put', '/api/zones/'.$zoneId.'/records', [
-            'type'  => $type,
-            'name'  => $name,
+            'type' => $type,
+            'name' => $name,
             'value' => $value,
         ]);
     }
@@ -323,9 +323,9 @@ class ConsoleVaporClient
     public function createNetwork($providerId, $name, $region, $withInternetAccess)
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/networks', [
-            'cloud_provider_id'    => $providerId,
-            'name'                 => $name,
-            'region'               => $region,
+            'cloud_provider_id' => $providerId,
+            'name' => $name,
+            'region' => $region,
             'with_internet_access' => $withInternetAccess,
         ]);
     }
@@ -399,12 +399,12 @@ class ConsoleVaporClient
     public function createDatabase($networkId, $name, $type, $instanceClass, $storage, $public, $pause = false)
     {
         return $this->requestWithErrorHandling('post', '/api/networks/'.$networkId.'/databases', [
-            'name'           => $name,
-            'type'           => $type,
+            'name' => $name,
+            'type' => $type,
             'instance_class' => $instanceClass,
-            'storage'        => $storage,
-            'public'         => $public,
-            'pause'          => $pause,
+            'storage' => $storage,
+            'public' => $public,
+            'pause' => $pause,
         ]);
     }
 
@@ -420,7 +420,7 @@ class ConsoleVaporClient
     {
         $this->requestWithErrorHandling('put', '/api/databases/'.$databaseId.'/size', [
             'instance_class' => $instanceClass,
-            'storage'        => $storage,
+            'storage' => $storage,
         ]);
     }
 
@@ -507,7 +507,7 @@ class ConsoleVaporClient
     public function restoreDatabase($databaseId, $name, $restoreTo)
     {
         return $this->requestWithErrorHandling('post', '/api/restored-databases?database_id='.$databaseId, [
-            'name'       => $name,
+            'name' => $name,
             'restore_to' => $restoreTo,
         ]);
     }
@@ -585,8 +585,8 @@ class ConsoleVaporClient
     public function createCache($networkId, $name, $type, $instanceClass)
     {
         return $this->requestWithErrorHandling('post', '/api/networks/'.$networkId.'/caches', [
-            'name'           => $name,
-            'type'           => $type,
+            'name' => $name,
+            'type' => $type,
             'instance_class' => $instanceClass,
         ]);
     }
@@ -598,10 +598,12 @@ class ConsoleVaporClient
      * @param  int  $scale
      * @return void
      */
-    public function scaleCache($cacheId, $scale)
+    public function scaleCache($cacheId, $scale = null, $memoryLimit = null, $cpuLimit = null)
     {
         $this->requestWithErrorHandling('put', '/api/caches/'.$cacheId.'/size', [
             'scale' => $scale,
+            'memory_limit' => $memoryLimit,
+            'cpu_limit' => $cpuLimit,
         ]);
     }
 
@@ -732,9 +734,9 @@ class ConsoleVaporClient
     {
         $this->requestWithErrorHandling('post', '/api/teams/'.Helpers::config('team').'/certificates', [
             'cloud_provider_id' => $providerId,
-            'domain'            => $domain,
+            'domain' => $domain,
             'alternative_names' => $alternativeNames,
-            'region'            => $region,
+            'region' => $region,
             'validation_method' => $validationMethod,
         ]);
     }
@@ -1022,12 +1024,12 @@ class ConsoleVaporClient
         $coreVersion = null
     ) {
         $artifact = $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/artifacts/'.$environment, [
-            'uuid'           => $uuid,
-            'commit'         => $commit,
+            'uuid' => $uuid,
+            'commit' => $commit,
             'commit_message' => $commitMessage,
-            'vendor_hash'    => $vendorHash,
-            'cli_version'    => $cliVersion,
-            'core_version'   => $coreVersion,
+            'vendor_hash' => $vendorHash,
+            'cli_version' => $cliVersion,
+            'core_version' => $coreVersion,
             'uses_container_image' => is_null($file),
         ]);
 
@@ -1121,8 +1123,8 @@ class ConsoleVaporClient
     public function validateManifest($projectId, $environment, array $manifest, $cliVersion = null, $coreVersion = null)
     {
         $this->requestWithErrorHandling('post', '/api/projects/'.$projectId.'/environments/'.$environment.'/linted-manifest', [
-            'manifest'     => $manifest,
-            'cli_version'  => $cliVersion,
+            'manifest' => $manifest,
+            'cli_version' => $cliVersion,
             'core_version' => $coreVersion,
         ]);
     }
@@ -1448,10 +1450,10 @@ class ConsoleVaporClient
     protected function requestWithoutErrorHandling($method, $uri, array $json = [])
     {
         return json_decode((string) $this->client()->request($method, ltrim($uri, '/'), [
-            'json'    => $json,
+            'json' => $json,
             'headers' => [
-                'Accept'        => 'application/json',
-                'Content-Type'  => 'application/json',
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer '.Helpers::config('token', $_ENV['VAPOR_API_TOKEN'] ?? getenv('VAPOR_API_TOKEN') ?? null),
             ],
         ])->getBody(), true);
