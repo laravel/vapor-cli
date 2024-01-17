@@ -18,13 +18,20 @@ class HarmonizeConfigurationFiles
     {
         Helpers::step('<options=bold>Harmonizing Configuration Files</>');
 
-        $configFiles = (new Finder())->files()->in($this->appPath.'/config');
+        foreach ([
+            $this->appPath.'/vendor/laravel/framework/config',
+            $this->appPath.'/config',
+        ] as $path) {
+            if (! is_dir($path)) {
+                continue;
+            }
 
-        foreach ($configFiles as $file) {
-            file_put_contents(
-                $file->getRealPath(),
-                $this->replaceAwsEnvironmentVariables($file)
-            );
+            foreach ((new Finder())->files()->in($path) as $file) {
+                file_put_contents(
+                    $file->getRealPath(),
+                    $this->replaceAwsEnvironmentVariables($file)
+                );
+            }
         }
     }
 
