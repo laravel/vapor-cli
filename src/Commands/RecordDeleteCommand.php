@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\Commands;
 
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class RecordDeleteCommand extends Command
 {
@@ -32,7 +33,7 @@ class RecordDeleteCommand extends Command
     public function handle()
     {
         $forceDeletion = $this->option('force', false);
-        
+
         if (! $forceDeletion && ! Helpers::confirm('Are you sure you want to delete this record', false)) {
             Helpers::abort('Action cancelled.');
         }
