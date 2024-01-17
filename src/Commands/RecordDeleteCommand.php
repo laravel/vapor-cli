@@ -20,6 +20,7 @@ class RecordDeleteCommand extends Command
             ->addArgument('type', InputArgument::REQUIRED, 'The record type')
             ->addArgument('name', InputArgument::OPTIONAL, 'The record name')
             ->addArgument('value', InputArgument::OPTIONAL, 'The record value')
+            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion of the record without confirmation')
             ->setDescription('Delete a DNS record');
     }
 
@@ -30,7 +31,9 @@ class RecordDeleteCommand extends Command
      */
     public function handle()
     {
-        if (! Helpers::confirm('Are you sure you want to delete this record', false)) {
+        $forceDeletion = $this->option('force', false);
+        
+        if (! $forceDeletion && ! Helpers::confirm('Are you sure you want to delete this record', false)) {
             Helpers::abort('Action cancelled.');
         }
 
