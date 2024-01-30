@@ -37,7 +37,7 @@ class EnvCommand extends Command
         Helpers::ensure_api_token_is_available();
 
         if ($this->argument('environment') === 'testing') {
-            Helpers::abort('Unable to create an environment called "testing"');
+            Helpers::abort('This environment name is reserved by Vapor. Please choose another environment name.');
         }
 
         $this->vapor->createEnvironment(
