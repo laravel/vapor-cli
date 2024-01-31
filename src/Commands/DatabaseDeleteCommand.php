@@ -18,7 +18,7 @@ class DatabaseDeleteCommand extends Command
         $this
             ->setName('database:delete')
             ->addArgument('database', InputArgument::REQUIRED, 'The database name / ID')
-            ->addOption('force', false, InputOption::VALUE_NONE, 'Force deletion of the database without confirmation')
+            ->addOption('force', null, InputOption::VALUE_NONE, 'Force deletion of the database without confirmation')
             ->setDescription('Delete a database');
     }
 
@@ -29,7 +29,7 @@ class DatabaseDeleteCommand extends Command
      */
     public function handle()
     {
-        $forceDeletion = $this->option('force', false);
+        $forceDeletion = $this->option('force');
 
         if (! $forceDeletion && ! Helpers::confirm('Are you sure you want to delete this database', false)) {
             Helpers::abort('Action cancelled.');
