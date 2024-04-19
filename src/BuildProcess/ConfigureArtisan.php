@@ -37,10 +37,10 @@ class ConfigureArtisan
                 '<?php',
                 "\$app = require_once __DIR__.'/bootstrap/app.php';",
                 "require __DIR__.'/vendor/autoload.php';",
-                <<<EOF
+                <<<'EOF'
 
 // Bootstrap Laravel and handle the command...
-\$status = (require_once __DIR__.'/bootstrap/app.php')
+$status = (require_once __DIR__.'/bootstrap/app.php')
     ->handleCommand(new ArgvInput);
 EOF
             ],
