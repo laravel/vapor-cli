@@ -18,6 +18,7 @@ class ApplicationFiles
                 ->in($path)
                 ->exclude('.idea')
                 ->exclude('.vapor')
+                ->notName('frankenphp')
                 ->notName('rr')
                 ->notPath('/^'.preg_quote('tests', '/').'/')
                 ->ignoreVcs(true)
