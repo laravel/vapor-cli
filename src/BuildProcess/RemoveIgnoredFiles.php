@@ -39,7 +39,6 @@ class RemoveIgnoredFiles
             Path::app().'/.env',
             Path::app().'/.env.example',
             Path::app().'/.phpunit.result.cache',
-            Path::app().'/frankenphp',
             Path::app().'/package-lock.json',
             Path::app().'/phpunit.xml',
             Path::app().'/readme.md',
