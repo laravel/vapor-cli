@@ -2,6 +2,7 @@
 
 namespace Laravel\VaporCli;
 
+use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 
 class ApplicationFiles
@@ -22,6 +23,7 @@ class ApplicationFiles
                 ->notName('rr')
                 ->notPath('/^'.preg_quote('tests', '/').'/')
                 ->ignoreVcs(true)
-                ->ignoreDotFiles(false);
+                ->ignoreDotFiles(false)
+                ->notPath(VaporIgnore::get()->toArray());
     }
 }
