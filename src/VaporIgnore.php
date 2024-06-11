@@ -2,9 +2,7 @@
 
 namespace Laravel\VaporCli;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
 use SplFileObject;
@@ -44,15 +42,15 @@ class VaporIgnore
         $line = trim($line);
 
         return Arr::map(match ($line) {
-            '', '#' => [], # ignore empty lines and comments
+            '', '#' => [], // ignore empty lines and comments
             default => glob("$baseDir/$line")
-        }, static function($line) use ($baseDir) {
+        }, static function ($line) use ($baseDir) {
             return Str::of($line)
                       ->after($baseDir)
                       ->trim('/')
-                      ->replace('/', '\/')
-                      ->prepend('/^')
-                      ->append('/')
+                      ->pipe(function ($line) {
+                          return '/^'.preg_quote($line, '/').'/';
+                      })
                       ->toString();
         });
     }

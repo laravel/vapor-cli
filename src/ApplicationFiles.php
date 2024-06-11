@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli;
 
-use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 
 class ApplicationFiles
