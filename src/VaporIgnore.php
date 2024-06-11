@@ -16,7 +16,7 @@ class VaporIgnore
         $baseDir = dirname($path);
 
         return static::getLines($path)->map(function ($line) use ($baseDir) {
-            return static::parseLine($baseDir,$line);
+            return static::parseLine($baseDir, $line);
         })->flatten()->filter();
     }
 
@@ -45,15 +45,18 @@ class VaporIgnore
             case '#':
                 return [];
             default:
-                return Arr::map(glob($baseDir.'/'.trim($line, '/')), function ($path) use ($baseDir) {
-                    return Str::of($path)
-                              ->after($baseDir)
-                              ->trim('/')
-                              ->pipe(function ($line) {
-                                  return '/^'.preg_quote($line, '/').'/';
-                              })
-                              ->toString();
-                });
+                return Arr::map(
+                    glob($baseDir.'/'.trim($line, '/')),
+                    function ($path) use ($baseDir) {
+                        return Str::of($path)
+                                  ->after($baseDir)
+                                  ->trim('/')
+                                  ->pipe(function ($line) {
+                                      return '/^'.preg_quote($line, '/').'/';
+                                  })
+                                  ->toString();
+                    }
+                );
         }
 
     }
