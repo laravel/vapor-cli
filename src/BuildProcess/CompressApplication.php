@@ -44,6 +44,8 @@ class CompressApplication
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
+            $archive->setCompressionName($relativePathName, ZipArchive::CM_DEFLATE, 9);
+
             $archive->setExternalAttributesName(
                 $relativePathName,
                 ZipArchive::OPSYS_UNIX,
