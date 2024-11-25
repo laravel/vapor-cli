@@ -27,6 +27,7 @@ class BuildContainerImage
         'laravelphp/vapor:php81',
         'laravelphp/vapor:php82',
         'laravelphp/vapor:php83',
+        'laravelphp/vapor:php84',
     ];
 
     /**
@@ -37,6 +38,7 @@ class BuildContainerImage
     public static $armImages = [
         'laravelphp/vapor:php82-arm',
         'laravelphp/vapor:php83-arm',
+        'laravelphp/vapor:php84-arm',
     ];
 
     /**
