@@ -18,6 +18,7 @@ class VanityDomainDeleteCommand extends Command
         $this
             ->setName('vanity-domain:delete')
             ->addArgument('environment', InputArgument::REQUIRED, 'The environment name')
+            ->addOption('force', null, InputOption::VALUE_NONE, 'Force deletion of the vanity domain without confirmation')
             ->setDescription('Delete the vanity domain associated with the given environment');
     }
 
@@ -29,8 +30,9 @@ class VanityDomainDeleteCommand extends Command
     public function handle()
     {
         $environment = $this->argument('environment');
+        $forceDeletion = $this->option('force');
 
-        if (! Helpers::confirm("Are you sure you want to delete the vanity domain of the [{$environment}] environment", false)) {
+        if (! $forceDeletion && ! Helpers::confirm("Are you sure you want to delete the vanity domain of the [{$environment}] environment", false)) {
             Helpers::abort('Action cancelled.');
         }
 
