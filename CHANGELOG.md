@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.65.2...master)
+## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.65.3...master)
+
+## [v1.65.3](https://github.com/laravel/vapor-cli/compare/v1.65.2...v1.65.3) - 2024-12-17
+
+* [1.x] Allow force deleting vanity domain without confirmation by [@orkhanahmadov](https://github.com/orkhanahmadov) in https://github.com/laravel/vapor-cli/pull/258
 
 ## [v1.65.2](https://github.com/laravel/vapor-cli/compare/v1.65.1...v1.65.2) - 2024-11-26
 
