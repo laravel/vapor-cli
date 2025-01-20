@@ -189,6 +189,7 @@ class AwsStorageProvider
 
             if ($retries === 0) {
                 Helpers::step($text);
+
                 return true;
             }
 
@@ -198,6 +199,7 @@ class AwsStorageProvider
 
             if ($retries < self::MAX_RETRIES) {
                 Helpers::step($text);
+
                 return true;
             }
 
