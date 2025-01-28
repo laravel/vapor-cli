@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.65.3...master)
+## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.65.4...master)
+
+## [v1.65.4](https://github.com/laravel/vapor-cli/compare/v1.65.3...v1.65.4) - 2025-01-28
+
+* fix: Retry message not show on first retry and would show when it wouldn't retry by [@mathiasgrimm](https://github.com/mathiasgrimm) in https://github.com/laravel/vapor-cli/pull/259
 
 ## [v1.65.3](https://github.com/laravel/vapor-cli/compare/v1.65.2...v1.65.3) - 2024-12-17
 
