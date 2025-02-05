@@ -39,7 +39,7 @@ class AwsStorageProvider
      * @param  string  $url
      * @param  array  $headers
      * @param  string  $file
-     * @param  bool  $progress
+     * @param  bool  $withProgress
      * @return void
      */
     public function store($url, array $headers, $file, $withProgress = false)
@@ -184,8 +184,12 @@ class AwsStorageProvider
     {
         $stack = HandlerStack::create();
 
-        $stack->push(Middleware::retry(function (int $retries, RequestInterface $request, ResponseInterface $response = null) {
+        $stack->push(Middleware::retry(function (int $retries, RequestInterface $request, ?ResponseInterface $response = null) {
+            $text = '<comment>Retrying Request: </comment><options=bold>'.$request->getMethod().'</> '.Str::before($request->getUri(), '?');
+
             if ($retries === 0) {
+                Helpers::step($text);
+
                 return true;
             }
 
@@ -193,9 +197,13 @@ class AwsStorageProvider
                 return false;
             }
 
-            Helpers::step('<comment>Retrying Request: </comment><options=bold>'.$request->getMethod().'</> '.Str::before($request->getUri(), '?'));
+            if ($retries < self::MAX_RETRIES) {
+                Helpers::step($text);
 
-            return $retries < self::MAX_RETRIES;
+                return true;
+            }
+
+            return false;
         }));
 
         return $stack;
