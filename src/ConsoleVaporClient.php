@@ -1004,6 +1004,7 @@ class ConsoleVaporClient
      * @param  int  $projectId
      * @param  string  $uuid
      * @param  string  $environment
+     * @param  array<int, string>  $regions
      * @param  string  $file
      * @param  string  $commit
      * @param  string  $commitMessage
@@ -1016,6 +1017,7 @@ class ConsoleVaporClient
         $projectId,
         $uuid,
         $environment,
+        $regions,
         $file = null,
         $commit = null,
         $commitMessage = null,
@@ -1031,6 +1033,7 @@ class ConsoleVaporClient
             'cli_version' => $cliVersion,
             'core_version' => $coreVersion,
             'uses_container_image' => is_null($file),
+            'regions'        => $regions,
         ]);
 
         if ($file) {

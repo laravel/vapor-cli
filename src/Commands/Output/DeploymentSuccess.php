@@ -54,11 +54,17 @@ class DeploymentSuccess
             Helpers::line();
         }
 
+        $records = collect($deployment->regions)->map(function ($region) {
+            return collect($region['pivot']['target_domains'])->map(function ($target, $domain) use ($region) {
+                return [$region['region'], $domain, $target['domain']];
+            })->values();
+        })->flatten(1)->merge(collect($deployment->target_domains)->map(function ($target, $domain) use ($deployment) {
+            return [$deployment->project['region'], $domain, $target['domain']];
+        })->values());
+
         Helpers::table([
-            'Domain', 'Alias / CNAME',
-        ], collect($deployment->target_domains)->map(function ($target, $domain) {
-            return [$domain, $target['domain']];
-        })->all());
+            'Region', 'Domain', 'Alias / CNAME',
+        ], $records->all());
 
         $vapor = Helpers::app(ConsoleVaporClient::class);
 
