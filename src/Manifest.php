@@ -35,6 +35,19 @@ class Manifest
     }
 
     /**
+     * Get the regions from the current directory's manifest.
+     *
+     * @param  string  $environment
+     * @return array<int, string>
+     */
+    public static function regions($environment)
+    {
+        return array_key_exists('regions', static::current()['environments'][$environment])
+            ? static::current()['environments'][$environment]['regions']
+            : [];
+    }
+
+    /**
      * Retrieve the manifest for the current working directory.
      *
      * @return array
