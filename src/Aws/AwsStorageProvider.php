@@ -187,12 +187,6 @@ class AwsStorageProvider
         $stack->push(Middleware::retry(function (int $retries, RequestInterface $request, ?ResponseInterface $response = null) {
             $text = '<comment>Retrying Request: </comment><options=bold>'.$request->getMethod().'</> '.Str::before($request->getUri(), '?');
 
-            if ($retries === 0) {
-                Helpers::step($text);
-
-                return true;
-            }
-
             if ($response && $response->getStatusCode() < 300) {
                 return false;
             }
