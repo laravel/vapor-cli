@@ -68,7 +68,7 @@ Container::setInstance($container = new Container);
 /**
  * Start the console application.
  */
-$app = new Application('Laravel Vapor', '1.65.6');
+$app = new Application('Laravel Vapor', '1.65.7');
 
 // Authentication...
 $app->add(new Commands\LoginCommand);
