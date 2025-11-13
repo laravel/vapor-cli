@@ -32,6 +32,7 @@ class CompressApplication
         if (PHP_OS == 'Darwin') {
             $this->compressApplicationOnMac();
             $this->ensureCompressedApplicationSizeIsWithinSizeLimits($this->getCompressedApplicationSizeInBytes());
+
             return $this->ensureArchiveIsWithinSizeLimits($appSizeInBytes);
         }
 
@@ -59,7 +60,7 @@ class CompressApplication
     }
 
     /**
-     * Get the full path of the compressed application (zip file)
+     * Get the full path of the compressed application (zip file).
      *
      * @return string
      */
@@ -69,7 +70,7 @@ class CompressApplication
     }
 
     /**
-     * Get the size of the zip file in bytes
+     * Get the size of the zip file in bytes.
      *
      * @return int
      */
