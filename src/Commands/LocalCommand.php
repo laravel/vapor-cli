@@ -23,6 +23,7 @@ class LocalCommand extends Command
         '8.2' => 'laravelphp/vapor:php82',
         '8.3' => 'laravelphp/vapor:php83',
         '8.4' => 'laravelphp/vapor:php84',
+        '8.5' => 'laravelphp/vapor:php85',
     ];
 
     /**

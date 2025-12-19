@@ -28,6 +28,7 @@ class BuildContainerImage
         'laravelphp/vapor:php82',
         'laravelphp/vapor:php83',
         'laravelphp/vapor:php84',
+        'laravelphp/vapor:php85',
     ];
 
     /**
@@ -39,6 +40,7 @@ class BuildContainerImage
         'laravelphp/vapor:php82-arm',
         'laravelphp/vapor:php83-arm',
         'laravelphp/vapor:php84-arm',
+        'laravelphp/vapor:php85-arm',
     ];
 
     /**
