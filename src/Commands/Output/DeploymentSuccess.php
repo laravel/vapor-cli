@@ -24,7 +24,7 @@ class DeploymentSuccess
 
         Helpers::line();
         Helpers::line("<info>Project deployed successfully.</info> ({$time})");
-        Helpers::line('Finished at: '.(new DateTime())->format('Y-m-d H:i:s'));
+        Helpers::line('<info>Finished at:</info> '.(new DateTime())->format('Y-m-d H:i:s'));
 
         if ($deployment->hasTargetDomains()) {
             $this->displayDnsRecordsChanges($deployment);
