@@ -31,13 +31,14 @@ class CompressApplication
 
         if (PHP_OS == 'Darwin') {
             $this->compressApplicationOnMac();
+            $this->ensureCompressedApplicationSizeIsWithinSizeLimits($this->getCompressedApplicationSizeInBytes());
 
             return $this->ensureArchiveIsWithinSizeLimits($appSizeInBytes);
         }
 
         $archive = new ZipArchive();
 
-        $archive->open($this->buildPath.'/app.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $archive->open($this->getCompressedApplicationPath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         foreach (BuiltApplicationFiles::get($this->appPath) as $file) {
             $relativePathName = str_replace('\\', '/', $file->getRelativePathname());
@@ -53,7 +54,29 @@ class CompressApplication
 
         $archive->close();
 
+        $this->ensureCompressedApplicationSizeIsWithinSizeLimits($this->getCompressedApplicationSizeInBytes());
+
         $this->ensureArchiveIsWithinSizeLimits($appSizeInBytes);
+    }
+
+    /**
+     * Get the full path of the compressed application (zip file).
+     *
+     * @return string
+     */
+    protected function getCompressedApplicationPath()
+    {
+        return $this->buildPath.'/app.zip';
+    }
+
+    /**
+     * Get the size of the zip file in bytes.
+     *
+     * @return int
+     */
+    protected function getCompressedApplicationSizeInBytes()
+    {
+        return filesize($this->getCompressedApplicationPath());
     }
 
     /**
@@ -63,7 +86,7 @@ class CompressApplication
      */
     protected function compressApplicationOnMac()
     {
-        (new Process(['zip', '-r', $this->buildPath.'/app.zip', '.'], $this->appPath))->mustRun();
+        (new Process(['zip', '-r', $this->getCompressedApplicationPath(), '.'], $this->appPath))->mustRun();
     }
 
     /**
@@ -80,7 +103,7 @@ class CompressApplication
     }
 
     /**
-     * Ensure the application archive is within supported size limits.
+     * Ensure the uncompressed application archive is within supported size limits.
      *
      * @param  float  $bytes
      * @return void
@@ -92,6 +115,22 @@ class CompressApplication
         if ($size > 250) {
             Helpers::line();
             Helpers::abort('Application is greater than 250MB. Your application is '.$size.'MB.');
+        }
+    }
+
+    /**
+     * Ensure the compressed application is within supported size limits.
+     *
+     * @param  float  $bytes
+     * @return void
+     */
+    protected function ensureCompressedApplicationSizeIsWithinSizeLimits($bytes)
+    {
+        $size = ceil($bytes / 1048576);
+
+        if ($size > 50) {
+            Helpers::line();
+            Helpers::abort('Compressed application is greater than 50MB. Your compressed application is '.$size.'MB.');
         }
     }
 

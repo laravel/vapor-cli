@@ -49,7 +49,7 @@ class FunctionExceedsMaximumAllowedSize
             .' Docker based deployments allow you to package and deploy applications up to 10GB in size.'
             .' When migrating an existing environment to a Docker runtime, please keep in mind that you won\'t be able to revert that environment to the default Vapor Lambda runtime later.'
             .' For that reason, you may want to create an environment for testing the Docker runtime first.'
-            .' https://docs.vapor.build/1.0/projects/environments.html#building-custom-docker-images',
+            .' https://docs.vapor.build/projects/environments#docker-runtimes',
         ];
     }
 }

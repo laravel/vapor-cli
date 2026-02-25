@@ -44,7 +44,7 @@ class EnvironmentVariableLimitReached
     public function all()
     {
         return [
-            'Use encrypted environment files in place of or in addition to environment variables: https://docs.vapor.build/1.0/projects/environments.html#encrypted-environment-files',
+            'Use encrypted environment files in place of or in addition to environment variables: https://docs.vapor.build/projects/environments#encrypted-environment-files',
         ];
     }
 }
