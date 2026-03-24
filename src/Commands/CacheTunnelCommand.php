@@ -12,7 +12,7 @@ class CacheTunnelCommand extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('cache:tunnel')
