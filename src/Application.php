@@ -2,8 +2,8 @@
 
 namespace Laravel\VaporCli;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Application as SymfonyConsoleApplication;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 

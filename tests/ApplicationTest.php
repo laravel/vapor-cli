@@ -19,5 +19,4 @@ class ApplicationTest extends TestCase
         $this->assertSame($command, $result);
         $this->assertTrue($app->has('test:command'));
     }
-
 }
