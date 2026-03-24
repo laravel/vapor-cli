@@ -12,7 +12,7 @@ class CacheMetricsCommand extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('cache:metrics')

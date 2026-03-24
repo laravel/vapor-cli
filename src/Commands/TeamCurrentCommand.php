@@ -11,7 +11,7 @@ class TeamCurrentCommand extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('team:current')

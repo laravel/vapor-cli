@@ -13,7 +13,7 @@ class DatabaseScaleCommand extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('database:scale')

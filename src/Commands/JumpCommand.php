@@ -12,7 +12,7 @@ class JumpCommand extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('jump')

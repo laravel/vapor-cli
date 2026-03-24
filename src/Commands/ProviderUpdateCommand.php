@@ -14,7 +14,7 @@ class ProviderUpdateCommand extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('provider:update')
