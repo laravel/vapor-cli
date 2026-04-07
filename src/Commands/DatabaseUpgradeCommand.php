@@ -2,7 +2,6 @@
 
 namespace Laravel\VaporCli\Commands;
 
-use Illuminate\Support\Arr;
 use Laravel\VaporCli\Helpers;
 use Symfony\Component\Console\Input\InputArgument;
 
