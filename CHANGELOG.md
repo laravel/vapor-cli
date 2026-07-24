@@ -1,6 +1,8 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.65.4...master)
+## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.70.2...master)
+
+## [v1.70.2](https://github.com/laravel/vapor-cli/compare/v1.65.4...v1.70.2) - 2026-07-24
 
 ## [v1.65.4](https://github.com/laravel/vapor-cli/compare/v1.65.3...v1.65.4) - 2025-01-28
 
