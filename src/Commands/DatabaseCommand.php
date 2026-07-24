@@ -115,8 +115,9 @@ class DatabaseCommand extends Command
             'aurora-serverless' => 'Serverless v1 MySQL 5.7 Aurora Cluster',
             'aurora-serverless-v2' => 'Serverless v2 MySQL 8.0 Aurora Cluster',
             'rds-pgsql-13.11' => 'Fixed Size PostgreSQL Instance 13.11',
-            'aurora-serverless-pgsql' => 'Serverless PostgreSQL 10.7 Aurora Cluster',
-            'aurora-serverless-v2-pgsql' => 'Serverless v2 PostgreSQL 14.3 Aurora Cluster',
+            'rds-pgsql' => 'Fixed Size PostgreSQL Instance 10.7',
+            'aurora-serverless-pgsql' => 'Serverless PostgreSQL 11.18 Aurora Cluster',
+            'aurora-serverless-v2-pgsql' => 'Serverless v2 PostgreSQL 16.13 Aurora Cluster',
         ]), function ($type) use ($public) {
             if (in_array($type, ['aurora-serverless', 'aurora-serverless-v2', 'aurora-serverless-pgsql', 'aurora-serverless-v2-pgsql']) && $public) {
                 Helpers::abort('Aurora Serverless clusters may not be publicly accessible.');
