@@ -195,16 +195,6 @@ class AwsStorageProvider
     }
 
     /**
-     * Get a new HTTP client instance with the retry handler.
-     *
-     * @return \GuzzleHttp\Client
-     */
-    protected function client()
-    {
-        return new Client(['handler' => $this->retryHandler()]);
-    }
-
-    /**
      * Get a handler stack containing the retry middleware configuration.
      *
      * @return \GuzzleHttp\HandlerStack
@@ -230,5 +220,15 @@ class AwsStorageProvider
         }));
 
         return $stack;
+    }
+
+    /**
+     * Get a new HTTP client instance with the retry handler.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    protected function client()
+    {
+        return new Client(['handler' => $this->retryHandler()]);
     }
 }
