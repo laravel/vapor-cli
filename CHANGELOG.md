@@ -1,6 +1,11 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.70.2...master)
+## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.70.3...master)
+
+## [v1.70.3](https://github.com/laravel/vapor-cli/compare/v1.70.2...v1.70.3) - 2026-08-05
+
+* Bump actions/checkout from 7.0.0 to 7.0.1 in the github-actions group by [@dependabot](https://github.com/dependabot)[bot] in https://github.com/laravel/vapor-cli/pull/281
+* Fix asset upload failures with guzzlehttp/guzzle 7.15+ by [@m074554n](https://github.com/m074554n) in https://github.com/laravel/vapor-cli/pull/282
 
 ## [v1.70.2](https://github.com/laravel/vapor-cli/compare/v1.65.4...v1.70.2) - 2026-07-24
 
