@@ -7,6 +7,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
 use Laravel\VaporCli\ConsoleVaporClient;
 use Laravel\VaporCli\Exceptions\RequestFailedException;
@@ -58,7 +59,7 @@ class AwsStorageProvider
         $progressCallback = $withProgress ? function ($_, $__, $___, $uploaded) use ($progressBar) {
             $progressBar->setProgress((int) round($uploaded / 1024, 2));
         }
-        : null;
+            : null;
 
         $response = (new Client())->request('PUT', $url, array_filter([
             'body' => $stream,
@@ -102,7 +103,7 @@ class AwsStorageProvider
     public function executeStoreRequests($requests, $assetPath, $callback)
     {
         collect($requests)->chunk(10)->each(function ($chunkOfRequests) use ($assetPath, $callback) {
-            $requests = $chunkOfRequests->map(function ($request) use ($assetPath) {
+            $requests = LazyCollection::make($chunkOfRequests)->map(function ($request) use ($assetPath) {
                 $file = $assetPath.'/'.$request['path'];
                 $request['stream'] = fopen($file, 'r+');
 
@@ -125,30 +126,18 @@ class AwsStorageProvider
                 }
             };
 
-            $failure = null;
+            (new Pool(new Client(['handler' => $this->retryHandler()]), $generator(), [
+                'concurrency' => 10,
+                'rejected' => function ($reason, $index) {
+                    throw new RequestFailedException($reason->getMessage(), $index);
+                },
+            ]))
+                ->promise()
+                ->wait();
 
-            try {
-                (new Pool($this->client(), $generator(), [
-                    'concurrency' => 10,
-                    'rejected' => function ($reason, $index) use (&$failure) {
-                        if ($failure === null) {
-                            $failure = new RequestFailedException($reason->getMessage(), $index);
-                        }
-                    },
-                ]))
-                    ->promise()
-                    ->wait();
-            } finally {
-                $requests->each(function ($request) {
-                    if (is_resource($request['stream'])) {
-                        fclose($request['stream']);
-                    }
-                });
-            }
-
-            if ($failure !== null) {
-                throw $failure;
-            }
+            $requests->each(function ($request) {
+                fclose($request['stream']);
+            });
         });
     }
 
@@ -176,22 +165,14 @@ class AwsStorageProvider
             }
         };
 
-        $failure = null;
-
-        (new Pool($this->client(), $generator(), [
+        (new Pool(new Client(['handler' => $this->retryHandler()]), $generator(), [
             'concurrency' => 10,
-            'rejected' => function ($reason, $index) use (&$failure) {
-                if ($failure === null) {
-                    $failure = new RequestFailedException($reason->getMessage(), $index);
-                }
+            'rejected' => function ($reason, $index) {
+                throw new RequestFailedException($reason->getMessage(), $index);
             },
         ]))
             ->promise()
             ->wait();
-
-        if ($failure !== null) {
-            throw $failure;
-        }
     }
 
     /**
@@ -220,15 +201,5 @@ class AwsStorageProvider
         }));
 
         return $stack;
-    }
-
-    /**
-     * Get a new HTTP client instance with the retry handler.
-     *
-     * @return \GuzzleHttp\Client
-     */
-    protected function client()
-    {
-        return new Client(['handler' => $this->retryHandler()]);
     }
 }
