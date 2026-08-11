@@ -59,7 +59,7 @@ class AwsStorageProvider
         $progressCallback = $withProgress ? function ($_, $__, $___, $uploaded) use ($progressBar) {
             $progressBar->setProgress((int) round($uploaded / 1024, 2));
         }
-            : null;
+        : null;
 
         $response = (new Client())->request('PUT', $url, array_filter([
             'body' => $stream,
