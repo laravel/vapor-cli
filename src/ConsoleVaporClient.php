@@ -1449,7 +1449,7 @@ class ConsoleVaporClient
      */
     protected function requestWithoutErrorHandling($method, $uri, array $json = [])
     {
-        return json_decode((string) $this->client()->request($method, ltrim($uri, '/'), [
+        return json_decode((string) $this->client()->request(strtoupper($method), ltrim($uri, '/'), [
             'json' => $json,
             'headers' => [
                 'Accept' => 'application/json',
