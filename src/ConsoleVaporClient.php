@@ -4,6 +4,7 @@ namespace Laravel\VaporCli;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Str;
 use Laravel\VaporCli\Aws\AwsStorageProvider;
 use Laravel\VaporCli\Exceptions\NeedsTwoFactorAuthenticationTokenException;
 
@@ -1535,10 +1536,7 @@ class ConsoleVaporClient
      */
     protected function displayValidationErrors($response)
     {
-        $errors = collect(json_decode(
-            (string) $response->getBody(),
-            true
-        )['errors'])->flatten();
+        $errors = $this->validationErrorsFrom($response);
 
         Helpers::line('');
         Helpers::danger('Whoops! There were some problems with your request.');
@@ -1549,6 +1547,45 @@ class ConsoleVaporClient
         }
 
         Helpers::line('');
+    }
+
+    /**
+     * Get the displayable errors for the given validation response.
+     *
+     * A 400 / 422 does not always carry a JSON validation bag: a proxy or WAF
+     * in front of the API can answer with an empty body or an HTML page. Fall
+     * back through the response so the user is never left with a bare
+     * "Whoops!" and no indication of what went wrong.
+     *
+     * @param  Response  $response
+     * @return \Illuminate\Support\Collection
+     */
+    protected function validationErrorsFrom($response)
+    {
+        $body = trim((string) $response->getBody());
+
+        $decoded = json_decode($body, true);
+
+        if (is_array($decoded)) {
+            $errors = collect($decoded['errors'] ?? [])->flatten();
+
+            if ($errors->isNotEmpty()) {
+                return $errors;
+            }
+
+            if (! empty($decoded['message'])) {
+                return collect([$decoded['message']]);
+            }
+        }
+
+        if ($body !== '') {
+            return collect([Str::limit($body, 500)]);
+        }
+
+        return collect([sprintf(
+            'The API returned a %d response with an empty body.',
+            $response->getStatusCode()
+        )]);
     }
 
     /**
