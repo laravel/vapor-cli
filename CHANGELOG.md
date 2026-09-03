@@ -1,6 +1,10 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.70.4...master)
+## [Unreleased](https://github.com/laravel/vapor-cli/compare/v1.70.5...master)
+
+## [v1.70.5](https://github.com/laravel/vapor-cli/compare/v1.70.4...v1.70.5) - 2026-09-03
+
+* Send the request method uppercase so PSR-7 v3 does not break the API by [@datashaman](https://github.com/datashaman) in https://github.com/laravel/vapor-cli/pull/286
 
 ## [v1.70.4](https://github.com/laravel/vapor-cli/compare/v1.70.3...v1.70.4) - 2026-09-03
 
