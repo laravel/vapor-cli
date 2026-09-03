@@ -36,11 +36,11 @@ class ConsoleVaporClientTest extends TestCase
                 ['The given data was invalid.'],
             ],
 
-            // A proxy or WAF in front of the API can answer a 400 / 422 with an
-            // HTML page rather than the JSON bag the API would have sent.
-            'a non-JSON body is shown verbatim' => [
-                new Response(400, [], '<html><body>Request blocked.</body></html>'),
-                ['<html><body>Request blocked.</body></html>'],
+            // A load balancer in front of the API can answer a 400 / 422 with
+            // an HTML page rather than the JSON bag the API would have sent.
+            'a non-JSON body is shown on a single line' => [
+                new Response(400, [], "<html>\n<head><title>400 Bad Request</title></head>\n<body>\n<center><h1>400 Bad Request</h1></center>\n</body>\n</html>\n"),
+                ['<html> <head><title>400 Bad Request</title></head> <body> <center><h1>400 Bad Request</h1></center> </body> </html>'],
             ],
 
             'an empty body falls back to the status code' => [

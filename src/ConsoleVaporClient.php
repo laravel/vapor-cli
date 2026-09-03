@@ -1579,7 +1579,7 @@ class ConsoleVaporClient
         }
 
         if ($body !== '') {
-            return collect([Str::limit($body, 500)]);
+            return collect([Str::limit(preg_replace('/\s+/', ' ', $body), 500)]);
         }
 
         return collect([sprintf(
