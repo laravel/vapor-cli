@@ -1449,7 +1449,12 @@ class ConsoleVaporClient
      */
     protected function requestWithoutErrorHandling($method, $uri, array $json = [])
     {
-        return json_decode((string) $this->client()->request($method, ltrim($uri, '/'), [
+        // Every caller in this class passes its verb in lowercase. PSR-7 v1 and
+        // v2 uppercased it in the Request constructor, but v3 preserves the
+        // casing it is given, so on Guzzle 8 the request line goes out as
+        // "post /api/..." and the load balancer in front of the API rejects it
+        // with a 400 before the application sees it. Normalize it here.
+        return json_decode((string) $this->client()->request(strtoupper($method), ltrim($uri, '/'), [
             'json' => $json,
             'headers' => [
                 'Accept' => 'application/json',
