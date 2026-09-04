@@ -199,6 +199,7 @@ class DeployCommand extends Command
             Manifest::id(),
             $uuid,
             $environment,
+            Manifest::regions($environment),
             Manifest::usesContainerImage($environment) ? null : Path::artifact(),
             $this->option('commit') ?: Git::hash(),
             $this->option('message') ?: Git::message(),
