@@ -38,6 +38,8 @@ class CompressVendor
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
+            $archive->setCompressionName($relativePathName, ZipArchive::CM_DEFLATE, 9);
+
             $archive->setExternalAttributesName(
                 $relativePathName,
                 ZipArchive::OPSYS_UNIX,
@@ -55,7 +57,7 @@ class CompressVendor
      */
     protected function compressOnMac()
     {
-        (new Process(['zip', '-r', $this->buildPath.'/vendor.zip', '.'], $this->vendorPath))->mustRun();
+        (new Process(['zip', '-r -9', $this->buildPath.'/vendor.zip', '.'], $this->vendorPath))->mustRun();
     }
 
     /**
