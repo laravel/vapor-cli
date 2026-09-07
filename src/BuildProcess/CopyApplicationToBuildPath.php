@@ -23,7 +23,7 @@ class CopyApplicationToBuildPath
         $this->ensureBuildDirectoryExists();
 
         foreach ($this->getApplicationFiles() as $file) {
-            if ($file->isLink()) {
+            if ($file->isLink() || (PHP_OS == 'WINNT' && substr($file->getRealPath(), -strlen($file->getRelativePathname())) != $file->getRelativePathname())) {
                 continue;
             }
 
