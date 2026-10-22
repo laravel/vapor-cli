@@ -44,6 +44,8 @@ class CompressApplication
 
             $archive->addFile($file->getRealPath(), $relativePathName);
 
+            $archive->setCompressionName($relativePathName, ZipArchive::CM_DEFLATE, 9);
+
             $archive->setExternalAttributesName(
                 $relativePathName,
                 ZipArchive::OPSYS_UNIX,
@@ -63,7 +65,7 @@ class CompressApplication
      */
     protected function compressApplicationOnMac()
     {
-        (new Process(['zip', '-r', $this->buildPath.'/app.zip', '.'], $this->appPath))->mustRun();
+        (new Process(['zip', '-r -9', $this->buildPath.'/app.zip', '.'], $this->appPath))->mustRun();
     }
 
     /**
