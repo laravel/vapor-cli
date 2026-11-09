@@ -8,13 +8,12 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use Laravel\VaporCli\ConsoleVaporClient;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RequestMethodCasingTest extends TestCase
 {
-    /**
-     * @dataProvider methodDataProvider
-     */
+    #[DataProvider('methodDataProvider')]
     public function test_the_request_method_is_sent_uppercase($method)
     {
         $client = new ConsoleVaporClientWithRecordedRequests();

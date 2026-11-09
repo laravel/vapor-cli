@@ -3,13 +3,12 @@
 namespace Laravel\VaporCli\Tests;
 
 use Laravel\VaporCli\RewriteAssetUrls;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RewriteAssetUrlsTest extends TestCase
 {
-    /**
-     * @dataProvider assetUrlDataProvider
-     */
+    #[DataProvider('assetUrlDataProvider')]
     public function test_asset_urls_are_rewritten($css, $expected)
     {
         $this->assertEquals($expected, RewriteAssetUrls::inCssString($css, 'http://example.com'));

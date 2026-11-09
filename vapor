@@ -71,142 +71,142 @@ Container::setInstance($container = new Container);
 $app = new Application('Laravel Vapor', '1.70.5');
 
 // Authentication...
-$app->add(new Commands\LoginCommand);
+$app->addCommand(new Commands\LoginCommand);
 
 // Teams...
-$app->add(new Commands\TeamListCommand);
-$app->add(new Commands\TeamCommand);
-$app->add(new Commands\TeamCurrentCommand);
-$app->add(new Commands\TeamSwitchCommand);
-$app->add(new Commands\MemberListCommand);
-$app->add(new Commands\MemberAddCommand);
-$app->add(new Commands\MemberRemoveCommand);
-$app->add(new Commands\FireCommand);
+$app->addCommand(new Commands\TeamListCommand);
+$app->addCommand(new Commands\TeamCommand);
+$app->addCommand(new Commands\TeamCurrentCommand);
+$app->addCommand(new Commands\TeamSwitchCommand);
+$app->addCommand(new Commands\MemberListCommand);
+$app->addCommand(new Commands\MemberAddCommand);
+$app->addCommand(new Commands\MemberRemoveCommand);
+$app->addCommand(new Commands\FireCommand);
 
 // Providers...
-$app->add(new Commands\ProviderListCommand);
-$app->add(new Commands\ProviderCommand);
-$app->add(new Commands\ProviderUpdateCommand);
-$app->add(new Commands\ProviderDeleteCommand);
+$app->addCommand(new Commands\ProviderListCommand);
+$app->addCommand(new Commands\ProviderCommand);
+$app->addCommand(new Commands\ProviderUpdateCommand);
+$app->addCommand(new Commands\ProviderDeleteCommand);
 
 // Zones...
-$app->add(new Commands\ZoneListCommand);
-$app->add(new Commands\ZoneCommand);
-$app->add(new Commands\ZoneDeleteCommand);
+$app->addCommand(new Commands\ZoneListCommand);
+$app->addCommand(new Commands\ZoneCommand);
+$app->addCommand(new Commands\ZoneDeleteCommand);
 
 // Records...
-$app->add(new Commands\RecordListCommand);
-$app->add(new Commands\RecordCommand);
-$app->add(new Commands\RecordDeleteCommand);
+$app->addCommand(new Commands\RecordListCommand);
+$app->addCommand(new Commands\RecordCommand);
+$app->addCommand(new Commands\RecordDeleteCommand);
 
 // Certificates...
-$app->add(new Commands\CertListCommand);
-$app->add(new Commands\CertCommand);
-$app->add(new Commands\CertValidateCommand);
-$app->add(new Commands\CertDeleteCommand);
+$app->addCommand(new Commands\CertListCommand);
+$app->addCommand(new Commands\CertCommand);
+$app->addCommand(new Commands\CertValidateCommand);
+$app->addCommand(new Commands\CertDeleteCommand);
 
 // Networks...
-$app->add(new Commands\NetworkListCommand);
-$app->add(new Commands\NetworkCommand);
-$app->add(new Commands\NetworkShowCommand);
-$app->add(new Commands\NetworkNatCommand);
-$app->add(new Commands\NetworkDeleteNatCommand);
-$app->add(new Commands\NetworkDeleteCommand);
+$app->addCommand(new Commands\NetworkListCommand);
+$app->addCommand(new Commands\NetworkCommand);
+$app->addCommand(new Commands\NetworkShowCommand);
+$app->addCommand(new Commands\NetworkNatCommand);
+$app->addCommand(new Commands\NetworkDeleteNatCommand);
+$app->addCommand(new Commands\NetworkDeleteCommand);
 
 // Databases...
-$app->add(new Commands\DatabaseListCommand);
-$app->add(new Commands\DatabaseCommand);
-$app->add(new Commands\DatabaseShowCommand);
-$app->add(new Commands\DatabaseScaleCommand);
-$app->add(new Commands\DatabasePasswordCommand);
-$app->add(new Commands\DatabaseProxyCommand);
-$app->add(new Commands\DatabaseDeleteProxyCommand);
-$app->add(new Commands\DatabaseRestoreCommand);
-$app->add(new Commands\DatabaseMetricsCommand);
-$app->add(new Commands\DatabaseUpgradeCommand);
-$app->add(new Commands\DatabaseUsersCommand);
-$app->add(new Commands\DatabaseUserCommand);
-$app->add(new Commands\DatabaseDropUserCommand);
-$app->add(new Commands\DatabaseShellCommand);
-$app->add(new Commands\DatabaseTunnelCommand);
-$app->add(new Commands\DatabaseDeleteCommand);
+$app->addCommand(new Commands\DatabaseListCommand);
+$app->addCommand(new Commands\DatabaseCommand);
+$app->addCommand(new Commands\DatabaseShowCommand);
+$app->addCommand(new Commands\DatabaseScaleCommand);
+$app->addCommand(new Commands\DatabasePasswordCommand);
+$app->addCommand(new Commands\DatabaseProxyCommand);
+$app->addCommand(new Commands\DatabaseDeleteProxyCommand);
+$app->addCommand(new Commands\DatabaseRestoreCommand);
+$app->addCommand(new Commands\DatabaseMetricsCommand);
+$app->addCommand(new Commands\DatabaseUpgradeCommand);
+$app->addCommand(new Commands\DatabaseUsersCommand);
+$app->addCommand(new Commands\DatabaseUserCommand);
+$app->addCommand(new Commands\DatabaseDropUserCommand);
+$app->addCommand(new Commands\DatabaseShellCommand);
+$app->addCommand(new Commands\DatabaseTunnelCommand);
+$app->addCommand(new Commands\DatabaseDeleteCommand);
 
 // Caches...
-$app->add(new Commands\CacheListCommand);
-$app->add(new Commands\CacheCommand);
-$app->add(new Commands\CacheShowCommand);
-$app->add(new Commands\CacheScaleCommand);
-$app->add(new Commands\CacheMetricsCommand);
-$app->add(new Commands\CacheTunnelCommand);
-$app->add(new Commands\CacheDeleteCommand);
+$app->addCommand(new Commands\CacheListCommand);
+$app->addCommand(new Commands\CacheCommand);
+$app->addCommand(new Commands\CacheShowCommand);
+$app->addCommand(new Commands\CacheScaleCommand);
+$app->addCommand(new Commands\CacheMetricsCommand);
+$app->addCommand(new Commands\CacheTunnelCommand);
+$app->addCommand(new Commands\CacheDeleteCommand);
 
 // Jumpboxes...
-$app->add(new Commands\JumpListCommand);
-$app->add(new Commands\JumpCommand);
-$app->add(new Commands\JumpDeleteCommand);
+$app->addCommand(new Commands\JumpListCommand);
+$app->addCommand(new Commands\JumpCommand);
+$app->addCommand(new Commands\JumpDeleteCommand);
 
 // Balancers...
-$app->add(new Commands\BalancerListCommand);
-$app->add(new Commands\BalancerCommand);
-$app->add(new Commands\BalancerDeleteCommand);
+$app->addCommand(new Commands\BalancerListCommand);
+$app->addCommand(new Commands\BalancerCommand);
+$app->addCommand(new Commands\BalancerDeleteCommand);
 
 // Projects...
-$app->add(new Commands\InitCommand);
-$app->add(new Commands\UiCommand);
-$app->add(new Commands\ProjectDeleteCommand);
-$app->add(new Commands\ProjectDescribeCommand);
-$app->add(new Commands\ProjectListCommand);
+$app->addCommand(new Commands\InitCommand);
+$app->addCommand(new Commands\UiCommand);
+$app->addCommand(new Commands\ProjectDeleteCommand);
+$app->addCommand(new Commands\ProjectDescribeCommand);
+$app->addCommand(new Commands\ProjectListCommand);
 
 // Environments...
-$app->add(new Commands\EnvListCommand);
-$app->add(new Commands\EnvCommand);
-$app->add(new Commands\EnvDescribeCommand);
-$app->add(new Commands\EnvPassportCommand);
-$app->add(new Commands\EnvPullCommand);
-$app->add(new Commands\EnvPushCommand);
-$app->add(new Commands\EnvCloneCommand);
-$app->add(new Commands\EnvDeleteCommand);
-$app->add(new Commands\OpenCommand);
+$app->addCommand(new Commands\EnvListCommand);
+$app->addCommand(new Commands\EnvCommand);
+$app->addCommand(new Commands\EnvDescribeCommand);
+$app->addCommand(new Commands\EnvPassportCommand);
+$app->addCommand(new Commands\EnvPullCommand);
+$app->addCommand(new Commands\EnvPushCommand);
+$app->addCommand(new Commands\EnvCloneCommand);
+$app->addCommand(new Commands\EnvDeleteCommand);
+$app->addCommand(new Commands\OpenCommand);
 
 // Vanity Domains...
-$app->add(new Commands\VanityDomainDeleteCommand);
+$app->addCommand(new Commands\VanityDomainDeleteCommand);
 
 // Secrets
-$app->add(new Commands\SecretListCommand);
-$app->add(new Commands\SecretCommand);
-$app->add(new Commands\SecretPassportCommand);
-$app->add(new Commands\SecretDeleteCommand);
+$app->addCommand(new Commands\SecretListCommand);
+$app->addCommand(new Commands\SecretCommand);
+$app->addCommand(new Commands\SecretPassportCommand);
+$app->addCommand(new Commands\SecretDeleteCommand);
 
 // Deployments...
-$app->add(new Commands\DeployListCommand);
-$app->add(new Commands\BuildCommand);
-$app->add(new Commands\DeployCommand);
-$app->add(new Commands\RedeployCommand);
-$app->add(new Commands\HookLogCommand);
-$app->add(new Commands\HookOutputCommand);
+$app->addCommand(new Commands\DeployListCommand);
+$app->addCommand(new Commands\BuildCommand);
+$app->addCommand(new Commands\DeployCommand);
+$app->addCommand(new Commands\RedeployCommand);
+$app->addCommand(new Commands\HookLogCommand);
+$app->addCommand(new Commands\HookOutputCommand);
 
 // Rollbacks / Maintenance Mode...
-$app->add(new Commands\RollbackCommand);
-$app->add(new Commands\DownCommand);
-$app->add(new Commands\UpCommand);
+$app->addCommand(new Commands\RollbackCommand);
+$app->addCommand(new Commands\DownCommand);
+$app->addCommand(new Commands\UpCommand);
 
 // Commands / Invocations...
-$app->add(new Commands\CommandCommand);
-$app->add(new Commands\CommandLogCommand);
-$app->add(new Commands\CommandAgainCommand);
-$app->add(new Commands\TinkerCommand);
+$app->addCommand(new Commands\CommandCommand);
+$app->addCommand(new Commands\CommandLogCommand);
+$app->addCommand(new Commands\CommandAgainCommand);
+$app->addCommand(new Commands\TinkerCommand);
 
 // Logs...
-$app->add(new Commands\TailCommand);
+$app->addCommand(new Commands\TailCommand);
 
 // Metrics...
-$app->add(new Commands\MetricsCommand);
+$app->addCommand(new Commands\MetricsCommand);
 
 // Docker...
-$app->add(new Commands\LocalCommand);
-$app->add(new Commands\TestCommand);
+$app->addCommand(new Commands\LocalCommand);
+$app->addCommand(new Commands\TestCommand);
 
 // Assets...
-$app->add(new Commands\InvalidateAssetCacheCommand);
+$app->addCommand(new Commands\InvalidateAssetCacheCommand);
 
 $app->run();
