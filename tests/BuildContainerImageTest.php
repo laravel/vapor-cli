@@ -4,6 +4,7 @@ namespace Laravel\VaporCli\Tests;
 
 use Illuminate\Container\Container;
 use Laravel\VaporCli\BuildProcess\BuildContainerImage;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Yaml\Yaml;
@@ -30,9 +31,7 @@ class BuildContainerImageTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider runtimeProvider
-     */
+    #[DataProvider('runtimeProvider')]
     public function test_cannot_build_with_x86_runtime_and_arm_base_image($runtime, $dockerFileContents, $buildArgs, $expectation)
     {
         file_put_contents($this->dockerFile, $dockerFileContents);
